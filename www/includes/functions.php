@@ -15,6 +15,7 @@ function view_page($view, $data = null) {
 
 function is_user_logged_in() {
 	return isset($_SESSION['username']);
+	// return true;
 }
 
 function validate_login() {

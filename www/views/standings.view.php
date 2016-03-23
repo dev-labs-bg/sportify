@@ -1,1 +1,1 @@
-<?php 
+<p>STANDINGS</p>

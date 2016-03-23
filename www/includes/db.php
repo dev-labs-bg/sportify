@@ -3,7 +3,7 @@
 $config = array(
 	'username' => 'root',
 	'password' => 'P@ssw0rd',
-	'database' => 'devsportify'
+	'database' => 'dev_sportify'
 );
 
 function connect()
@@ -20,7 +20,6 @@ function connect()
 		return false;
 	}
 }
-
 
 function query($query, $bindings, $conn)
 {

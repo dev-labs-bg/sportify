@@ -1,1 +1,1 @@
-<?php 
+<p>TOURNAMENTS</p>

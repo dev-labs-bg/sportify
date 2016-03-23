@@ -1,1 +1,1 @@
-<?php 
+<p>USER PROFILE</p>
