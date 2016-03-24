@@ -6,7 +6,7 @@ $config = array(
 	'database' => 'dev_sportify'
 );
 
-function connect()
+function connect($config)
 {
 	try {
 		$conn = new \PDO('mysql:host=localhost;dbname=' . $config['database'],
@@ -32,7 +32,7 @@ function query($query, $bindings, $conn)
 function get_table($tableName, $conn, $limit = 10)
 {
 		$stmt = $query("SELECT * FROM $table ORDER BY id DESC LIMIT $limit", array('table' => $tableName), $conn);
-		$stmt->setFetchMode(PDO::FETCH_OBJ);
+//		$stmt->setFetchMode(PDO::FETCH_OBJ);
 		$result = $stmt->fetchAll();
 
 		return ( $result->rowCount() > 0 ) ? $result : false;

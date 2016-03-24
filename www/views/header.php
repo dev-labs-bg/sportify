@@ -9,11 +9,10 @@
 </head>
 <body>
 
-<?php if ($GLOBALS['login_status']) : ?>
-	<a href="index.php?page=tournaments">Tournaments</a>
-	<a href="index.php?page=matches">Matches</a>
-	<a href="index.php?page=standings">Standings</a>
-	<a href="index.php?page=history">History</a>
- <?php endif; ?>
-
- 
+    <a href="index.php">Home</a>
+    <?php if (is_user_logged_in()) : ?>
+        <a href="index.php?page=tournaments">Tournaments</a>
+	    <a href="index.php?page=matches">Matches</a>
+	    <a href="index.php?page=standings">Standings</a>
+	    <a href="index.php?page=history">History</a>
+    <?php endif; ?>

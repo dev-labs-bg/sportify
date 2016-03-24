@@ -1,45 +1,37 @@
 <?php
 
-require 'includes/functions.php';
-
-$conn = App\DB\connect();
-if ( !$conn ) die('Failed to connect to database.');
-
 session_start();
 
-$GLOBALS['login_status'] = is_user_logged_in();
+require 'includes/functions.php';
 
-if ( isset($_GET['page']) && ( $_GET['page'] === 'register' || $_GET['page'] === 'standings' ) ) {
-	$page = $_GET['page'];
-	view_page($page, array("login_status => $login_status"));
-} else {
-	if ( !is_user_logged_in() ) {
-		view_page('login', array("login_status => $login_status"));
-	} else {
-		if ( isset($_GET['page']) ) {
-			$page = $_GET['page'];
-		} else {
-			// default page for loggen in users
-			$page = 'tournaments';
-		}
-		
-		view_page($page, array("login_status => $login_status"));
-	}
-}
+$GLOBALS['db_conn'] = App\DB\connect($config);
+if ( !$GLOBALS['db_conn'] ) die('Failed to connect to database.');
 
+//$GLOBALS['login_status'] = is_user_logged_in();
 
-// if ( $_SERVER['REQUEST_METHOD'] === 'GET') {
+//if ( $_SERVER['REQUEST_METHOD'] === 'GET' ) {
 
-// } else if ( $_SERVER['REQUEST_METHOD'] === 'POST') {
+    $page = get_page();
+    load_page($page);
 
-// }
+//} else if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
+//
+//    switch($_SERVER['QUERY_STRING']) {
+//        case 'page=register':
+//            require 'register.php';
+//            break;
+//    }
+//
+//}
 
 
-
+//var_dump($_SERVER['DOCUMENT_ROOT']);
+//var_dump($_SERVER['REQUEST_URI']);
+//var_dump($_SERVER['QUERY_STRING']);
 // var_dump($_SESSION);
 // var_dump($_GET);
+//var_dump($_POST);
 // if user is logged, view matches
-
 
 // else, view login screen
 
