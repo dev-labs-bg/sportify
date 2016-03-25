@@ -42,11 +42,11 @@
       <file leaf-file-name="tournaments_functions.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/includes/tournaments_functions.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.31141868">
-              <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.3979239">
+              <caret line="23" column="12" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
               <folding>
-                <marker date="1458926214000" expanded="true" signature="82:310" placeholder="SELECT tourn... scores" />
-                <marker date="1458926214000" expanded="true" signature="566:591" placeholder="SELECT * FRO... tournaments" />
+                <marker date="1458926922000" expanded="true" signature="86:338" placeholder="SELECT tourn... scores" />
+                <marker date="1458926922000" expanded="true" signature="606:631" placeholder="SELECT * FRO... tournaments" />
               </folding>
             </state>
           </provider>
@@ -477,14 +477,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/tournaments.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.125">
-          <caret line="5" column="38" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/includes/functions.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-26.75">
@@ -501,13 +493,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/tournaments.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.125">
+          <caret line="5" column="38" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/includes/tournaments_functions.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31141868">
-          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.3979239">
+          <caret line="23" column="12" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
           <folding>
-            <marker date="1458926214000" expanded="true" signature="82:310" placeholder="SELECT tourn... scores" />
-            <marker date="1458926214000" expanded="true" signature="566:591" placeholder="SELECT * FRO... tournaments" />
+            <marker date="1458926922000" expanded="true" signature="86:338" placeholder="SELECT tourn... scores" />
+            <marker date="1458926922000" expanded="true" signature="606:631" placeholder="SELECT * FRO... tournaments" />
           </folding>
         </state>
       </provider>

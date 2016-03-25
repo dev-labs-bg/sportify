@@ -2,13 +2,13 @@
 
 function list_tournaments_enrolled() {
     $query = App\DB\query(
-        "SELECT tournaments.id, tournaments.name
-          FROM scores
-          INNER JOIN users ON users.id = scores.user_id
-          INNER JOIN tournaments ON tournaments.id = scores.tournament_id
-          WHERE users.email = :email",
-        array('email' => $_SESSION['email']),
-        $GLOBALS['db_conn']);
+            "SELECT tournaments.id, tournaments.name
+                FROM scores
+                INNER JOIN users ON users.id = scores.user_id
+                INNER JOIN tournaments ON tournaments.id = scores.tournament_id
+                WHERE users.email = :email",
+            array('email' => $_SESSION['email']),
+            $GLOBALS['db_conn']);
 
     if ($query) {
         return $query->fetchAll();
@@ -19,9 +19,9 @@ function list_tournaments_enrolled() {
 
 function list_tournaments_not_enrolled() {
     $query = App\DB\query(
-        "SELECT * FROM tournaments",
-        array(),
-        $GLOBALS['db_conn']);
+            "SELECT * FROM tournaments",
+            array(),
+            $GLOBALS['db_conn']);
 
     if ($query) {
         return $query->fetchAll();
