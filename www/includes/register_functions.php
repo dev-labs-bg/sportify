@@ -6,17 +6,14 @@ function validate_reg ($email, $first_name, $last_name, $password, $password_con
 
     if ( $is_data_invalid ) {
         $reg_status = 'Please provide a first and last names, valid email address and type in same password twice.';
-        echo $reg_status;
-        
+
         return false;
-    } else if (!add_user($email, $first_name, $last_name, $password)) {
+    } else if ( !add_user($email, $first_name, $last_name, $password) ) {
         $reg_status = 'Email already used. Please provide different email address.';
-        echo $reg_status;
 
         return false;
     } else {
         $reg_status = 'Thank you for registering.';
-        echo $reg_status;
     }
 
     return true;
@@ -25,23 +22,6 @@ function validate_reg ($email, $first_name, $last_name, $password, $password_con
 function valid_email($email) {
     return filter_var($email, FILTER_VALIDATE_EMAIL);
 }
-
-//function duplicate_email($email) {
-//    $users = file(MAILING_LIST);
-//
-//
-//    if ( count($users) ) {
-//        $emails = array();
-//        foreach ($users as $row) {
-//            $tmp_array = explode(': ', htmlspecialchars(trim($row)));
-//            array_push($emails, $tmp_array[1]);
-//        }
-//
-//        return in_array($email, $emails);
-//    }
-//
-//    return false;
-//}
 
 function add_user($email, $first_name, $last_name, $password) {
     return App\DB\query(

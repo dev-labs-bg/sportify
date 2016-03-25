@@ -3,11 +3,16 @@
 
 <form action="" method="POST">
 	<ul>
+		<li><input type="hidden" name="form_name" value="login"></li>
 		<li><input type="text" name="email" placeholder="email"></li>
 		<li><input type="password" name="password" placeholder="password"></li>
 		<li><button type="submit">Sign In</button></li>
 	</ul>
 </form>
+
+<?php if (isset($login_status)) : ?>
+    <p><?= $login_status ?></p>
+<?php endif; ?>
 
 <p>or create an account</p>
 

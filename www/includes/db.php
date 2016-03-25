@@ -25,6 +25,7 @@ function query($query, $bindings, $conn)
 {
 	$stmt = $conn->prepare($query);
 	$stmt->execute($bindings);
+//    $stmt->setFetchMode(\PDO::FETCH_OBJ);
 
 	return ($stmt->rowCount() > 0) ? $stmt : false;
 }

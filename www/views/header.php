@@ -15,4 +15,5 @@
 	    <a href="index.php?page=matches">Matches</a>
 	    <a href="index.php?page=standings">Standings</a>
 	    <a href="index.php?page=history">History</a>
+        <a href="index.php?page=logout">Logout</a>
     <?php endif; ?>

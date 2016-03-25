@@ -6,6 +6,7 @@ define('FUNC_DIR', $_SERVER['DOCUMENT_ROOT'] . '/includes/');
 
 require 'db.php';
 require 'register_functions.php';
+require 'login_functions.php';
 
 function get_page() {
     if ( isset($_GET['page']) && ($_GET['page'] === 'register' || $_GET['page'] === 'standings') ) {
@@ -40,10 +41,21 @@ function is_user_logged_in() {
 //	return true;
 }
 
-function validate_login() {
-
+function login_set($username) {
+    $_SESSION['username'] = $username;
 }
 
+function login_unset() {
+    unset($_SESSION['username']);
+}
+
+function form_prev_value($item) {
+    if ( !empty($_POST[$item]) ) {
+        return htmlspecialchars($_POST[$item]);
+    }
+
+    return '';
+}
 
 function list_tournaments($user_id) {
 
