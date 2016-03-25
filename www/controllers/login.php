@@ -1,6 +1,6 @@
 <?php
 
-$data = "";
+$data = array();
 
 if ( isset($_POST['form_name']) && $_POST['form_name'] === 'login' ) {
 

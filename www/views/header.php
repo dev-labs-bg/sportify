@@ -16,4 +16,8 @@
 	    <a href="index.php?page=standings">Standings</a>
 	    <a href="index.php?page=history">History</a>
         <a href="index.php?page=logout">Logout</a>
+    <?php else: ?>
+        <a href="index.php?page=login">Login</a>
+        <a href="index.php?page=register">Register</a>
+        <a href="index.php?page=standings">Standings</a>
     <?php endif; ?>

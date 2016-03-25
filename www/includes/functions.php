@@ -8,15 +8,21 @@ require 'db.php';
 require 'register_functions.php';
 require 'login_functions.php';
 
-function get_page() {
-    if ( isset($_GET['page']) && ($_GET['page'] === 'register' || $_GET['page'] === 'standings') ) {
-        $page = $_GET['page'];
-    } else {
-        if (is_user_logged_in()) {
-            $page = isset($_GET['page']) ? $_GET['page'] : 'tournaments';
-        } else {
-            $page = 'login';
-        }
+function set_page($page) {
+    $all_access_pages = array('login', 'register', 'standings');
+
+//    if ( isset($_GET['page']) && in_array($_GET['page'],$all_access_pages) ) {
+//        $page = $_GET['page'];
+//    } else {
+//        if (is_user_logged_in()) {
+//            $page = isset($_GET['page']) ? $_GET['page'] : 'tournaments';
+//        } else {
+//            $page = 'login';
+//        }
+//    }
+
+    if ( !is_user_logged_in() && !in_array($page,$all_access_pages) ) {
+        $page = 'login';
     }
 
     return $page;

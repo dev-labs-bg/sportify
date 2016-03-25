@@ -11,8 +11,9 @@ if ( !$GLOBALS['db_conn'] ) die('Failed to connect to database.');
 
 //if ( $_SERVER['REQUEST_METHOD'] === 'GET' ) {
 
-    $page = get_page();
-    load_page($page);
+$requested_page = ( isset($_GET['page']) ? $_GET['page'] : 'standings');
+$page = set_page($requested_page);
+load_page($page);
 
 //} else if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 //
