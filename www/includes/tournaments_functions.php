@@ -1,6 +1,6 @@
 <?php
 
-function list_tournaments_enrolled() {
+function list_tournaments_joined() {
     $query = App\DB\query(
             "SELECT tournaments.id, tournaments.name
                 FROM scores
@@ -17,7 +17,7 @@ function list_tournaments_enrolled() {
     }
 }
 
-function list_tournaments_not_enrolled() {
+function list_tournaments_available() {
     $query = App\DB\query(
             "SELECT tournaments.id, tournaments.name
                 FROM tournaments
@@ -36,3 +36,21 @@ function list_tournaments_not_enrolled() {
     }
 }
 
+function join_tournaments($user_id, $tournaments) {
+    foreach ($tournaments as $tournament_id) {
+        $query =  App\DB\query(
+            "INSERT IGNORE INTO scores(user_id,tournament_id,points)
+                VALUES(:user_id, :tournament_id, 0)",
+            array('user_id' => $user_id, 'tournament_id' => $tournament_id),
+            $GLOBALS['db_conn']);
+    }
+}
+
+function leave_tournaments($user_id, $tournaments) {
+    foreach ($tournaments as $tournament_id) {
+        $query =  App\DB\query(
+            "DELETE FROM scores WHERE user_id = :user_id AND tournament_id = :tournament_id",
+            array('user_id' => $user_id, 'tournament_id' => $tournament_id),
+            $GLOBALS['db_conn']);
+    }
+}
