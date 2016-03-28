@@ -12,7 +12,7 @@
         <?php endforeach; ?>
     </ul>
     <?php else: ?>
-        No tournaments.
+        You have not enrolled in any tournament.
     <?php endif; ?>
 </div>
 
@@ -21,13 +21,17 @@
 <p>Please select new tournament to enroll:</p>
 <?php //var_dump($data)?>
 <div>
-<form action="" method="POST">
-    <ul>
-        <li><input type="hidden" name="form_name" value="tournament_enroll"></li>
-        <?php foreach ($data['not_enrolled'] as $row): ?>
-            <li><input type="radio" name="tournament" value="<?= $row['id'] ?>"><?= $row['name'] ?></li>
-        <?php endforeach; ?>
-        <li><button type="submit">Enroll</button></li>
-    </ul>
-</form>
+    <?php if ( $data['not_enrolled'] ): ?>
+    <form action="index.php?page=tournaments" method="POST">
+        <ul>
+            <li><input type="hidden" name="form_name" value="tournament_enroll"></li>
+            <?php foreach ($data['not_enrolled'] as $row): ?>
+                <li><input type="radio" name="tournament" value="<?= $row['id'] ?>"><?= $row['name'] ?></li>
+            <?php endforeach; ?>
+            <li><button type="submit">Enroll</button></li>
+        </ul>
+    </form>
+    <?php else: ?>
+        You have no new tournaments to enroll in.
+    <?php endif; ?>
 </div>
