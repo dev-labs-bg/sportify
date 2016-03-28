@@ -19,8 +19,14 @@ function list_tournaments_enrolled() {
 
 function list_tournaments_not_enrolled() {
     $query = App\DB\query(
-            "SELECT * FROM tournaments",
-            array(),
+            "SELECT tournaments.id, tournaments.name
+                FROM tournaments
+                WHERE tournaments.id NOT IN
+                    (SELECT scores.tournament_id
+                    FROM scores
+                    INNER JOIN users ON users.id = scores.user_id
+                    WHERE users.email = :email)",
+            array('email' => $_SESSION['email']),
             $GLOBALS['db_conn']);
 
     if ($query) {
@@ -29,3 +35,4 @@ function list_tournaments_not_enrolled() {
         return false;
     }
 }
+

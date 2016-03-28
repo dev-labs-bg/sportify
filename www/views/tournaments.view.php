@@ -4,23 +4,27 @@
 
 <?php //var_dump($data)?>
 <div>
+    <?php if ( $data['enrolled'] ): ?>
     <ul>
         <li><input type="hidden" name="form_name" value="tournament_enroll"></li>
-        <?php foreach ($data[0] as $row) : ?>
+        <?php foreach ($data['enrolled'] as $row): ?>
             <li><input type="radio" name="tournament" value="<?= $row['id'] ?>"><?= $row['name'] ?></li>
         <?php endforeach; ?>
     </ul>
+    <?php else: ?>
+        No tournaments.
+    <?php endif; ?>
 </div>
 
 <br />
 
 <p>Please select new tournament to enroll:</p>
-
+<?php //var_dump($data)?>
 <div>
 <form action="" method="POST">
     <ul>
         <li><input type="hidden" name="form_name" value="tournament_enroll"></li>
-        <?php foreach ($data[1] as $row) : ?>
+        <?php foreach ($data['not_enrolled'] as $row): ?>
             <li><input type="radio" name="tournament" value="<?= $row['id'] ?>"><?= $row['name'] ?></li>
         <?php endforeach; ?>
         <li><button type="submit">Enroll</button></li>
