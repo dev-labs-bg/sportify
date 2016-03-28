@@ -30,6 +30,14 @@ function query($query, $bindings, $conn)
 	return ($stmt->rowCount() > 0) ? $stmt : false;
 }
 
+function get_user_id() {
+    $query = query(
+        "SELECT id FROM users WHERE email = :email",
+        array('email' => $_SESSION['email']),
+        $GLOBALS['db_conn']);
+    return ($query) ? $query->fetchAll()[0]['id'] : false;
+}
+
 function get_table($tableName, $conn, $limit = 10)
 {
 		$stmt = $query("SELECT * FROM $table ORDER BY id DESC LIMIT $limit", array('table' => $tableName), $conn);

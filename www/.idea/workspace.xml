@@ -28,7 +28,90 @@
     <favorites_list name="www" />
   </component>
   <component name="FileEditorManager">
+<<<<<<< HEAD
     <leaf />
+=======
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-8.75">
+              <caret line="14" column="33" selection-start-line="14" selection-start-column="33" selection-end-line="14" selection-end-column="33" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="functions.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/includes/functions.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-40.0">
+              <caret line="64" column="1" selection-start-line="64" selection-start-column="1" selection-end-line="64" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tournaments_functions.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/includes/tournaments_functions.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.26953566">
+              <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+              <folding>
+                <marker date="1459158969000" expanded="true" signature="84:336" placeholder="SELECT tourn... scores" />
+                <marker date="1459158969000" expanded="true" signature="601:912" placeholder="SELECT tourn... tournaments" />
+                <marker date="1459158969000" expanded="true" signature="739:911" placeholder="SELECT score... scores" />
+                <marker date="1459158969000" expanded="true" signature="912:944" placeholder="SELECT tourn... tournaments" />
+                <marker date="1459158969000" expanded="true" signature="1241:1348" placeholder="INSERT IGNOR... scores" />
+                <marker date="1459158969000" expanded="true" signature="1616:1694" placeholder="DELETE FROM " />
+                <marker date="1459158969000" expanded="true" signature="1627:1694" placeholder="INSERT IGNOR... scores" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="login.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controllers/login.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-6.25">
+              <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="register.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controllers/register.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.625">
+              <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tournaments.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controllers/tournaments.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-4.375">
+              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tournaments.view.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/tournaments.view.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-8.125">
+              <caret line="13" column="39" selection-start-line="13" selection-start-column="39" selection-end-line="13" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+>>>>>>> 27e62cad03346d2ca4a7438d3a8caf89f91508c0
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -39,7 +122,6 @@
         <option value="$PROJECT_DIR$/controllers/history.php" />
         <option value="$PROJECT_DIR$/controllers/logout.php" />
         <option value="$PROJECT_DIR$/views/register.view.php" />
-        <option value="$PROJECT_DIR$/includes/db.php" />
         <option value="$PROJECT_DIR$/includes/register_functions.php" />
         <option value="$PROJECT_DIR$/includes/login_functions.php" />
         <option value="$PROJECT_DIR$/controllers/register.php" />
@@ -47,10 +129,11 @@
         <option value="$PROJECT_DIR$/views/login.view.php" />
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/views/header.php" />
-        <option value="$PROJECT_DIR$/controllers/tournaments.php" />
-        <option value="$PROJECT_DIR$/views/tournaments.view.php" />
         <option value="$PROJECT_DIR$/includes/functions.php" />
+        <option value="$PROJECT_DIR$/views/tournaments.view.php" />
         <option value="$PROJECT_DIR$/includes/tournaments_functions.php" />
+        <option value="$PROJECT_DIR$/controllers/tournaments.php" />
+        <option value="$PROJECT_DIR$/includes/db.php" />
       </list>
     </option>
   </component>
@@ -67,7 +150,11 @@
     <option name="x" value="1440" />
     <option name="y" value="23" />
     <option name="width" value="1920" />
+<<<<<<< HEAD
     <option name="height" value="1057" />
+=======
+    <option name="height" value="1053" />
+>>>>>>> 27e62cad03346d2ca4a7438d3a8caf89f91508c0
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -215,10 +302,17 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
+<<<<<<< HEAD
     <frame x="1440" y="23" width="1920" height="1057" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13205537" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+=======
+    <frame x="1440" y="23" width="1920" height="1053" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12992546" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+>>>>>>> 27e62cad03346d2ca4a7438d3a8caf89f91508c0
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295082" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -324,6 +418,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.47404844">
           <caret line="103" column="40" selection-start-line="103" selection-start-column="35" selection-end-line="103" selection-end-column="40" />
+<<<<<<< HEAD
+=======
+          <folding />
+>>>>>>> 27e62cad03346d2ca4a7438d3a8caf89f91508c0
         </state>
       </provider>
     </entry>
@@ -345,21 +443,43 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/includes/register_functions.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.40770102">
           <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.75">
+          <caret line="14" column="33" selection-start-line="14" selection-start-column="33" selection-end-line="14" selection-end-column="33" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/includes/db.php">
+    <entry file="file://$PROJECT_DIR$/views/header.php">
       <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.28878823">
+          <caret line="17" column="50" selection-start-line="17" selection-start-column="50" selection-end-line="17" selection-end-column="50" />
+          <folding />
+>>>>>>> 27e62cad03346d2ca4a7438d3a8caf89f91508c0
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/login.view.php">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state vertical-scroll-proportion="0.52661383">
           <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
           <folding>
             <marker date="1459169646000" expanded="true" signature="677:718" placeholder="SELECT id FR... users" />
             <marker date="1459169646000" expanded="true" signature="694:738" placeholder="SELECT * FRO... ${$table}" />
           </folding>
+=======
+        <state vertical-scroll-proportion="0.4416761">
+          <caret line="26" column="6" selection-start-line="26" selection-start-column="6" selection-end-line="26" selection-end-column="6" />
+          <folding />
+>>>>>>> 27e62cad03346d2ca4a7438d3a8caf89f91508c0
         </state>
       </provider>
     </entry>
@@ -370,10 +490,20 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/controllers/register.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.016987542">
           <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/includes/register_functions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.40770102">
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding>
+            <marker date="1458915445000" expanded="true" signature="954:1092" placeholder="INSERT IGNOR... users" />
+          </folding>
+>>>>>>> 27e62cad03346d2ca4a7438d3a8caf89f91508c0
         </state>
       </provider>
     </entry>
@@ -399,35 +529,79 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/controllers/login.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.16910936">
           <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+=======
+    <entry file="file://$PROJECT_DIR$/views/tournaments.view.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.125">
+          <caret line="13" column="39" selection-start-line="13" selection-start-column="39" selection-end-line="13" selection-end-column="39" />
+>>>>>>> 27e62cad03346d2ca4a7438d3a8caf89f91508c0
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/login.view.php">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
+        <state vertical-scroll-proportion="-40.0">
+          <caret line="64" column="1" selection-start-line="64" selection-start-column="1" selection-end-line="64" selection-end-column="1" />
+>>>>>>> 27e62cad03346d2ca4a7438d3a8caf89f91508c0
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.27057496">
           <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/includes/db.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.52661383">
+          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+          <folding>
+            <marker date="1459159099000" expanded="true" signature="677:718" placeholder="SELECT id FR... users" />
+            <marker date="1459159099000" expanded="true" signature="930:974" placeholder="SELECT * FRO... ${$table}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/tournaments.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.375">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+>>>>>>> 27e62cad03346d2ca4a7438d3a8caf89f91508c0
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/header.php">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state vertical-scroll-proportion="0.2874859">
           <caret line="17" column="50" selection-start-line="17" selection-start-column="50" selection-end-line="17" selection-end-column="50" />
           <folding />
+=======
+        <state vertical-scroll-proportion="0.26953566">
+          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding>
+            <marker date="1459158969000" expanded="true" signature="84:336" placeholder="SELECT tourn... scores" />
+            <marker date="1459158969000" expanded="true" signature="601:912" placeholder="SELECT tourn... tournaments" />
+            <marker date="1459158969000" expanded="true" signature="739:911" placeholder="SELECT score... scores" />
+            <marker date="1459158969000" expanded="true" signature="912:944" placeholder="SELECT tourn... tournaments" />
+            <marker date="1459158969000" expanded="true" signature="1241:1348" placeholder="INSERT IGNOR... scores" />
+            <marker date="1459158969000" expanded="true" signature="1616:1694" placeholder="DELETE FROM " />
+            <marker date="1459158969000" expanded="true" signature="1627:1694" placeholder="INSERT IGNOR... scores" />
+          </folding>
+>>>>>>> 27e62cad03346d2ca4a7438d3a8caf89f91508c0
         </state>
       </provider>
     </entry>
