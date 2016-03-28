@@ -8,6 +8,7 @@ require 'db.php';
 require 'register_functions.php';
 require 'login_functions.php';
 require 'tournaments_functions.php';
+require 'matches_functions.php';
 
 function set_page($page) {
     $all_access_pages = array('login', 'register', 'standings');
@@ -62,10 +63,6 @@ function form_prev_value($item) {
     }
 
     return '';
-}
-
-function list_matches($user_id) {
-
 }
 
 function list_history($user_id) {
