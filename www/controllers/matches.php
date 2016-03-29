@@ -4,12 +4,10 @@ $data = array();
 
 $user_id = App\DB\get_user_id();
 
-if ( isset($_POST['form_name']) && isset($_POST['tournaments']) ) {
+if ( isset($_POST['match_id']) ) {
 
-    if ( $_POST['form_name'] === 'tournaments_join' ) {
-        join_tournaments($user_id, $_POST['tournaments']);
-    } else if ( $_POST['form_name'] === 'tournaments_leave' ) {
-        leave_tournaments($user_id, $_POST['tournaments']);
+    if ( validate_prediction($_POST['match_id'], $_POST['home_goals'], $_POST['away_goals']) ) {
+        make_prediction($user_id, $_POST['match_id'], $_POST['home_goals'], $_POST['away_goals']);
     }
 
 }

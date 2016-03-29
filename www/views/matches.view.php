@@ -6,12 +6,18 @@
             <div>
                 <form action="index.php?page=matches" method="POST">
                     <ul>
-                        <li><input type="hidden" name="form_name" value="<?= $row['id'] ?>"></li>
-                            <li><?= $row['datetime'] . '   ' . $row['home_team'] . ' - ' . $row['away_team'] ?></li>
+                        <li><input type="hidden" name="match_id" value="<?= $row['match_id'] ?>"></li>
+                            <li><?= $row['datetime'] . ' --- ' . $row['home_team'] . ' - ' . $row['away_team'] ?></li>
                             <li>
-                                <input type="text" name="home_goals">
-                                <input type="text" name="away_goals">
-                                <button type="submit">BET</button>
+                                <?php if ($row['p_home_goals'] == null && $row['p_away_goals'] == null): ?>
+                                    <input <?= $row['disabled'] ?> type="text" name="home_goals" value="">
+                                    <input <?= $row['disabled'] ?> type="text" name="away_goals" value="">
+                                    <button type="submit">BET</button>
+                                <?php else: ?>
+                                    <input <?= $row['disabled'] ?> type="text" name="home_goals" value="<?= $row['p_home_goals'] ?>">
+                                    <input <?= $row['disabled'] ?> type="text" name="away_goals" value="<?= $row['p_away_goals'] ?>">
+                                    <button type="submit">EDIT</button>
+                                <?php endif; ?>
                             </li>
                     </ul>
                 </form>

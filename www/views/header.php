@@ -6,6 +6,7 @@
 		ul, li { margin: 0; padding: 0; }
 		li { list-style: none; }
         div { border: 1px solid; width: 450px; }
+        button { background-color: greenyellow; }
 	</style>
 </head>
 <body>
