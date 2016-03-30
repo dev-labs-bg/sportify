@@ -13,7 +13,6 @@
         <button type="submit">Select</button>
     </form>
     <br />
-<?php //var_dump($data['matches'])?>
     <?php foreach ($data['matches'] as $row): ?>
         <div>
             <form action="" method="POST">

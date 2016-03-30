@@ -10,7 +10,7 @@ function match_started($datetime) {
 function list_matches($user_id, $tournament_id) {
     $query = ( $tournament_id === "ALL" )
         ? App\DB\query(
-            "SELECT matches.id as match_id,matches.datetime, matches.home_team, matches.away_team,
+            "SELECT matches.id as match_id, matches.datetime, matches.home_team, matches.away_team,
                 matches.home_goals as m_home_goals, matches.away_goals as m_away_goals, matches.tournament_id,
                 predictions.home_goals as p_home_goals,predictions.away_goals as p_away_goals,
                 predictions.points, predictions.score_added
@@ -21,7 +21,7 @@ function list_matches($user_id, $tournament_id) {
                 array('email' => $_SESSION['email'], 'user_id' => $user_id),
             $GLOBALS['db_conn'])
         : App\DB\query(
-            "SELECT matches.id as match_id,matches.datetime, matches.home_team, matches.away_team,
+            "SELECT matches.id as match_id, matches.datetime, matches.home_team, matches.away_team,
                 matches.home_goals as m_home_goals, matches.away_goals as m_away_goals, matches.tournament_id,
                 predictions.home_goals as p_home_goals,predictions.away_goals as p_away_goals,
                 predictions.points, predictions.score_added
