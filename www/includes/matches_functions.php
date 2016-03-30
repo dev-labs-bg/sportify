@@ -1,5 +1,12 @@
 <?php
 
+function match_started($datetime) {
+    date_default_timezone_set('EET');
+    $time_ref = time();
+
+    return ( $time_ref >= strtotime($datetime) );
+}
+
 function list_matches($user_id, $tournament_id) {
     $query = ( $tournament_id === "ALL" )
         ? App\DB\query(
@@ -28,12 +35,10 @@ function list_matches($user_id, $tournament_id) {
 
     if ($query) {
         $result = $query->fetchAll();
-        date_default_timezone_set('EET');
-        $time_now = time();
 
         // set disabled flag for matches which have started
         foreach ($result as &$row) {
-            if ( $time_now >= strtotime($row['datetime']) ) {
+            if ( match_started($row['datetime']) ) {
                 $row['disabled'] = "disabled";
             } else {
                 $row['disabled'] = "";
@@ -42,16 +47,49 @@ function list_matches($user_id, $tournament_id) {
 
         return $result;
     } else {
-        return false;
+        return array();
     }
 }
 
-function validate_prediction($match_id, $home_goals, $away_goals) {
-    // TODO
+function validate_prediction($match_id, $home_goals, $away_goals, &$prediction_status) {
+    $is_data_invalid = ( $home_goals == "" || $away_goals == "" );
+
+    if ( $is_data_invalid ) {
+        $prediction_status = 'Please provide values for both home and away goals.';
+
+        return false;
+    } else if ( !(is_numeric($home_goals) && $home_goals >= 0) || !(is_numeric($away_goals) && $away_goals >= 0) ) {
+        $prediction_status = 'Both home and away goals should be non-negative integers.';
+
+        return false;
+    } else if ( !check_match_time($match_id) ) {
+        $prediction_status = 'Match has already started, cannot make or edit prediction.';
+
+        return false;
+    } else {
+        $prediction_status = 'OK, valid bet.';
+    }
+
+    return true;
+}
+
+function check_match_time($match_id) {
+    $query = App\DB\query(
+        "SELECT datetime FROM matches WHERE id = :match_id",
+        array('match_id' => $match_id),
+        $GLOBALS['db_conn']);
+
+    $match_datetime = $query->fetchAll()[0]['datetime'];
+
+    if ( match_started($match_datetime) ) return false;
+
     return true;
 }
 
 function make_prediction($user_id, $match_id, $home_goals, $away_goals) {
+    $home_goals = (int) $home_goals;
+    $away_goals = (int) $away_goals;
+
     $check_prediction = App\DB\query(
         "SELECT *
             FROM predictions

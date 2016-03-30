@@ -5,7 +5,7 @@
 <?php //var_dump($data)?>
 <div>
     <?php if ( $data['joined'] ): ?>
-        <form action="index.php?page=tournaments" method="POST">
+        <form action="" method="POST">
             <ul>
                 <li><input type="hidden" name="form_name" value="tournaments_leave"></li>
                 <?php foreach ($data['joined'] as $row): ?>
@@ -25,7 +25,7 @@
 <?php //var_dump($data)?>
 <div>
     <?php if ( $data['available'] ): ?>
-    <form action="index.php?page=tournaments" method="POST">
+    <form action="" method="POST">
         <ul>
             <li><input type="hidden" name="form_name" value="tournaments_join"></li>
             <?php foreach ($data['available'] as $row): ?>
