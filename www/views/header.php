@@ -5,8 +5,10 @@
 	<style>
 		ul, li { margin: 0; padding: 0; }
 		li { list-style: none; }
-        div { border: 1px solid; width: 450px; }
+        div { border: 1px solid; width: 500px; }
         button { background-color: greenyellow; }
+        .msg-error { font-size: 9pt; color: red; }
+        .filter { border: none; }
 	</style>
 </head>
 <body>

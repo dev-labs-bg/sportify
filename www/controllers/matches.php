@@ -13,6 +13,7 @@ if ( isset($_POST['match_id']) ) {
 
     $data['prediction_value'] = $is_prediction_valid;
     $data['prediction_status'] = $prediction_status;
+    $data['match_id'] = $_POST['match_id'];
 }
 
 $data['tournaments'] = list_tournaments_joined();
