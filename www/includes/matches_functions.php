@@ -7,7 +7,8 @@ function match_started($datetime) {
     return ( $time_ref >= strtotime($datetime) );
 }
 
-function list_matches($user_id, $tournament_id) {
+function list_matches($user_id, $tournament_id, $date_from, $date_to) {
+
     $query = ( $tournament_id === "ALL" )
         ? App\DB\query(
             "SELECT matches.id as match_id, matches.datetime, matches.home_team, matches.away_team,
@@ -17,8 +18,10 @@ function list_matches($user_id, $tournament_id) {
                 FROM matches
                 INNER JOIN scores ON scores.tournament_id = matches.tournament_id AND scores.user_id = :user_id
                 LEFT JOIN predictions ON predictions.match_id = matches.id AND predictions.user_id = :user_id
+                WHERE (predictions.score_added IS NULL OR predictions.score_added = 0)
+                    AND (matches.datetime >= :date_from AND matches.datetime <= :date_to)
                 ORDER BY matches.tournament_id, matches.datetime",
-                array('email' => $_SESSION['email'], 'user_id' => $user_id),
+                array('email' => $_SESSION['email'], 'user_id' => $user_id, 'date_from' => $date_from, 'date_to' => $date_to),
             $GLOBALS['db_conn'])
         : App\DB\query(
             "SELECT matches.id as match_id, matches.datetime, matches.home_team, matches.away_team,
@@ -28,9 +31,11 @@ function list_matches($user_id, $tournament_id) {
                 FROM matches
                 INNER JOIN scores ON scores.tournament_id = matches.tournament_id AND scores.user_id = :user_id
                 LEFT JOIN predictions ON predictions.match_id = matches.id AND predictions.user_id = :user_id
-                WHERE matches.tournament_id = :tournament_id
+                WHERE (predictions.score_added IS NULL OR predictions.score_added = 0)
+                    AND (matches.datetime >= :date_from AND matches.datetime <= :date_to)
+                    AND matches.tournament_id = :tournament_id
                 ORDER BY matches.tournament_id, matches.datetime",
-            array('email' => $_SESSION['email'], 'user_id' => $user_id, 'tournament_id' => $tournament_id),
+            array('email' => $_SESSION['email'], 'user_id' => $user_id, 'tournament_id' => $tournament_id, 'date_from' => $date_from, 'date_to' => $date_to),
             $GLOBALS['db_conn']);
 
     if ($query) {

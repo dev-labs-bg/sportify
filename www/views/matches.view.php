@@ -1,30 +1,34 @@
 <h2>MATCHES</h2>
 
-<?php var_dump($_SERVER['REQUEST_URI']);?>
-    <div>
-        <div class="filter">
-            Filter tournaments:
-            <form action="<?= $_SERVER['REQUEST_URI']; ?>" method="GET">
-                <input type="hidden" name="page" value="matches">
-                <select name="tournament_id" width="50">
-                    <option value="ALL">All joined</option>
-                    <?php foreach ($data['tournaments'] as $row): ?>
-                        <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
-                    <?php endforeach; ?>
+<?php //var_dump($_GET);?>
+    <div class="filter">
+        <form action="" method="GET">
+            <input type="hidden" name="page" value="<?= $page ?>">
+            <div class="filter-field">
+                Tournaments:
+                <br />
+                <select name="tournament_id" width="">
+                <option value="ALL">All joined</option>
+                <?php foreach ($data['tournaments'] as $row): ?>
+                    <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
+                <?php endforeach; ?>
                 </select>
-                <button type="submit">Select</button>
-            </form>
-        </div>
-        <div class="filter">
-            <form action="<?= $_SERVER['REQUEST_URI']; ?>" method="GET">
-                <input type="hidden" name="page" value="matches">
+            </div>
+            <div class="filter-field">
                 Date from:
-                <input type="date" name="date_from">
+                <br />
+                <input type="date" name="date_from" value="<?= ( isset($_GET['date_from']) && !empty($_GET['date_from']) ) ? $_GET['date_from'] : date("Y-m-d"); ?>">
+            </div>
+            <div class="filter-field">
                 Date to:
-                <input type="date" name="date_to">
-                <button type="submit">Select</button>
-            </form>
-        </div>
+                <br />
+                <input type="date" name="date_to" value="<?= ( isset($_GET['date_to']) && !empty($_GET['date_to']) ) ? $_GET['date_to'] : ""; ?>">
+            </div>
+            <br />
+            <br />
+            <br />
+            <button type="submit">Filter</button>
+        </form>
     </div>
     <br />
     <?php foreach ($data['matches'] as $row): ?>
@@ -41,7 +45,7 @@
                             <?php else: ?>
                                 <input <?= $row['disabled'] ?> type="text" name="home_goals" value="<?= $row['p_home_goals'] ?>" size="5">
                                 <input <?= $row['disabled'] ?> type="text" name="away_goals" value="<?= $row['p_away_goals'] ?>" size="5">
-                                <button type="submit">EDIT BET</button>
+                                <button type="submit">UPDATE BET</button>
                             <?php endif; ?>
                             <span class="msg-error">
                                 <?=

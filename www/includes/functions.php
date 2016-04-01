@@ -4,11 +4,17 @@ define('CTRL_DIR', $_SERVER['DOCUMENT_ROOT'] . '/controllers/');
 define('VIEW_DIR', $_SERVER['DOCUMENT_ROOT'] . '/views/');
 define('FUNC_DIR', $_SERVER['DOCUMENT_ROOT'] . '/includes/');
 
+define('POINTS_OUTCOME', 1);
+define('POINTS_EXACT', 3);
+
 require 'db.php';
 require 'register_functions.php';
 require 'login_functions.php';
 require 'tournaments_functions.php';
 require 'matches_functions.php';
+require 'history_functions.php';
+require 'standings_functions.php';
+require 'scores_update_functions.php';
 
 function set_page($page) {
     $all_access_pages = array('login', 'register', 'standings');
