@@ -23,7 +23,7 @@ function get_not_scored_predictions() {
 
 }
 
-function update_predictions_points($data) {
+function update_points($data) {
     foreach ($data as $row) {
 
         if ( ($row['m_home_goals'] == $row['p_home_goals']) && ($row['m_away_goals'] == $row['p_away_goals']) ) {

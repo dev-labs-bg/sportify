@@ -1,6 +1,6 @@
 <h2>MATCHES</h2>
 
-<?php //var_dump($_GET);?>
+<?php //var_dump($data);?>
     <div class="filter">
         <form action="" method="GET">
             <input type="hidden" name="page" value="<?= $page ?>">
@@ -41,12 +41,13 @@
                             <?php if ($row['p_home_goals'] == null && $row['p_away_goals'] == null): ?>
                                 <input <?= $row['disabled'] ?> type="text" name="home_goals" value="" size="5">
                                 <input <?= $row['disabled'] ?> type="text" name="away_goals" value="" size="5">
-                                <button type="submit">BET</button>
+                                <button <?= $row['disabled'] ?> type="submit">BET</button>
                             <?php else: ?>
                                 <input <?= $row['disabled'] ?> type="text" name="home_goals" value="<?= $row['p_home_goals'] ?>" size="5">
                                 <input <?= $row['disabled'] ?> type="text" name="away_goals" value="<?= $row['p_away_goals'] ?>" size="5">
-                                <button type="submit">UPDATE BET</button>
+                                <button <?= $row['disabled'] ?> type="submit">UPDATE BET</button>
                             <?php endif; ?>
+                            <?= ($row['disabled'] == "disabled") ? "Match locked. Already started" : ""; ?>
                             <span class="msg-error">
                                 <?=
                                 ( isset($data['match_id'], $data['prediction_value']) && !$data['prediction_value'] && $data['match_id'] == $row['match_id'] )

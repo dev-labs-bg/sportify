@@ -10,8 +10,14 @@
         .msg-error { font-size: 9pt; color: red; }
         .filter { background-color: lightgrey; 500px; }
         .filter-field { border: none; float: left; width: auto; }
+        .history-0 { }
+        .history-1 { background: #fffc90; }
+        .history-3 { background: #c2ffad; }
         .history-field-1 {}
         .history-field-2 { margin-left: 100px;}
+        .table-field-left { float: left; width: 20%; }
+        .table-field-center { float: left; width: 60%; }
+        .table-field-right { float: left; width: 20%; }
 	</style>
 </head>
 <body>

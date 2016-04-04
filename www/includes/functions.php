@@ -71,7 +71,14 @@ function form_prev_value($item) {
     return '';
 }
 
-function list_history($user_id) {
-
+function set_date_start(&$var_date_from, $value_default) {
+    return ( isset($var_date_from) && !empty($var_date_from) )
+        ? $var_date_from
+        : $value_default;
 }
 
+function set_date_end(&$var_date_to, $sec_offset) {
+    return ( isset($var_date_to) && !empty($var_date_to) )
+        ? date("Y-m-d", strtotime($var_date_to) + $sec_offset)
+        : date("Y-m-d", time() + 1209600);
+}

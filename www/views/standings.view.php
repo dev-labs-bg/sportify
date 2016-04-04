@@ -24,17 +24,27 @@
 
 <h4>Viewing: <?= $data['tournament_name']; ?></h4>
 
-Pos --- Username --- Points
+<h5 style="width: 500px">
+    <span class="table-field-left">Pos</span>
+    <span class="table-field-center">Username</span>
+    <span class="table-field-right">Points</span>
+</h5>
+<br />
+
 <?php $position = 0; ?>
 <div>
-    <?php foreach ($data['standings'] as $row): ?>
-        <?php $position++; ?>
-
-            <ul>
-                <li><?= $position . ' --- ' . $row['email'] . ' --- ' . $row['points']; ?></li>
-            </ul>
-        <br />
-    <?php endforeach; ?>
+    <ul>
+        <?php foreach ($data['standings'] as $row): ?>
+            <?php $position++; ?>
+            <li>
+                <span class="table-field-left"><?= $position; ?></span>
+                <span class="table-field-center"><?= $row['email']; ?></span>
+                <span class="table-field-right"><?= $row['points']; ?></span>
+            </li>
+            <br />
+            <br />
+        <?php endforeach; ?>
+    </ul>
 </div>
 
 <?php if ( !$data['standings'] ): ?>

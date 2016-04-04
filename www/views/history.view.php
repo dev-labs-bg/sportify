@@ -32,7 +32,7 @@
 </div>
 <br />
 <?php foreach ($data['matches'] as $row): ?>
-    <div>
+    <div class="history-<?= $row['points']; ?>">
         <ul>
             <li><?= $row['datetime'] . ' ' . $row['home_team'] . ' - ' . $row['away_team'] ?></li>
             <li>
