@@ -2,9 +2,9 @@
 
 $data = array();
 
-if ( isset($_POST['form_name']) && isset($_POST['tournaments']) ) {
+$user_id = App\DB\get_user_id();
 
-    $user_id = App\DB\get_user_id();
+if ( isset($_POST['form_name']) && isset($_POST['tournaments']) ) {
 
     if ( $_POST['form_name'] === 'tournaments_join' ) {
         join_tournaments($user_id, $_POST['tournaments']);

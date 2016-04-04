@@ -4,10 +4,17 @@ define('CTRL_DIR', $_SERVER['DOCUMENT_ROOT'] . '/controllers/');
 define('VIEW_DIR', $_SERVER['DOCUMENT_ROOT'] . '/views/');
 define('FUNC_DIR', $_SERVER['DOCUMENT_ROOT'] . '/includes/');
 
+define('POINTS_OUTCOME', 1);
+define('POINTS_EXACT', 3);
+
 require 'db.php';
 require 'register_functions.php';
 require 'login_functions.php';
 require 'tournaments_functions.php';
+require 'matches_functions.php';
+require 'history_functions.php';
+require 'standings_functions.php';
+require 'scores_update_functions.php';
 
 function set_page($page) {
     $all_access_pages = array('login', 'register', 'standings');
@@ -64,11 +71,14 @@ function form_prev_value($item) {
     return '';
 }
 
-function list_matches($user_id) {
-
+function set_date_start(&$var_date_from, $value_default) {
+    return ( isset($var_date_from) && !empty($var_date_from) )
+        ? $var_date_from
+        : $value_default;
 }
 
-function list_history($user_id) {
-
+function set_date_end(&$var_date_to, $sec_offset) {
+    return ( isset($var_date_to) && !empty($var_date_to) )
+        ? date("Y-m-d", strtotime($var_date_to) + $sec_offset)
+        : date("Y-m-d", time() + 1209600);
 }
-
