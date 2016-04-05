@@ -15,9 +15,10 @@ require 'matches_functions.php';
 require 'history_functions.php';
 require 'standings_functions.php';
 require 'scores_update_functions.php';
+require 'password_reset_functions.php';
 
 function set_page($page) {
-    $all_access_pages = array('login', 'register', 'standings');
+    $all_access_pages = array('login', 'register', 'password_reset', 'standings');
 
     //    if ( isset($_GET['page']) && in_array($_GET['page'],$all_access_pages) ) {
     //        $page = $_GET['page'];
@@ -52,7 +53,6 @@ function view_page($page, $data = null) {
 
 function is_user_logged_in() {
 	return isset($_SESSION['email']);
-//	return true;
 }
 
 function login_set($email) {
@@ -81,4 +81,33 @@ function set_date_end(&$var_date_to, $sec_offset) {
     return ( isset($var_date_to) && !empty($var_date_to) )
         ? date("Y-m-d", strtotime($var_date_to) + $sec_offset)
         : date("Y-m-d", time() + 1209600);
+}
+
+function random_string_special($string_length = 15) {
+    $chars_list = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&';
+    $chars_count = strlen($chars_list);
+    $string = '';
+
+    for ($i = 0; $i < $string_length; $i++) {
+        $string .= $chars_list[rand(0, $chars_count - 1)];
+    }
+
+    return $string;
+}
+
+function random_string_alphanum($string_length = 15) {
+    $chars_list = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $chars_count = strlen($chars_list);
+    $string = '';
+
+    for ($i = 0; $i < $string_length; $i++) {
+        $string .= $chars_list[rand(0, $chars_count - 1)];
+    }
+
+    return $string;
+}
+
+function send_mail($email, $from_email, $subject, $message) {
+    $headers = "From: ${from_email} \r\n";
+    mail($email, $subject, $message, $headers);
 }

@@ -30,10 +30,10 @@ function query($query, $bindings, $conn)
 	return ($stmt->rowCount() > 0) ? $stmt : false;
 }
 
-function get_user_id() {
+function get_user_id($email) {
     $query = query(
         "SELECT id FROM users WHERE email = :email",
-        array('email' => $_SESSION['email']),
+        array('email' => $email),
         $GLOBALS['db_conn']);
     return ($query) ? $query->fetchAll()[0]['id'] : false;
 }
