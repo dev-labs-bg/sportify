@@ -10,6 +10,6 @@ Reset password by sending a new random-generated password via e-mail:
 	</ul>
 </form>
 
-<?php if (isset($password_reset_status)) : ?>
-    <p><?= $password_reset_status ?></p>
+<?php if (isset($status_message)) : ?>
+    <p><?= $status_message ?></p>
 <?php endif; ?>

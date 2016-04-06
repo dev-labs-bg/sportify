@@ -18,7 +18,7 @@ require 'scores_update_functions.php';
 require 'password_reset_functions.php';
 
 function set_page($page) {
-    $all_access_pages = array('login', 'register', 'password_reset', 'standings');
+    $all_access_pages = array('login', 'register', 'password_reset', 'password_change', 'standings');
 
     //    if ( isset($_GET['page']) && in_array($_GET['page'],$all_access_pages) ) {
     //        $page = $_GET['page'];
@@ -51,6 +51,13 @@ function view_page($page, $data = null) {
 	include VIEW_DIR . "footer.php";
 }
 
+function load_view($view_file, $str_search, $str_replace) {
+    $filepath = VIEW_DIR . $view_file;
+    $view_data = file_get_contents($filepath);
+
+    return str_replace($str_search, $str_replace, $view_data);
+}
+
 function is_user_logged_in() {
 	return isset($_SESSION['email']);
 }
@@ -61,6 +68,14 @@ function login_set($email) {
 
 function login_unset() {
     unset($_SESSION['email']);
+}
+
+function get_site_url() {
+    return 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+}
+
+function is_form_submitted($form_name) {
+    return isset($_POST['form_name']) && $_POST['form_name'] === $form_name;
 }
 
 function form_prev_value($item) {
@@ -108,6 +123,8 @@ function random_string_alphanum($string_length = 15) {
 }
 
 function send_mail($email, $from_email, $subject, $message) {
-    $headers = "From: ${from_email} \r\n";
+    $headers = 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+    $headers .= 'From: ' . $from_email . "\r\n";
     mail($email, $subject, $message, $headers);
 }
