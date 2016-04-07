@@ -29,7 +29,7 @@ if ( is_form_submitted('password_change') ) {
     $password = $_POST['password'];
     $password_confirm = $_POST['password_confirm'];
 
-    if ( validate_password ($password, $password_confirm, $status_message) ) {
+    if ( validate_password($password, $password_confirm, $status_message) ) {
         change_password($email, $password);
         clear_token($email, $_POST['token_purpose']);
         header("Location: index.php?page=login");

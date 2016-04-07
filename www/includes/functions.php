@@ -16,6 +16,7 @@ require 'history_functions.php';
 require 'standings_functions.php';
 require 'scores_update_functions.php';
 require 'password_reset_functions.php';
+require 'profile_functions.php';
 
 function set_page($page) {
     $all_access_pages = array('login', 'register', 'password_reset', 'password_change', 'standings');
@@ -132,6 +133,21 @@ function send_mail($email, $from_email, $subject, $message) {
 function get_datetime_string($timestamp) {
     date_default_timezone_set('EET');
     return date('Y-m-d H:i:s', $timestamp);
+}
+
+function get_userdata_by_email($email) {
+
+    $query = App\DB\query(
+        "SELECT *
+        FROM users
+        WHERE email = :email",
+        array('email' => $email),
+        $GLOBALS['db_conn']);
+
+    if ($query)
+        return $query->fetchAll()[0];
+
+    return array();
 }
 
 function token_db_insert($email, $purpose, $token) {

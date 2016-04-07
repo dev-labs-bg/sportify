@@ -27,8 +27,8 @@
 	    <a href="index.php?page=matches">Matches</a>
 	    <a href="index.php?page=standings">Standings</a>
 	    <a href="index.php?page=history">History</a>
+        <a href="index.php?page=profile">Profile (<?= $_SESSION['email'] ?>)</a>
         <a href="index.php?page=logout">Logout</a>
-        <a href="index.php?page=profile"><?= $_SESSION['email'] ?></a>
         <br />
         <a href="index.php?page=scores_update">Update scores</a>
     <?php else: ?>
