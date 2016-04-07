@@ -1,5 +1,4 @@
-
-<p>LOGIN</p>
+<h1 class="page-header">LOGIN</h1>
 
 <form action="" method="POST">
 	<ul>

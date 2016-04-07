@@ -1,4 +1,4 @@
-<h2>STANDINGS</h2>
+<h1 class="page-header">STANDINGS</h1>
 
 <?php //var_dump($data);?>
 <div class="filter">

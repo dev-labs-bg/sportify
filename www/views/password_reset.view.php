@@ -1,5 +1,4 @@
-
-<p>PASSWORD RESET</p>
+<h1 class="page-header">PASSWORD RESET</h1>
 
 Reset password by sending a new random-generated password via e-mail:
 <form action="" method="POST">

@@ -2,7 +2,7 @@
 
 $config = array(
 	'username' => 'root',
-	'password' => 'P@ssw0rd',
+	'password' => '',
 	'database' => 'dev_sportify'
 );
 

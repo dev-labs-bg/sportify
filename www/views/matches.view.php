@@ -1,4 +1,4 @@
-<h2>MATCHES</h2>
+<h1 class="page-header">MATCHES</h1>
 
 <?php //var_dump($data);?>
     <div class="filter">

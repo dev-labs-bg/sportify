@@ -1,5 +1,4 @@
-
-<p>PASSWORD CHANGE</p>
+<h1 class="page-header">PASSWORD CHANGE</h1>
 
 Please fill in your new password:
 <form action="" method="POST">

@@ -1,4 +1,4 @@
-<p>REGISTER</p>
+<h1 class="page-header">REGISTER</h1>
 
 <form action="" method="POST">
 	<ul>

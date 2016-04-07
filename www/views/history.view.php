@@ -1,4 +1,4 @@
-<h2>HISTORY</h2>
+<h1 class="page-header">HISTORY</h1>
 
 <?php //var_dump($_GET);?>
 <div class="filter">
