@@ -2,8 +2,13 @@
 
 // Store all config values here
 $base_config = array(
-	'css_path'  => get_css_url(),
-	'js_path'   => get_js_url(),
+	'css_path'         => get_css_url(),
+	'js_path'          => get_js_url(),
+	'points_css_class' => array(
+		0 => 'danger',
+		1 => 'warning',
+		3 => 'success'
+	)
 );
 
 /**
