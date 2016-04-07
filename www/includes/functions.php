@@ -71,8 +71,17 @@ function login_unset() {
     unset($_SESSION['email']);
 }
 
+/**
+ * Get home url
+ *
+ * @return string
+ */
+function get_home_url() {
+    return 'http://' . $_SERVER['HTTP_HOST'];
+}
+
 function get_site_url() {
-    return 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+    return get_home_url() . $_SERVER['REQUEST_URI'];
 }
 
 function is_form_submitted($form_name) {

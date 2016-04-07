@@ -1,35 +1,34 @@
 <?php
 
 // Store all config values here
-$config = array(
-	'root_path' => get_root_dir(),
-	'css_path'  => get_css_dir(),
-	'js_path'   => get_js_dir(),
+$base_config = array(
+	'css_path'  => get_css_url(),
+	'js_path'   => get_js_url(),
 );
 
 /**
- * Get absolute root dir path of the project
+ * Get static dir url
  *
  * @return string
  */
-function get_root_dir() {
-	return dirname( __FILE__ );
+function get_static_url() {
+	return get_home_url() . '/static/';
 }
 
 /**
- * Get absolute css dir path
+ * Get css dir url
  *
  * @return string
  */
-function get_css_dir() {
-	return get_root_dir() . DIRECTORY_SEPARATOR . 'static' . DIRECTORY_SEPARATOR . 'css';
+function get_css_url() {
+	return get_static_url() . 'css/';
 }
 
 /**
- * Get absolute js dir path
+ * Get js dir url
  *
  * @return string
  */
-function get_js_dir() {
-	return get_root_dir() . DIRECTORY_SEPARATOR . 'static' . DIRECTORY_SEPARATOR . 'js';
+function get_js_url() {
+	return get_static_url() . 'js/';
 }
