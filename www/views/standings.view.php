@@ -1,7 +1,7 @@
 <h1 class="page-header">STANDINGS</h1>
 
 <div class="panel panel-default">
-    <div class="panel-heading"><span class="glyphicon glyphicon-filter"></span>Filter bar</div>
+    <div class="panel-heading"><span class="glyphicon glyphicon-filter"></span> Filter bar</div>
     <div class="panel-body">
         <form action="" method="GET">
             <input type="hidden" name="page" value="<?= $page ?>">
@@ -25,27 +25,33 @@
 </div>
 
 <h4>Viewing: <?= $data['tournament_name']; ?></h4>
-<?php $position = 0; ?>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Position</th>
-            <th>Username</th>
-            <th>Points</th>
-        </tr>
-    </thead>
-    <tbody>
-    <?php foreach ($data['standings'] as $row): ?>
-        <?php $position++; ?>
-        <tr>
-            <td><?= $position; ?></td>
-            <td><?= $row['email']; ?></td>
-            <td><?= $row['points']; ?></td>
-        </tr>
-    <?php endforeach; ?>
-    </tbody>
-</table>
 
-<?php if ( !$data['standings'] ): ?>
-    No data to display.
-<?php endif; ?>
+<div class="panel panel-default">
+    <div class="panel-heading"><span class="glyphicon glyphicon-list-alt"></span> Results</div
+    <div class="panel-body">
+        <?php $position = 0; ?>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Position</th>
+                    <th>Username</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($data['standings'] as $row): ?>
+                <?php $position++; ?>
+                <tr>
+                    <td><?= $position; ?></td>
+                    <td><?= $row['email']; ?></td>
+                    <td><?= $row['points']; ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+
+        <?php if ( !$data['standings'] ): ?>
+            <p>No data to display.</p>
+        <?php endif; ?>
+    </div>
+</div>

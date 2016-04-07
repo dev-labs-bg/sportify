@@ -35,58 +35,63 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-sm-2"><label>Name</label></div>
-    <div class="col-sm-2"><label>Start</label></div>
-    <div class="col-sm-2"><label>Home</label></div>
-    <div class="col-sm-2"><label>Away</label></div>
-    <div class="col-sm-2"><label>Status</label></div>
-    <div class="col-sm-2"><label>Action</label></div>
-</div>
-<?php foreach ($data['matches'] as $row): ?>
-    <form action="" method="POST">
+<div class="panel panel-default">
+    <div class="panel-heading"><span class="glyphicon glyphicon-list-alt"></span> Results</div>
+    <div class="panel-body">
         <div class="row">
-
-                <input type="hidden" name="match_id" value="<?= $row['match_id'] ?>">
-                <div class="form-group col-sm-2"><?php echo $row['home_team'] ?> - <?php echo $row['away_team'] ?></div>
-                <div class="form-group col-sm-2"><?php echo $row['datetime'] ?></div>
-                <div class="form-group col-sm-2">
-                    <?php if ($row['p_home_goals'] == null && $row['p_away_goals'] == null): ?>
-                        <input <?= $row['disabled'] ?> type="text" name="home_goals" value="" size="5">
-                    <?php else: ?>
-                        <input <?= $row['disabled'] ?> type="text" name="home_goals" value="<?= $row['p_home_goals'] ?>" size="5">
-                    <?php endif; ?>
-                </div>
-                <div class="form-group col-sm-2">
-                    <?php if ($row['p_home_goals'] == null && $row['p_away_goals'] == null): ?>
-                        <input <?= $row['disabled'] ?> type="text" name="away_goals" value="" size="5">
-                    <?php else: ?>
-                        <input <?= $row['disabled'] ?> type="text" name="away_goals" value="<?= $row['p_away_goals'] ?>" size="5">
-                    <?php endif; ?>
-                </div>
-                <div class="form-group col-sm-2">
-                    <?= ($row['disabled'] == "disabled") ? "Match locked. Already started" : ""; ?>
-                    <span class="msg-error">
-                        <?=
-                        ( isset($data['match_id'], $data['prediction_value']) && !$data['prediction_value'] && $data['match_id'] == $row['match_id'] )
-                            ? $data['prediction_status']
-                            : "";
-                        ?>
-                        </span>
-                </div>
-
-
-                <div class="form-group col-sm-2">
-                    <?php if ($row['p_home_goals'] == null && $row['p_away_goals'] == null): ?>
-                        <button <?= $row['disabled'] ?> type="submit" class="btn btn-success">BET</button>
-                    <?php else: ?>
-                        <button <?= $row['disabled'] ?> type="submit" class="btn btn-success">UPDATE BET</button>
-                    <?php endif; ?>
-                </div>
+            <div class="col-sm-2"><label>Name</label></div>
+            <div class="col-sm-2"><label>Start</label></div>
+            <div class="col-sm-2"><label>Home</label></div>
+            <div class="col-sm-2"><label>Away</label></div>
+            <div class="col-sm-2"><label>Status</label></div>
+            <div class="col-sm-2"><label>Action</label></div>
         </div>
- </form>
-<?php endforeach; ?>
+        <?php foreach ($data['matches'] as $row): ?>
+            <form action="" method="POST">
+                <div class="row">
 
-<?php if ( !$data['matches'] ): ?>
-    <p>No matches to display.</p>
-<?php endif; ?>
+                        <input type="hidden" name="match_id" value="<?= $row['match_id'] ?>">
+                        <div class="form-group col-sm-2"><?php echo $row['home_team'] ?> - <?php echo $row['away_team'] ?></div>
+                        <div class="form-group col-sm-2"><?php echo $row['datetime'] ?></div>
+                        <div class="form-group col-sm-2">
+                            <?php if ($row['p_home_goals'] == null && $row['p_away_goals'] == null): ?>
+                                <input <?= $row['disabled'] ?> type="text" name="home_goals" value="" size="5">
+                            <?php else: ?>
+                                <input <?= $row['disabled'] ?> type="text" name="home_goals" value="<?= $row['p_home_goals'] ?>" size="5">
+                            <?php endif; ?>
+                        </div>
+                        <div class="form-group col-sm-2">
+                            <?php if ($row['p_home_goals'] == null && $row['p_away_goals'] == null): ?>
+                                <input <?= $row['disabled'] ?> type="text" name="away_goals" value="" size="5">
+                            <?php else: ?>
+                                <input <?= $row['disabled'] ?> type="text" name="away_goals" value="<?= $row['p_away_goals'] ?>" size="5">
+                            <?php endif; ?>
+                        </div>
+                        <div class="form-group col-sm-2">
+                            <?= ($row['disabled'] == "disabled") ? "Match locked. Already started" : ""; ?>
+                            <span class="msg-error">
+                                <?=
+                                ( isset($data['match_id'], $data['prediction_value']) && !$data['prediction_value'] && $data['match_id'] == $row['match_id'] )
+                                    ? $data['prediction_status']
+                                    : "";
+                                ?>
+                                </span>
+                        </div>
+
+
+                        <div class="form-group col-sm-2">
+                            <?php if ($row['p_home_goals'] == null && $row['p_away_goals'] == null): ?>
+                                <button <?= $row['disabled'] ?> type="submit" class="btn btn-success">BET</button>
+                            <?php else: ?>
+                                <button <?= $row['disabled'] ?> type="submit" class="btn btn-success">UPDATE BET</button>
+                            <?php endif; ?>
+                        </div>
+                </div>
+         </form>
+        <?php endforeach; ?>
+
+        <?php if ( !$data['matches'] ): ?>
+            <p>No matches to display.</p>
+        <?php endif; ?>
+    </div>
+</div>

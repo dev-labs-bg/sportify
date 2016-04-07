@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="<?php echo $GLOBALS['base_config']['img_path'] ?>favicon.png">
 
+    <!-- Main CSS -->
+    <link href="<?php echo $GLOBALS['base_config']['css_path'] ?>main.css" rel="stylesheet">
+
     <!-- Bootstrap core CSS -->
     <link href="<?php echo $GLOBALS['base_config']['css_path'] ?>bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap core CSS -->
@@ -20,12 +23,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Sportify</a>
+                <a class="navbar-brand" href="<?php echo get_home_url() ?>">Sportify</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="index.php">Home</a></li>
                     <?php if (is_user_logged_in()): ?>
+                        <li class="visible-xs"><a href="index.php?page=tournaments">Tournaments</a></li>
+                        <li class="visible-xs"><a href="index.php?page=matches">Matches</a></li>
+                        <li class="visible-xs"><a href="index.php?page=scores_update">Update scores</a></li>
+                        <li class="visible-xs"><a href="index.php?page=history">History</a></li>
                         <li><a href="index.php?page=profile"><?= $_SESSION['email'] ?></a></li>
                         <li><a href="index.php?page=logout">Logout</a></li>
                     <?php else: ?>
