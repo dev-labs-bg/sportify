@@ -2,7 +2,7 @@
 
 $data = array();
 
-$user_id = App\DB\get_user_id();
+$user_id = App\DB\get_user_id($_SESSION['email']);
 
 if ( isset($_POST['match_id']) ) {
     $is_prediction_valid = validate_prediction($_POST['match_id'], $_POST['home_goals'], $_POST['away_goals'], $prediction_status);

@@ -12,6 +12,6 @@
 	</ul>
 </form>
 
-<?php if (isset($reg_status)) : ?>
-<p><?= $reg_status ?></p>
+<?php if (isset($status_message)) : ?>
+<p><?= $status_message ?></p>
 <?php endif; ?>

@@ -2,7 +2,7 @@
 
 $data = array();
 
-$user_id = App\DB\get_user_id();
+$user_id = App\DB\get_user_id($_SESSION['email']);
 
 if ( isset($_POST['form_name']) && isset($_POST['tournaments']) ) {
 
