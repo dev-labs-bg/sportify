@@ -33,10 +33,10 @@ if ( isset($_GET['token']) && !empty($_GET['token']) ) {
     $data['userdata'] = get_userdata_by_token($_GET['token']);
 
     if ( validate_userdata_token($data['userdata'], 'register_confirm', $status_message) ) {
-        confirm_registration($email);
+        confirm_registration($data['userdata']['email']);
         clear_token($data['userdata']['email'], $data['userdata']['token_purpose']);
-        $data['status_message'] = 'Your user account has been successfully confirmed. You can now login.';
-//        $page = 'register';
+        $status_message = 'Your user account has been successfully confirmed. You can now login.';
+        $page = 'register_success';
     } else {
         $page = 'error';
     }

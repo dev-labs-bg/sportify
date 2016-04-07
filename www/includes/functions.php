@@ -164,7 +164,7 @@ function get_userdata_by_token($token) {
 
 function validate_userdata_token($userdata, $purpose, &$status_message = null) {
 
-    if ( empty($userdata) || $userdata['token_purpose'] === $purpose ) {
+    if ( empty($userdata) || $userdata['token_purpose'] != $purpose ) {
         $status_message = 'Invalid token ID.';
 
         return false;
@@ -179,10 +179,10 @@ function validate_userdata_token($userdata, $purpose, &$status_message = null) {
     return true;
 }
 
-function check_token_validity($datetime, $lifetime = 1800) {
+function check_token_validity($token_datetime, $lifetime = 7200) {
     date_default_timezone_set('EET');
 
-    return ( time() - strtotime($datetime) < $lifetime )
+    return ( time() - strtotime($token_datetime) < $lifetime )
         ? true
         : false;
 }
