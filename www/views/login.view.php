@@ -9,13 +9,15 @@
 		<li><button type="submit">Sign In</button></li>
 	</ul>
 </form>
-
 <?php if (isset($login_status)) : ?>
-    <p><?= $login_status ?></p>
+    <?= $login_status ?>
 <?php endif; ?>
 
-<p>or create an account</p>
+<p>Forgotten password? <a href="index.php?page=password_reset">Reset</a></p>
 
+
+
+<p>or create an account: </p>
 <form action="" method="GET">
 	<ul>
 		<li><input type="hidden" name="page" value="register"></li>
