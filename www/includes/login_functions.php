@@ -20,7 +20,7 @@ function validate_login($email, $password, &$login_status = null) {
 
 function check_user($email, $password) {
     $query = App\DB\query(
-        "SELECT * FROM users WHERE email = :email",
+        "SELECT * FROM users WHERE email = :email AND confirmed = 1",
         array('email' => $email),
         $GLOBALS['db_conn']);
 

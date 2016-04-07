@@ -13,8 +13,10 @@ if ( is_form_submitted('password_reset') ) {
 
         $url = get_site_url() . '&token=' . $token;
         $from_email = 'ceco@devlabs.bg';
-        $subject = 'Sportify - password reset';
-        $message = load_view('html_mail_password_reset.php', 'URL_RESET', $url);
+        $subject = 'Sportify - password reset request at ' . get_datetime_string(time());
+        $message = load_view('html_mail_token_link.php',
+                            array('INFORMATIVE_TEXT','URL_TOKEN'),
+                            array('Please follow this link to reset your password',$url));
         send_mail($email, $from_email, $subject, $message);
     }
 
@@ -39,7 +41,7 @@ if ( is_form_submitted('password_change') ) {
 if ( isset($_GET['token']) && !empty($_GET['token']) ) {
     $data['userdata'] = get_userdata_by_token($_GET['token']);
 
-    if ( validate_userdata_token($data['userdata'], $status_message) ) {
+    if ( validate_userdata_token($data['userdata'], 'password_reset', $status_message) ) {
         $page = 'password_change';
     } else {
         $page = 'error';

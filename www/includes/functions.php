@@ -128,3 +128,70 @@ function send_mail($email, $from_email, $subject, $message) {
     $headers .= 'From: ' . $from_email . "\r\n";
     mail($email, $subject, $message, $headers);
 }
+
+function get_datetime_string($timestamp) {
+    date_default_timezone_set('EET');
+    return date('Y-m-d H:i:s', $timestamp);
+}
+
+function token_db_insert($email, $purpose, $token) {
+    $user_id = App\DB\get_user_id($email);
+    $datetime = get_datetime_string(time());
+
+    return App\DB\query(
+        "INSERT INTO tokens (user_id, purpose, value, datetime)
+        VALUES (:user_id, :token_purpose, :token_value, :token_time)
+        ON DUPLICATE KEY UPDATE value = :token_value, datetime = :token_time",
+        array('user_id' => $user_id, 'token_purpose' => $purpose, 'token_value' => $token, 'token_time' => $datetime),
+        $GLOBALS['db_conn']);
+}
+
+function get_userdata_by_token($token) {
+
+    $query = App\DB\query(
+        "SELECT users.id as user_id, users.email as email,
+                tokens.purpose as token_purpose, tokens.value as token_value, tokens.datetime as token_datetime
+        FROM users
+        JOIN tokens ON tokens.user_id = users.id AND tokens.value = :token_value",
+        array('token_value' => $token),
+        $GLOBALS['db_conn']);
+
+    if ($query)
+        return $query->fetchAll()[0];
+
+    return array();
+}
+
+function validate_userdata_token($userdata, $purpose, &$status_message = null) {
+
+    if ( empty($userdata) || $userdata['token_purpose'] === $purpose ) {
+        $status_message = 'Invalid token ID.';
+
+        return false;
+    } else if ( !check_token_validity($userdata['token_datetime']) ) {
+        $status_message = 'Token ID has expired.';
+
+        return false;
+    } else {
+//        $status_message = 'Valid token ID.';
+    }
+
+    return true;
+}
+
+function check_token_validity($datetime, $lifetime = 1800) {
+    date_default_timezone_set('EET');
+
+    return ( time() - strtotime($datetime) < $lifetime )
+        ? true
+        : false;
+}
+
+function clear_token($email, $token_purpose) {
+    $user_id = App\DB\get_user_id($email);
+
+    return App\DB\query(
+        "DELETE FROM tokens WHERE user_id = :user_id AND purpose = :token_purpose",
+        array('user_id' => $user_id, 'token_purpose' => $token_purpose),
+        $GLOBALS['db_conn']);
+}
