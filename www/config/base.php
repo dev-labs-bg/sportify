@@ -4,6 +4,7 @@
 $base_config = array(
 	'css_path'         => get_css_url(),
 	'js_path'          => get_js_url(),
+	'img_path'         => get_img_url(),
 	'points_css_class' => array(
 		0 => 'danger',
 		1 => 'warning',
@@ -36,4 +37,13 @@ function get_css_url() {
  */
 function get_js_url() {
 	return get_static_url() . 'js/';
+}
+
+/**
+ * Get img dir url
+ *
+ * @return string
+ */
+function get_img_url() {
+	return get_static_url() . 'img/';
 }

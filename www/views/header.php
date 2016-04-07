@@ -1,8 +1,9 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-	<title></title>
+	<title>Sportify</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="<?php echo $GLOBALS['base_config']['img_path'] ?>favicon.png">
 
     <!-- Bootstrap core CSS -->
     <link href="<?php echo $GLOBALS['base_config']['css_path'] ?>bootstrap.min.css" rel="stylesheet">
