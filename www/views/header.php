@@ -31,7 +31,6 @@
                     <?php if (is_user_logged_in()): ?>
                         <li class="visible-xs"><a href="index.php?page=tournaments">Tournaments</a></li>
                         <li class="visible-xs"><a href="index.php?page=matches">Matches</a></li>
-                        <li class="visible-xs"><a href="index.php?page=scores_update">Update scores</a></li>
                         <li class="visible-xs"><a href="index.php?page=history">History</a></li>
                         <li><a href="index.php?page=profile"><?= $_SESSION['email'] ?></a></li>
                         <li><a href="index.php?page=logout">Logout</a></li>
@@ -51,7 +50,6 @@
                     <?php if (is_user_logged_in()): ?>
                         <li><a href="index.php?page=tournaments">Tournaments</a></li>
                         <li><a href="index.php?page=matches">Matches</a></li>
-                        <li><a href="index.php?page=scores_update">Update scores</a></li>
                         <li><a href="index.php?page=history">History</a></li>
                     <?php endif; ?>
                     <li><a href="index.php?page=standings">Standings</a></li>
