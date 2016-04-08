@@ -16,7 +16,7 @@ if ( is_form_submitted('register') ) {
         token_db_insert($email, 'register_confirm', $token);
 
         $url = get_site_url() . '&token=' . $token;
-        $from_email = 'sportify@devlabs.bg';
+        $from_email = 'sportify@devlabs-projects.com';
         $subject = 'Sportify - user registration request at ' . get_datetime_string(time());
         $message = load_view('html_mail_token_link.php',
                             array('INFORMATIVE_TEXT','URL_TOKEN'),

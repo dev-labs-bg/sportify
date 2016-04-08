@@ -33,7 +33,7 @@ function validate_password($password, $password_confirm, &$status_message = null
 
         return false;
     } else {
-//        $status_message = 'Passwords match.';
+        $status_message = 'You have successfully changed your profile details.';
     }
 
     return true;
