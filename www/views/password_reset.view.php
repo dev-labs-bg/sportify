@@ -4,7 +4,7 @@
 	<p class="alert alert-info" role="alert"><?= $status_message ?></p>
 <?php endif; ?>
 
-<p><em>Reset password by sending a new random-generated password via e-mail.</em></p>
+<p><em>Reset password link will be sent to the submitted e-mail address.</em></p>
 <div class="panel panel-default">
 	<div class="panel-heading"><span class="glyphicon glyphicon-user"></span> Password reset</div>
 	<div class="panel-body">
