@@ -1,3 +1,5 @@
 config/.env
 deploy.php
 vendor/
+.idea/
+.DS_Store

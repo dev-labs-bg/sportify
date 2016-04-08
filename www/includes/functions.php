@@ -20,6 +20,9 @@ require 'scores_update_functions.php';
 require 'password_reset_functions.php';
 require 'profile_functions.php';
 
+$dotenv = new Dotenv\Dotenv(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'config');
+$dotenv->load();
+
 function set_page($page) {
     $all_access_pages = array('login', 'register', 'password_reset', 'password_change', 'standings');
 
@@ -224,7 +227,7 @@ function clear_token($email, $token_purpose) {
 //}
 
 function send_mail($email, $from_email, $subject, $message) {
-    $GLOBALS['mailgun']->sendMessage($GLOBALS['mailgun_domain'], array(
+    $GLOBALS['mailgun']->sendMessage(getenv('MAILGUN_DOMAIN'), array(
         'from'    => $from_email,
         'to'      => $email,
         'subject' => $subject,
