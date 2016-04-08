@@ -228,7 +228,7 @@ function clear_token($email, $token_purpose) {
 
 function send_mail($email, $from_email, $subject, $message) {
     $GLOBALS['mailgun']->sendMessage(getenv('MAILGUN_DOMAIN'), array(
-        'x-mailgun-native-send' => 'true',
+        'h:x-mailgun-native-send' => 'true',
         'from'    => $from_email,
         'to'      => $email,
         'subject' => $subject,
