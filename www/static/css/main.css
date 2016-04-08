@@ -1,0 +1,10 @@
+body {
+	/*background: url('../img/background.jpg') repeat;*/
+	background: url('../img/background.jpg');
+}
+
+h1, h2, h2, h3, h4 {
+	color: #fff !important;
+	font-weight: bold;
+	text-shadow: 2px 2px 2px #000;
+}

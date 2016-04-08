@@ -1,31 +1,16 @@
 <?php
 
-require 'includes/functions.php';
-
-// $conn = App\DB\connect();
-// if ( !$conn ) die('Failed to connect to database.');
-
 session_start();
 
-if ( !is_user_logged_in() ) {
-	view_page('login');
-} else {
-	if ( isset($_GET['page']) ) {
-		$page = $_GET['page'];
-	} else {
-		$page = 'tournaments';
-	}
-		
-	view_page($page);
+require 'includes/functions.php';
+use Mailgun\Mailgun;
 
-}
+$GLOBALS['db_conn'] = App\DB\connect();
+if ( !$GLOBALS['db_conn'] ) die('Failed to connect to database.');
 
+$http_client = new \Http\Adapter\Guzzle6\Client();
+$GLOBALS['mailgun'] = new Mailgun(getenv('MAILGUN_API_KEY'), $http_client);
 
-// if user is logged, view matches
-
-
-// else, view login screen
-
-	//
-	//
-	//
+$requested_page = ( isset($_GET['page']) ? $_GET['page'] : 'standings');
+$page = set_page($requested_page);
+load_page($page);

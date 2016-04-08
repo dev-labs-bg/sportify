@@ -1,17 +1,17 @@
 <?php namespace App\DB;
 
-$config = array(
-	'username' => 'root',
-	'password' => 'P@ssw0rd',
-	'database' => 'devsportify'
-);
+//$config = array(
+//	'username' => 'root',
+//	'password' => 'P@ssw0rd',
+//	'database' => 'dev_sportify'
+//);
 
 function connect()
 {
 	try {
-		$conn = new \PDO('mysql:host=localhost;dbname=' . $config['database'],
-						$config['username'],
-						$config['password']);
+		$conn = new \PDO('mysql:host=localhost;dbname=' . getenv('DB_NAME'),
+            getenv('DB_USERNAME'),
+            getenv('DB_PASSWORD'));
 
 		$conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
@@ -21,19 +21,27 @@ function connect()
 	}
 }
 
-
 function query($query, $bindings, $conn)
 {
 	$stmt = $conn->prepare($query);
 	$stmt->execute($bindings);
+//    $stmt->setFetchMode(\PDO::FETCH_OBJ);
 
 	return ($stmt->rowCount() > 0) ? $stmt : false;
+}
+
+function get_user_id($email) {
+    $query = query(
+        "SELECT id FROM users WHERE email = :email",
+        array('email' => $email),
+        $GLOBALS['db_conn']);
+    return ($query) ? $query->fetchAll()[0]['id'] : false;
 }
 
 function get_table($tableName, $conn, $limit = 10)
 {
 		$stmt = $query("SELECT * FROM $table ORDER BY id DESC LIMIT $limit", array('table' => $tableName), $conn);
-		$stmt->setFetchMode(PDO::FETCH_OBJ);
+//		$stmt->setFetchMode(PDO::FETCH_OBJ);
 		$result = $stmt->fetchAll();
 
 		return ( $result->rowCount() > 0 ) ? $result : false;
