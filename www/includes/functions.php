@@ -7,6 +7,7 @@ define('FUNC_DIR', $_SERVER['DOCUMENT_ROOT'] . '/includes/');
 define('POINTS_OUTCOME', 1);
 define('POINTS_EXACT', 3);
 
+require 'vendor/autoload.php';
 require 'config/base.php';
 require 'db.php';
 require 'register_functions.php';
@@ -133,13 +134,6 @@ function random_string_alphanum($string_length = 15) {
     return $string;
 }
 
-function send_mail($email, $from_email, $subject, $message) {
-    $headers = 'MIME-Version: 1.0' . "\r\n";
-    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-    $headers .= 'From: ' . $from_email . "\r\n";
-    mail($email, $subject, $message, $headers);
-}
-
 function get_datetime_string($timestamp) {
     date_default_timezone_set('EET');
     return date('Y-m-d H:i:s', $timestamp);
@@ -220,4 +214,19 @@ function clear_token($email, $token_purpose) {
         "DELETE FROM tokens WHERE user_id = :user_id AND purpose = :token_purpose",
         array('user_id' => $user_id, 'token_purpose' => $token_purpose),
         $GLOBALS['db_conn']);
+}
+
+//function send_mail($email, $from_email, $subject, $message) {
+//    $headers = 'MIME-Version: 1.0' . "\r\n";
+//    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+//    $headers .= 'From: ' . $from_email . "\r\n";
+//    mail($email, $subject, $message, $headers);
+//}
+
+function send_mail($email, $from_email, $subject, $message) {
+    $GLOBALS['mailgun']->sendMessage($GLOBALS['mailgun_domain'], array(
+        'from'    => $from_email,
+        'to'      => $email,
+        'subject' => $subject,
+        'html'    => $message));
 }

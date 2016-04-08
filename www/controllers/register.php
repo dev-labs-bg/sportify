@@ -11,13 +11,12 @@ if ( is_form_submitted('register') ) {
     $password_confirm = $_POST['password_confirm'];
 
     if ( validate_reg($email, $first_name, $last_name, $password, $password_confirm, $status_message) ) {
-//        login_set($email);
-//        header("Location: index.php");
+
         $token = random_string_alphanum(30);
         token_db_insert($email, 'register_confirm', $token);
 
         $url = get_site_url() . '&token=' . $token;
-        $from_email = 'ceco@devlabs.bg';
+        $from_email = 'sportify@devlabs.bg';
         $subject = 'Sportify - user registration request at ' . get_datetime_string(time());
         $message = load_view('html_mail_token_link.php',
                             array('INFORMATIVE_TEXT','URL_TOKEN'),
