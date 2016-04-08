@@ -11,8 +11,10 @@ if ( is_form_submitted('profile_change') ) {
     $password_confirm = $_POST['password_confirm'];
 
     change_userdata($email, $first_name, $last_name);
-
-    if ( validate_password($password, $password_confirm, $status_message) ) {
+    
+    if ( empty($password) && empty($password_confirm) ) {
+        $status_message = 'You have successfully changed your profile details.';
+    } else if ( validate_password($password, $password_confirm, $status_message) ){
         change_password($email, $password);
     }
 
