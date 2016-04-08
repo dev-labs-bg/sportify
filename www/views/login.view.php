@@ -1,5 +1,9 @@
 <h1 class="page-header">LOGIN</h1>
 
+<?php if (isset($status_message)) : ?>
+	<p class="alert alert-info" role="alert"><?= $status_message ?></p>
+<?php endif; ?>
+
 <div class="panel panel-default">
 	<div class="panel-heading"><span class="glyphicon glyphicon-user"></span> Login</div>
 	<div class="panel-body">
