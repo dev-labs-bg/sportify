@@ -1,36 +1,29 @@
+<h1 class="page-header">LOGIN</h1>
 
-<p>LOGIN</p>
+<div class="panel panel-default">
+	<div class="panel-heading"><span class="glyphicon glyphicon-user"></span> Login</div>
+	<div class="panel-body">
+		<form action="" method="POST">
+			<input type="hidden" name="form_name" value="login">
+			<div class="row">
+				<div class="form-group col-sm-12">
+					<label>Email</label>
+					<input type="text" name="email" class="form-control" placeholder="email">
+				</div>
+				<div class="form-group col-sm-12">
+					<label>Password</label>
+					<br />
+					<input type="password" name="password" class="form-control" placeholder="password">
+				</div>
 
-<form action="" method="POST">
-	<ul>
-		<li><input type="hidden" name="form_name" value="login"></li>
-		<li><input type="text" name="email" placeholder="email"></li>
-		<li><input type="password" name="password" placeholder="password"></li>
-		<li><button type="submit">Sign In</button></li>
-	</ul>
-</form>
-<?php if (isset($login_status)) : ?>
-    <?= $login_status ?>
-<?php endif; ?>
-
-<p>Forgotten password? <a href="index.php?page=password_reset">Reset</a></p>
-
-
-
-<p>or create an account: </p>
-<form action="" method="GET">
-	<ul>
-		<li><input type="hidden" name="page" value="register"></li>
-		<li><button type="submit">Register</button></li>
-	</ul>
-</form>
-
-<br />
-<br />
-
-<form action="" method="GET">
-	<ul>
-		<li><input type="hidden" name="page" value="standings"></li>
-		<li><button type="submit">View Standings</button></li>
-	</ul>
-</form>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<button type="submit" class="btn btn-primary center-block">Login</button>
+					<br />
+					<p class="text-center"><a href="index.php?page=password_reset">Forgotten password?</a> or <a href="index.php?page=register">Create an account</a></p>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

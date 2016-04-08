@@ -1,52 +1,57 @@
-<h2>STANDINGS</h2>
+<h1 class="page-header">STANDINGS</h1>
 
-<?php //var_dump($data);?>
-<div class="filter">
-    <form action="" method="GET">
-        <input type="hidden" name="page" value="<?= $page ?>">
-        <div class="filter-field">
-            Tournaments:
-            <br />
-            <select name="tournament_id" width="">
-<!--                <option value="ALL">All joined</option>-->
-                <?php foreach ($data['tournaments'] as $row): ?>
-                    <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
-        <br />
-        <br />
-        <br />
-        <button type="submit">Filter</button>
-    </form>
+<div class="panel panel-default">
+    <div class="panel-heading"><span class="glyphicon glyphicon-filter"></span> Filter bar</div>
+    <div class="panel-body">
+        <form action="" method="GET">
+            <input type="hidden" name="page" value="<?= $page ?>">
+            <div class="row">
+                <div class="form-group col-sm-12">
+                    <label>Tournaments</label>
+                    <select name="tournament_id" class="form-control" width="">
+                        <?php foreach ($data['tournaments'] as $row): ?>
+                            <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <button type="submit" class="btn btn-primary center-block">Filter</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
-<br />
 
 <h4>Viewing: <?= $data['tournament_name']; ?></h4>
 
-<h5 style="width: 500px">
-    <span class="table-field-left">Pos</span>
-    <span class="table-field-center">Username</span>
-    <span class="table-field-right">Points</span>
-</h5>
-<br />
+<div class="panel panel-default">
+    <div class="panel-heading"><span class="glyphicon glyphicon-list-alt"></span> Results</div
+    <div class="panel-body">
+        <?php $position = 0; ?>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Position</th>
+                    <th>Username</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($data['standings'] as $row): ?>
+                <?php $position++; ?>
+                <tr>
+                    <td><?= $position; ?></td>
+                    <td><?= $row['email']; ?></td>
+                    <td><?= $row['points']; ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
 
-<?php $position = 0; ?>
-<div>
-    <ul>
-        <?php foreach ($data['standings'] as $row): ?>
-            <?php $position++; ?>
-            <li>
-                <span class="table-field-left"><?= $position; ?></span>
-                <span class="table-field-center"><?= $row['email']; ?></span>
-                <span class="table-field-right"><?= $row['points']; ?></span>
-            </li>
-            <br />
-            <br />
-        <?php endforeach; ?>
-    </ul>
+        <?php if ( !$data['standings'] ): ?>
+            <p>No data to display.</p>
+        <?php endif; ?>
+    </div>
 </div>
-
-<?php if ( !$data['standings'] ): ?>
-    No data to display.
-<?php endif; ?>

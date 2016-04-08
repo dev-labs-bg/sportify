@@ -7,6 +7,7 @@ define('FUNC_DIR', $_SERVER['DOCUMENT_ROOT'] . '/includes/');
 define('POINTS_OUTCOME', 1);
 define('POINTS_EXACT', 3);
 
+require 'config/base.php';
 require 'db.php';
 require 'register_functions.php';
 require 'login_functions.php';
@@ -70,8 +71,17 @@ function login_unset() {
     unset($_SESSION['email']);
 }
 
+/**
+ * Get home url
+ *
+ * @return string
+ */
+function get_home_url() {
+    return 'http://' . $_SERVER['HTTP_HOST'];
+}
+
 function get_site_url() {
-    return 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+    return get_home_url() . $_SERVER['REQUEST_URI'];
 }
 
 function is_form_submitted($form_name) {
