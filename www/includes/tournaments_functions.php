@@ -2,7 +2,7 @@
 
 function list_tournaments_joined() {
     $query = App\DB\query(
-            "SELECT tournaments.id, tournaments.name
+            "SELECT tournaments.id, tournaments.name, tournaments.start, tournaments.end
                 FROM scores
                 INNER JOIN users ON users.id = scores.user_id
                 INNER JOIN tournaments ON tournaments.id = scores.tournament_id

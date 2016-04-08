@@ -13,7 +13,6 @@
                             <th>Name</th>
                             <th>Start</th>
                             <th>End</th>
-                            <th>Participants</th>
                             <th>Leave</th>
                         </tr>
                         </thead>
@@ -21,9 +20,8 @@
                             <?php foreach ($data['joined'] as $row): ?>
                                 <tr>
                                     <td><?= $row['name'] ?></td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
+                                    <td><?= $row['start'] ?></td>
+                                    <td><?= $row['end'] ?></td>
                                     <td><input type="checkbox" name="tournaments[]" value="<?= $row['id'] ?>"></td>
                                 </tr>
                             <?php endforeach; ?>
@@ -51,17 +49,15 @@
                             <th>Name</th>
                             <th>Start</th>
                             <th>End</th>
-                            <th>Participants</th>
-                            <th>Leave</th>
+                            <th>Join</th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php foreach ($data['available'] as $row): ?>
                             <tr>
                                 <td><?= $row['name'] ?></td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
+                                <td><?= $row['start'] ?></td>
+                                <td><?= $row['end'] ?></td>
                                 <td><input type="checkbox" name="tournaments[]" value="<?= $row['id'] ?>"></td>
                             </tr>
                         <?php endforeach; ?>
