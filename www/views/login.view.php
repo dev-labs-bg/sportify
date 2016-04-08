@@ -1,7 +1,7 @@
 <h1 class="page-header">LOGIN</h1>
 
-<?php if (isset($status_message)) : ?>
-	<p class="alert alert-info" role="alert"><?= $status_message ?></p>
+<?php if (isset($login_status)) : ?>
+	<p class="alert alert-info" role="alert"><?= $login_status ?></p>
 <?php endif; ?>
 
 <div class="panel panel-default">
