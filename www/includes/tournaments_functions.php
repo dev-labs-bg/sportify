@@ -19,7 +19,7 @@ function list_tournaments_joined() {
 
 function list_tournaments_available() {
     $query = App\DB\query(
-            "SELECT tournaments.id, tournaments.name
+            "SELECT tournaments.id, tournaments.name, tournaments.start, tournaments.end
                 FROM tournaments
                 WHERE tournaments.id NOT IN
                     (SELECT scores.tournament_id
