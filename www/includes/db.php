@@ -1,17 +1,17 @@
 <?php namespace App\DB;
 
-$config = array(
-	'username' => 'root',
-	'password' => 'P@ssw0rd',
-	'database' => 'dev_sportify'
-);
+//$config = array(
+//	'username' => 'root',
+//	'password' => 'P@ssw0rd',
+//	'database' => 'dev_sportify'
+//);
 
-function connect($config)
+function connect()
 {
 	try {
-		$conn = new \PDO('mysql:host=localhost;dbname=' . $config['database'],
-						$config['username'],
-						$config['password']);
+		$conn = new \PDO('mysql:host=localhost;dbname=' . getenv('DB_NAME'),
+            getenv('DB_USERNAME'),
+            getenv('DB_PASSWORD'));
 
 		$conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 

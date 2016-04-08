@@ -13,7 +13,7 @@ function validate_reg ($email, $first_name, $last_name, $password, $password_con
 
         return false;
     } else {
-        $status_message = 'Thank you for registering.';
+        $status_message = 'Thank you for registering. A confirmation e-mail was sent to you.';
     }
 
     return true;

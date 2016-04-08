@@ -7,6 +7,8 @@ define('FUNC_DIR', $_SERVER['DOCUMENT_ROOT'] . '/includes/');
 define('POINTS_OUTCOME', 1);
 define('POINTS_EXACT', 3);
 
+require 'vendor/autoload.php';
+require 'config/base.php';
 require 'db.php';
 require 'register_functions.php';
 require 'login_functions.php';
@@ -16,6 +18,10 @@ require 'history_functions.php';
 require 'standings_functions.php';
 require 'scores_update_functions.php';
 require 'password_reset_functions.php';
+require 'profile_functions.php';
+
+$dotenv = new Dotenv\Dotenv(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'config');
+$dotenv->load();
 
 function set_page($page) {
     $all_access_pages = array('login', 'register', 'password_reset', 'password_change', 'standings');
@@ -70,8 +76,17 @@ function login_unset() {
     unset($_SESSION['email']);
 }
 
+/**
+ * Get home url
+ *
+ * @return string
+ */
+function get_home_url() {
+    return 'http://' . $_SERVER['HTTP_HOST'];
+}
+
 function get_site_url() {
-    return 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+    return get_home_url() . $_SERVER['REQUEST_URI'];
 }
 
 function is_form_submitted($form_name) {
@@ -122,16 +137,24 @@ function random_string_alphanum($string_length = 15) {
     return $string;
 }
 
-function send_mail($email, $from_email, $subject, $message) {
-    $headers = 'MIME-Version: 1.0' . "\r\n";
-    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-    $headers .= 'From: ' . $from_email . "\r\n";
-    mail($email, $subject, $message, $headers);
-}
-
 function get_datetime_string($timestamp) {
     date_default_timezone_set('EET');
     return date('Y-m-d H:i:s', $timestamp);
+}
+
+function get_userdata_by_email($email) {
+
+    $query = App\DB\query(
+        "SELECT *
+        FROM users
+        WHERE email = :email",
+        array('email' => $email),
+        $GLOBALS['db_conn']);
+
+    if ($query)
+        return $query->fetchAll()[0];
+
+    return array();
 }
 
 function token_db_insert($email, $purpose, $token) {
@@ -164,7 +187,7 @@ function get_userdata_by_token($token) {
 
 function validate_userdata_token($userdata, $purpose, &$status_message = null) {
 
-    if ( empty($userdata) || $userdata['token_purpose'] === $purpose ) {
+    if ( empty($userdata) || $userdata['token_purpose'] != $purpose ) {
         $status_message = 'Invalid token ID.';
 
         return false;
@@ -179,10 +202,10 @@ function validate_userdata_token($userdata, $purpose, &$status_message = null) {
     return true;
 }
 
-function check_token_validity($datetime, $lifetime = 1800) {
+function check_token_validity($token_datetime, $lifetime = 7200) {
     date_default_timezone_set('EET');
 
-    return ( time() - strtotime($datetime) < $lifetime )
+    return ( time() - strtotime($token_datetime) < $lifetime )
         ? true
         : false;
 }
@@ -194,4 +217,19 @@ function clear_token($email, $token_purpose) {
         "DELETE FROM tokens WHERE user_id = :user_id AND purpose = :token_purpose",
         array('user_id' => $user_id, 'token_purpose' => $token_purpose),
         $GLOBALS['db_conn']);
+}
+
+//function send_mail($email, $from_email, $subject, $message) {
+//    $headers = 'MIME-Version: 1.0' . "\r\n";
+//    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+//    $headers .= 'From: ' . $from_email . "\r\n";
+//    mail($email, $subject, $message, $headers);
+//}
+
+function send_mail($email, $from_email, $subject, $message) {
+    $GLOBALS['mailgun']->sendMessage(getenv('MAILGUN_DOMAIN'), array(
+        'from'    => $from_email,
+        'to'      => $email,
+        'subject' => $subject,
+        'html'    => $message));
 }

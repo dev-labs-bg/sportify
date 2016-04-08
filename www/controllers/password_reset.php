@@ -12,7 +12,7 @@ if ( is_form_submitted('password_reset') ) {
         token_db_insert($email, 'password_reset', $token);
 
         $url = get_site_url() . '&token=' . $token;
-        $from_email = 'ceco@devlabs.bg';
+        $from_email = 'sportify@devlabs.bg';
         $subject = 'Sportify - password reset request at ' . get_datetime_string(time());
         $message = load_view('html_mail_token_link.php',
                             array('INFORMATIVE_TEXT','URL_TOKEN'),
@@ -29,7 +29,7 @@ if ( is_form_submitted('password_change') ) {
     $password = $_POST['password'];
     $password_confirm = $_POST['password_confirm'];
 
-    if ( validate_password ($password, $password_confirm, $status_message) ) {
+    if ( validate_password($password, $password_confirm, $status_message) ) {
         change_password($email, $password);
         clear_token($email, $_POST['token_purpose']);
         header("Location: index.php?page=login");
