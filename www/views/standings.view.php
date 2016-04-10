@@ -43,7 +43,7 @@
                 <?php $position++; ?>
                 <tr>
                     <td><?= $position; ?></td>
-                    <td><?= $row['email']; ?></td>
+                    <td><a href="index.php?page=history&user=<?= $row['email']; ?>&tournament_id=<?= $row['tournament_id']; ?>"><?= $row['email']; ?></td>
                     <td><?= $row['points']; ?></td>
                 </tr>
             <?php endforeach; ?>
