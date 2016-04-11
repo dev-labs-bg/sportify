@@ -11,7 +11,7 @@
                     <select name="tournament_id" class="form-control" width="">
                         <option value="ALL">All joined</option>
                         <?php foreach ($data['tournaments'] as $row): ?>
-                            <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
+                            <option <?= $row['selected']; ?> value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
