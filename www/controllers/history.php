@@ -13,5 +13,6 @@ $tournament_id = (isset($_GET['tournament_id'])) ? $_GET['tournament_id'] : "ALL
 
 $data['tournaments'] = list_tournaments_joined();
 $data['matches'] = list_scored_matches($user_id, $tournament_id, $date_from, $date_to);
+$data['usernames'] = list_usernames();
 
 view_page($page, $data);
