@@ -7,7 +7,7 @@ $date_to = ( isset($_GET['date_to']) && !empty($_GET['date_to']) ) ? date("Y-m-d
 
 $tournament_id = (isset($_GET['tournament_id'])) ? $_GET['tournament_id'] : "5";
 
-$data['tournaments'] = list_all_tournaments();
+$data['tournaments'] = list_all_tournaments($tournament_id);
 $data['standings'] = list_standings($tournament_id);
 $data['tournament_name'] = get_tournament_name($tournament_id);
 

@@ -7,11 +7,11 @@
             <input type="hidden" name="page" value="<?= $page ?>">
             <div class="row">
                 <div class="form-group col-sm-4">
-                    <label>Tournaments</label>
+                    <label>Tournament</label>
                     <select name="tournament_id" class="form-control" width="">
                         <option value="ALL">All joined</option>
                         <?php foreach ($data['tournaments'] as $row): ?>
-                            <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
+                            <option <?= $row['selected']; ?> value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -36,13 +36,16 @@
 </div>
 
 <div class="panel panel-default">
-    <div class="panel-heading"><span class="glyphicon glyphicon-list-alt"></span> Matches</div>
+    <div class="panel-heading">
+        <span class="glyphicon glyphicon-list-alt"></span> Matches
+        <button type="submit" id="btn-bet-all" class="btn btn-success center-block">BET / UPDATE ALL</button>
+    </div>
     <div class="panel-body">
         <div class="table-responsive">
-            <table class="table table-striped">
+            <table id="matches" class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>Home Team - Away Team</th>
                         <th>Start</th>
                         <th>Status</th>
                         <th>Prediction</th>
