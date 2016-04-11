@@ -36,8 +36,9 @@
 </div>
 
 <div class="panel panel-default">
-    <div class="panel-heading"><span class="glyphicon glyphicon-list-alt"></span> Matches
-        <button type="submit" id="btn-bet-all" class="btn btn-success">BET / UPDATE ALL</button>
+    <div class="panel-heading">
+        <span class="glyphicon glyphicon-list-alt"></span> Matches
+        <button type="submit" id="btn-bet-all" class="btn btn-success center-block">BET / UPDATE ALL</button>
     </div>
     <div class="panel-body">
         <div class="table-responsive">
