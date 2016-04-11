@@ -7,7 +7,7 @@
             <input type="hidden" name="page" value="<?= $page ?>">
             <div class="row">
                 <div class="form-group col-sm-4">
-                    <label>Tournaments</label>
+                    <label>Tournament</label>
                     <select name="tournament_id" class="form-control" width="">
                         <option value="ALL">All joined</option>
                         <?php foreach ($data['tournaments'] as $row): ?>
