@@ -36,13 +36,15 @@
 </div>
 
 <div class="panel panel-default">
-    <div class="panel-heading"><span class="glyphicon glyphicon-list-alt"></span> Matches</div>
+    <div class="panel-heading"><span class="glyphicon glyphicon-list-alt"></span> Matches
+        <button type="submit" id="btn-bet-all" class="btn btn-success">BET / UPDATE ALL</button>
+    </div>
     <div class="panel-body">
         <div class="table-responsive">
-            <table class="table table-striped">
+            <table id="matches" class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>Home Team - Away Team</th>
                         <th>Start</th>
                         <th>Status</th>
                         <th>Prediction</th>

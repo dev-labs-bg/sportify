@@ -47,7 +47,7 @@
         <table class="table">
             <thead>
             <tr>
-                <th>Name</th>
+                <th>Home Team - Away Team</th>
                 <th>Start</th>
                 <th>Prediction</th>
                 <th>Result</th>
