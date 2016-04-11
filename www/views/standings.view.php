@@ -10,7 +10,7 @@
                     <label>Tournaments</label>
                     <select name="tournament_id" class="form-control" width="">
                         <?php foreach ($data['tournaments'] as $row): ?>
-                            <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
+                            <option <?= $row['selected']; ?> value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>

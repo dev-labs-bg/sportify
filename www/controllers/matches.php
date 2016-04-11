@@ -21,7 +21,7 @@ $date_to = set_date_end($_GET['date_to'], 86400);
 
 $tournament_id = (isset($_GET['tournament_id'])) ? $_GET['tournament_id'] : "ALL";
 
-$data['tournaments'] = list_tournaments_joined();
+$data['tournaments'] = list_tournaments_joined($tournament_id);
 $data['matches'] = list_matches($user_id, $tournament_id, $date_from, $date_to);
 
 view_page($page, $data);
