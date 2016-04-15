@@ -30,3 +30,28 @@ function list_scored_matches($user_id, $tournament_id, $date_from, $date_to) {
     return array();
 
 }
+
+function list_usernames($email = "") {
+    $query = App\DB\query(
+        "SELECT id, email FROM users WHERE confirmed = 1",
+        array(),
+        $GLOBALS['db_conn']);
+
+    if ($query) {
+        $result = $query->fetchAll();
+
+        // set selected flag for selected user
+        foreach ($result as &$row) {
+
+            if ( $row['email'] == $email ) {
+                $row['selected'] = "selected";
+            } else {
+                $row['selected'] = "";
+            }
+        }
+
+        return $result;
+    } else {
+        return false;
+    }
+}
