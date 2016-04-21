@@ -44,29 +44,30 @@
 <div class="panel panel-default">
     <div class="panel-heading"><span class="glyphicon glyphicon-list-alt"></span> Results</div>
     <div class="panel-body">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Home Team - Away Team</th>
-                <th>Start</th>
-                <th>Prediction</th>
-                <th>Result</th>
-                <th>Points gained</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($data['matches'] as $row): ?>
-                <tr class="<?= $GLOBALS['base_config']['points_css_class'][$row['points']] ?>" >
-                    <td><?=  $row['home_team'] . ' - ' . $row['away_team']?></td>
-                    <td><?= $row['datetime'] ?></td>
-                    <td><?= $row['p_home_goals'] . ' : ' . $row['p_away_goals'] ?></td>
-                    <td><?= $row['m_home_goals'] . ' : ' . $row['m_away_goals'] ?></td>
-                    <td><?= $row['points'] ?></td>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Home Team - Away Team</th>
+                    <th>Start</th>
+                    <th>Prediction</th>
+                    <th>Result</th>
+                    <th>Points gained</th>
                 </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
-
+                </thead>
+                <tbody>
+                <?php foreach ($data['matches'] as $row): ?>
+                    <tr class="<?= $GLOBALS['base_config']['points_css_class'][$row['points']] ?>" >
+                        <td><?=  $row['home_team'] . ' - ' . $row['away_team']?></td>
+                        <td><?= $row['datetime'] ?></td>
+                        <td><?= $row['p_home_goals'] . ' : ' . $row['p_away_goals'] ?></td>
+                        <td><?= $row['m_home_goals'] . ' : ' . $row['m_away_goals'] ?></td>
+                        <td><?= $row['points'] ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
         <?php if ( !$data['matches'] ): ?>
             <p>No matches to display.</p>
         <?php endif; ?>

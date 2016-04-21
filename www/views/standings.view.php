@@ -31,28 +31,29 @@
     <div class="panel-heading"><span class="glyphicon glyphicon-list-alt"></span> Results</div
     <div class="panel-body">
         <?php $position = 0; ?>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Position</th>
-                    <th>Username</th>
-                    <th>History</th>
-                    <th>Points</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($data['standings'] as $row): ?>
-                <?php $position++; ?>
-                <tr>
-                    <td><?= $position; ?></td>
-                    <td><?= $row['email']; ?></td>
-                    <td><a href="index.php?page=history&username=<?= htmlspecialchars($row['email']); ?>&tournament_id=<?= htmlspecialchars($row['tournament_id']); ?>">View</a></td>
-                    <td><?= $row['points']; ?></td>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
-
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Position</th>
+                        <th>Username</th>
+                        <th>History</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($data['standings'] as $row): ?>
+                    <?php $position++; ?>
+                    <tr>
+                        <td><?= $position; ?></td>
+                        <td><?= $row['email']; ?></td>
+                        <td><a href="index.php?page=history&username=<?= htmlspecialchars($row['email']); ?>&tournament_id=<?= htmlspecialchars($row['tournament_id']); ?>">View</a></td>
+                        <td><?= $row['points']; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
         <?php if ( !$data['standings'] ): ?>
             <p>No data to display.</p>
         <?php endif; ?>
