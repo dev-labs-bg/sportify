@@ -1,6 +1,6 @@
 <?php
 
-function list_tournaments_joined() {
+function list_tournaments_joined($tournament_id = "ALL") {
     $query = App\DB\query(
             "SELECT tournaments.id, tournaments.name, tournaments.start, tournaments.end
                 FROM scores
@@ -11,13 +11,25 @@ function list_tournaments_joined() {
             $GLOBALS['db_conn']);
 
     if ($query) {
-        return $query->fetchAll();
+        $result = $query->fetchAll();
+
+        // set selected flag for selected tournament
+        foreach ($result as &$row) {
+
+            if ( $row['id'] == $tournament_id ) {
+                $row['selected'] = "selected";
+            } else {
+                $row['selected'] = "";
+            }
+        }
+
+        return $result;
     } else {
         return false;
     }
 }
 
-function list_tournaments_available() {
+function list_tournaments_available($tournament_id = "ALL") {
     $query = App\DB\query(
             "SELECT tournaments.id, tournaments.name, tournaments.start, tournaments.end
                 FROM tournaments
@@ -30,7 +42,19 @@ function list_tournaments_available() {
             $GLOBALS['db_conn']);
 
     if ($query) {
-        return $query->fetchAll();
+        $result = $query->fetchAll();
+
+        // set selected flag for selected tournament
+        foreach ($result as &$row) {
+
+            if ( $row['id'] == $tournament_id ) {
+                $row['selected'] = "selected";
+            } else {
+                $row['selected'] = "";
+            }
+        }
+
+        return $result;
     } else {
         return false;
     }

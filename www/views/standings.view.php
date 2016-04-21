@@ -7,10 +7,10 @@
             <input type="hidden" name="page" value="<?= $page ?>">
             <div class="row">
                 <div class="form-group col-sm-12">
-                    <label>Tournaments</label>
+                    <label>Tournament</label>
                     <select name="tournament_id" class="form-control" width="">
                         <?php foreach ($data['tournaments'] as $row): ?>
-                            <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
+                            <option <?= $row['selected']; ?> value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -24,7 +24,8 @@
     </div>
 </div>
 
-<h4>Viewing: <?= $data['tournament_name']; ?></h4>
+
+<h4><?= $data['tournament_name']; ?></h4>
 
 <div class="panel panel-default">
     <div class="panel-heading"><span class="glyphicon glyphicon-list-alt"></span> Results</div
@@ -35,6 +36,7 @@
                 <tr>
                     <th>Position</th>
                     <th>Username</th>
+                    <th>History</th>
                     <th>Points</th>
                 </tr>
             </thead>
@@ -44,6 +46,7 @@
                 <tr>
                     <td><?= $position; ?></td>
                     <td><?= $row['email']; ?></td>
+                    <td><a href="index.php?page=history&username=<?= htmlspecialchars($row['email']); ?>&tournament_id=<?= htmlspecialchars($row['tournament_id']); ?>">View</a></td>
                     <td><?= $row['points']; ?></td>
                 </tr>
             <?php endforeach; ?>
