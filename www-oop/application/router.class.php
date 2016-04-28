@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Class Router
+ * Class router
  */
-class Router
+class router
 {
-	public function load_controller($data)
+	public function set_page()
     {
-		require (CTRL_DIR . $data['page'] . '.php');
+		return (isset($_GET['page'])) ? $_GET['page'] : 'standings';
 	}
 }

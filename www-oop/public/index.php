@@ -3,7 +3,8 @@
 $user = new User;
 
 $data['login_status'] = UserAuth::is_logged_in();
-$data['page'] = (isset($_GET['page']) ? $_GET['page'] : 'standings');
 
-$router = new Router();
-$router->load_controller($data);
+$router = new router();
+$data['page'] = $router->set_page();
+
+$controller = new ${data['page']}Controller();
