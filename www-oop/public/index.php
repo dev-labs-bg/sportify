@@ -8,8 +8,15 @@ session_start();
 
 require '../vendor/autoload.php';
 require '../config/base.php';
+require '../application/database.class.php';
 require '../application/router.class.php';
-require '../application/controller.class.php';
+require '../application/abstractController.class.php';
+require '../application/registerController.class.php';
+use Mailgun\Mailgun;
+
+function get_home_url() {
+    return 'http://' . $_SERVER['HTTP_HOST'];
+}
 
 $dotenv = new Dotenv\Dotenv(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'config');
 $dotenv->load();
@@ -27,4 +34,7 @@ $action = $router->get_action();
 
 $response = $controller->$action();
 
-//echo $response;
+echo $response;
+
+$query = $GLOBALS['db']->query("SELECT * FROM users", array());
+echo $query->fetchAll();
