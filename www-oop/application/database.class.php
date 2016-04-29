@@ -23,6 +23,10 @@ class database
         $stmt->execute($bindings);
         //    $stmt->setFetchMode(\PDO::FETCH_OBJ);
 
-        return ($stmt->rowCount() > 0) ? $stmt : false;
+        if ($stmt->rowCount() > 0) {
+            return $stmt->fetchAll();
+        }
+
+        return array();
     }
 }

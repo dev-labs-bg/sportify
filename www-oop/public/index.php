@@ -36,5 +36,7 @@ $response = $controller->$action();
 
 echo $response;
 
-$query = $GLOBALS['db']->query("SELECT * FROM users", array());
-echo $query->fetchAll();
+//$result = $GLOBALS['db']->query("SELECT * FROM users", array());
+//foreach ($result as $row) {
+//    echo '<p>' . $row['id'] . '</p>';
+//}
