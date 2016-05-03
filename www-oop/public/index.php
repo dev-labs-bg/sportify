@@ -18,6 +18,9 @@ function get_home_url() {
     return 'http://' . $_SERVER['HTTP_HOST'];
 }
 
+/**
+ * Get environment variables
+ */
 $dotenv = new Dotenv\Dotenv(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'config');
 $dotenv->load();
 
