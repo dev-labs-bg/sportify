@@ -9,7 +9,7 @@ class router
      *
      * @return mixed
      */
-    public function get_controller()
+    public function getController()
     {
         $controller = (isset($_GET['page'])) ? $_GET['page'] : 'standings';
         $controllerClass = $controller . 'Controller';
@@ -20,7 +20,7 @@ class router
     /**
      * @return string
      */
-    public function get_action()
+    public function getAction()
     {
         return (isset($_GET['action'])) ? $_GET['action'] : 'index';
     }

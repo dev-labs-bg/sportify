@@ -24,7 +24,7 @@ function get_home_url() {
 }
 
 /**
- * Get environment variables
+ * Initializer Dotenv for dynamically getting environment variables
  */
 $dotenv = new Dotenv\Dotenv(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'config');
 $dotenv->load();
@@ -46,8 +46,8 @@ $GLOBALS['mailgun'] = new Mailgun(getenv('MAILGUN_API_KEY'), $http_client);
  * Initialize router and invoke controller
  */
 $router = new router();
-$controller = $router->get_controller();
-$action = $router->get_action();
+$controller = $router->getController();
+$action = $router->getAction();
 
 $response = $controller->$action();
 
