@@ -7,11 +7,3 @@ class registerController extends abstractController
         return 'Register Index';
     }
 }
-
-class standingsController extends abstractController
-{
-    public function index()
-    {
-        return 'Standings Index';
-    }
-}
