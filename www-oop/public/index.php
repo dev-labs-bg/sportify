@@ -2,33 +2,11 @@
 
 session_start();
 
-//$user = new User;
-
-//$data['login_status'] = UserAuth::is_logged_in();
-
-require '../vendor/autoload.php';
-require '../config/base.php';
-require '../application/database.class.php';
-require '../application/router.class.php';
-require '../application/abstractController.class.php';
-require '../application/registerController.class.php';
-require '../application/loginController.class.php';
-require '../application/standingsController.class.php';
-require '../application/matchesController.class.php';
-require '../application/tournamentsController.class.php';
-require '../application/historyController.class.php';
-require '../application/userAuth.class.php';
+require '../include/init.php';
 use Mailgun\Mailgun;
 
-function get_home_url() {
-    return 'http://' . $_SERVER['HTTP_HOST'];
-}
-
-/**
- * Initializer Dotenv for dynamically getting environment variables
- */
-$dotenv = new Dotenv\Dotenv(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'config');
-$dotenv->load();
+//$user = new User;
+//$data['login_status'] = UserAuth::is_logged_in();
 
 /**
  * Initialize database connection
