@@ -4,6 +4,6 @@ class standingsController extends abstractController
 {
     public function index()
     {
-        return 'Standings Index';
+        return new view('standings');
     }
 }

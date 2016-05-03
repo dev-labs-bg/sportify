@@ -24,3 +24,11 @@ require '../application/userAuth.class.php';
  */
 $dotenv = new Dotenv\Dotenv(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'config');
 $dotenv->load();
+
+function form_prev_value($item) {
+    if ( !empty($_POST[$item]) ) {
+        return htmlspecialchars($_POST[$item]);
+    }
+
+    return '';
+}
