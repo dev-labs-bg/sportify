@@ -16,6 +16,7 @@ require '../application/standingsController.class.php';
 require '../application/matchesController.class.php';
 require '../application/tournamentsController.class.php';
 require '../application/historyController.class.php';
+require '../application/view.class.php';
 require '../application/userAuth.class.php';
 
 /**
