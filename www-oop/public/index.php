@@ -29,13 +29,22 @@ function get_home_url() {
 $dotenv = new Dotenv\Dotenv(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'config');
 $dotenv->load();
 
+/**
+ * Initialize database connection
+ */
 $GLOBALS['db'] = new devlabs\app\database();
 $GLOBALS['db']->connect(getenv('DB_NAME'), getenv('DB_USERNAME'), getenv('DB_PASSWORD'));
 if (!$GLOBALS['db']->connection) die('Failed to connect to database.');
 
+/**
+ * Setup mailgun
+ */
 $http_client = new \Http\Adapter\Guzzle6\Client();
 $GLOBALS['mailgun'] = new Mailgun(getenv('MAILGUN_API_KEY'), $http_client);
 
+/**
+ * Initialize router and invoke controller
+ */
 $router = new router();
 $controller = $router->get_controller();
 $action = $router->get_action();
