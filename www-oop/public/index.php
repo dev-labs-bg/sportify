@@ -17,6 +17,7 @@ require '../application/standingsController.class.php';
 require '../application/matchesController.class.php';
 require '../application/tournamentsController.class.php';
 require '../application/historyController.class.php';
+require '../application/userAuth.class.php';
 use Mailgun\Mailgun;
 
 function get_home_url() {
@@ -24,7 +25,7 @@ function get_home_url() {
 }
 
 /**
- * Get environment variables
+ * Initializer Dotenv for dynamically getting environment variables
  */
 $dotenv = new Dotenv\Dotenv(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'config');
 $dotenv->load();
@@ -37,7 +38,7 @@ $GLOBALS['db']->connect(getenv('DB_NAME'), getenv('DB_USERNAME'), getenv('DB_PAS
 if (!$GLOBALS['db']->connection) die('Failed to connect to database.');
 
 /**
- * Setup mailgun
+ * Setup Mailgun for sending e-mails to the users
  */
 $http_client = new \Http\Adapter\Guzzle6\Client();
 $GLOBALS['mailgun'] = new Mailgun(getenv('MAILGUN_API_KEY'), $http_client);
@@ -46,8 +47,8 @@ $GLOBALS['mailgun'] = new Mailgun(getenv('MAILGUN_API_KEY'), $http_client);
  * Initialize router and invoke controller
  */
 $router = new router();
-$controller = $router->get_controller();
-$action = $router->get_action();
+$controller = $router->getController();
+$action = $router->getAction();
 
 $response = $controller->$action();
 
