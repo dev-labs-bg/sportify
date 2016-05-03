@@ -5,9 +5,6 @@ session_start();
 require '../include/init.php';
 use Mailgun\Mailgun;
 
-//$user = new User;
-//$data['login_status'] = UserAuth::is_logged_in();
-
 /**
  * Initialize database connection
  */
@@ -28,9 +25,13 @@ $router = new router();
 $controller = $router->getController();
 $action = $router->getAction();
 
-$response = $controller->$action();
+/**
+ * Create and load the view
+ */
+$view = $controller->$action();
+$view->load();
 
-echo $response;
+//echo $response;
 
 //$result = $GLOBALS['db']->query("SELECT * FROM users", array());
 //foreach ($result as $row) {
