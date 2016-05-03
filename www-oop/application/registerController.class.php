@@ -15,11 +15,3 @@ class standingsController extends abstractController
         return 'Standings Index';
     }
 }
-
-class standingsController extends abstractController
-{
-    public function index()
-    {
-        return 'Standings Index';
-    }
-}
