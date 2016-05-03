@@ -14,7 +14,7 @@ class router
         $controller = (isset($_GET['page'])) ? $_GET['page'] : 'standings';
         $controllerClass = $controller . 'Controller';
 
-		return new $controllerClass($controller, false);
+		return new $controllerClass($controller, \devlabs\app\userAuth::loginStatus());
 	}
 
     /**
