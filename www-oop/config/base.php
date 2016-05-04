@@ -13,6 +13,15 @@ $base_config = array(
 );
 
 /**
+ * Get base host url
+ *
+ * @return string
+ */
+function get_home_url() {
+	return 'http://' . $_SERVER['HTTP_HOST'];
+}
+
+/**
  * Get static dir url
  *
  * @return string

@@ -4,6 +4,6 @@ class loginController extends abstractController
 {
     public function index()
     {
-        return 'Login Index';
+        return new view('login');
     }
 }
