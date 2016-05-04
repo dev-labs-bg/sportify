@@ -1,5 +1,7 @@
 <?php
 
+namespace devlabs\app;
+
 /**
  * Class view
  */
@@ -8,7 +10,7 @@ class view
     /**
      * Property for keeping the page template to be loaded
      *
-     * @var
+     * @var string
      */
     private $page;
 
