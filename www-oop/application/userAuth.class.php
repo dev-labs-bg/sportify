@@ -13,7 +13,8 @@ class UserAuth
      *
      * @return bool
      */
-    public static function getLoginStatus() {
+    public static function getLoginStatus()
+    {
         return isset($_SESSION['email']);
     }
 
@@ -22,33 +23,35 @@ class UserAuth
      *
      * @param $email
      */
-    public static function setLogin($email) {
+    public static function setLogin($email)
+    {
         $_SESSION['email'] = $email;
     }
 
     /**
      * Unset login in the _SESSION variable
      */
-    public static function unsetLogin() {
+    public static function unsetLogin()
+    {
         unset($_SESSION['email']);
         session_destroy();
     }
 
 
-    public static function validateLogin($email, $password, &$login_status = null)
+    public static function validateLogin($email, $password, &$status_message = null)
     {
         $is_data_invalid = (empty($email) || empty($password));
 
         if ($is_data_invalid) {
-            $login_status = 'Please provide both email and password.';
+            $status_message = 'Please provide both email and password.';
 
             return false;
         } else if (!self::checkUsernamePassword($email, $password)) {
-            $login_status = 'Incorrect username or password.';
+            $status_message = 'Incorrect username or password.';
 
             return false;
         } else {
-            $login_status = 'Thank you for logging in.';
+            $status_message = 'Thank you for logging in.';
         }
 
         return true;
