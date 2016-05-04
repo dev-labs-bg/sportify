@@ -40,7 +40,7 @@ class router
     {
         $controllerClass = 'devlabs\app\\' . $this->controller . 'Controller';
 
-		return new $controllerClass($this->controller, userAuth::loginStatus());
+		return new $controllerClass($this->controller, userAuth::getLoginStatus());
 	}
 
     /**

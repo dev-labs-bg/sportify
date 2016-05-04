@@ -13,7 +13,7 @@ class userAuth
      *
      * @return bool
      */
-    public static function loginStatus() {
+    public static function getLoginStatus() {
         return isset($_SESSION['email']);
     }
 

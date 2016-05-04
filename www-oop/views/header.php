@@ -28,7 +28,7 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="index.php">Home</a></li>
-                    <?php if (\devlabs\app\userAuth::loginStatus()): ?>
+                    <?php if (\devlabs\app\userAuth::getLoginStatus()): ?>
                         <li class="visible-xs"><a href="index.php?page=tournaments">Tournaments</a></li>
                         <li class="visible-xs"><a href="index.php?page=matches">Matches</a></li>
                         <li class="visible-xs"><a href="index.php?page=history">History</a></li>
@@ -47,7 +47,7 @@
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
-                    <?php if (\devlabs\app\userAuth::loginStatus()): ?>
+                    <?php if (\devlabs\app\userAuth::getLoginStatus()): ?>
                         <li><a href="index.php?page=tournaments">Tournaments</a></li>
                         <li><a href="index.php?page=matches">Matches</a></li>
                         <li><a href="index.php?page=history">History</a></li>
