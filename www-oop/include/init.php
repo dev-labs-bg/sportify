@@ -12,6 +12,7 @@ require '../application/router.class.php';
 require '../application/abstractController.class.php';
 require '../application/registerController.class.php';
 require '../application/loginController.class.php';
+require '../application/logoutController.class.php';
 require '../application/standingsController.class.php';
 require '../application/matchesController.class.php';
 require '../application/tournamentsController.class.php';

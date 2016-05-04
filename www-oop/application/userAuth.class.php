@@ -31,6 +31,7 @@ class userAuth
      */
     public static function unsetLogin() {
         unset($_SESSION['email']);
+        session_destroy();
     }
 
 
