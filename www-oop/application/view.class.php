@@ -1,11 +1,11 @@
 <?php
 
-namespace devlabs\app;
+namespace Devlabs\App;
 
 /**
  * Class view
  */
-class view
+class View
 {
     /**
      * Property for keeping the page template to be loaded

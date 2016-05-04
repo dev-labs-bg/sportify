@@ -1,8 +1,8 @@
 <?php
 
-namespace devlabs\app;
+namespace Devlabs\App;
 
-class historyController extends abstractController
+class HistoryController extends AbstractController
 {
     public function index()
     {

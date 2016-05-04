@@ -8,7 +8,7 @@ use Mailgun\Mailgun;
 /**
  * Initialize database connection
  */
-$GLOBALS['db'] = new devlabs\app\database();
+$GLOBALS['db'] = new Devlabs\App\Database();
 $GLOBALS['db']->connect(getenv('DB_NAME'), getenv('DB_USERNAME'), getenv('DB_PASSWORD'));
 if (!$GLOBALS['db']->connection) die('Failed to connect to database.');
 
@@ -21,7 +21,7 @@ $GLOBALS['mailgun'] = new Mailgun(getenv('MAILGUN_API_KEY'), $http_client);
 /**
  * Initialize router and invoke controller
  */
-$router = new devlabs\app\router();
+$router = new Devlabs\App\Router();
 $controller = $router->getController();
 $action = $router->getAction();
 

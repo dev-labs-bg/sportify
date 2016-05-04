@@ -7,18 +7,18 @@ define('POINTS_EXACT', 3);
 
 require '../vendor/autoload.php';
 require '../config/base.php';
-require '../application/database.class.php';
-require '../application/router.class.php';
-require '../application/abstractController.class.php';
-require '../application/registerController.class.php';
-require '../application/loginController.class.php';
-require '../application/logoutController.class.php';
-require '../application/standingsController.class.php';
-require '../application/matchesController.class.php';
-require '../application/tournamentsController.class.php';
-require '../application/historyController.class.php';
-require '../application/view.class.php';
-require '../application/userAuth.class.php';
+require '../application/Database.class.php';
+require '../application/Router.class.php';
+require '../application/AbstractController.class.php';
+require '../application/RegisterController.class.php';
+require '../application/LoginController.class.php';
+require '../application/LogoutController.class.php';
+require '../application/StandingsController.class.php';
+require '../application/MatchesController.class.php';
+require '../application/TournamentsController.class.php';
+require '../application/HistoryController.class.php';
+require '../application/View.class.php';
+require '../application/UserAuth.class.php';
 
 /**
  * Initialize Dotenv for dynamically getting environment variables

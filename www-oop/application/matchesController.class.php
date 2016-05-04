@@ -1,8 +1,8 @@
 <?php
 
-namespace devlabs\app;
+namespace Devlabs\App;
 
-class matchesController extends abstractController
+class MatchesController extends AbstractController
 {
     public function index()
     {

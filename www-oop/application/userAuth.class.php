@@ -1,12 +1,12 @@
 <?php
 
-namespace devlabs\app;
+namespace Devlabs\App;
 
 /**
  * Class userAuth
  * @package devlabs\app
  */
-class userAuth
+class UserAuth
 {
     /**
      * Check user is logged in

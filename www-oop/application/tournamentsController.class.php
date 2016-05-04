@@ -1,8 +1,8 @@
 <?php
 
-namespace devlabs\app;
+namespace Devlabs\App;
 
-class tournamentsController extends abstractController
+class TournamentsController extends AbstractController
 {
     public function index()
     {

@@ -1,8 +1,8 @@
 <?php
 
-namespace devlabs\app;
+namespace Devlabs\App;
 
-class standingsController extends abstractController
+class StandingsController extends AbstractController
 {
     public function index()
     {

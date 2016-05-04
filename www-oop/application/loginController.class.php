@@ -1,12 +1,12 @@
 <?php
 
-namespace devlabs\app;
+namespace Devlabs\App;
 
 /**
  * Class loginController
  * @package devlabs\app
  */
-class loginController extends abstractController
+class LoginController extends AbstractController
 {
     /**
      * Default action method for rendering the login page logic
@@ -23,7 +23,7 @@ class loginController extends abstractController
         /**
          * Redirect to home page if user is already logged in and tries to access the login page
          */
-        if (userAuth::getLoginStatus()) {
+        if (UserAuth::getLoginStatus()) {
             header("Location: index.php");
         }
 
@@ -38,8 +38,8 @@ class loginController extends abstractController
              * If user input's e-mail and password are valid,
              * setup user's session and redirect to the home page
              */
-            if (userAuth::validateLogin($email, $password, $login_status)) {
-                userAuth::setLogin($email);
+            if (UserAuth::validateLogin($email, $password, $login_status)) {
+                UserAuth::setLogin($email);
                 header("Location: index.php");
             }
 
@@ -49,6 +49,6 @@ class loginController extends abstractController
             $data = array('login_status' => $login_status);
         }
 
-        return new view('login', $data);
+        return new View('login', $data);
     }
 }
