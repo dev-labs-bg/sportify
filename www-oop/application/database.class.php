@@ -1,12 +1,11 @@
 <?php
 
+namespace devlabs\app;
+
 /**
  * Class database
  * @package devlabs\app
  */
-
-namespace devlabs\app;
-
 class database
 {
     /**

@@ -1,5 +1,7 @@
 <?php
 
+namespace devlabs\app;
+
 /**
  * Class router
  */
@@ -12,9 +14,9 @@ class router
     public function getController()
     {
         $controller = (isset($_GET['page'])) ? $_GET['page'] : 'standings';
-        $controllerClass = $controller . 'Controller';
+        $controllerClass = 'devlabs\app\\' . $controller . 'Controller';
 
-		return new $controllerClass($controller, \devlabs\app\userAuth::loginStatus());
+		return new $controllerClass($controller, userAuth::loginStatus());
 	}
 
     /**

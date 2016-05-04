@@ -1,5 +1,7 @@
 <?php
 
+namespace devlabs\app;
+
 /**
  * Class view
  */

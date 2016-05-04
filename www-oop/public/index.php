@@ -21,7 +21,7 @@ $GLOBALS['mailgun'] = new Mailgun(getenv('MAILGUN_API_KEY'), $http_client);
 /**
  * Initialize router and invoke controller
  */
-$router = new router();
+$router = new devlabs\app\router();
 $controller = $router->getController();
 $action = $router->getAction();
 
