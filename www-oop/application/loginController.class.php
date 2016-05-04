@@ -21,6 +21,13 @@ class loginController extends abstractController
         $data = array();
 
         /**
+         * Redirect to home page if user is already logged in and tries to access the login page
+         */
+        if (userAuth::getLoginStatus()) {
+            header("Location: index.php");
+        }
+
+        /**
          * Check if 'form_name' with value 'login' has been submitted
          */
         if (isFormSubmitted('login')) {
