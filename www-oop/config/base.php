@@ -2,9 +2,9 @@
 
 // Store all config values here
 $base_config = array(
-	'css_path'         => get_css_url(),
-	'js_path'          => get_js_url(),
-	'img_path'         => get_img_url(),
+	'css_path'         => getCssUrl(),
+	'js_path'          => getJsUrl(),
+	'img_path'         => getImgUrl(),
 	'points_css_class' => array(
 		0 => 'danger',
 		1 => 'warning',
@@ -17,8 +17,17 @@ $base_config = array(
  *
  * @return string
  */
-function get_home_url() {
+function getHomeUrl() {
 	return 'http://' . $_SERVER['HTTP_HOST'];
+}
+
+/**
+ * Get full site url
+ *
+ * @return string
+ */
+function getSiteUrl() {
+    return getHomeUrl() . $_SERVER['REQUEST_URI'];
 }
 
 /**
@@ -26,8 +35,8 @@ function get_home_url() {
  *
  * @return string
  */
-function get_static_url() {
-	return get_home_url() . '/static/';
+function getStaticUrl() {
+	return getHomeUrl() . '/static/';
 }
 
 /**
@@ -35,8 +44,8 @@ function get_static_url() {
  *
  * @return string
  */
-function get_css_url() {
-	return get_static_url() . 'css/';
+function getCssUrl() {
+	return getStaticUrl() . 'css/';
 }
 
 /**
@@ -44,8 +53,8 @@ function get_css_url() {
  *
  * @return string
  */
-function get_js_url() {
-	return get_static_url() . 'js/';
+function getJsUrl() {
+	return getStaticUrl() . 'js/';
 }
 
 /**
@@ -53,6 +62,6 @@ function get_js_url() {
  *
  * @return string
  */
-function get_img_url() {
-	return get_static_url() . 'img/';
+function getImgUrl() {
+	return getStaticUrl() . 'img/';
 }
