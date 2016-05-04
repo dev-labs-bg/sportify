@@ -10,7 +10,7 @@ class view
     /**
      * Property for keeping the page template to be loaded
      *
-     * @var
+     * @var string
      */
     private $page;
 
