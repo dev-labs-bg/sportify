@@ -3,7 +3,7 @@
 namespace Devlabs\App;
 
 /**
- * Class userAuth
+ * Class UserAuth
  * @package devlabs\app
  */
 class UserAuth

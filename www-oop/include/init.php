@@ -30,17 +30,3 @@ require '../application/UserAuth.class.php';
  */
 $dotenv = new Dotenv\Dotenv(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'config');
 $dotenv->load();
-
-function form_prev_value($item)
-{
-    if ( !empty($_POST[$item]) ) {
-        return htmlspecialchars($_POST[$item]);
-    }
-
-    return '';
-}
-
-function isFormSubmitted($form_name)
-{
-    return isset($_POST['form_name']) && $_POST['form_name'] === $form_name;
-}

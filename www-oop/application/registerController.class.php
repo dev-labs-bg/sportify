@@ -22,7 +22,7 @@ class RegisterController extends AbstractController
 
         $user = new User();
 
-        if (isFormSubmitted('register')) {
+        if (SysHelper::isFormSubmitted('register')) {
             $user->email = trim($_POST['email']);
             $user->firstName = $_POST['first_name'];
             $user->lastName = $_POST['last_name'];
