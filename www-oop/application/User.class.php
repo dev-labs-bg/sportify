@@ -17,6 +17,46 @@ class User
     private $passwordHash;
 
     /**
+     * Load user data from database by passing an email address
+     *
+     * @param $email
+     */
+    public function loadByEmail($email)
+    {
+        $query = $GLOBALS['db']->query(
+            "SELECT * FROM users WHERE email = :email",
+            array('email' => $email)
+        );
+
+        if ($query) {
+            $this->id = $query[0]['id'];
+            $this->firstName = $query[0]['first_name'];
+            $this->lastName = $query[0]['last_name'];
+            $this->email = $query[0]['email'];
+        }
+    }
+
+    /**
+     * Load user data from database by passing a token
+     *
+     * @param Token $token
+     */
+    public function loadByToken(Token $token)
+    {
+        $query = $GLOBALS['db']->query(
+            "SELECT * FROM users JOIN tokens ON tokens.user_id = users.id AND tokens.value = :token_value",
+            array('token_value' => $token->value)
+        );
+
+        if ($query) {
+            $this->id = $query[0]['id'];
+            $this->firstName = $query[0]['first_name'];
+            $this->lastName = $query[0]['last_name'];
+            $this->email = $query[0]['email'];
+        }
+    }
+
+    /**
      * Method for adding a new user into the database
      *
      * @return mixed
