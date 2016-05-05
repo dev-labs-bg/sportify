@@ -1,11 +1,11 @@
 <?php
 
-namespace devlabs\app;
+namespace Devlabs\App;
 
 /**
  * Class ControllerAbstract
  */
-abstract class abstractController
+abstract class AbstractController
 {
 
     private $all_access_pages = array(

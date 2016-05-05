@@ -1,11 +1,11 @@
 <?php
 
-namespace devlabs\app;
+namespace Devlabs\App;
 
 /**
  * Class router
  */
-class router
+class Router
 {
     /**
      * Property for keeping the controller to be invoked
@@ -40,7 +40,7 @@ class router
     {
         $controllerClass = 'devlabs\app\\' . $this->controller . 'Controller';
 
-		return new $controllerClass($this->controller, userAuth::loginStatus());
+		return new $controllerClass($this->controller, userAuth::getLoginStatus());
 	}
 
     /**

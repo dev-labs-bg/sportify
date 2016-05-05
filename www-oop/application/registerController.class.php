@@ -1,8 +1,8 @@
 <?php
 
-namespace devlabs\app;
+namespace Devlabs\App;
 
-class registerController extends abstractController
+class RegisterController extends AbstractController
 {
     public function index()
     {

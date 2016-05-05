@@ -1,12 +1,12 @@
 <?php
 
-namespace devlabs\app;
+namespace Devlabs\App;
 
 /**
  * Class database
  * @package devlabs\app
  */
-class database
+class Database
 {
     /**
      * A property for storing the database connection object

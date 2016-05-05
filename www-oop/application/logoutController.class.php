@@ -1,12 +1,12 @@
 <?php
 
-namespace devlabs\app;
+namespace Devlabs\App;
 
 /**
  * Class logoutController
  * @package devlabs\app
  */
-class logoutController extends abstractController
+class LogoutController extends AbstractController
 {
     /**
      * Default action method for the logout logic
