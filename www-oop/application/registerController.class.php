@@ -22,6 +22,9 @@ class RegisterController extends AbstractController
 
         $user = new User();
 
+        /**
+         * Check if 'form_name' with value 'register' has been submitted
+         */
         if (SysHelper::isFormSubmitted('register')) {
             $user->email = trim($_POST['email']);
             $user->firstName = $_POST['first_name'];
@@ -29,6 +32,9 @@ class RegisterController extends AbstractController
             $user->password = $_POST['password'];
             $user->passwordConfirm = $_POST['password_confirm'];
 
+            /**
+             * Check if the inputted user data is valid for registration
+             */
             if (UserAuth::validateRegistrationData($user, $status_message)) {
                 // insert username into database
                 $user->insert();
@@ -57,20 +63,36 @@ class RegisterController extends AbstractController
             $data['status_message'] = $status_message;
         }
 
+        /**
+         * Check if there is a token item in the URL query string
+         */
         if (isset($_GET['token']) && !empty($_GET['token'])) {
             $token = new Token();
             $token->loadByValue($_GET['token']);
-            $user->loadByToken($token);
 
+            /**
+             * Check if the token in the query string is valid
+             */
             if (UserAuth::validateToken($token, 'register_confirm', $status_message)) {
+                /**
+                 * Load user data by passing in token,
+                 * set the user as confirmed in the DB,
+                 * and remove the token from the DB
+                 */
+                $user->loadByToken($token);
                 $user->setConfirmed();
                 $token->remove();
+
+                // set the status message and corresponding view
                 $status_message = 'Your user account has been successfully confirmed. You can now login.';
                 $this->view = 'register_success';
             } else {
                 $this->view = 'error';
             }
 
+            /**
+             * Store the status message in the data array which will be passed to the view
+             */
             $data['status_message'] = $status_message;
         }
 
