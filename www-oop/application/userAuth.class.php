@@ -73,14 +73,14 @@ class UserAuth
         }
     }
 
-    public static function validateRegistration (User $user, &$status_message = null) {
+    public static function validateRegistration(User $user, &$status_message = null) {
         $is_data_invalid = (
             empty($user->email) || empty($user->firstName) || empty($user->lastName) || empty($user->password) ||
             empty($user->passwordConfirm) || ! self::validEmail($user->email) ||
             ($user->password !== $user->passwordConfirm)
         );
 
-        if ( $is_data_invalid ) {
+        if ($is_data_invalid) {
             $status_message = 'Please provide a first and last names, valid email address and type in same password twice.';
 
             return false;
