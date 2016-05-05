@@ -2,6 +2,10 @@
 
 namespace Devlabs\App;
 
+/**
+ * Class RegisterController
+ * @package Devlabs\App
+ */
 class RegisterController extends AbstractController
 {
     /**
