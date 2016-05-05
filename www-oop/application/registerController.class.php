@@ -25,7 +25,7 @@ class RegisterController extends AbstractController
             $user->password = $_POST['password'];
             $user->passwordConfirm = $_POST['password_confirm'];
 
-            if (UserAuth::validateRegistration($user, $status_message)) {
+            if (UserAuth::validateRegistrationData($user, $status_message)) {
                 // insert username into database
                 $user->add();
 

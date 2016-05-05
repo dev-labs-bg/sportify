@@ -40,7 +40,7 @@ class LoginController extends AbstractController
              * If user input's e-mail and password are valid,
              * setup user's session and redirect to the home page
              */
-            if (UserAuth::validateLogin($user, $status_message)) {
+            if (UserAuth::validateLoginData($user, $status_message)) {
                 UserAuth::setLogin($user->email);
                 header("Location: index.php");
             }

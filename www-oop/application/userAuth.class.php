@@ -37,8 +37,14 @@ class UserAuth
         session_destroy();
     }
 
-
-    public static function validateLogin(User $user, &$status_message = null)
+    /**
+     * Method for validating user's input data for login
+     *
+     * @param User $user
+     * @param null $status_message
+     * @return bool
+     */
+    public static function validateLoginData(User $user, &$status_message = null)
     {
         $is_data_invalid = (empty($user->email) || empty($user->password));
 
@@ -57,10 +63,17 @@ class UserAuth
         return true;
     }
 
-    public static function validateRegistration(User $user, &$status_message = null) {
+    /**
+     * Method for validating user's input data for registration
+     *
+     * @param User $user
+     * @param null $status_message
+     * @return bool
+     */
+    public static function validateRegistrationData(User $user, &$status_message = null) {
         $is_data_invalid = (
             empty($user->email) || empty($user->firstName) || empty($user->lastName) || empty($user->password) ||
-            empty($user->passwordConfirm) || ! self::validEmail($user->email) ||
+            empty($user->passwordConfirm) || !self::isEmailValid($user->email) ||
             ($user->password !== $user->passwordConfirm)
         );
 
@@ -79,7 +92,13 @@ class UserAuth
         return true;
     }
 
-    public static function validEmail($email) {
+    /**
+     * Check if input string is valid e-mail address
+     *
+     * @param string $email
+     * @return mixed
+     */
+    public static function isEmailValid($email) {
         return filter_var($email, FILTER_VALIDATE_EMAIL);
     }
 }
