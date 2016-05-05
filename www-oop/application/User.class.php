@@ -12,9 +12,9 @@ class User
     public $firstName;
     public $lastName;
     public $email;
-    private $password;
-    private $passwordConfirm;
-    private $passwordHash;
+    public $password;
+    public $passwordConfirm;
+    public $passwordHash;
 
     /**
      * Load user data from database by passing an email address
@@ -109,6 +109,19 @@ class User
     {
         return $GLOBALS['db']->query(
             "UPDATE users SET confirmed = 1 WHERE email = :email",
+            array('email' => $this->email)
+        );
+    }
+
+    /**
+     * Check if user present in the database
+     *
+     * @return mixed
+     */
+    public function lookup()
+    {
+        return $GLOBALS['db']->query(
+            "SELECT * FROM users WHERE email = :email",
             array('email' => $this->email)
         );
     }
