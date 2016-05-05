@@ -32,7 +32,7 @@ class LoginController extends AbstractController
         /**
          * Check if 'form_name' with value 'login' has been submitted
          */
-        if (isFormSubmitted('login')) {
+        if (SysHelper::isFormSubmitted('login')) {
             $user->email = trim($_POST['email']);
             $user->password = $_POST['password'];
 
