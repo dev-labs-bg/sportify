@@ -63,12 +63,14 @@ class User
      */
     public function insert()
     {
-        return $GLOBALS['db']->query(
+        $query = $GLOBALS['db']->query(
             "INSERT IGNORE INTO users(first_name,last_name,email,password_hash)
                 VALUES(:first_name, :last_name, :email, :password_hash)",
             array('first_name' => $this->firstName, 'last_name' => $this->lastName, 'email' => $this->email,
                 'password_hash' => password_hash($this->password, PASSWORD_DEFAULT))
         );
+
+        $this->loadByEmail($this->email);
     }
 
     /**

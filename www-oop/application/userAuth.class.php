@@ -101,4 +101,29 @@ class UserAuth
     public static function isEmailValid($email) {
         return filter_var($email, FILTER_VALIDATE_EMAIL);
     }
+
+    /**
+     * Check if a given token is valid
+     *
+     * @param Token $token
+     * @param $purpose
+     * @param null $status_message
+     * @return bool
+     */
+    public static function validateToken(Token $token, $purpose, &$status_message = null)
+    {
+        if (empty($token->id) || !isset($token->id) || $token->purpose !== $purpose) {
+            $status_message = 'Invalid token ID.';
+
+            return false;
+        } else if (!$token->checkValidity()) {
+            $status_message = 'Token ID has expired.';
+
+            return false;
+        } else {
+            // $status_message = 'Valid token ID.';
+        }
+
+        return true;
+    }
 }

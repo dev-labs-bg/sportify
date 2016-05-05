@@ -33,8 +33,14 @@ class RegisterController extends AbstractController
                 // insert username into database
                 $user->insert();
 
-                $token = random_string_alphanum(30);
-                token_db_insert($email, 'register_confirm', $token);
+                // generate new token
+                $token = new Token();
+                $token->userId = $user->id;
+                $token->purpose = 'register_confirm';
+                $token->value = SysHelper::randomStringAlphanum(30);
+                $token->datetime = SysHelper::datetimeToString(time());
+                // insert the new token in database
+                $token->insert();
 
                 $url = getSiteUrl() . '&token=' . $token;
                 $from_email = 'sportify@devlabs-projects.com';
@@ -51,21 +57,23 @@ class RegisterController extends AbstractController
             $data['status_message'] = $status_message;
         }
 
-        if ( isset($_GET['token']) && !empty($_GET['token']) ) {
-            $data['userdata'] = get_userdata_by_token($_GET['token']);
+        if (isset($_GET['token']) && !empty($_GET['token'])) {
+            $token = new Token();
+            $token->loadByValue($_GET['token']);
+            $user->loadByToken($token);
 
-            if ( validate_userdata_token($data['userdata'], 'register_confirm', $status_message) ) {
-                confirm_registration($data['userdata']['email']);
-                clear_token($data['userdata']['email'], $data['userdata']['token_purpose']);
+            if (UserAuth::validateToken($token, 'register_confirm', $status_message)) {
+                $user->setConfirmed();
+                $token->remove();
                 $status_message = 'Your user account has been successfully confirmed. You can now login.';
-                $page = 'register_success';
+                $this->view = 'register_success';
             } else {
-                $page = 'error';
+                $this->view = 'error';
             }
 
             $data['status_message'] = $status_message;
         }
 
-        return new view('register', $data);
+        return new view($this->view, $data);
     }
 }

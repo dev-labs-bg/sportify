@@ -7,8 +7,8 @@ namespace Devlabs\App;
  */
 abstract class AbstractController
 {
-
-    private $all_access_pages = array(
+    protected $view;
+    private $allAccessViews = array(
         'login',
         'register',
         'password_reset',
@@ -18,8 +18,10 @@ abstract class AbstractController
 
     public function __construct($controller, $loginStatus)
     {
-        if ( !$loginStatus && !in_array($controller,$this->all_access_pages) ) {
+        if ( !$loginStatus && !in_array($controller,$this->allAccessViews) ) {
             header("Location: index.php?page=login");
         }
+
+        $this->view = $controller;
     }
 }

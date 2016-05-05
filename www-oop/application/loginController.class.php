@@ -51,6 +51,6 @@ class LoginController extends AbstractController
             $data = array('status_message' => $status_message);
         }
 
-        return new View('login', $data);
+        return new View($this->view, $data);
     }
 }

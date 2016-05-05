@@ -15,6 +15,27 @@ class Token
     public $datetime;
 
     /**
+     * Load token data from database by passing a token value
+     *
+     * @param $value
+     */
+    public function loadByValue($token_value)
+    {
+        $query = $GLOBALS['db']->query(
+            "SELECT * FROM tokens WHERE value = :token_value",
+            array('token_value' => $token_value)
+        );
+
+        if ($query) {
+            $this->id = $query[0]['id'];
+            $this->userId = $query[0]['user_id'];
+            $this->purpose = $query[0]['purpose'];
+            $this->value = $query[0]['value'];
+            $this->datetime = $query[0]['datetime'];
+        }
+    }
+
+    /**
      * Method for adding a new token into the database
      *
      * @return mixed
