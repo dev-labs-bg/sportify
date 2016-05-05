@@ -48,18 +48,22 @@ class RegisterController extends AbstractController
                 // insert the new token in database
                 $token->insert();
 
-                $url = getSiteUrl() . '&token=' . $token;
-                $from_email = 'sportify@devlabs-projects.com';
-                $subject = 'Sportify - user registration request at ' . get_datetime_string(time());
-                $message = load_view(
+                $mail = new Mail();
+                $mail->fromEmail = 'sportify@devlabs-projects.com';
+                $mail->toEmail = $user->email;
+                $mail->subject = 'Sportify - user registration request at ' . SysHelper::datetimeToString(time());
+                $url = SysHelper::getSiteUrl() . '&token=' . $token->value;
+                $mail->message = load_view(
                     'html_mail_token_link.php',
                     array('INFORMATIVE_TEXT','URL_TOKEN'),
                     array('Please follow this link to confirm your registration',$url)
                 );
-                send_mail($email, $from_email, $subject, $message);
-
+                $mail->send();
             }
 
+            /**
+             * Store the status message in the data array which will be passed to the view
+             */
             $data['status_message'] = $status_message;
         }
 
