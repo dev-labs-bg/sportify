@@ -2,8 +2,10 @@
 
 namespace Devlabs\App;
 
-use Puli\Manager\Util\System;
-
+/**
+ * Class Token
+ * @package Devlabs\App
+ */
 class Token
 {
     public $id;
