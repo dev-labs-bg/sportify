@@ -61,7 +61,7 @@ class User
      *
      * @return mixed
      */
-    public function add()
+    public function insert()
     {
         return $GLOBALS['db']->query(
             "INSERT IGNORE INTO users(first_name,last_name,email,password_hash)

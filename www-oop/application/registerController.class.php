@@ -31,7 +31,7 @@ class RegisterController extends AbstractController
 
             if (UserAuth::validateRegistrationData($user, $status_message)) {
                 // insert username into database
-                $user->add();
+                $user->insert();
 
                 $token = random_string_alphanum(30);
                 token_db_insert($email, 'register_confirm', $token);
