@@ -125,4 +125,25 @@ class User
             array('email' => $this->email)
         );
     }
+
+    /**
+     * Check if user email and password have a match in the database
+     *
+     * @return bool
+     */
+    public function checkCredentials()
+    {
+        $query = $GLOBALS['db']->query(
+            "SELECT * FROM users WHERE email = :email AND confirmed = 1",
+            array('email' => $this->email)
+        );
+
+        if ($query) {
+            $password_hash = $query[0]['password_hash'];
+
+            return password_verify($this->password, $password_hash);
+        } else {
+            return false;
+        }
+    }
 }

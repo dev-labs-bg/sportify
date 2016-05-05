@@ -4,9 +4,18 @@ namespace Devlabs\App;
 
 class RegisterController extends AbstractController
 {
+    /**
+     * Default action method for rendering the register page logic
+     *
+     * @return view
+     */
     public function index()
     {
+        /**
+         * Data array for keeping the variables which will be passed to the view
+         */
         $data = array();
+
         $user = new User();
 
         if (isFormSubmitted('register')) {

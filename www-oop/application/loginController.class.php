@@ -16,9 +16,11 @@ class LoginController extends AbstractController
     public function index()
     {
         /**
-         * Data array which will be passed to the view
+         * Data array for keeping the variables which will be passed to the view
          */
         $data = array();
+
+        $user = new User();
 
         /**
          * Redirect to home page if user is already logged in and tries to access the login page
@@ -31,15 +33,15 @@ class LoginController extends AbstractController
          * Check if 'form_name' with value 'login' has been submitted
          */
         if (isFormSubmitted('login')) {
-            $email = trim($_POST['email']);
-            $password = $_POST['password'];
+            $user->email = trim($_POST['email']);
+            $user->password = $_POST['password'];
 
             /**
              * If user input's e-mail and password are valid,
              * setup user's session and redirect to the home page
              */
-            if (UserAuth::validateLogin($email, $password, $status_message)) {
-                UserAuth::setLogin($email);
+            if (UserAuth::validateLogin($user, $status_message)) {
+                UserAuth::setLogin($user->email);
                 header("Location: index.php");
             }
 

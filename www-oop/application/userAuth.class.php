@@ -38,15 +38,15 @@ class UserAuth
     }
 
 
-    public static function validateLogin($email, $password, &$status_message = null)
+    public static function validateLogin(User $user, &$status_message = null)
     {
-        $is_data_invalid = (empty($email) || empty($password));
+        $is_data_invalid = (empty($user->email) || empty($user->password));
 
         if ($is_data_invalid) {
             $status_message = 'Please provide both email and password.';
 
             return false;
-        } else if (!self::checkUsernamePassword($email, $password)) {
+        } else if (!$user->checkCredentials()) {
             $status_message = 'Incorrect username or password.';
 
             return false;
@@ -55,22 +55,6 @@ class UserAuth
         }
 
         return true;
-    }
-
-    public static function checkUsernamePassword($email, $password)
-    {
-        $query = $GLOBALS['db']->query(
-            "SELECT * FROM users WHERE email = :email AND confirmed = 1",
-            array('email' => $email)
-        );
-
-        if ($query) {
-            $password_hash = $query[0]['password_hash'];
-
-            return password_verify($password, $password_hash);
-        } else {
-            return false;
-        }
     }
 
     public static function validateRegistration(User $user, &$status_message = null) {
