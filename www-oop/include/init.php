@@ -24,6 +24,7 @@ require '../application/View.class.php';
 require '../application/User.class.php';
 require '../application/Token.class.php';
 require '../application/UserAuth.class.php';
+require '../application/SysHelper.class.php';
 
 /**
  * Initialize Dotenv for dynamically getting environment variables

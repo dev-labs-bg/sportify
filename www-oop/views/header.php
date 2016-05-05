@@ -1,3 +1,5 @@
+<?php namespace Devlabs\App; ?>
+
 <!DOCTYPE HTML>
 <html lang="en">
 <head>

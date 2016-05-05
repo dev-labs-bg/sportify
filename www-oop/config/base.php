@@ -1,5 +1,7 @@
 <?php
 
+namespace Devlabs\App;
+
 // Store all config values here
 $base_config = array(
 	'css_path'         => SysHelper::getCssUrl(),
