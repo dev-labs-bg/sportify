@@ -68,8 +68,6 @@ class Token
      */
     public function checkValidity($lifetime = 7200)
     {
-        date_default_timezone_set('EET');
-
         return ((time() - strtotime($this->datetime)) < $lifetime)
             ? true
             : false;
