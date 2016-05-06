@@ -45,7 +45,11 @@ class Database
         //    $stmt->setFetchMode(\PDO::FETCH_OBJ);
 
         if ($stmt->rowCount() > 0) {
-            return $stmt->fetchAll();
+            if (substr($query, 0, 6) === 'SELECT') {
+                return $stmt->fetchAll();
+            }
+
+            return $stmt;
         }
 
         return array();
