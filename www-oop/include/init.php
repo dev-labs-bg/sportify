@@ -8,8 +8,6 @@ define('POINTS_EXACT', 3);
 // set the server timezone to EET (GMT +2)
 date_default_timezone_set('EET');
 
-require '../vendor/autoload.php';
-require '../config/base.php';
 require '../application/Database.class.php';
 require '../application/Router.class.php';
 require '../application/AbstractController.class.php';
@@ -25,9 +23,19 @@ require '../application/User.class.php';
 require '../application/Token.class.php';
 require '../application/UserAuth.class.php';
 require '../application/SysHelper.class.php';
+require '../vendor/autoload.php';
+require '../config/base.php';
 
 /**
  * Initialize Dotenv for dynamically getting environment variables
  */
 $dotenv = new Dotenv\Dotenv(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'config');
 $dotenv->load();
+
+function load_view($view_file, $str_search, $str_replace)
+{
+    $filepath = VIEW_DIR . $view_file;
+    $view_data = file_get_contents($filepath);
+
+    return str_replace($str_search, $str_replace, $view_data);
+}
