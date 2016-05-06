@@ -87,8 +87,6 @@ class RegisterController extends AbstractController
                 $user->setConfirmed();
                 $token->remove();
 
-                // set the status message and corresponding view
-                $status_message = 'Your user account has been successfully confirmed. You can now login.';
                 $this->view = 'register_success';
             } else {
                 $this->view = 'error';

@@ -121,7 +121,7 @@ class UserAuth
 
             return false;
         } else {
-            // $status_message = 'Valid token ID.';
+            $status_message = 'Your user account has been successfully confirmed. You can now login.';
         }
 
         return true;
