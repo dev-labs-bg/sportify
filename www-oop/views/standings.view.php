@@ -25,7 +25,7 @@
 </div>
 
 
-<h4><?= $tournament->name; ?></h4>
+<h4><?= $selected_tournament->name; ?></h4>
 
 <div class="panel panel-default">
     <div class="panel-heading"><span class="glyphicon glyphicon-list-alt"></span> Results</div

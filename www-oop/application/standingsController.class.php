@@ -27,7 +27,7 @@ class StandingsController extends AbstractController
         $tournaments = new TournamentCollection();
         $standings = new ScoreCollection();
 
-        $data['tournament'] = $tournament;
+        $data['selected_tournament'] = $tournament;
         $data['tournaments'] = $tournaments->getAll($tournament->id);
         $data['standings'] = $standings->getByTournament($tournament);
 
