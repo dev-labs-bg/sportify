@@ -3,7 +3,7 @@
 <div class="panel panel-default">
     <div class="panel-heading"><span class="glyphicon glyphicon-filter"></span> Joined</div>
     <div class="panel-body">
-        <?php if ( $data['joined'] ): ?>
+        <?php if ($tournaments_joined): ?>
             <form action="" method="POST">
                 <input type="hidden" name="form_name" value="tournaments_leave">
                 <div class="table-responsive">
@@ -17,12 +17,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($data['joined'] as $row): ?>
+                            <?php foreach ($tournaments_joined as $tournament): ?>
                                 <tr>
-                                    <td><?= $row['name'] ?></td>
-                                    <td><?= $row['start'] ?></td>
-                                    <td><?= $row['end'] ?></td>
-                                    <td><input type="checkbox" name="tournaments[]" value="<?= $row['id'] ?>"></td>
+                                    <td><?= $tournament->name; ?></td>
+                                    <td><?= $tournament->startDate; ?></td>
+                                    <td><?= $tournament->endDate; ?></td>
+                                    <td><input type="checkbox" name="tournaments[]" value="<?= $tournament->id; ?>"></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -39,7 +39,7 @@
 <div class="panel panel-default">
     <div class="panel-heading"><span class="glyphicon glyphicon-list-alt"></span> Available</div>
     <div class="panel-body">
-        <?php if ( $data['available'] ): ?>
+        <?php if ($tournaments_available): ?>
             <form action="" method="POST">
                 <input type="hidden" name="form_name" value="tournaments_join">
                 <div class="table-responsive">
@@ -53,12 +53,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <?php foreach ($data['available'] as $row): ?>
+                        <?php foreach ($tournaments_available as $tournament): ?>
                             <tr>
-                                <td><?= $row['name'] ?></td>
-                                <td><?= $row['start'] ?></td>
-                                <td><?= $row['end'] ?></td>
-                                <td><input type="checkbox" name="tournaments[]" value="<?= $row['id'] ?>"></td>
+                                <td><?= $tournament->name; ?></td>
+                                <td><?= $tournament->startDate; ?></td>
+                                <td><?= $tournament->endDate; ?></td>
+                                <td><input type="checkbox" name="tournaments[]" value="<?= $tournament->id; ?>"></td>
                             </tr>
                         <?php endforeach; ?>
                         </tbody>
