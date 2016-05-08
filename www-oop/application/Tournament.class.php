@@ -2,6 +2,10 @@
 
 namespace Devlabs\App;
 
+/**
+ * Class Tournament
+ * @package Devlabs\App
+ */
 class Tournament
 {
     public $id;
@@ -19,6 +23,11 @@ class Tournament
         $this->seleted = $selected;
     }
 
+    /**
+     * Load a tournament's data from database by passing a tournament id
+     *
+     * @param $tournament_id
+     */
     public function loadById($tournament_id)
     {
         $query = $GLOBALS['db']->query(
@@ -34,6 +43,11 @@ class Tournament
         }
     }
 
+    /**
+     * Load a tournament's data from database by passing a tournament name
+     *
+     * @param $tournament_name
+     */
     public function loadByName($tournament_name)
     {
         $query = $GLOBALS['db']->query(

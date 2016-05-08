@@ -2,12 +2,23 @@
 
 namespace Devlabs\App;
 
+/**
+ * Class TournamentCollection
+ * @package Devlabs\App
+ */
 class TournamentCollection
 {
     public $joined = array();
     public $available = array();
     public $all = array();
 
+    /**
+     * Method for getting a list of the tournaments the current user has joined
+     *
+     * @param User $user
+     * @param string $tournament_id
+     * @return array
+     */
     public function getJoined(User $user, $tournament_id = "ALL")
     {
         $this->joined = array();
@@ -37,6 +48,13 @@ class TournamentCollection
         return $this->joined;
     }
 
+    /**
+     * Method for getting a list of the tournaments the current user has NOT yet joined
+     *
+     * @param User $user
+     * @param string $tournament_id
+     * @return array
+     */
     public function getAvailable(User $user, $tournament_id = "ALL")
     {
         $this->available = array();
@@ -68,6 +86,12 @@ class TournamentCollection
         return $this->available;
     }
 
+    /**
+     * Method for getting a list of all the tournaments in the database
+     *
+     * @param string $tournament_id
+     * @return array
+     */
     public function getAll($tournament_id = "ALL")
     {
         $this->all = array();
@@ -93,6 +117,13 @@ class TournamentCollection
         return $this->all;
     }
 
+    /**
+     * Method for joining a tournament,
+     * by inserting a new row containing the user's id and tournament id into the Scores table
+     *
+     * @param User $user
+     * @param $tournaments
+     */
     public function join(User $user, $tournaments)
     {
         foreach ($tournaments as $tournament_id) {
@@ -104,6 +135,13 @@ class TournamentCollection
         }
     }
 
+    /**
+     * Method for leaving a tournament,
+     * by deleting a row containing the user's id and tournament id from the Scores table
+     *
+     * @param User $user
+     * @param $tournaments
+     */
     public function leave(User $user, $tournaments)
     {
         foreach ($tournaments as $tournament_id) {
