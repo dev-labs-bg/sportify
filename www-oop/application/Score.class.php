@@ -2,6 +2,10 @@
 
 namespace Devlabs\App;
 
+/**
+ * Class Score
+ * @package Devlabs\App
+ */
 class Score
 {
     public $id;
