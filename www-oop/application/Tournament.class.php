@@ -12,15 +12,15 @@ class Tournament
     public $name;
     public $startDate;
     public $endDate;
-    public $seleted = '';
+    public $selected = '';
 
-    public function __construct($id, $name, $start, $end, $selected = '')
+    public function __construct($id = '', $name = '', $start = '', $end = '', $selected = '')
     {
         $this->id = $id;
         $this->name = $name;
         $this->startDate = $start;
         $this->endDate = $end;
-        $this->seleted = $selected;
+        $this->selected = $selected;
     }
 
     /**
