@@ -2,6 +2,10 @@
 
 namespace Devlabs\App;
 
+/**
+ * Class StandingsController
+ * @package Devlabs\App
+ */
 class StandingsController extends AbstractController
 {
     /**
@@ -16,17 +20,24 @@ class StandingsController extends AbstractController
          */
         $data = array();
 
+        /**
+         * Get the tournament id by from the ULR query string
+         * and load the tournament's data into an object
+         */
         $tournament_id = (isset($_GET['tournament_id'])) ? $_GET['tournament_id'] : "5";
         $tournament = new Tournament();
         $tournament->loadById($tournament_id);
 
-//        $data['tournaments'] = list_all_tournaments($tournament_id);
-//        $data['standings'] = list_standings($tournament_id);
-//        $data['tournament_name'] = get_tournament_name($tournament_id);
-
+        /**
+         * Create objects for holding the tournaments and tables' standings data
+         */
         $tournaments = new TournamentCollection();
         $standings = new ScoreCollection();
 
+        /**
+         * Store the tournaments and tables' standings data
+         * in the data array which will be passed to the view
+         */
         $data['selected_tournament'] = $tournament;
         $data['tournaments'] = $tournaments->getAll($tournament->id);
         $data['standings'] = $standings->getByTournament($tournament);
