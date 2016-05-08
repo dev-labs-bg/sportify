@@ -1,3 +1,5 @@
+<?php namespace Devlabs\App; ?>
+
 <h1 class="page-header">REGISTER</h1>
 
 <?php if (isset($status_message)) : ?>
@@ -12,17 +14,17 @@
 			<div class="row">
 				<div class="form-group col-sm-12">
 					<label>Email</label>
-					<input type="text" name="email" class="form-control" placeholder="email" value="<?= form_prev_value('email'); ?>" >
+					<input type="text" name="email" class="form-control" placeholder="email" value="<?= SysHelper::formPrevValue('email'); ?>" >
 				</div>
 				<div class="form-group col-sm-12">
 					<label>First name</label>
 					<br />
-					<input type="text" name="first_name" class="form-control" placeholder="First Name" value="<?= form_prev_value('first_name'); ?>">
+					<input type="text" name="first_name" class="form-control" placeholder="First Name" value="<?= SysHelper::formPrevValue('first_name'); ?>">
 				</div>
 				<div class="form-group col-sm-12">
 					<label>Last name</label>
 					<br />
-					<input type="text" name="last_name" class="form-control" placeholder="Last Name" value="<?= form_prev_value('last_name'); ?>">
+					<input type="text" name="last_name" class="form-control" placeholder="Last Name" value="<?= SysHelper::formPrevValue('last_name'); ?>">
 				</div>
 				<div class="form-group col-sm-12">
 					<label>Password</label>

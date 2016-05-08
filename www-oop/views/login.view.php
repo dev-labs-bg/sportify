@@ -1,3 +1,5 @@
+<?php namespace Devlabs\App; ?>
+
 <h1 class="page-header">LOGIN</h1>
 
 <?php if (isset($status_message)) : ?>
