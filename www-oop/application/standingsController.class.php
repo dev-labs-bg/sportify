@@ -16,9 +16,6 @@ class StandingsController extends AbstractController
          */
         $data = array();
 
-        $user = new User();
-        $user->loadByEmail($_SESSION['email']);
-
         $tournament_id = (isset($_GET['tournament_id'])) ? $_GET['tournament_id'] : "5";
         $tournament = new Tournament();
         $tournament->loadById($tournament_id);
