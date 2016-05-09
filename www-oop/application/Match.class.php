@@ -48,4 +48,16 @@ class Match
             $this->tournamentId = $query[0]['tournament_id'];
         }
     }
+
+    public function hasMatchStarted()
+    {
+        return (time() >= strtotime($this->datetime));
+    }
+
+    public function setDisabled()
+    {
+        if ($this->hasMatchStarted()) {
+            $this->disabled = 'disabled';
+        }
+    }
 }

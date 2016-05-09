@@ -39,7 +39,7 @@ class MatchCollection
 
         if ($query) {
             foreach ($query as &$row) {
-                $this->notScored[] = new Match(
+                $this->notScored[$row['id']] = new Match(
                     $row['id'],
                     $row['datetime'],
                     $row['home_team'],
@@ -50,11 +50,7 @@ class MatchCollection
                 );
 
                 // set disabled flag for matches which have started
-                if ( match_started($row['datetime']) ) {
-                    $row['disabled'] = "disabled";
-                } else {
-                    $row['disabled'] = "";
-                }
+                $this->notScored[$row['id']]->setDisabled();
             }
         }
 
