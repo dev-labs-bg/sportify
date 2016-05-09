@@ -10,10 +10,10 @@ class Prediction
     public $homeGoals;
     public $awayGoals;
     public $points;
-    public $disabled = '';
+    public $scoreAdded;
 
     public function __construct($id = '', $matchId = '', $userId = '',
-                                $homeGoals = '', $awayGoals = '', $points = '', $disabled = '')
+                                $homeGoals = '', $awayGoals = '', $points = '', $scoreAdded = '')
     {
         $this->id = $id;
         $this->matchId = $matchId;
@@ -21,6 +21,6 @@ class Prediction
         $this->homeGoals = $homeGoals;
         $this->awayGoals = $awayGoals;
         $this->points = $points;
-        $this->disabled = $disabled;
+        $this->scoreAdded = $scoreAdded;
     }
 }
