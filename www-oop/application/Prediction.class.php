@@ -8,13 +8,13 @@ namespace Devlabs\App;
  */
 class Prediction
 {
-    public $id;
-    public $matchId;
-    public $userId;
-    public $homeGoals;
-    public $awayGoals;
-    public $points;
-    public $scoreAdded;
+    public $id = null;
+    public $matchId = null;
+    public $userId = null;
+    public $homeGoals = null;
+    public $awayGoals = null;
+    public $points = null;
+    public $scoreAdded = null;
 
     public function __construct($id = '', $matchId = '', $userId = '',
                                 $homeGoals = '', $awayGoals = '', $points = '', $scoreAdded = '')
