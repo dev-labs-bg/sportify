@@ -124,7 +124,7 @@ class TournamentCollection
      * @param User $user
      * @param $tournaments
      */
-    public function join(User $user, $tournaments)
+    public function join(User $user, Array $tournaments)
     {
         foreach ($tournaments as $tournament_id) {
             $query = $GLOBALS['db']->query(
@@ -142,7 +142,7 @@ class TournamentCollection
      * @param User $user
      * @param $tournaments
      */
-    public function leave(User $user, $tournaments)
+    public function leave(User $user, Array $tournaments)
     {
         foreach ($tournaments as $tournament_id) {
             $query = $GLOBALS['db']->query(
