@@ -2,6 +2,10 @@
 
 namespace Devlabs\App;
 
+/**
+ * Class Match
+ * @package Devlabs\App
+ */
 class Match
 {
     public $id;
@@ -49,11 +53,19 @@ class Match
         }
     }
 
+    /**
+     * Check if match has started by comparing the current time with the match's datetime
+     *
+     * @return bool
+     */
     public function hasMatchStarted()
     {
         return (time() >= strtotime($this->datetime));
     }
 
+    /**
+     * If the match has already started, set the disabled property to prevent further prediction changes
+     */
     public function setDisabled()
     {
         if ($this->hasMatchStarted()) {

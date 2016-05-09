@@ -2,11 +2,24 @@
 
 namespace Devlabs\App;
 
+/**
+ * Class MatchCollection
+ * @package Devlabs\App
+ */
 class MatchCollection
 {
     private $notScored = array();
     private $alreadyScored = array();
 
+    /**
+     * Method for getting a list of the matches which have not been scored/finished yet
+     *
+     * @param User $user
+     * @param $tournament_id
+     * @param $dateFrom
+     * @param $dateTo
+     * @return array
+     */
     public function getNotScored(User $user, $tournament_id, $dateFrom, $dateTo)
     {
         $this->notScored = array();
@@ -28,6 +41,7 @@ class MatchCollection
             'date_to' => $dateTo
         );
 
+        // prepare a different SQL statement, if we want to filter for a particular tournament
         if ($tournament_id === "ALL") {
             $sqlStatement = $sqlString1 . ' ' . $sqlString3;
         } else {
@@ -57,6 +71,15 @@ class MatchCollection
         return $this->notScored;
     }
 
+    /**
+     * Method for getting a list of the matches which have already been scored/finished
+     *
+     * @param User $user
+     * @param $tournament_id
+     * @param $dateFrom
+     * @param $dateTo
+     * @return array
+     */
     public function getAlreadyScored(User $user, $tournament_id, $dateFrom, $dateTo)
     {
         $this->alreadyScored = array();
@@ -77,6 +100,7 @@ class MatchCollection
             'date_to' => $dateTo
         );
 
+        // prepare a different SQL statement, if we want to filter for a particular tournament
         if ($tournament_id === "ALL") {
             $sqlStatement = $sqlString1 . ' ' . $sqlString3;
         } else {
