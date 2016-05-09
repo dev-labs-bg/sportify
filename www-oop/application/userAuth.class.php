@@ -70,7 +70,8 @@ class UserAuth
      * @param null $status_message
      * @return bool
      */
-    public static function validateRegistrationData(User $user, &$status_message = null) {
+    public static function validateRegistrationData(User $user, &$status_message = null)
+    {
         $is_data_invalid = (
             empty($user->email) || empty($user->firstName) || empty($user->lastName) || empty($user->password) ||
             empty($user->passwordConfirm) || !self::isEmailValid($user->email) ||
@@ -98,7 +99,8 @@ class UserAuth
      * @param string $email
      * @return mixed
      */
-    public static function isEmailValid($email) {
+    public static function isEmailValid($email)
+    {
         return filter_var($email, FILTER_VALIDATE_EMAIL);
     }
 

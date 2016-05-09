@@ -30,10 +30,3 @@ $action = $router->getAction();
  */
 $view = $controller->$action();
 $view->load();
-
-//echo $response;
-
-//$result = $GLOBALS['db']->query("SELECT * FROM users", array());
-//foreach ($result as $row) {
-//    echo '<p>' . $row['id'] . '</p>';
-//}
