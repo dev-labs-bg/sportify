@@ -8,9 +8,9 @@ namespace Devlabs\App;
  */
 class TournamentCollection
 {
-    public $joined = array();
-    public $available = array();
-    public $all = array();
+    private $joined = array();
+    private $available = array();
+    private $all = array();
 
     /**
      * Method for getting a list of the tournaments the current user has joined
