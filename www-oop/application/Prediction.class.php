@@ -46,10 +46,29 @@ class Prediction
         }
     }
 
+    /**
+     * Method for making a prediction
+     * by inserting or updating prediction data in the database
+     *
+     * @param User $user
+     * @param Match $match
+     * @param $homeGoals
+     * @param $awayGoals
+     */
     public function makePrediction(User $user, Match $match, $homeGoals, $awayGoals)
     {
+        // convert string numbers to integer data
         $homeGoals = (int) $homeGoals;
         $awayGoals = (int) $awayGoals;
+
+        $this->loadByUserAndMatch($user, $match);
+
+        // check if any prediction has been loaded from the database
+        if ($this->id == null) {
+            $this->insertPrediction($user, $match, $homeGoals, $awayGoals);
+        } else {
+            $this->updatePrediction($user, $match, $homeGoals, $awayGoals);
+        }
     }
 
     public function updatePrediction(User $user, Match $match, $homeGoals, $awayGoals)
