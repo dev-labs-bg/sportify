@@ -16,8 +16,8 @@ class Prediction
     public $points = null;
     public $scoreAdded = null;
 
-    public function __construct($id = '', $matchId = '', $userId = '',
-                                $homeGoals = '', $awayGoals = '', $points = '', $scoreAdded = '')
+    public function __construct($id = null, $matchId = null, $userId = null,
+                                $homeGoals = null, $awayGoals = null, $points = null, $scoreAdded = null)
     {
         $this->id = $id;
         $this->matchId = $matchId;
@@ -122,5 +122,28 @@ class Prediction
                 'away_goals' => $awayGoals
             )
         );
+    }
+
+    public function validateData(Match $match, &$status_message) {
+        $isDataInvalid = (($this->homeGoals === "" || $this->homeGoals === null) ||
+            ($this->awayGoals === "" || $this->awayGoals === null));
+
+        if ($isDataInvalid) {
+            $status_message = 'Please provide values for both home and away goals.';
+
+            return false;
+        } else if (!(is_numeric($this->homeGoals) && $this->homeGoals >= 0) || !(is_numeric($this->awayGoals) && $this->awayGoals >= 0)) {
+            $status_message = 'Both home and away goals should be non-negative integers.';
+
+            return false;
+        } else if ($match->hasStarted()) {
+            $status_message = 'Match has already started, cannot make or edit prediction.';
+
+            return false;
+        } else {
+            $status_message = 'OK, valid bet.';
+        }
+
+        return true;
     }
 }

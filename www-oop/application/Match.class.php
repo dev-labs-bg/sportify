@@ -58,7 +58,7 @@ class Match
      *
      * @return bool
      */
-    public function hasMatchStarted()
+    public function hasStarted()
     {
         return (time() >= strtotime($this->datetime));
     }
@@ -68,7 +68,7 @@ class Match
      */
     public function setDisabled()
     {
-        if ($this->hasMatchStarted()) {
+        if ($this->hasStarted()) {
             $this->disabled = 'disabled';
         }
     }
