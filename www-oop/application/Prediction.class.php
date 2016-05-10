@@ -28,11 +28,11 @@ class Prediction
         $this->scoreAdded = $scoreAdded;
     }
 
-    public function loadById(User $user, $id)
+    public function loadByUserAndMatch(User $user, Match $match)
     {
         $query = $GLOBALS['db']->query(
-            "SELECT * FROM predictions WHERE match_id = :id AND user_id = :user_id",
-            array('id' => $id, 'user_id' => $user->id)
+            "SELECT * FROM predictions WHERE match_id = :match_id AND user_id = :user_id",
+            array('match_id' => $match->id, 'user_id' => $user->id)
         );
 
         if ($query) {
@@ -46,17 +46,18 @@ class Prediction
         }
     }
 
-    public function makePrediction(User $user, $matchId, $homeGoals, $awayGoals)
+    public function makePrediction(User $user, Match $match, $homeGoals, $awayGoals)
+    {
+        $homeGoals = (int) $homeGoals;
+        $awayGoals = (int) $awayGoals;
+    }
+
+    public function updatePrediction(User $user, Match $match, $homeGoals, $awayGoals)
     {
 
     }
 
-    public function updatePrediction(User $user, $matchId, $homeGoals, $awayGoals)
-    {
-
-    }
-
-    public function insertPrediction(User $user, $matchId, $homeGoals, $awayGoals)
+    public function insertPrediction(User $user, Match $match, $homeGoals, $awayGoals)
     {
 
     }
