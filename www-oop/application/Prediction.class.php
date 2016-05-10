@@ -124,6 +124,13 @@ class Prediction
         );
     }
 
+    /**
+     * Method for checking if the prediction data is valid and suitable for inserting or updating in the database
+     *
+     * @param Match $match
+     * @param $status_message
+     * @return bool
+     */
     public function validateData(Match $match, &$status_message) {
         $isDataInvalid = (($this->homeGoals === "" || $this->homeGoals === null) ||
             ($this->awayGoals === "" || $this->awayGoals === null));
