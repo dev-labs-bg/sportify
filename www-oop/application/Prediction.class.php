@@ -28,6 +28,12 @@ class Prediction
         $this->scoreAdded = $scoreAdded;
     }
 
+    /**
+     * Load a prediction for a given user's match by passing in User and Match objects
+     *
+     * @param User $user
+     * @param Match $match
+     */
     public function loadByUserAndMatch(User $user, Match $match)
     {
         $query = $GLOBALS['db']->query(
@@ -71,13 +77,50 @@ class Prediction
         }
     }
 
+    /**
+     * Method for updating a prediction in the database
+     *
+     * @param User $user
+     * @param Match $match
+     * @param $homeGoals
+     * @param $awayGoals
+     * @return mixed
+     */
     public function updatePrediction(User $user, Match $match, $homeGoals, $awayGoals)
     {
-
+        return $GLOBALS['db']->query(
+            "UPDATE predictions
+            SET home_goals = :home_goals , away_goals = :away_goals
+            WHERE match_id = :match_id AND user_id = :user_id",
+            array(
+                'user_id' => $user->id,
+                'match_id' => $match->id,
+                'home_goals' => $homeGoals,
+                'away_goals' => $awayGoals
+            )
+        );
     }
 
+    /**
+     * Method for inserting a new prediction in the database
+     *
+     * @param User $user
+     * @param Match $match
+     * @param $homeGoals
+     * @param $awayGoals
+     * @return mixed
+     */
     public function insertPrediction(User $user, Match $match, $homeGoals, $awayGoals)
     {
-
+        return $GLOBALS['db']->query(
+            "INSERT IGNORE INTO predictions(match_id,user_id,home_goals,away_goals)
+            VALUES(:match_id, :user_id, :home_goals, :away_goals)",
+            array(
+                'user_id' => $user->id,
+                'match_id' => $match->id,
+                'home_goals' => $homeGoals,
+                'away_goals' => $awayGoals
+            )
+        );
     }
 }
