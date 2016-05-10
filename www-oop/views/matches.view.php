@@ -4,14 +4,14 @@
     <div class="panel-heading"><span class="glyphicon glyphicon-filter"></span>Filter bar</div>
     <div class="panel-body">
         <form action="" method="GET">
-            <input type="hidden" name="page" value="<?= $page ?>">
+            <input type="hidden" name="page" value="<?= $this->page ?>">
             <div class="row">
                 <div class="form-group col-sm-4">
                     <label>Tournament</label>
                     <select name="tournament_id" class="form-control" width="">
                         <option value="ALL">All joined</option>
-                        <?php foreach ($data['tournaments'] as $row): ?>
-                            <option <?= $row['selected']; ?> value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
+                        <?php foreach ($tournaments_joined as $tournament): ?>
+                            <option <?= $tournament->selected; ?> value="<?= $tournament->id; ?>"><?= $tournament->name; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -23,7 +23,7 @@
                 <div class="form-group col-sm-4">
                     <label>Date to</label>
                     <br />
-                    <input type="date" name="date_to" class="form-control" value="<?= ( isset($_GET['date_to']) && !empty($_GET['date_to']) ) ? $_GET['date_to'] : ""; ?>">
+                    <input type="date" name="date_to" class="form-control" value="<?= ( isset($_GET['date_to']) && !empty($_GET['date_to']) ) ? $_GET['date_to'] : ''; ?>">
                 </div>
             </div>
             <div class="row">
@@ -52,39 +52,40 @@
                     </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($data['matches'] as $row): ?>
+                <?php foreach ($matches as $match): ?>
                     <tr>
                         <td>
-                            <?php echo $row['home_team'] ?> - <?php echo $row['away_team'] ?>
+                            <?php echo $match->homeTeam; ?> - <?php echo $match->awayTeam; ?>
                         </td>
                         <td>
-                            <?php echo $row['datetime'] ?>
+                            <?php echo $match->datetime; ?>
                         </td>
                         <td>
-                            <?= ($row['disabled'] == "disabled") ? "Match locked. Already started" : ""; ?>
+                            <?= ($match->disabled === 'disabled') ? 'Match locked. Already started' : ''; ?>
                             <span class="msg-error">
                                 <?=
-                                ( isset($data['match_id'], $data['prediction_value']) && !$data['prediction_value'] && $data['match_id'] == $row['match_id'] )
-                                    ? $data['prediction_status']
-                                    : "";
+                                (isset($match_id, $prediction_value) && !$prediction_value && $match_id == $match->id)
+                                    ? $prediction_status
+                                    : '';
                                 ?>
                             </span>
                         </td>
+                        <?php $prediction = $predictions[$match->id]; ?>
                         <td>
                             <form action="" method="POST">
-                                <input type="hidden" name="match_id" value="<?= $row['match_id'] ?>">
-                                <?php if ($row['p_home_goals'] == null && $row['p_away_goals'] == null): ?>
-                                    <input <?= $row['disabled'] ?> type="text" name="home_goals" placeholder="home" value="" size="5"> -
-                                    <input <?= $row['disabled'] ?> type="text" name="away_goals" placeholder="away" value="" size="5">
+                                <input type="hidden" name="match_id" value="<?= $match->id; ?>">
+                                <?php if ($prediction->homeGoals == null && $prediction->awayGoals == null): ?>
+                                    <input <?= $match->disabled; ?> type="text" name="home_goals" placeholder="home" value="" size="5"> -
+                                    <input <?= $match->disabled; ?> type="text" name="away_goals" placeholder="away" value="" size="5">
                                 <?php else: ?>
-                                    <input <?= $row['disabled'] ?> type="text" name="home_goals" placeholder="home"  value="<?= $row['p_home_goals'] ?>" size="5"> -
-                                    <input <?= $row['disabled'] ?> type="text" name="away_goals" placeholder="away" value="<?= $row['p_away_goals'] ?>" size="5">
+                                    <input <?= $match->disabled; ?> type="text" name="home_goals" placeholder="home"  value="<?= $prediction->homeGoals; ?>" size="5"> -
+                                    <input <?= $match->disabled; ?> type="text" name="away_goals" placeholder="away" value="<?= $prediction->awayGoals; ?>" size="5">
                                 <?php endif; ?>
 
-                                <?php if ($row['p_home_goals'] == null && $row['p_away_goals'] == null): ?>
-                                    <button <?= $row['disabled'] ?> type="submit" class="btn btn-success pull-right">BET</button>
+                                <?php if ($prediction->homeGoals == null && $prediction->awayGoals == null): ?>
+                                    <button <?= $match->disabled; ?> type="submit" class="btn btn-success pull-right">BET</button>
                                 <?php else: ?>
-                                    <button <?= $row['disabled'] ?> type="submit" class="btn btn-warning pull-right">UPDATE BET</button>
+                                    <button <?= $match->disabled; ?> type="submit" class="btn btn-warning pull-right">UPDATE BET</button>
                                 <?php endif; ?>
                             </form>
                         </td>
@@ -93,7 +94,7 @@
                 </tbody>
             </table>
         </div>
-        <?php if ( !$data['matches'] ): ?>
+        <?php if (!$matches): ?>
             <p>No matches to display.</p>
         <?php endif; ?>
     </div>

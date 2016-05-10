@@ -70,7 +70,7 @@ class MatchesController extends AbstractController
         $matches = new MatchCollection();
         $predictions = new PredictionCollection();
 
-        $data['tournaments'] = $tournaments->getJoined($user, $tournament_id);
+        $data['tournaments_joined'] = $tournaments->getJoined($user, $tournament_id);
         $data['matches'] = $matches->getNotScored($user, $tournament_id, $dateFrom, $dateTo);
         $data['predictions'] = $predictions->getNotScored($user, $tournament_id, $dateFrom, $dateTo);
 
