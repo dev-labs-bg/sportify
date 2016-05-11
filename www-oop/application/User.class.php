@@ -15,6 +15,16 @@ class User
     public $password;
     public $passwordConfirm;
     public $passwordHash;
+    public $selected = '';
+
+    public function __construct($id = null, $firstName = null, $lastName = null, $email = null, $selected = '')
+    {
+        $this->id = $id;
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
+        $this->email = $email;
+        $this->selected = $selected;
+    }
 
     /**
      * Load user data from database by passing an email address

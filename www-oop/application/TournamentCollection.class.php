@@ -41,7 +41,13 @@ class TournamentCollection
                     $row['selected'] = '';
                 }
 
-                $this->joined[] = new Tournament($row['id'], $row['name'], $row['start'], $row['end'], $row['selected']);
+                $this->joined[$row['id']] = new Tournament(
+                    $row['id'],
+                    $row['name'],
+                    $row['start'],
+                    $row['end'],
+                    $row['selected']
+                );
             }
         }
 
@@ -79,7 +85,13 @@ class TournamentCollection
                     $row['selected'] = '';
                 }
 
-                $this->available[] = new Tournament($row['id'], $row['name'], $row['start'], $row['end'], $row['selected']);
+                $this->available[$row['id']] = new Tournament(
+                    $row['id'],
+                    $row['name'],
+                    $row['start'],
+                    $row['end'],
+                    $row['selected']
+                );
             }
         }
 
@@ -110,7 +122,13 @@ class TournamentCollection
                     $row['selected'] = '';
                 }
 
-                $this->all[] = new Tournament($row['id'], $row['name'], $row['start'], $row['end'], $row['selected']);
+                $this->all[$row['id']] = new Tournament(
+                    $row['id'],
+                    $row['name'],
+                    $row['start'],
+                    $row['end'],
+                    $row['selected']
+                );
             }
         }
 
