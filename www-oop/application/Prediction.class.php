@@ -131,15 +131,15 @@ class Prediction
      * @param $status_message
      * @return bool
      */
-    public function validateData(Match $match, &$status_message) {
-        $isDataInvalid = (($this->homeGoals === "" || $this->homeGoals === null) ||
-            ($this->awayGoals === "" || $this->awayGoals === null));
+    public static function validateData(Match $match, $homeGoals, $awayGoals, &$status_message) {
+        $isDataInvalid = (($homeGoals === "" || $homeGoals === null) ||
+            ($awayGoals === "" || $awayGoals === null));
 
         if ($isDataInvalid) {
             $status_message = 'Please provide values for both home and away goals.';
 
             return false;
-        } else if (!(is_numeric($this->homeGoals) && $this->homeGoals >= 0) || !(is_numeric($this->awayGoals) && $this->awayGoals >= 0)) {
+        } else if (!(is_numeric($homeGoals) && $homeGoals >= 0) || !(is_numeric($awayGoals) && $awayGoals >= 0)) {
             $status_message = 'Both home and away goals should be non-negative integers.';
 
             return false;

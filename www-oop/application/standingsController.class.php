@@ -21,7 +21,7 @@ class StandingsController extends AbstractController
         $data = array();
 
         /**
-         * Get the tournament id by from the ULR query string
+         * Get the tournament id from the URL query string
          * and load the tournament's data into an object
          */
         $tournament_id = (isset($_GET['tournament_id'])) ? $_GET['tournament_id'] : "5";

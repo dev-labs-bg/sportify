@@ -30,4 +30,3 @@ function getMatchFormData( form ) {
         return obj;
     }, {});
 }
-
