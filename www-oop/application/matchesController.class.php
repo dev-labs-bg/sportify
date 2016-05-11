@@ -2,6 +2,10 @@
 
 namespace Devlabs\App;
 
+/**
+ * Class MatchesController
+ * @package Devlabs\App
+ */
 class MatchesController extends AbstractController
 {
     public function index()
@@ -50,11 +54,15 @@ class MatchesController extends AbstractController
 
                 if ($isPredictionValid) {
                     $prediction = new Prediction();
-                    $prediction->makePrediction($user, $match, $homeGoals. $awayGoals);
+                    $prediction->makePrediction($user, $match, $homeGoals, $awayGoals);
                 }
             }
         }
 
+        /**
+         * Initialize the dateFrom and dateTo variables,
+         * based on the values of date_from and date_to from the URL query string
+         */
         $dateFrom = SysHelper::setDateStart($_GET['date_from'], date("Y-m-d"));
         $dateTo = SysHelper::setDateEnd($_GET['date_to'], 86400);
 
@@ -70,6 +78,10 @@ class MatchesController extends AbstractController
         $matches = new MatchCollection();
         $predictions = new PredictionCollection();
 
+        /**
+         * Store the joined tournaments, matches and prediction data
+         * in the data array which will be passed to the view
+         */
         $data['tournaments_joined'] = $tournaments->getJoined($user, $tournament_id);
         $data['matches'] = $matches->getNotScored($user, $tournament_id, $dateFrom, $dateTo);
         $data['predictions'] = $predictions->getNotScored($user, $tournament_id, $dateFrom, $dateTo);
