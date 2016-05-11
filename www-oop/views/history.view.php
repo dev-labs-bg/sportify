@@ -57,7 +57,7 @@
             <tbody>
             <?php foreach ($matches as $match): ?>
                 <?php $prediction = $predictions[$match->id]; ?>
-                <tr class="<?= $GLOBALS['base_config']['points_css_class'][$prediction->points] ?>" >
+                <tr class="<?= $GLOBALS['base_config']['points_css_class'][$prediction->points]; ?>" >
                     <td><?=  $match->homeTeam . ' - ' . $match->awayTeam; ?></td>
                     <td><?= $match->datetime; ?></td>
                     <td><?= $prediction->homeGoals . ' : ' . $prediction->awayGoals; ?></td>
