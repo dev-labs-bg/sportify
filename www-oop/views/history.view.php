@@ -4,13 +4,13 @@
     <div class="panel-heading"><span class="glyphicon glyphicon-filter"></span>Filter bar</div>
     <div class="panel-body">
         <form action="" method="GET">
-            <input type="hidden" name="page" value="<?= $page ?>">
+            <input type="hidden" name="page" value="<?= $this->page; ?>">
             <div class="row">
                 <div class="form-group col-sm-3">
                     <label>Username</label>
                     <select name="username" class="form-control" width="">
-                        <?php foreach ($data['usernames'] as $row): ?>
-                            <option <?= $row['selected']; ?> value="<?= htmlspecialchars($row['email']); ?>"><?= $row['email']; ?></option>
+                        <?php foreach ($users as $user): ?>
+                            <option <?= $user->selected; ?> value="<?= htmlspecialchars($user->email); ?>"><?= $user->email; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -18,8 +18,8 @@
                     <label>Tournament</label>
                     <select name="tournament_id" class="form-control" width="">
                         <option value="ALL">All joined</option>
-                        <?php foreach ($data['tournaments'] as $row): ?>
-                            <option <?= $row['selected']; ?> value="<?= $row['id']; ?>"><?= $row['name']; ?></option>
+                        <?php foreach ($tournaments_joined as $tournament): ?>
+                            <option <?= $tournament->selected; ?> value="<?= $tournament->id; ?>"><?= $tournament->name; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -55,19 +55,20 @@
             </tr>
             </thead>
             <tbody>
-            <?php foreach ($data['matches'] as $row): ?>
-                <tr class="<?= $GLOBALS['base_config']['points_css_class'][$row['points']] ?>" >
-                    <td><?=  $row['home_team'] . ' - ' . $row['away_team']?></td>
-                    <td><?= $row['datetime'] ?></td>
-                    <td><?= $row['p_home_goals'] . ' : ' . $row['p_away_goals'] ?></td>
-                    <td><?= $row['m_home_goals'] . ' : ' . $row['m_away_goals'] ?></td>
-                    <td><?= $row['points'] ?></td>
+            <?php foreach ($matches as $match): ?>
+                <?php $prediction = $predictions[$match->id]; ?>
+                <tr class="<?= $GLOBALS['base_config']['points_css_class'][$prediction->points] ?>" >
+                    <td><?=  $match->homeTeam . ' - ' . $match->awayTeam; ?></td>
+                    <td><?= $match->datetime; ?></td>
+                    <td><?= $prediction->homeGoals . ' : ' . $prediction->awayGoals; ?></td>
+                    <td><?= $match->homeGoals . ' : ' . $match->awayGoals; ?></td>
+                    <td><?= $prediction->points; ?></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
         </table>
 
-        <?php if ( !$data['matches'] ): ?>
+        <?php if (!$matches): ?>
             <p>No matches to display.</p>
         <?php endif; ?>
     </div>
