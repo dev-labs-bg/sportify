@@ -40,9 +40,12 @@ class ProfileController extends AbstractController
 
             if ( empty($password) && empty($password_confirm) ) {
                 $status_message = 'You have successfully changed your profile details.';
-            } else if ( validate_password($password, $password_confirm, $status_message) ){
+            } else {
+                $user->changePassword($password, $passwordConfirm, $status_message);
+                validate_password($password, $passwordConfirm, $status_message);
                 change_password($email, $password);
             }
+
 
             $data['status_message'] = $status_message;
         }

@@ -102,14 +102,23 @@ class User
      * @param $password
      * @return mixed
      */
-    public function changePassword($password)
+    public function changePassword($password, $passwordConfirm, &$status_message = null)
     {
-        $this->password = $password;
+        if (empty($password) || empty($passwordConfirm) || $password !== $passwordConfirm) {
+            $status_message = 'Please type in same password twice.';
 
-        return $GLOBALS['db']->query(
+            return false;
+        }
+
+        $query = $GLOBALS['db']->query(
             "UPDATE users SET password_hash = :password_hash WHERE email = :email",
             array('email' => $email, 'password_hash' => password_hash($password, PASSWORD_DEFAULT))
         );
+
+        $this->password = $password;
+        $status_message = 'You have successfully changed your profile details.';
+
+        return true;
     }
 
     /**
