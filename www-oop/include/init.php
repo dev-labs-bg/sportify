@@ -14,6 +14,7 @@ require '../vendor/autoload.php';
 require '../config/base.php';
 require '../application/Database.class.php';
 require '../application/User.class.php';
+require '../application/UserCollection.class.php';
 require '../application/Token.class.php';
 require '../application/Mail.class.php';
 require '../application/Tournament.class.php';

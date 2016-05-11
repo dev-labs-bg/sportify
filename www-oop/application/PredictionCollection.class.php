@@ -109,7 +109,7 @@ class PredictionCollection
 
         if ($query) {
             foreach ($query as &$row) {
-                $this->notScored[$row['match_id']] = new Prediction(
+                $this->alreadyScored[$row['match_id']] = new Prediction(
                     $row['id'],
                     $row['match_id'],
                     $row['user_id'],
