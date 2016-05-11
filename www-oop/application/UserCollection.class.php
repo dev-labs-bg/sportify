@@ -43,7 +43,6 @@ class UserCollection
             }
         }
 
-        return $this->notScored;
-
+        return $this->allConfirmed;
     }
 }
