@@ -36,19 +36,24 @@ class ProfileController extends AbstractController
             $password = $_POST['password'];
             $passwordConfirm = $_POST['password_confirm'];
 
-            change_userdata($email, $first_name, $last_name);
+            $user->changeFirstName($firstName);
+            $user->changeLastName($lastName);
 
-            if ( empty($password) && empty($password_confirm) ) {
+            if (empty($password) && empty($password_confirm)) {
                 $status_message = 'You have successfully changed your profile details.';
-            } else {
-                $user->changePassword($password, $passwordConfirm, $status_message);
-                validate_password($password, $passwordConfirm, $status_message);
-                change_password($email, $password);
+            } else if (UserAuth::validatePasswordData($password, $passwordConfirm, $status_message)) {
+                $user->changePassword($password);
             }
 
+            // load the updated user data
+            $user->loadByEmail($_SESSION['email']);
 
+            // Store the status message in the data array which will be passed to the view
             $data['status_message'] = $status_message;
         }
+
+        // Store the user data in the data array which will be passed to the view
+        $data['user'] = $user;
 
         return new view($this->view, $data);
     }
