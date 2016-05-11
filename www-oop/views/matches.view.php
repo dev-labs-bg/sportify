@@ -64,8 +64,8 @@
                             <?= ($match->disabled === 'disabled') ? 'Match locked. Already started' : ''; ?>
                             <span class="msg-error">
                                 <?=
-                                (isset($match_id, $prediction_value) && !$prediction_value && $match_id == $match->id)
-                                    ? $prediction_status
+                                (isset($match_id, $status_value) && !$status_value && $match_id == $match->id)
+                                    ? $status_message
                                     : '';
                                 ?>
                             </span>

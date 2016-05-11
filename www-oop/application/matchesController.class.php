@@ -29,11 +29,11 @@ class MatchesController extends AbstractController
 
             if ($isPredictionValid) {
                 $prediction = new Prediction();
-                $prediction->makePrediction($user, $match, $homeGoals. $awayGoals);
+                $prediction->makePrediction($user, $match, $homeGoals, $awayGoals);
             }
 
-            $data['prediction_value'] = $isPredictionValid;
-            $data['prediction_status'] = $status_message;
+            $data['status_value'] = $isPredictionValid;
+            $data['status_message'] = $status_message;
             $data['match_id'] = $match->id;
         }
 
