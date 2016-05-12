@@ -36,6 +36,7 @@ require '../application/MatchesController.class.php';
 require '../application/TournamentsController.class.php';
 require '../application/HistoryController.class.php';
 require '../application/ProfileController.class.php';
+require '../application/PasswordResetController.class.php';
 
 /**
  * Initialize Dotenv for dynamically getting environment variables
