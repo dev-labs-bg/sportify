@@ -33,7 +33,7 @@ class PasswordResetController extends AbstractController
             $user = new User();
             $user->loadByEmail($email);
 
-            if ( validate_password_reset_input($user, $email, $status_message) ) {
+            if (UserAuth::validatePasswordResetData($user, $email, $status_message)) {
                 // generate new token
                 $token = new Token();
                 $token->userId = $user->id;

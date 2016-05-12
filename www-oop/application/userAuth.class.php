@@ -149,4 +149,21 @@ class UserAuth
 
         return true;
     }
+
+    public static function validatePasswordResetData(User $user, $email, &$status_message = null)
+    {
+        if (empty($email)) {
+            $status_message = 'Please provide e-mail address.';
+
+            return false;
+        } else if (!isset($user->id) || empty($user->id)) {
+            $status_message = 'No such e-mail address in the system.';
+
+            return false;
+        } else {
+            $status_message = 'E-mail with password reset link sent to: ' . $email;
+        }
+
+        return true;
+    }
 }
