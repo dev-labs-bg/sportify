@@ -22,7 +22,8 @@ class PasswordResetController extends AbstractController
         $data = array();
 
         /**
-         * Check if 'form_name' with value 'passwordreset' has been submitted
+         * Logic for processing the page if it is loaded
+         * by submitting a 'passwordreset' form
          */
         if (SysHelper::isFormSubmitted('passwordreset')) {
             $email = trim($_POST['email']);
@@ -60,21 +61,51 @@ class PasswordResetController extends AbstractController
             $data['status_message'] = $status_message;
         }
 
+        /**
+         * Logic for processing the page if it is loaded
+         * by receiving a GET request with 'token' variable set
+         */
+        if (isset($_GET['token']) && !empty($_GET['token'])) {
+            /**
+             * Load token and user data from the database,
+             * based on the token value in the URL query string
+             */
+            $token = new Token();
+            $token->loadByValue($_GET['token']);
+            $user = new User();
+            $user->loadByToken($token);
+
+            if (UserAuth::validateToken($token, 'password_reset', $status_message)) {
+                $data['user'] = $user;
+                $data['token'] = $token;
+                $this->view = 'passwordchange';
+            } else {
+                $this->view = 'error';
+            }
+
+            $data['status_message'] = $status_message;
+        }
+
+        /**
+         * Logic for processing the page if it is loaded
+         * by submitting a 'passwordchange' form
+         */
         if (SysHelper::isFormSubmitted('passwordchange')) {
-            $email = $_POST['email'];
+            /**
+             * Load the user data and token into objects
+             * by the email and token value passed in from the from POST parameters
+             */
+            $user = new User();
+            $user->loadByEmail($_POST['email']);
+            $token = new Token();
+            $token->loadByValue($_POST['token_value']);
+
             $password = $_POST['password'];
             $passwordConfirm = $_POST['password_confirm'];
-
-            /**
-            * Load user data into an object by using the inputted email
-            */
-            $user = new User();
-            $user->loadByEmail($email);
 
             if (UserAuth::validatePasswordData($password, $passwordConfirm, $status_message)) {
                 $user->changePassword($password);
                 $token->remove();
-                    // clear_token($email, $_POST['token_purpose']);
                 header("Location: index.php?page=login");
             }
 
