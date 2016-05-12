@@ -26,7 +26,7 @@ class LoginController extends AbstractController
          * Redirect to home page if user is already logged in and tries to access the login page
          */
         if (UserAuth::getLoginStatus()) {
-            header("Location: index.php");
+            header('Location: index.php');
         }
 
         /**
@@ -42,7 +42,21 @@ class LoginController extends AbstractController
              */
             if (UserAuth::validateLoginData($user, $status_message)) {
                 UserAuth::setLogin($user->email);
-                header("Location: index.php");
+
+                // Load full user data from the database
+                $user->loadByEmail($user->email);
+
+                /**
+                 * Get the tournaments the user has joined in,
+                 * if NONE - redirect to the tournaments page
+                 * else - redirect to the home page
+                 */
+                $tournaments = new TournamentCollection();
+                if (count($tournaments->getJoined($user)) == 0) {
+                    header('Location: index.php?page=tournaments');
+                } else {
+                    header('Location: index.php');
+                }
             }
 
             /**

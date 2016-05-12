@@ -19,7 +19,7 @@ abstract class AbstractController
     public function __construct($controller, $loginStatus)
     {
         if (!$loginStatus && !in_array($controller,$this->allAccessViews)) {
-            header("Location: index.php?page=login");
+            header('Location: index.php?page=login');
         }
 
         $this->view = $controller;
