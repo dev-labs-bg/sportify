@@ -25,7 +25,7 @@ class PasswordResetController extends AbstractController
          * Logic for processing the page if it is loaded
          * by submitting a 'passwordreset' form
          */
-        if (SysHelper::isFormSubmitted('passwordreset')) {
+        if (SysHelper::isFormSubmitted('password_reset')) {
             $email = trim($_POST['email']);
 
             /**
@@ -38,7 +38,7 @@ class PasswordResetController extends AbstractController
                 // generate new token
                 $token = new Token();
                 $token->userId = $user->id;
-                $token->purpose = 'register_confirm';
+                $token->purpose = 'password_reset';
                 $token->value = SysHelper::randomStringAlphanum(30);
                 $token->datetime = SysHelper::datetimeToString(time());
                 // insert the new token in database
@@ -90,7 +90,7 @@ class PasswordResetController extends AbstractController
          * Logic for processing the page if it is loaded
          * by submitting a 'passwordchange' form
          */
-        if (SysHelper::isFormSubmitted('passwordchange')) {
+        if (SysHelper::isFormSubmitted('password_change')) {
             /**
              * Load the user data and token into objects
              * by the email and token value passed in from the from POST parameters

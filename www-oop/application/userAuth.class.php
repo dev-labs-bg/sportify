@@ -123,7 +123,14 @@ class UserAuth
 
             return false;
         } else {
-            $status_message = 'Your user account has been successfully confirmed. You can now login.';
+            switch ($purpose) {
+                case 'register_confirm':
+                    $status_message = 'Your user account has been successfully confirmed. You can now login.';
+                    break;
+                case 'password_reset':
+                    $status_message = 'Please type in new password.';
+                    break;
+            }
         }
 
         return true;
@@ -150,6 +157,14 @@ class UserAuth
         return true;
     }
 
+    /**
+     * Check if user input for trying to reset a password in valid
+     *
+     * @param User $user
+     * @param $email
+     * @param null $status_message
+     * @return bool
+     */
     public static function validatePasswordResetData(User $user, $email, &$status_message = null)
     {
         if (empty($email)) {
