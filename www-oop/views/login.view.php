@@ -27,7 +27,7 @@
 				<div class="col-xs-12">
 					<button type="submit" class="btn btn-primary center-block">Login</button>
 					<br />
-					<p class="text-center"><a href="index.php?page=password_reset">Forgotten password?</a> or <a href="index.php?page=register">Create an account</a></p>
+					<p class="text-center"><a href="index.php?page=passwordreset">Forgotten password?</a> or <a href="index.php?page=register">Create an account</a></p>
 				</div>
 			</div>
 		</form>

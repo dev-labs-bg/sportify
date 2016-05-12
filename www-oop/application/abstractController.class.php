@@ -11,8 +11,8 @@ abstract class AbstractController
     private $allAccessViews = array(
         'login',
         'register',
-        'password_reset',
-        'password_change',
+        'passwordreset',
+        'passwordchange',
         'standings',
     );
 
