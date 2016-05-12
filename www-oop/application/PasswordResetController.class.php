@@ -60,6 +60,27 @@ class PasswordResetController extends AbstractController
             $data['status_message'] = $status_message;
         }
 
+        if (SysHelper::isFormSubmitted('passwordchange')) {
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $passwordConfirm = $_POST['password_confirm'];
+
+            /**
+            * Load user data into an object by using the inputted email
+            */
+            $user = new User();
+            $user->loadByEmail($email);
+
+            if (UserAuth::validatePasswordData($password, $passwordConfirm, $status_message)) {
+                $user->changePassword($password);
+                $token->remove();
+                    // clear_token($email, $_POST['token_purpose']);
+                header("Location: index.php?page=login");
+            }
+
+            $data['status_message'] = $status_message;
+        }
+
         return new view($this->view, $data);
     }
 }
