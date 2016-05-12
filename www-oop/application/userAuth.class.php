@@ -128,4 +128,25 @@ class UserAuth
 
         return true;
     }
+
+    /**
+     * Check if user input password and passwordConfirm are valid
+     *
+     * @param $password
+     * @param $passwordConfirm
+     * @param null $status_message
+     * @return bool
+     */
+    public static function validatePasswordData($password, $passwordConfirm, &$status_message = null)
+    {
+        if ( empty($password) || empty($passwordConfirm) || $password !== $passwordConfirm ) {
+            $status_message = 'Please type in same password twice.';
+
+            return false;
+        } else {
+            $status_message = 'You have successfully changed your profile details.';
+        }
+
+        return true;
+    }
 }

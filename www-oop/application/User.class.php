@@ -97,6 +97,34 @@ class User
     }
 
     /**
+     * Change a user's first name in the database
+     *
+     * @param $firstName
+     * @return mixed
+     */
+    public function changeFirstName($firstName)
+    {
+        return $GLOBALS['db']->query(
+            "UPDATE users SET first_name = :first_name WHERE id = :id",
+            array('id' => $this->id, 'first_name' => $firstName)
+        );
+    }
+
+    /**
+     * Change a user's last name in the database
+     *
+     * @param $lastName
+     * @return mixed
+     */
+    public function changeLastName($lastName)
+    {
+        return $GLOBALS['db']->query(
+            "UPDATE users SET last_name = :last_name WHERE id = :id",
+            array('id' => $this->id, 'last_name' => $lastName)
+        );
+    }
+
+    /**
      * Change a user's password in the database
      *
      * @param $password
@@ -104,11 +132,9 @@ class User
      */
     public function changePassword($password)
     {
-        $this->password = $password;
-
         return $GLOBALS['db']->query(
-            "UPDATE users SET password_hash = :password_hash WHERE email = :email",
-            array('email' => $email, 'password_hash' => password_hash($password, PASSWORD_DEFAULT))
+            "UPDATE users SET password_hash = :password_hash WHERE id = :id",
+            array('id' => $this->id, 'password_hash' => password_hash($password, PASSWORD_DEFAULT))
         );
     }
 
