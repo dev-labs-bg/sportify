@@ -58,7 +58,7 @@ class ScoreCollection
 
         if ($query) {
             foreach ($query as $row) {
-                $this->table[] = new Score($row['id'], $row['user_id'], $row['email'], $row['tournament_id'], $row['points']);
+                $this->table[$row['tournament_id']] = new Score($row['id'], $row['user_id'], $row['email'], $row['tournament_id'], $row['points']);
             }
         }
 

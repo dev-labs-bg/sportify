@@ -10,6 +10,7 @@ class MatchCollection
 {
     private $notScored = array();
     private $alreadyScored = array();
+    private $finishedNotScored = array();
 
     /**
      * Method for getting a list of the matches which have not been scored/finished yet
@@ -125,5 +126,44 @@ class MatchCollection
         }
 
         return $this->alreadyScored;
+    }
+
+    /**
+     * Method for getting a list of the matches which have final score
+     * but there are NOT SCORED predictions for these matches
+     *
+     * @return array
+     */
+    public function getFinishedNotScored()
+    {
+        $this->finishedNotScored = array();
+
+        $query = $GLOBALS['db']->query(
+            "SELECT DISTINCT(matches.id), matches.datetime, matches.home_team, matches.away_team,
+                matches.home_goals, matches.away_goals, matches.tournament_id
+            FROM matches
+            INNER JOIN predictions ON predictions.match_id = matches.id
+            WHERE (matches.home_goals IS NOT NULL AND matches.away_goals IS NOT NULL)
+                AND (predictions.score_added IS NULL OR predictions.score_added = 0)
+                AND predictions.id IS NOT NULL
+            ORDER BY matches.id",
+            array()
+        );
+
+        if ($query) {
+            foreach ($query as &$row) {
+                $this->finishedNotScored[$row['id']] = new Match(
+                    $row['id'],
+                    $row['datetime'],
+                    $row['home_team'],
+                    $row['away_team'],
+                    $row['home_goals'],
+                    $row['away_goals'],
+                    $row['tournament_id']
+                );
+            }
+        }
+
+        return $this->finishedNotScored;
     }
 }
