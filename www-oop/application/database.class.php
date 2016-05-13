@@ -54,4 +54,20 @@ class Database
 
         return array();
     }
+
+    /**
+     * Disable autocommit and begin transaction
+     */
+    public function startTransaction()
+    {
+        $this->connection->beginTransaction();
+    }
+
+    /**
+     * Commit the transaction and enable autocommit again
+     */
+    public function endTransaction()
+    {
+        $this->connection->commit();
+    }
 }
