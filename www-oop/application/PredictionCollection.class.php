@@ -137,7 +137,7 @@ class PredictionCollection
         $this->finishedNotScored = array();
 
         $query = $GLOBALS['db']->query(
-            "SELECT predictions.id, matches.id as match_id, predictions.user_id,
+            "SELECT predictions.id, predictions.match_id, predictions.user_id,
                 predictions.home_goals, predictions.away_goals, predictions.points, predictions.score_added
             FROM matches
             INNER JOIN predictions ON predictions.match_id = matches.id AND predictions.user_id = :user_id
@@ -152,12 +152,12 @@ class PredictionCollection
             foreach ($query as &$row) {
                 $this->finishedNotScored[$row['match_id']] = new Prediction(
                     $row['id'],
-                    $row['datetime'],
-                    $row['home_team'],
-                    $row['away_team'],
+                    $row['match_id'],
+                    $row['user_id'],
                     $row['home_goals'],
                     $row['away_goals'],
-                    $row['tournament_id']
+                    $row['points'],
+                    $row['score_added']
                 );
             }
         }

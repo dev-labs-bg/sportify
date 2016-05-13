@@ -17,6 +17,24 @@ class ScoresUpdateController extends AbstractController
          */
         $data = array();
 
-        return new view($this->view, $data);
+        $matches = new MatchCollection();
+        $matchesList = $matches->getFinishedNotScored();
+
+        $users = new UserCollection();
+        $userList = $users->getAllConfirmed();
+
+        foreach ($userList as $user) {
+            unset($predictions);
+            $predictions = new PredictionCollection();
+            $predictionsList = $predictions->getFinishedNotScored($user);
+
+            // iterate on all of the user's predictions
+            foreach ($predictionsList as $prediction) {
+                unset($match);
+                $match = $matchesList[$prediction->matchId];
+            }
+        }
+
+        header("Location: index.php");
     }
 }
