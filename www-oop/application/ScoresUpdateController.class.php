@@ -11,11 +11,10 @@ class ScoresUpdateController extends AbstractController
      */
     public function index()
     {
-
         /**
-         * Data array for keeping the variables which will be passed to the view
+         * Set the DB to manual commit mode and begin transaction
          */
-        $data = array();
+        $GLOBALS['db']->startTransaction();
 
         /**
          * Get a list of the finished matches
@@ -85,6 +84,12 @@ class ScoresUpdateController extends AbstractController
                 }
             }
         }
+
+        /**
+         * End the transaction by committing and
+         * set the DB to autocommit mode again
+         */
+        $GLOBALS['db']->endTransaction();
 
         header("Location: index.php");
     }
