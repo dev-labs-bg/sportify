@@ -125,6 +125,25 @@ class Prediction
     }
 
     /**
+     * Method for setting the points gained for a prediction
+     *
+     * @param $points
+     * @return mixed
+     */
+    public function setPoints($points)
+    {
+        return $GLOBALS['db']->query(
+            "UPDATE predictions
+            SET points = :points , score_added = 1
+            WHERE id = :id",
+            array(
+                'id' => $this->id,
+                'points' => $points
+            )
+        );
+    }
+
+    /**
      * Method for checking if the prediction data is valid and suitable for inserting or updating in the database
      *
      * @param Match $match

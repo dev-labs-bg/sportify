@@ -33,6 +33,16 @@ class ScoresUpdateController extends AbstractController
                 unset($match);
                 $match = $matchesList[$prediction->matchId];
 
+                if ( ($row['m_home_goals'] == $row['p_home_goals']) && ($row['m_away_goals'] == $row['p_away_goals']) ) {
+                    $prediction_points = POINTS_EXACT;
+                } else if ( ($row['m_home_goals'] > $row['m_away_goals'] && $row['p_home_goals'] > $row['p_away_goals'])
+                    || ($row['m_home_goals'] < $row['m_away_goals'] && $row['p_home_goals'] < $row['p_away_goals'])
+                    || ($row['m_home_goals'] == $row['m_away_goals'] && $row['p_home_goals'] == $row['p_away_goals']) ) {
+                    $prediction_points = POINTS_OUTCOME;
+                } else {
+                    $prediction_points = 0;
+                }
+
 
             }
         }
