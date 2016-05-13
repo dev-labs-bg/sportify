@@ -32,6 +32,8 @@ class ScoresUpdateController extends AbstractController
             foreach ($predictionsList as $prediction) {
                 unset($match);
                 $match = $matchesList[$prediction->matchId];
+
+
             }
         }
 
