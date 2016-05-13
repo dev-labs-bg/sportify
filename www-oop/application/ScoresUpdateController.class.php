@@ -54,18 +54,8 @@ class ScoresUpdateController extends AbstractController
                 unset($match);
                 $match = $matchesList[$prediction->matchId];
 
-                // calculate the points from the prediction
-                if (($match->homeGoals === $prediction->homeGoals) && ($match->awayGoals === $prediction->awayGoals)) {
-                    $predictionPoints = POINTS_EXACT;
-                } else if (
-                    ($match->homeGoals > $match->awayGoals && $prediction->homeGoals > $prediction->awayGoals) ||
-                    ($match->homeGoals < $match->awayGoals && $prediction->homeGoals < $prediction->awayGoals) ||
-                    ($match->homeGoals === $match->awayGoals && $prediction->homeGoals === $prediction->awayGoals)
-                ) {
-                    $predictionPoints = POINTS_OUTCOME;
-                } else {
-                    $predictionPoints = 0;
-                }
+                // get the points from the prediction
+                $predictionPoints = $prediction->calculatePoints($match);
 
                 /**
                  * Update the prediction in the DB

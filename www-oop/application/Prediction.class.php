@@ -125,6 +125,39 @@ class Prediction
     }
 
     /**
+     * Get the outcome of the match
+     *
+     * @return string
+     */
+    public function getResultOutcome()
+    {
+        if ($this->homeGoals > $this->awayGoals) {
+            return '1';
+        } else if ($this->homeGoals < $this->awayGoals) {
+            return '2';
+        }
+
+        return 'X';
+    }
+
+    /**
+     * Calculate the points from the prediction
+     *
+     * @param Match $match
+     * @return int
+     */
+    public function calculatePoints(Match $match)
+    {
+        if (($this->homeGoals === $match->homeGoals) && ($this->awayGoals === $match->awayGoals)) {
+            return POINTS_EXACT;
+        } else if ($this->getResultOutcome() === $match->getResultOutcome()) {
+            return POINTS_OUTCOME;
+        }
+
+        return 0;
+    }
+
+    /**
      * Method for setting the points gained for a prediction
      *
      * @param $points
