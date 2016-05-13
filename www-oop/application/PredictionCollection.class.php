@@ -10,6 +10,7 @@ class PredictionCollection
 {
     private $notScored = array();
     private $alreadyScored = array();
+    private $finishedNotScored = array();
 
     /**
      * Method for getting a list of the predictions for matches which have not been scored/finished yet
@@ -122,5 +123,45 @@ class PredictionCollection
         }
 
         return $this->alreadyScored;
+    }
+
+    /**
+     * Method for getting a list of the NOT SCORED predictions for matches
+     * which have final score
+     *
+     * @param User $user
+     * @return array
+     */
+    public function getFinishedNotScored(User $user)
+    {
+        $this->finishedNotScored = array();
+
+        $query = $GLOBALS['db']->query(
+            "SELECT predictions.id, matches.id as match_id, predictions.user_id,
+                predictions.home_goals, predictions.away_goals, predictions.points, predictions.score_added
+            FROM matches
+            INNER JOIN predictions ON predictions.match_id = matches.id AND predictions.user_id = :user_id
+            WHERE (matches.home_goals IS NOT NULL AND matches.away_goals IS NOT NULL)
+                AND (predictions.score_added IS NULL OR predictions.score_added = 0)
+                AND predictions.id IS NOT NULL
+            ORDER BY matches.id",
+            array('user_id' => $user->id)
+        );
+
+        if ($query) {
+            foreach ($query as &$row) {
+                $this->finishedNotScored[$row['match_id']] = new Prediction(
+                    $row['id'],
+                    $row['datetime'],
+                    $row['home_team'],
+                    $row['away_team'],
+                    $row['home_goals'],
+                    $row['away_goals'],
+                    $row['tournament_id']
+                );
+            }
+        }
+
+        return $this->finishedNotScored;
     }
 }
