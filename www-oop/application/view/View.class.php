@@ -48,4 +48,21 @@ class View
         include VIEW_DIR . "{$this->page}.view.php";
         include VIEW_DIR . "footer.php";
     }
+
+    /**
+     * Static method for loading a template file
+     * by replacing specific strings in it
+     *
+     * @param $view_file
+     * @param $str_search
+     * @param $str_replace
+     * @return mixed
+     */
+    public static function loadTemplate($viewFile, $strSearch, $strReplace)
+    {
+        $filePath = VIEW_DIR . $viewFile;
+        $viewData = file_get_contents($filePath);
+
+        return str_replace($strSearch, $strReplace, $viewData);
+    }
 }

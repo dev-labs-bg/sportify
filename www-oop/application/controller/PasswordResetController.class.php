@@ -49,7 +49,7 @@ class PasswordResetController extends AbstractController
                 $mail->toEmail = $user->email;
                 $mail->subject = 'Sportify - password reset request at ' . DateHelper::datetimeToString(time());
                 $url = UrlHelper::getSiteUrl() . '&token=' . $token->value;
-                $mail->message = load_view(
+                $mail->message = View::loadTemplate(
                     'html_mail_token_link.php',
                     array('INFORMATIVE_TEXT','URL_TOKEN'),
                     array('Please follow this link to reset your password',$url)
