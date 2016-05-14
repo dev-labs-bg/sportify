@@ -32,8 +32,6 @@ class ScoresUpdateController extends AbstractController
             /**
              * Get the list of scores (tournament + points) for the user
              */
-            unset($scores);
-            unset($scoresList);
             $scores = new ScoreCollection();
             $scoresList = $scores->getByUser($user);
 
@@ -41,8 +39,6 @@ class ScoresUpdateController extends AbstractController
              * Get a list of NOT SCORED predictions by the user
              * for matches with final score set
              */
-            unset($predictions);
-            unset($predictionsList);
             $predictions = new PredictionCollection();
             $predictionsList = $predictions->getFinishedNotScored($user);
 
@@ -51,7 +47,6 @@ class ScoresUpdateController extends AbstractController
                 /**
                  * Get corresponding match for the current prediction
                  */
-                unset($match);
                 $match = $matchesList[$prediction->matchId];
 
                 // get the points from the prediction
@@ -68,7 +63,6 @@ class ScoresUpdateController extends AbstractController
                  * then update the user score for the prediction's tournament
                  */
                 if ($predictionPoints > 0) {
-                    unset($score);
                     $score = $scoresList[$match->tournamentId];
                     $score->updatePoints($predictionPoints);
                 }
