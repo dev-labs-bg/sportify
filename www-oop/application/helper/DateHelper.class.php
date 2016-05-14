@@ -44,6 +44,6 @@ class DateHelper
     {
         return (isset($var_date_to) && !empty($var_date_to))
             ? date("Y-m-d", strtotime($var_date_to) + $sec_offset)
-            : date("Y-m-d", time() + 1209600);
+            : date("Y-m-d", time() + 2419200);
     }
 }
