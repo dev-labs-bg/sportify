@@ -1,7 +1,7 @@
 <h1 class="page-header">PROFILE</h1>
 
 <?php if (isset($status_message)) : ?>
-    <p class="alert alert-info" role="alert"><?= $status_message ?></p>
+    <p class="alert alert-info" role="alert"><?= $status_message; ?></p>
 <?php endif; ?>
 
 <div class="panel panel-default">
@@ -12,11 +12,11 @@
             <div class="row">
                 <div class="form-group col-sm-12">
                     <label>First Name</label>
-                    <input type="text" name="first_name" class="form-control" placeholder="First Name" value="<?= $data['userdata']['first_name']; ?>">
+                    <input type="text" name="first_name" class="form-control" placeholder="First Name" value="<?= $user->firstName; ?>">
                 </div>
                 <div class="form-group col-sm-12">
                     <label>Last Name</label>
-                    <input type="text" name="last_name" class="form-control" placeholder="Last Name" value="<?= $data['userdata']['last_name']; ?>">
+                    <input type="text" name="last_name" class="form-control" placeholder="Last Name" value="<?= $user->lastName; ?>">
                 </div>
                 <div class="form-group col-sm-12">
                     <label>Change Password</label>
