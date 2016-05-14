@@ -1,7 +1,9 @@
+<?php namespace Devlabs\App; ?>
+
 <h1 class="page-header">LOGIN</h1>
 
-<?php if (isset($login_status)) : ?>
-	<p class="alert alert-info" role="alert"><?= $login_status ?></p>
+<?php if (isset($status_message)) : ?>
+	<p class="alert alert-info" role="alert"><?= $status_message ?></p>
 <?php endif; ?>
 
 <div class="panel panel-default">
@@ -25,7 +27,7 @@
 				<div class="col-xs-12">
 					<button type="submit" class="btn btn-primary center-block">Login</button>
 					<br />
-					<p class="text-center"><a href="index.php?page=password_reset">Forgotten password?</a> or <a href="index.php?page=register">Create an account</a></p>
+					<p class="text-center"><a href="index.php?page=passwordreset">Forgotten password?</a> or <a href="index.php?page=register">Create an account</a></p>
 				</div>
 			</div>
 		</form>

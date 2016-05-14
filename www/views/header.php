@@ -1,3 +1,5 @@
+<?php namespace Devlabs\App; ?>
+
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -23,12 +25,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="<?php echo get_home_url() ?>">Sportify</a>
+                <a class="navbar-brand" href="<?php echo UrlHelper::getHomeUrl() ?>">Sportify</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="index.php">Home</a></li>
-                    <?php if (is_user_logged_in()): ?>
+                    <?php if (UserAuthHelper::getLoginStatus()): ?>
                         <li class="visible-xs"><a href="index.php?page=tournaments">Tournaments</a></li>
                         <li class="visible-xs"><a href="index.php?page=matches">Matches</a></li>
                         <li class="visible-xs"><a href="index.php?page=history">History</a></li>
@@ -47,7 +49,7 @@
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
-                    <?php if (is_user_logged_in()): ?>
+                    <?php if (UserAuthHelper::getLoginStatus()): ?>
                         <li><a href="index.php?page=tournaments">Tournaments</a></li>
                         <li><a href="index.php?page=matches">Matches</a></li>
                         <li><a href="index.php?page=history">History</a></li>
