@@ -8,6 +8,8 @@ namespace Devlabs\App;
  */
 class Prediction
 {
+    use MatchCommon;
+
     public $id = null;
     public $matchId = null;
     public $userId = null;
@@ -122,22 +124,6 @@ class Prediction
                 'away_goals' => $awayGoals
             )
         );
-    }
-
-    /**
-     * Get the outcome of the match
-     *
-     * @return string
-     */
-    public function getResultOutcome()
-    {
-        if ($this->homeGoals > $this->awayGoals) {
-            return '1';
-        } else if ($this->homeGoals < $this->awayGoals) {
-            return '2';
-        }
-
-        return 'X';
     }
 
     /**

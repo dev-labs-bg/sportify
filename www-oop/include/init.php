@@ -22,6 +22,7 @@ require '../application/model/Token.class.php';
 require '../application/model/Mail.class.php';
 require '../application/model/Tournament.class.php';
 require '../application/model/TournamentCollection.class.php';
+require '../application/model/MatchCommon.trait.php';
 require '../application/model/Match.class.php';
 require '../application/model/MatchCollection.class.php';
 require '../application/model/Prediction.class.php';
