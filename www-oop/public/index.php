@@ -15,8 +15,8 @@ if (!$GLOBALS['db']->connection) die('Failed to connect to database.');
 /**
  * Setup Mailgun for sending e-mails to the users
  */
-$http_client = new \Http\Adapter\Guzzle6\Client();
-$GLOBALS['mailgun'] = new Mailgun(getenv('MAILGUN_API_KEY'), $http_client);
+$httpClient = new \Http\Adapter\Guzzle6\Client();
+$GLOBALS['mailgun'] = new Mailgun(getenv('MAILGUN_API_KEY'), $httpClient);
 
 /**
  * Initialize router and invoke controller
