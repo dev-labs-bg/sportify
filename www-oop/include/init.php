@@ -8,8 +8,11 @@ define('POINTS_EXACT', 3);
 // set the server timezone to EET (GMT +2)
 date_default_timezone_set('EET');
 
-require '../application/UserAuth.class.php';
-require '../application/SysHelper.class.php';
+require '../application/UserAuthHelper.class.php';
+require '../application/DateHelper.class.php';
+require '../application/FormHelper.class.php';
+require '../application/StringHelper.class.php';
+require '../application/UrlHelper.class.php';
 require '../vendor/autoload.php';
 require '../config/base.php';
 require '../application/Database.class.php';
