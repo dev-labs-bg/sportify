@@ -36,9 +36,9 @@ class TournamentsController extends AbstractController
          * and depending on the form submitted, join or leave tournaments
          */
         if (isset($_POST['tournaments'])) {
-            if (SysHelper::isFormSubmitted('tournaments_join')) {
+            if (FormHelper::isFormSubmitted('tournaments_join')) {
                 $tournaments->join($user, $_POST['tournaments']);
-            } else if (SysHelper::isFormSubmitted('tournaments_leave')) {
+            } else if (FormHelper::isFormSubmitted('tournaments_leave')) {
                 $tournaments->leave($user, $_POST['tournaments']);
             }
         }

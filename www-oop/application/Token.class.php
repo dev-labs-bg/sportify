@@ -17,7 +17,7 @@ class Token
     /**
      * Load token data from database by passing a token value
      *
-     * @param $value
+     * @param $token_value
      */
     public function loadByValue($token_value)
     {
@@ -78,7 +78,7 @@ class Token
      */
     public function setDatetime($timestamp)
     {
-        $this->datetime = SysHelper::datetimeToString($timestamp);
+        $this->datetime = DateHelper::datetimeToString($timestamp);
     }
 
     /**

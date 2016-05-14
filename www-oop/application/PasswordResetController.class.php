@@ -25,7 +25,7 @@ class PasswordResetController extends AbstractController
          * Logic for processing the page if it is loaded
          * by submitting a 'passwordreset' form
          */
-        if (SysHelper::isFormSubmitted('password_reset')) {
+        if (FormHelper::isFormSubmitted('password_reset')) {
             $email = trim($_POST['email']);
 
             /**
@@ -34,21 +34,21 @@ class PasswordResetController extends AbstractController
             $user = new User();
             $user->loadByEmail($email);
 
-            if (UserAuth::validatePasswordResetData($user, $email, $status_message)) {
+            if (UserAuthHelper::validatePasswordResetData($user, $email, $status_message)) {
                 // generate new token
                 $token = new Token();
                 $token->userId = $user->id;
                 $token->purpose = 'password_reset';
-                $token->value = SysHelper::randomStringAlphanum(30);
-                $token->datetime = SysHelper::datetimeToString(time());
+                $token->value = StringHelper::randomStringAlphanum(30);
+                $token->datetime = DateHelper::datetimeToString(time());
                 // insert the new token in database
                 $token->insert();
 
                 $mail = new Mail();
                 $mail->fromEmail = 'sportify@devlabs-projects.com';
                 $mail->toEmail = $user->email;
-                $mail->subject = 'Sportify - password reset request at ' . SysHelper::datetimeToString(time());
-                $url = SysHelper::getSiteUrl() . '&token=' . $token->value;
+                $mail->subject = 'Sportify - password reset request at ' . DateHelper::datetimeToString(time());
+                $url = UrlHelper::getSiteUrl() . '&token=' . $token->value;
                 $mail->message = load_view(
                     'html_mail_token_link.php',
                     array('INFORMATIVE_TEXT','URL_TOKEN'),
@@ -75,7 +75,7 @@ class PasswordResetController extends AbstractController
             $user = new User();
             $user->loadByToken($token);
 
-            if (UserAuth::validateToken($token, 'password_reset', $status_message)) {
+            if (UserAuthHelper::validateToken($token, 'password_reset', $status_message)) {
                 $data['user'] = $user;
                 $data['token'] = $token;
                 $this->view = 'passwordchange';
@@ -90,7 +90,7 @@ class PasswordResetController extends AbstractController
          * Logic for processing the page if it is loaded
          * by submitting a 'passwordchange' form
          */
-        if (SysHelper::isFormSubmitted('password_change')) {
+        if (FormHelper::isFormSubmitted('password_change')) {
             /**
              * Load the user data and token into objects
              * by the email and token value passed in from the from POST parameters
@@ -103,7 +103,7 @@ class PasswordResetController extends AbstractController
             $password = $_POST['password'];
             $passwordConfirm = $_POST['password_confirm'];
 
-            if (UserAuth::validatePasswordData($password, $passwordConfirm, $status_message)) {
+            if (UserAuthHelper::validatePasswordData($password, $passwordConfirm, $status_message)) {
                 $user->changePassword($password);
                 $token->remove();
                 header("Location: index.php?page=login");

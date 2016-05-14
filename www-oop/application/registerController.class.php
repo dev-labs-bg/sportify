@@ -25,7 +25,7 @@ class RegisterController extends AbstractController
         /**
          * Check if 'form_name' with value 'register' has been submitted
          */
-        if (SysHelper::isFormSubmitted('register')) {
+        if (FormHelper::isFormSubmitted('register')) {
             $user->email = trim($_POST['email']);
             $user->firstName = $_POST['first_name'];
             $user->lastName = $_POST['last_name'];
@@ -35,7 +35,7 @@ class RegisterController extends AbstractController
             /**
              * Check if the inputted user data is valid for registration
              */
-            if (UserAuth::validateRegistrationData($user, $status_message)) {
+            if (UserAuthHelper::validateRegistrationData($user, $status_message)) {
                 // insert username into database
                 $user->insert();
 
@@ -43,16 +43,16 @@ class RegisterController extends AbstractController
                 $token = new Token();
                 $token->userId = $user->id;
                 $token->purpose = 'register_confirm';
-                $token->value = SysHelper::randomStringAlphanum(30);
-                $token->datetime = SysHelper::datetimeToString(time());
+                $token->value = StringHelper::randomStringAlphanum(30);
+                $token->datetime = DateHelper::datetimeToString(time());
                 // insert the new token in database
                 $token->insert();
 
                 $mail = new Mail();
                 $mail->fromEmail = 'sportify@devlabs-projects.com';
                 $mail->toEmail = $user->email;
-                $mail->subject = 'Sportify - user registration request at ' . SysHelper::datetimeToString(time());
-                $url = SysHelper::getSiteUrl() . '&token=' . $token->value;
+                $mail->subject = 'Sportify - user registration request at ' . DateHelper::datetimeToString(time());
+                $url = UrlHelper::getSiteUrl() . '&token=' . $token->value;
                 $mail->message = load_view(
                     'html_mail_token_link.php',
                     array('INFORMATIVE_TEXT','URL_TOKEN'),
@@ -77,7 +77,7 @@ class RegisterController extends AbstractController
             /**
              * Check if the token in the query string is valid
              */
-            if (UserAuth::validateToken($token, 'register_confirm', $status_message)) {
+            if (UserAuthHelper::validateToken($token, 'register_confirm', $status_message)) {
                 /**
                  * Load user data by passing in token,
                  * set the user as confirmed in the DB,

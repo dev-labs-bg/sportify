@@ -25,14 +25,14 @@ class LoginController extends AbstractController
         /**
          * Redirect to home page if user is already logged in and tries to access the login page
          */
-        if (UserAuth::getLoginStatus()) {
+        if (UserAuthHelper::getLoginStatus()) {
             header('Location: index.php');
         }
 
         /**
          * Check if 'form_name' with value 'login' has been submitted
          */
-        if (SysHelper::isFormSubmitted('login')) {
+        if (FormHelper::isFormSubmitted('login')) {
             $user->email = trim($_POST['email']);
             $user->password = $_POST['password'];
 
@@ -40,8 +40,8 @@ class LoginController extends AbstractController
              * If user input's e-mail and password are valid,
              * setup user's session and redirect to the home page
              */
-            if (UserAuth::validateLoginData($user, $status_message)) {
-                UserAuth::setLogin($user->email);
+            if (UserAuthHelper::validateLoginData($user, $status_message)) {
+                UserAuthHelper::setLogin($user->email);
 
                 // Load full user data from the database
                 $user->loadByEmail($user->email);

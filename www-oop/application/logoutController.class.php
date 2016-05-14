@@ -18,7 +18,7 @@ class LogoutController extends AbstractController
         /**
          * Destroy the user session and redirect to the home page
          */
-        userAuth::unsetLogin();
+        UserAuthHelper::unsetLogin();
         header("Location: index.php");
     }
 }

@@ -63,8 +63,8 @@ class MatchesController extends AbstractController
          * Initialize the dateFrom and dateTo variables,
          * based on the values of date_from and date_to from the URL query string
          */
-        $dateFrom = SysHelper::setDateStart($_GET['date_from'], date("Y-m-d"));
-        $dateTo = SysHelper::setDateEnd($_GET['date_to'], 86400);
+        $dateFrom = DateHelper::setDateStart($_GET['date_from'], date("Y-m-d"));
+        $dateTo = DateHelper::setDateEnd($_GET['date_to'], 86400);
 
         /**
          * Get the tournament id from the URL query string

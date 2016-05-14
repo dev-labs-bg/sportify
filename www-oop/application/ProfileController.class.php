@@ -30,7 +30,7 @@ class ProfileController extends AbstractController
         /**
          * Check if 'form_name' with value 'profile_change' has been submitted
          */
-        if (SysHelper::isFormSubmitted('profile_change')) {
+        if (FormHelper::isFormSubmitted('profile_change')) {
             $firstName = $_POST['first_name'];
             $lastName = $_POST['last_name'];
             $password = $_POST['password'];
@@ -41,7 +41,7 @@ class ProfileController extends AbstractController
 
             if (empty($password) && empty($password_confirm)) {
                 $status_message = 'You have successfully changed your profile details.';
-            } else if (UserAuth::validatePasswordData($password, $passwordConfirm, $status_message)) {
+            } else if (UserAuthHelper::validatePasswordData($password, $passwordConfirm, $status_message)) {
                 $user->changePassword($password);
             }
 

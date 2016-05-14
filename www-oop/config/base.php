@@ -4,9 +4,9 @@ namespace Devlabs\App;
 
 // Store all config values here
 $base_config = array(
-	'css_path'         => SysHelper::getCssUrl(),
-	'js_path'          => SysHelper::getJsUrl(),
-	'img_path'         => SysHelper::getImgUrl(),
+	'css_path'         => UrlHelper::getCssUrl(),
+	'js_path'          => UrlHelper::getJsUrl(),
+	'img_path'         => UrlHelper::getImgUrl(),
 	'points_css_class' => array(
 		0 => 'danger',
 		1 => 'warning',
