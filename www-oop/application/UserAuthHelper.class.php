@@ -3,10 +3,10 @@
 namespace Devlabs\App;
 
 /**
- * Class UserAuth
- * @package devlabs\app
+ * Class UserAuthHelper
+ * @package Devlabs\App
  */
-class UserAuth
+class UserAuthHelper
 {
     /**
      * Check user is logged in
