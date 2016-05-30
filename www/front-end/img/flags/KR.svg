@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="21px" height="15px" viewBox="0 0 21 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.2 (29753) - http://www.bohemiancoding.com/sketch -->
+    <title>KR</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="21" height="15" rx="2"></rect>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-3">
+            <feMorphology radius="1" operator="erode" in="SourceAlpha" result="shadowSpreadInner1"></feMorphology>
+            <feOffset dx="0" dy="0" in="shadowSpreadInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.121659873 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+        <rect id="path-4" x="0.5" y="0.5" width="20" height="14" rx="1"></rect>
+    </defs>
+    <g id=":)" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Flags-by-@lucchaissac" transform="translate(-50.000000, -155.000000)">
+            <g id="KR" transform="translate(50.000000, 155.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="background">
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-1"></use>
+                </g>
+                <path d="M14,7.5 C14,9.43299662 12.4329966,11 10.5,11 C8.56700338,11 7,9.43299662 7,7.5 C7,6.37985719 9.35062116,5.90882049 11.3275634,6.08688989 C11.5377111,6.0306349 11.7640855,6 12,6 C13.1045695,6 14,6.67157288 14,7.5 L14,7.5 Z" id="circle" fill="#0048AB" mask="url(#mask-2)"></path>
+                <path d="M9.61805325,7.5 L10,7.5 C10,6.67157288 10.8954305,6 12,6 C13.1045695,6 14,6.67157288 14,7.5 C14,5.56700338 12.4329966,4 10.5,4 C9.10317682,4 7.89746818,4.81825866 7.33606135,6.00158873 C7.13087088,6.07546726 7,6.22312027 7,6.5 C7,6.63634011 7.01818996,6.76843173 7.05227544,6.8939804 C7.01791451,7.09082406 7,7.29331995 7,7.5 L7.38194675,7.5 C7.65660702,7.80687468 8.05575009,8 8.5,8 C8.94424991,8 9.34339298,7.80687468 9.61805325,7.5 L9.61805325,7.5 Z" id="circle" fill="#CD0027" mask="url(#mask-2)"></path>
+                <path d="M15,5 L17,5 L15,3 L14,3 L15,5 L15,5 Z M6,5 L4,5 L6,3 L7,3 L6,5 L6,5 Z M15,10 L17,10 L15,12 L14,12 L15,10 L15,10 Z M6,10 L4,10 L6,12 L7,12 L6,10 L6,10 Z" id="angles" fill="#252526" mask="url(#mask-2)"></path>
+                <mask id="mask-5" fill="white">
+                    <use xlink:href="#path-4"></use>
+                </mask>
+                <use id="overlay" stroke-opacity="0.156646286" stroke="#2F343A" xlink:href="#path-4"></use>
+            </g>
+        </g>
+    </g>
+</svg>
