@@ -5,7 +5,7 @@ namespace Devlabs\SportifyBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Devlabs\SportifyBundle\Entity\TournamentRepository")
  * @ORM\Table(name="tournaments")
  */
 class Tournament
