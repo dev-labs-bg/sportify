@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <title>Sportify</title>
-    <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link href='https://fonts.googleapis.com/css?family=Exo:400,600,700,900' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -56,26 +55,26 @@
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="mobile-menu">
+            <div class="collapse navbar-collapse mobile-menu" id="mobile-menu">
               <ul class="nav navbar-nav">
+                <li class="my-profile">
+                    <a href="#">My Profile</a>
+                </li>
+                <li class="active">
+                    <a class="tournaments" href="#">Tournaments</a>
+                </li>
                 <li>
-                                <a href="#">My Profile</a>
-                            </li>
-                            <li>
-                                <a href="#">Tournaments</a>
-                            </li>
-                            <li>
-                                <a href="#">Matches</a>
-                            </li>
-                            <li>
-                                <a href="#">Standings</a>
-                            </li>
-                            <li>
-                                <a href="#">History</a>
-                            </li>
-                            <li>
-                                <a href="#">Rules</a>
-                            </li>
+                    <a class="matches" href="#">Matches</a>
+                </li>
+                <li>
+                    <a class="standings" href="#">Standings</a>
+                </li>
+                <li>
+                    <a class="history" href="#">History</a>
+                </li>
+                <li>
+                    <a class="rules" href="#">Rules</a>
+                </li>
               </ul>
             </div><!-- /.navbar-collapse -->
             <h1 class="text-center">Standings</h1>

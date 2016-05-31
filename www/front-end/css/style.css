@@ -112,10 +112,15 @@ body, html {
     line-height: 70px;
     background: rgba(0,0,0,.25);
 }
-.sidebar-nav .profile-picture {
+.my-profile {
+    background: url(../img/settings.svg) no-repeat 15px center;
+}
+.sidebar-nav .my-profile {
     z-index: 1;
     background: url(../img/settings.svg) no-repeat 15px 15px;
-    padding-bottom: 75px;
+}
+.sidebar-nav .profile-picture {
+    padding-bottom: 100px;
 }
 .sidebar-nav .profile-picture img{
     width: 120px;
@@ -126,7 +131,7 @@ body, html {
 }
 .sidebar-nav .user-name {
     position: absolute;
-    bottom: 40px;
+    bottom: 60px;
     left: 0;
     font-weight: 700;
     font-size: 16px;
@@ -137,19 +142,19 @@ body, html {
     margin-top: -15px;
     margin-left: 60px;
 }
-.sidebar-nav .tournaments {
+.tournaments {
     background: url(../img/trophy.svg) no-repeat 15px center;
 }
-.sidebar-nav .matches {
+.matches {
     background: url(../img/football.svg) no-repeat 15px center;
 }
-.sidebar-nav .standings {
+.standings {
     background: url(../img/standings.svg) no-repeat 15px center;
 }
-.sidebar-nav .history {
+.history {
     background: url(../img/history.svg) no-repeat 15px center;
 }
-.sidebar-nav .rules {
+.rules {
     background: url(../img/rules.svg) no-repeat 15px center;
 }
 .hamburger {
@@ -183,8 +188,29 @@ body, html {
 .navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
     background: inherit;
 }
+.navbar-default .navbar-nav>.active>a,
+.navbar-default .navbar-nav>.active>a:focus,
+.navbar-default .navbar-nav>.active>a:hover,
+.navbar-default .navbar-nav>li>a:focus,
+.navbar-default .navbar-nav>li>a:hover {
+
+    color: #fff;
+    background-color: rgba(0,0,0,.3);
+}
 .navbar-toggle {
     padding: 17px 10px;
+}
+.mobile-menu {
+    background: #4caf50;
+    color: #fff;
+}
+.navbar-default .navbar-nav>li>a {
+    color: #fff;
+}
+.mobile-menu li a {
+    font-size: 17px;
+    padding-left: 60px;
+    text-transform: uppercase;
 }
 .navbar h1, h1 {
     margin: 0;
