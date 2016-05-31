@@ -1,0 +1,219 @@
+body {
+    font-family: 'Exo';
+    color: #fff;
+    position: relative;
+    overflow-x: hidden;
+}
+body, html {
+    height: 100%;
+}
+.nav .open > a,
+.nav .open > a:hover,
+.nav .open > a:focus {
+    background-color: transparent;
+}
+
+.wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.wrapper.toggled {
+    padding-left: 255px;
+}
+
+.sidebar-wrapper {
+    z-index: 99999;
+    left: 255px;
+    width: 55px;
+    height: 100%;
+    margin-left: -255px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #4caf50 url(../img/grass-pattern.png);
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.sidebar-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.wrapper.toggled .sidebar-wrapper {
+    width: 255px;
+}
+
+.page-content-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    padding-left: 55px;
+    padding-top: 70px;
+    background: #000 url(../img/sportify-bg.png);
+    background-size: cover;
+}
+
+.wrapper.toggled .page-content-wrapper {
+    position: absolute;
+    margin-right: -255px;
+    padding-left: 255px;
+    margin-left: -255px;
+    transition: .5s ease-in-out;
+}
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 255px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    position: relative;
+    line-height: 20px;
+    display: inline-block;
+    width: 100%;
+}
+.sidebar-nav li a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 25px 15px 25px 60px;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.sidebar-nav li.active a,
+.sidebar-nav li a:hover,
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus,
+.sidebar-nav li.open a:hover,
+.sidebar-nav li.open a:active,
+.sidebar-nav li.open a:focus{
+    color: #fff;
+    text-decoration: none;
+    background-color: rgba(0,0,0,.12);
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 70px;
+    line-height: 70px;
+    background: rgba(0,0,0,.25);
+}
+.sidebar-nav .profile-picture {
+    z-index: 1;
+    background: url(../img/settings.svg) no-repeat 15px 15px;
+    padding-bottom: 75px;
+}
+.sidebar-nav .profile-picture img{
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 100%;
+    border: 5px solid #fff;
+}
+.sidebar-nav .user-name {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 0.9;
+    letter-spacing: 0.9px;
+    color: #ffffff;
+    text-transform: none;
+    margin-top: -15px;
+    margin-left: 60px;
+}
+.sidebar-nav .tournaments {
+    background: url(../img/trophy.svg) no-repeat 15px center;
+}
+.sidebar-nav .matches {
+    background: url(../img/football.svg) no-repeat 15px center;
+}
+.sidebar-nav .standings {
+    background: url(../img/standings.svg) no-repeat 15px center;
+}
+.sidebar-nav .history {
+    background: url(../img/history.svg) no-repeat 15px center;
+}
+.sidebar-nav .rules {
+    background: url(../img/rules.svg) no-repeat 15px center;
+}
+.hamburger {
+    margin: 0 9px;
+    background: none;
+    border: none;
+    outline: none;
+    padding: 0 6px;
+}
+.page-content-wrapper .navbar-nav {
+    display: none;
+}
+.page-content-wrapper .navbar-default {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: #1d2936;
+    border: none;
+    border-radius: 0;
+    z-index: 9999;
+    transition: .5s ease-out;
+}
+.wrapper.toggled .page-content-wrapper .navbar-default {
+    padding-left: 255px;
+}
+.navbar-default .navbar-toggle {
+    border: none;
+}
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+    background: inherit;
+}
+.navbar-toggle {
+    padding: 17px 10px;
+}
+header h1 {
+    color: #fff;
+    font-size: 30px;
+    text-transform: uppercase;
+}
+@media screen and (max-width: 767px){
+    .wrapper.toggled {
+        padding-left: 0;
+    }
+    .sidebar-wrapper {
+        display: none;
+    }
+    .wrapper.toggled .page-content-wrapper {
+        margin-right: 0;
+        padding-left: 0;
+        margin-left: 0;
+    }
+    .page-content-wrapper {
+        padding-left: 0;
+    }
+    .wrapper.toggled .page-content-wrapper .navbar-default {
+        padding-left: 0;
+    }
+    .page-content-wrapper .navbar-nav {
+        display: block;
+    }
+    .page-content-wrapper .navbar-default {
+        position: relative;
+        top: -70px;
+    }
+    header h1 {
+        display: none;
+    }
+}
