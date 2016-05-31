@@ -10,4 +10,17 @@ namespace Devlabs\SportifyBundle\Entity;
  */
 class TournamentRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findJoined()
+    {
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT p FROM AppBundle:Product p ORDER BY p.name ASC'
+                'SELECT t
+                FROM DevlabsSportifyBundle:Tournament t
+                JOIN DevlabsSportifyBundle:User ON users.id = scores.user_id
+                JOIN tournaments ON tournaments.id = scores.tournament_id
+                WHERE users.id = :user_id'
+            )->setParameter('user_id', $user->id)
+            ->getResult();
+    }
 }
