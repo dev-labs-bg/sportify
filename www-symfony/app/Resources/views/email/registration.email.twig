@@ -1,0 +1,21 @@
+{% block subject %}Registration confirmation{% endblock %}
+
+{% block body_text %}
+    {% autoescape false %}
+        Hello {{ user.username }} !
+
+        You can confirm your account by accessing {{ confirmationUrl }}
+
+        Greetings,
+        The Sportify team
+    {% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+    {#
+        You can of course render the html directly here.
+        Including a template as done here allows keeping things DRY by using
+        the template inheritance in it
+    #}
+    {% include 'email/registration.html.twig' %}
+{% endblock %}

@@ -8,15 +8,11 @@
       <library name="PHARS">
         <CLASSES>
           <root url="phar://$MODULE_DIR$/www/vendor/php-http/discovery/bin/puli.phar/" />
-          <root url="phar://$MODULE_DIR$/www-oop/vendor/php-http/discovery/bin/puli.phar/" />
           <root url="phar://$MODULE_DIR$/www/vendor/bin/puli.phar/" />
-          <root url="phar://$MODULE_DIR$/www-oop/vendor/bin/puli.phar/" />
         </CLASSES>
         <SOURCES>
           <root url="phar://$MODULE_DIR$/www/vendor/php-http/discovery/bin/puli.phar/" />
-          <root url="phar://$MODULE_DIR$/www-oop/vendor/php-http/discovery/bin/puli.phar/" />
           <root url="phar://$MODULE_DIR$/www/vendor/bin/puli.phar/" />
-          <root url="phar://$MODULE_DIR$/www-oop/vendor/bin/puli.phar/" />
         </SOURCES>
       </library>
     </orderEntry>
