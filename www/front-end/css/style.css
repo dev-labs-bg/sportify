@@ -1,13 +1,5 @@
-@font-face {
-    font-family: 'hirakakustd-w8';
-    src: url('../fonts/hirakakustd-w8.woff2') format('woff2'),
-         url('../fonts/hirakakustd-w8.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
 body {
-    font-family: 'hirakakustd-w8';
+    font-family: 'Exo';
     color: #fff;
     position: relative;
     overflow-x: hidden;
@@ -57,6 +49,7 @@ body, html {
 }
 
 .page-content-wrapper {
+    position: relative;
     width: 100%;
     height: 100%;
     min-height: 100vh;
@@ -91,11 +84,15 @@ body, html {
 }
 .sidebar-nav li a {
     display: block;
-    color: #ddd;
+    color: #fff;
     text-decoration: none;
-    padding: 10px 15px 10px 60px;
+    padding: 25px 15px 25px 60px;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
+.sidebar-nav li.active a,
 .sidebar-nav li a:hover,
 .sidebar-nav li a:active,
 .sidebar-nav li a:focus,
@@ -104,13 +101,53 @@ body, html {
 .sidebar-nav li.open a:focus{
     color: #fff;
     text-decoration: none;
-    background-color: transparent;
+    background-color: rgba(0,0,0,.12);
 }
 
 .sidebar-nav > .sidebar-brand {
     height: 70px;
     line-height: 70px;
-    background: rgba(0,0,0,.2);
+    background: rgba(0,0,0,.25);
+}
+.sidebar-nav .profile-picture {
+    z-index: 1;
+    background: url(../img/settings.svg) no-repeat 15px 15px;
+    padding-bottom: 75px;
+}
+.sidebar-nav .profile-picture img{
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 100%;
+    border: 5px solid #fff;
+}
+.sidebar-nav .user-name {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 0.9;
+    letter-spacing: 0.9px;
+    color: #ffffff;
+    text-transform: none;
+    margin-top: -15px;
+    margin-left: 60px;
+}
+.sidebar-nav .tournaments {
+    background: url(../img/trophy.svg) no-repeat 15px center;
+}
+.sidebar-nav .matches {
+    background: url(../img/football.svg) no-repeat 15px center;
+}
+.sidebar-nav .standings {
+    background: url(../img/standings.svg) no-repeat 15px center;
+}
+.sidebar-nav .history {
+    background: url(../img/history.svg) no-repeat 15px center;
+}
+.sidebar-nav .rules {
+    background: url(../img/rules.svg) no-repeat 15px center;
 }
 .hamburger {
     margin: 0 9px;
@@ -162,6 +199,9 @@ header h1 {
         margin-right: 0;
         padding-left: 0;
         margin-left: 0;
+    }
+    .page-content-wrapper {
+        padding-left: 0;
     }
     .wrapper.toggled .page-content-wrapper .navbar-default {
         padding-left: 0;

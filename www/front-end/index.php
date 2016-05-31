@@ -4,7 +4,9 @@
     <title>Sportify</title>
     <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Exo:400,600,700,900' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+
 </head>
 <body>
  <div id="wrapper" class="wrapper toggled">
@@ -14,23 +16,26 @@
             <li class="sidebar-brand">
                 <button class="hamburger is-open" data-toggle="offcanvas" ><?php include('img/menu.svg'); ?></button>
             </li>
-            <li>
-                <a href="#">Profile</a>
+            <li class="my-profile">
+                <a class="profile-picture" href="#">
+                    <img src="img/profile_pic.jpg" alt="" />
+                </a>
+                <p class="user-name">Botzi Dimitrova</p>
+            </li>
+            <li class="active">
+                <a class="tournaments" href="#">Tournaments</a>
             </li>
             <li>
-                <a href="#">Tournaments</a>
+                <a class="matches" href="#">Matches</a>
             </li>
             <li>
-                <a href="#">Matches</a>
+                <a class="standings" href="#">Standings</a>
             </li>
             <li>
-                <a href="#">Standings</a>
+                <a class="history" href="#">History</a>
             </li>
             <li>
-                <a href="#">History</a>
-            </li>
-            <li>
-                <a href="#">Rules</a>
+                <a class="rules" href="#">Rules</a>
             </li>
         </ul>
     </nav>
@@ -52,7 +57,7 @@
             <div class="collapse navbar-collapse" id="mobile-menu">
               <ul class="nav navbar-nav">
                 <li>
-                                <a href="#">Profile</a>
+                                <a href="#">My Profile</a>
                             </li>
                             <li>
                                 <a href="#">Tournaments</a>
@@ -75,7 +80,7 @@
           </div><!-- /.container-fluid -->
         </nav>
         </header>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
                     <h1>Test Title</h1>
