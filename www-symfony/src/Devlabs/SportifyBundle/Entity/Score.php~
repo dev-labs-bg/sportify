@@ -33,4 +33,86 @@ class Score
      * @ORM\Column(type="integer")
      */
     private $points;
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set points
+     *
+     * @param integer $points
+     *
+     * @return Score
+     */
+    public function setPoints($points)
+    {
+        $this->points = $points;
+
+        return $this;
+    }
+
+    /**
+     * Get points
+     *
+     * @return integer
+     */
+    public function getPoints()
+    {
+        return $this->points;
+    }
+
+    /**
+     * Set userId
+     *
+     * @param \Devlabs\SportifyBundle\Entity\User $userId
+     *
+     * @return Score
+     */
+    public function setUserId(\Devlabs\SportifyBundle\Entity\User $userId = null)
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
+
+    /**
+     * Get userId
+     *
+     * @return \Devlabs\SportifyBundle\Entity\User
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
+     * Set tournamentId
+     *
+     * @param \Devlabs\SportifyBundle\Entity\Tournament $tournamentId
+     *
+     * @return Score
+     */
+    public function setTournamentId(\Devlabs\SportifyBundle\Entity\Tournament $tournamentId = null)
+    {
+        $this->tournamentId = $tournamentId;
+
+        return $this;
+    }
+
+    /**
+     * Get tournamentId
+     *
+     * @return \Devlabs\SportifyBundle\Entity\Tournament
+     */
+    public function getTournamentId()
+    {
+        return $this->tournamentId;
+    }
 }
