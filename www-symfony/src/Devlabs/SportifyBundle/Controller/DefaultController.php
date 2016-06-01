@@ -12,6 +12,13 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('DevlabsSportifyBundle:Default:index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $tournaments = $em->getRepository('DevlabsSportifyBundle:Tournament')
+            ->getJoined();
+
+        return $this->render(
+            'DevlabsSportifyBundle:Default:index.html.twig',
+            array('tournaments' => $tournaments)
+        );
     }
 }
