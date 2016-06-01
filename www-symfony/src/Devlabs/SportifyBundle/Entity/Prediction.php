@@ -48,4 +48,158 @@ class Prediction
      * @ORM\Column(type="boolean", name="score_added")
      */
     private $scoreAdded = 0;
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set homeGoals
+     *
+     * @param integer $homeGoals
+     *
+     * @return Prediction
+     */
+    public function setHomeGoals($homeGoals)
+    {
+        $this->homeGoals = $homeGoals;
+
+        return $this;
+    }
+
+    /**
+     * Get homeGoals
+     *
+     * @return integer
+     */
+    public function getHomeGoals()
+    {
+        return $this->homeGoals;
+    }
+
+    /**
+     * Set awayGoals
+     *
+     * @param integer $awayGoals
+     *
+     * @return Prediction
+     */
+    public function setAwayGoals($awayGoals)
+    {
+        $this->awayGoals = $awayGoals;
+
+        return $this;
+    }
+
+    /**
+     * Get awayGoals
+     *
+     * @return integer
+     */
+    public function getAwayGoals()
+    {
+        return $this->awayGoals;
+    }
+
+    /**
+     * Set points
+     *
+     * @param integer $points
+     *
+     * @return Prediction
+     */
+    public function setPoints($points)
+    {
+        $this->points = $points;
+
+        return $this;
+    }
+
+    /**
+     * Get points
+     *
+     * @return integer
+     */
+    public function getPoints()
+    {
+        return $this->points;
+    }
+
+    /**
+     * Set scoreAdded
+     *
+     * @param boolean $scoreAdded
+     *
+     * @return Prediction
+     */
+    public function setScoreAdded($scoreAdded)
+    {
+        $this->scoreAdded = $scoreAdded;
+
+        return $this;
+    }
+
+    /**
+     * Get scoreAdded
+     *
+     * @return boolean
+     */
+    public function getScoreAdded()
+    {
+        return $this->scoreAdded;
+    }
+
+    /**
+     * Set matchId
+     *
+     * @param \Devlabs\SportifyBundle\Entity\Match $matchId
+     *
+     * @return Prediction
+     */
+    public function setMatchId(\Devlabs\SportifyBundle\Entity\Match $matchId = null)
+    {
+        $this->matchId = $matchId;
+
+        return $this;
+    }
+
+    /**
+     * Get matchId
+     *
+     * @return \Devlabs\SportifyBundle\Entity\Match
+     */
+    public function getMatchId()
+    {
+        return $this->matchId;
+    }
+
+    /**
+     * Set userId
+     *
+     * @param \Devlabs\SportifyBundle\Entity\User $userId
+     *
+     * @return Prediction
+     */
+    public function setUserId(\Devlabs\SportifyBundle\Entity\User $userId = null)
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
+
+    /**
+     * Get userId
+     *
+     * @return \Devlabs\SportifyBundle\Entity\User
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
 }
