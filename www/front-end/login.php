@@ -27,7 +27,7 @@
                   <div class="form-group">
                     <input name="password" type="password" class="form-control" placeholder="Password">
                   </div>
-                  <p><a href="#">Forgotten password?</a></p>
+                  <p class="forgotten-password"><a href="#">Forgotten password?</a></p>
                   <button type="submit" class="btn btn-default green-btn">Login</button>
                 </form>
                 <h2>Don't have an account?<br/>

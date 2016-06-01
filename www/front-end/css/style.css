@@ -7,6 +7,7 @@ body {
     min-height: 100vh;
     background: #000 url(../img/sportify-bg.png);
     background-size: cover;
+    background-attachment: fixed;
 }
 body, html {
     height: 100%;
@@ -108,7 +109,7 @@ body, html {
 }
 
 .sidebar-nav > .sidebar-brand {
-    height: 70px;
+    height: 72px;
     line-height: 70px;
     background: rgba(0,0,0,.25);
 }
@@ -128,6 +129,7 @@ body, html {
     object-fit: cover;
     border-radius: 100%;
     border: 5px solid #fff;
+    margin-top: 40px;
 }
 .sidebar-nav .user-name {
     position: absolute;
@@ -158,7 +160,7 @@ body, html {
     background: url(../img/rules.svg) no-repeat 15px center;
 }
 .hamburger {
-    margin: 0 9px;
+    margin: 1px 9px;
     background: none;
     border: none;
     outline: none;
@@ -168,16 +170,22 @@ body, html {
     display: none;
 }
 .page-content-wrapper .navbar-default, header .navbar-default {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
-    height: 70px;
+    height: 72px;
     background: #1d2936;
     border: none;
+    border-bottom: 1px solid #1d2936;
     border-radius: 0;
     z-index: 9999;
     transition: .5s ease-out;
+}
+.page-content-wrapper .navbar-default.scrolled {
+    border-bottom: 1px solid #fff;
+}
+header .navbar-default {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 .wrapper.toggled .page-content-wrapper .navbar-default {
     padding-left: 255px;
@@ -193,9 +201,8 @@ body, html {
 .navbar-default .navbar-nav>.active>a:hover,
 .navbar-default .navbar-nav>li>a:focus,
 .navbar-default .navbar-nav>li>a:hover {
-
     color: #fff;
-    background-color: rgba(0,0,0,.3);
+    background-color: rgba(0,0,0,.2);
 }
 .navbar-toggle {
     padding: 17px 10px;
@@ -231,6 +238,14 @@ h2 {
 }
 .login-screen h2, .signup-screen h2 {
     margin: 120px 0 50px;
+    line-height: 1.6;
+}
+.signup-screen h2 {
+    margin: 80px 0 10px;
+}
+.login-screen h2 a {
+    color: inherit;
+    text-decoration: underline;
 }
 .login-form, .signup-form {
     display: inline-block;
@@ -241,19 +256,50 @@ h2 {
     display: inline-block;
     border: 1px solid #fff;
     background-color: rgba(255,255,255,.2);
-    padding: 30px 45px;
+    padding: 30px 75px 30px 35px;
     color: #fff;
     text-transform: uppercase;
     font-weight: 700;
     font-size: 16px;
     border-radius: 100px;
-    margin: 30px 0;
+    margin: 50px 0 10px;
 }
 .login-form input[name=email] {
     background: rgba(255,255,255,.2) url(../img/ghost.svg) no-repeat 90% center;
 }
 .login-form input[name=password] {
     background: rgba(255,255,255,.2) url(../img/controller.svg) no-repeat 90% center;
+}
+.form-group {
+    margin-bottom: 0;
+}
+.login-screen .forgotten-password {
+    margin: 10px 0 40px;
+}
+.login-screen .forgotten-password a {
+    color: inherit;
+    font-size: 18px;
+}
+.login-screen .forgotten-password a:hover,
+.login-screen .forgotten-password a:focus {
+    text-decoration: none;
+}
+.green-btn {
+    background: #4caf50;
+    border: none;
+    color: #fff;
+    padding: 15px 80px;
+    border-radius: 100px;
+    font-size: 20px;
+    text-transform: uppercase;
+    transition: .3s ease-in-out;
+}
+.green-btn:hover {
+    color: inherit;
+    background: #418e44;
+}
+.signup-screen .green-btn {
+    margin: 50px 0 30px;
 }
 @media screen and (max-width: 767px){
     .login-screen h2, .signup-screen h2 {
@@ -271,7 +317,7 @@ h2 {
         margin-left: 0;
     }
     .page-content-wrapper {
-        padding-top: 0;
+        /*padding-top: 70px;*/
         padding-left: 0;
     }
     .wrapper.toggled .page-content-wrapper .navbar-default {
@@ -280,23 +326,38 @@ h2 {
     .page-content-wrapper .navbar-nav {
         display: block;
     }
-    .page-content-wrapper .navbar-default {
-        position: relative;
-        top: 0;
-    }
     .navbar h1 {
         display: none;
     }
     .navbar h1.sportify {
         display: block;
     }
+    .page-content-wrapper .navbar-default, header .navbar-default {
+        background: #388e3c;
+    }
 }
-
+@media screen and (max-width: 480px){
+    .login-screen h2, .signup-screen h2 {
+        margin: 55px 0 35px;
+    }
+    .login-form input, .signup-form input {
+        margin: 35px 0 10px;
+    }
+    .login-screen .forgotten-password {
+        margin: 10px 0 25px;
+    }
+    .signup-screen .green-btn {
+        margin-top: 30px;
+    }
+}
 @media screen and (max-width: 400px){
     .login-screen h2, .signup-screen h2 {
-        margin: 50px 0 35px;
+        margin: 25px 0 15px;
     }
     .login-form input, .signup-form input {
         margin: 15px 0;
+    }
+    .signup-screen .green-btn {
+        margin-top: 15px;
     }
 }
