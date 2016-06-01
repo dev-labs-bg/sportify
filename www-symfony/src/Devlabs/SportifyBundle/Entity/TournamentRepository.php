@@ -13,8 +13,9 @@ class TournamentRepository extends \Doctrine\ORM\EntityRepository
         return $this->getEntityManager()->createQueryBuilder()
             ->select('t')
             ->from('DevlabsSportifyBundle:Tournament', 't')
-//            ->where('t.id = :tournament_id')
-//            ->setParameters(array('tournament_id' => 1))
+            ->join('t.users', 'u')
+            ->where('u.id = :user_id')
+            ->setParameters(array('user_id' => 1))
             ->getQuery()
             ->getResult();
     }
@@ -24,8 +25,6 @@ class TournamentRepository extends \Doctrine\ORM\EntityRepository
         return $this->getEntityManager()->createQueryBuilder()
             ->select('t')
             ->from('DevlabsSportifyBundle:Tournament', 't')
-//            ->where('t.id = :tournament_id')
-//            ->setParameters(array('tournament_id' => 1))
             ->getQuery()
             ->getResult();
     }

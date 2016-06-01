@@ -33,6 +33,15 @@ class Tournament
     private $endDate;
 
     /**
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="tournaments")
+     */
+    private $users;
+
+    public function __construct() {
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Get id
      *
      * @return integer

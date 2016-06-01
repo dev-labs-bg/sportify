@@ -17,4 +17,15 @@ class User extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Tournament", inversedBy="users")
+     * @ORM\JoinTable(name="scores")
+     */
+    private $tournaments;
+
+    public function __construct() {
+        parent::__construct();
+        $this->tournaments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 }
