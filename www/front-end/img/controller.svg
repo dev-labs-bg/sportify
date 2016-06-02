@@ -21,7 +21,7 @@
                     <g id="Group-5">
                         <g id="Rectangle-225">
                             <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
-                            <use stroke-opacity="0.7" stroke="#FFFFFF" mask="url(#mask-3)" stroke-width="2" fill-opacity="0.161656476" fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                            <use stroke-opacity="0.7" stroke="#FFFFFF" mask="url(#mask-3)" stroke-width="2" fill-opacity="0" fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
                         </g>
                     </g>
                     <g id="controller" transform="translate(370.000000, 18.000000)" fill-opacity="0.8" fill="#FFFFFF">

@@ -4,4 +4,5 @@ public/deploy.php
 vendor/
 .idea/
 .DS_Store
-bower_components/
+lib/
+node_modules/
