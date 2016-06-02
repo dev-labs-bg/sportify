@@ -4,5 +4,5 @@ config.assetsPath = '.';
 config.publicPath = '.';
 
 elixir(function(mix) {
-    mix.sass('_bootstrap.scss','www/front-end/css/bootstrap.css');
+    mix.sass(['bootstrap.scss','style.scss'],'front-end/css/style.css');
 });

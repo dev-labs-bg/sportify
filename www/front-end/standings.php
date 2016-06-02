@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <title>Sportify</title>
-    <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link href='https://fonts.googleapis.com/css?family=Exo:400,600,700,900' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
@@ -223,8 +222,8 @@
     </div>
     </div>
     <!-- /#page-content-wrapper -->
-<script src="../bower_components/jquery/dist/jquery.min.js"></script>
-<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../lib/jquery/dist/jquery.min.js"></script>
+<script src="../lib/bootstrap-sass/assets/javascripts/bootstrap.min.js"></script>
 <script src="js/script.js"></script>
 </body>
 </html>
