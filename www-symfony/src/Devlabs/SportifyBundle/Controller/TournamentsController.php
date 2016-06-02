@@ -12,12 +12,14 @@ class TournamentsController extends Controller
      */
     public function indexAction()
     {
+        $user = $this->getUser();
+
         $em = $this->getDoctrine()->getManager();
         $tournaments = $em->getRepository('DevlabsSportifyBundle:Tournament')
-            ->getJoined();
+            ->getJoined($user);
 
         return $this->render(
-            'DevlabsSportifyBundle:Default:index.html.twig',
+            'DevlabsSportifyBundle:Tournaments:index.html.twig',
             array('tournaments' => $tournaments)
         );
     }

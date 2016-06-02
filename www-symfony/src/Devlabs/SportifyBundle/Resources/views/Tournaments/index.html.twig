@@ -1,0 +1,15 @@
+{% extends 'DevlabsSportifyBundle:Tournaments:layout.html.twig' %}
+
+{% block content %}
+
+    {% if app.user %}
+        Current user:
+        <p>{{ app.user.id }} - {{ app.user.username }} - {{app.user.email }}</p>
+    {% endif %}
+
+    Tournaments joined:
+    {% for tournament in tournaments %}
+        <p>{{ tournament.id }} - {{ tournament.name }}</p>
+    {% endfor %}
+
+{% endblock %}

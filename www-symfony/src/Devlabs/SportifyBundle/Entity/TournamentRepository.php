@@ -8,14 +8,14 @@ namespace Devlabs\SportifyBundle\Entity;
  */
 class TournamentRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getJoined()
+    public function getJoined(User $user)
     {
         return $this->getEntityManager()->createQueryBuilder()
             ->select('t')
             ->from('DevlabsSportifyBundle:Tournament', 't')
             ->join('t.users', 'u')
             ->where('u.id = :user_id')
-            ->setParameters(array('user_id' => 1))
+            ->setParameters(array('user_id' => $user->getId()))
             ->getQuery()
             ->getResult();
     }
