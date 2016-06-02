@@ -220,7 +220,12 @@
             </div>
         </div>
     </div>
+    <div class="results-slider">
+        <div class="container-fluid">
+            test
+        </div>
     </div>
+</div>
     <!-- /#page-content-wrapper -->
 <script src="../lib/jquery/dist/jquery.min.js"></script>
 <script src="../lib/bootstrap-sass/assets/javascripts/bootstrap.min.js"></script>
