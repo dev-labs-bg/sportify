@@ -255,6 +255,9 @@ h2 {
     margin: 120px 0 50px;
     line-height: 1.6;
 }
+.page-content-wrapper h2 {
+    margin: 50px 0 ;
+}
 .signup-screen h2 {
     margin: 80px 0 10px;
 }
@@ -303,24 +306,81 @@ h2 {
         }
     }
 }
-.green-btn {
-    background: #4caf50;
+.green-btn, .yellow-btn {
     border: none;
     color: #fff;
     padding: 15px 80px;
     border-radius: 100px;
     font-size: 20px;
+    font-weight: 600;
     text-transform: uppercase;
     transition: .3s ease-in-out;
+    margin: 30px 0;
+}
+.green-btn {
+    background: #4caf50;
     &:hover {
         color: inherit;
         background: #418e44;
     }
 }
+.yellow-btn {
+    background: #ffc107;
+    &:hover {
+        color: inherit;
+        background: #ca9803;
+    }
+}
 .signup-screen .green-btn {
     margin: 50px 0 30px;
 }
-
+.tournaments-header,
+.tournament {
+    border-bottom: 1px solid #979797;
+}
+.tournaments-header, .mobile-heading {
+    color: rgba(255,255,255,.3);
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 5px 10px;
+}
+.mobile-heading {
+    display: none;
+}
+.tournament {
+    &-item {
+        font-size: 17px;
+        font-weight: 600;
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+    &-btn {
+        padding: 8px 70px;
+        width: 200px;
+    }
+}
+@media screen and (max-width: 991px){
+    .page-content-wrapper h2 {
+        margin: 30px 0 25px;
+    }
+    .tournaments-header {
+        display: none;
+    }
+    .mobile-heading {
+        display: block
+    }
+    .tournament {
+        text-align: center;
+        &-item {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        &-btn {
+            margin: 10px 0;
+        }
+    }
+}
 @media screen and (max-width: 767px){
     .login-screen h2, .signup-screen h2 {
         margin: 80px 0 50px;
@@ -356,6 +416,7 @@ h2 {
     .page-content-wrapper .navbar-default, header .navbar-default {
         background: #388e3c;
     }
+
 }
 @media screen and (max-width: 480px){
     .login-screen h2, .signup-screen h2 {
