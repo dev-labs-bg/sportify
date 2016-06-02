@@ -1,0 +1,10 @@
+{
+  "name": "dev-sportify",
+  "version": "0.1.0",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  },
+  "dependencies": {
+    "laravel-elixir": "^3.0.0"
+  }
+}
