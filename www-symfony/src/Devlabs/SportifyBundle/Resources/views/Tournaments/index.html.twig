@@ -7,9 +7,17 @@
         <p>{{ app.user.id }} - {{ app.user.username }} - {{app.user.email }}</p>
     {% endif %}
 
-    Tournaments joined:
+    Tournaments:
     {% for tournament in tournaments %}
-        <p>{{ tournament.id }} - {{ tournament.name }}</p>
+        <p>
+            <div>
+            {{ form_start(forms[tournament.id]) }}
+                {{ tournament.id }} - {{ tournament.name }}
+                {{ form_widget(forms[tournament.id]) }}
+            {{ form_end(forms[tournament.id]) }}
+            </div>
+        </p>
+
     {% endfor %}
 
 {% endblock %}
