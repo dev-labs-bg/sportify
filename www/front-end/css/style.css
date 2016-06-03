@@ -6526,11 +6526,14 @@ html {
   height: 100%;
   min-height: 100vh;
   padding-left: 55px;
-  margin-bottom: 150px;
 }
 
 .page-content-wrapper .navbar-nav {
   display: none;
+}
+
+.page-content-wrapper .navbar-default {
+  padding-left: 55px;
 }
 
 .page-content-wrapper .navbar-default.scrolled {
@@ -6570,6 +6573,10 @@ html {
   max-width: 55px;
   max-height: 55px;
   height: auto;
+}
+
+.current-results-slider .slider-item-holder {
+  text-align: center;
 }
 
 .current-results-slider .slider-item .result-info {
@@ -6632,7 +6639,7 @@ html {
   margin-right: -255px;
   padding-left: 255px;
   margin-left: -255px;
-  transition: .5s ease-in-out;
+  transition: .5s ease;
 }
 
 .wrapper.toggled .page-content-wrapper .navbar-default {
@@ -6641,7 +6648,8 @@ html {
 
 .wrapper.toggled .results-slider {
   padding-left: 0;
-  margin-right: 0;
+  margin-right: -255px;
+  padding-right: 255px;
 }
 
 .sidebar-wrapper {
@@ -6772,7 +6780,8 @@ html {
 }
 
 .content {
-  padding-top: 70px;
+  padding-top: 100px;
+  padding-bottom: 100px;
 }
 
 .page-content-wrapper .navbar-default,
@@ -7033,6 +7042,10 @@ h2 {
 
   .wrapper.toggled .page-content-wrapper .navbar-default {
     padding-left: 0;
+  }
+
+  .wrapper.toggled .results-slider {
+    padding-right: 0;
   }
 
   .sidebar-wrapper {

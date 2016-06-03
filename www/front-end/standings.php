@@ -42,7 +42,7 @@
     </nav>
     <!-- /#sidebar-wrapper -->
     <!-- Page Content -->
-    <div id="page-content-wrapper" class="page-content-wrapper content">
+    <div id="page-content-wrapper" class="page-content-wrapper">
         <nav id="navbar" class="navbar navbar-default navbar-fixed-top">
           <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -79,7 +79,7 @@
             <h1 class="text-center">Standings</h1>
           </div><!-- /.container-fluid -->
         </nav>
-        <div class="container-fluid">
+        <div class="container-fluid content">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
                     <h1>Test Title</h1>
@@ -220,15 +220,61 @@
             </div>
         </div>
     </div>
-    <div class="results-slider">
+    <div id="results-slider" class="results-slider">
         <div class="container-fluid">
-            test
+            <div class="current-results-slider owl-carousel">
+                <div class="slider-item-holder">
+                    <div class="slider-item">
+                        <div class="logo">
+                            <img src="img/barclays-premier-league.png" alt="Barclays Premier League" />
+                        </div>
+                        <div class="result-info">
+                            <div class="title">Barclays Premier League</div>
+                            <div class="points">3p. <span class="position-up"></span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-item-holder">
+                <div class="slider-item">
+                    <div class="logo">
+                        <img src="img/la-liga-logo.png" alt="La Liga" />
+                    </div>
+                    <div class="result-info">
+                        <div class="title">La Liga</div>
+                        <div class="points">1p. <span class="position-down"></span></div>
+                    </div>
+                    </div>
+                </div>
+                <div class="slider-item-holder">
+                <div class="slider-item">
+                    <div class="logo">
+                        <img src="img/UEFA-champions-league-logo.png" alt="UEFA Champions League" />
+                    </div>
+                    <div class="result-info">
+                        <div class="title">UEFA Champions League</div>
+                        <div class="points">3p. <span class="position-same"></span></div>
+                    </div>
+                    </div>
+                </div>
+                <div class="slider-item-holder">
+                <div class="slider-item">
+                    <div class="logo">
+                        <img src="img/bundesliga.png" alt="bundesliga" />
+                    </div>
+                    <div class="result-info">
+                        <div class="title">Bundesliga</div>
+                        <div class="points">3p. <span class="position-up"></span></div>
+                    </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
     <!-- /#page-content-wrapper -->
 <script src="../lib/jquery/dist/jquery.min.js"></script>
 <script src="../lib/bootstrap-sass/assets/javascripts/bootstrap.min.js"></script>
+<script src="../lib/owl.carousel/dist/owl.carousel.min.js"></script>
 <script src="js/script.js"></script>
 </body>
 </html>

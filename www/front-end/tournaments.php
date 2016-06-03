@@ -42,7 +42,7 @@
     </nav>
     <!-- /#sidebar-wrapper -->
     <!-- Page Content -->
-    <div id="page-content-wrapper" class="page-content-wrapper content">
+    <div id="page-content-wrapper" class="page-content-wrapper">
         <nav id="navbar" class="navbar navbar-default navbar-fixed-top">
           <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -79,7 +79,7 @@
             <h1 class="text-center">Tournaments</h1>
           </div><!-- /.container-fluid -->
         </nav>
-        <div class="container-fluid">
+        <div class="container-fluid content">
             <div class="row">
                 <div class="col-lg-10 col-lg-offset-1 col-md-12">
                     <h2 class="text-center">Choose Tournaments</h2>
@@ -190,7 +190,7 @@
             </div>
         </div>
     </div>
-    <div class="results-slider">
+    <div id="results-slider" class="results-slider">
         <div class="container-fluid">
             <div class="current-results-slider owl-carousel">
                 <div class="slider-item-holder">
