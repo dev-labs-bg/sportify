@@ -8,7 +8,7 @@ $(document).ready(function () {
 
     function hamburger_cross() {
 
-        if (isClosed == true) {
+        if (isClosed === true) {
           trigger.removeClass('is-open');
           trigger.addClass('is-closed');
           isClosed = false;
@@ -25,7 +25,7 @@ $(document).ready(function () {
 });
 
 $(function(){
-    $(".current-results-slider").owlCarousel({
+    $('.current-results-slider').owlCarousel({
         items:4,
         loop:true,
         autoplay:true,
@@ -46,7 +46,7 @@ $(function(){
             }
         }
     });
-})
+});
 
 $(function(){
     if ($('#page-content-wrapper').length > 0) {
@@ -77,4 +77,4 @@ $(function(){
             }
         };
     }
-})
+});

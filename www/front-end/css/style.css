@@ -6804,6 +6804,10 @@ html {
 }
 
 .content {
+  padding-top: 70px;
+}
+
+.page-content-wrapper .content {
   padding-top: 100px;
   padding-bottom: 100px;
 }
