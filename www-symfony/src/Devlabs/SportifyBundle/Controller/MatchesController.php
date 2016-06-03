@@ -26,11 +26,13 @@ class MatchesController extends Controller
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
 
-        // get all and joined tournaments lists
-        $matches = $em->getRepository('DevlabsSportifyBundle:Matches')
-            ->findAll();
-        $tournamentsJoined = $em->getRepository('DevlabsSportifyBundle:Matches')
-            ->getJoined($user);
+        // get not finished matches and the user's predictions for them
+        $matches = $em->getRepository('DevlabsSportifyBundle:Match')
+            ->getNotScored($user);
+        $predictions = $em->getRepository('DevlabsSportifyBundle:Prediction')
+            ->getNotScored($user);
+//        var_dump($predictions);
+//        die();
 
         $forms = array();
 

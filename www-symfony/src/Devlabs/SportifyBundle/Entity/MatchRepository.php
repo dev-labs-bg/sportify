@@ -21,7 +21,7 @@ class MatchRepository extends \Doctrine\ORM\EntityRepository
      * @param $dateTo
      * @return array
      */
-    public function getNotScored(User $user, $tournament_id, $dateFrom, $dateTo)
+    public function getNotScored(User $user)
     {
         $this->notScored = array();
 

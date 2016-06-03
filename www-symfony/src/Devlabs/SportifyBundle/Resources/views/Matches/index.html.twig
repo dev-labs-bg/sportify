@@ -16,14 +16,14 @@
                     <tbody>
                         {% for match in matches %}
                             <tr>
-                            {{ form_start(forms[match.id]) }}
+                            {#{{ form_start(forms[match.id]) }}#}
                             <td>
                                 {{ match.id }} - {{ match.homeTeam }} - {{ match.awayTeam }}
                             </td>
-                            <td>
-                                {{ form_widget(forms[match.id]) }}
-                            </td>
-                            {{ form_end(forms[match.id]) }}
+                            {#<td>#}
+                                {#{{ form_widget(forms[match.id]) }}#}
+                            {#</td>#}
+                            {#{{ form_end(forms[match.id]) }}#}
                             </tr>
                         {% endfor %}
                     </tbody>
