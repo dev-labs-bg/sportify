@@ -8,16 +8,29 @@
     {% endif %}
 
     Matches:
-    {% for match in matches %}
+
         <p>
             <div>
-            {{ form_start(forms[match.id]) }}
-                {{ match.id }} - {{ match.homeTeam }} - {{ match.awayTeam }}
-                {{ form_widget(forms[match.id]) }}
-            {{ form_end(forms[match.id]) }}
+                <table>
+                    <thead></thead>
+                    <tbody>
+                        {% for match in matches %}
+                            <tr>
+                            {{ form_start(forms[match.id]) }}
+                            <td>
+                                {{ match.id }} - {{ match.homeTeam }} - {{ match.awayTeam }}
+                            </td>
+                            <td>
+                                {{ form_widget(forms[match.id]) }}
+                            </td>
+                            {{ form_end(forms[match.id]) }}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </p>
 
-    {% endfor %}
+
 
 {% endblock %}

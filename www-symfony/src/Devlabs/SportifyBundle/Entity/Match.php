@@ -33,12 +33,12 @@ class Match
     private $awayTeam;
 
     /**
-     * @ORM\Column(type="integer", name="home_goals")
+     * @ORM\Column(type="integer", name="home_goals", nullable=TRUE)
      */
     private $homeGoals;
 
     /**
-     * @ORM\Column(type="integer", name="away_goals")
+     * @ORM\Column(type="integer", name="away_goals", nullable=true)
      */
     private $awayGoals;
 
