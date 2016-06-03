@@ -33,12 +33,12 @@ class Tournament
     private $endDate;
 
     /**
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="tournaments")
+     * @ORM\OneToMany(targetEntity="Score" , mappedBy="tournamentId" , cascade={"all"})
      */
-    private $users;
+    private $scores;
 
     public function __construct() {
-        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->scores = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

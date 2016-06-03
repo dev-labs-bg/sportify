@@ -19,13 +19,12 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Tournament", inversedBy="users")
-     * @ORM\JoinTable(name="scores")
+     * @ORM\OneToMany(targetEntity="Score" , mappedBy="userId" , cascade={"all"})
      */
-    private $tournaments;
+    private $scores;
 
     public function __construct() {
         parent::__construct();
-        $this->tournaments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->scores = new \Doctrine\Common\Collections\ArrayCollection();
     }
 }

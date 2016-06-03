@@ -4,23 +4,31 @@ namespace Devlabs\SportifyBundle\Controller;
 
 use Devlabs\SportifyBundle\Entity\User;
 use Devlabs\SportifyBundle\Entity\Tournament;
+use Devlabs\SportifyBundle\Entity\Score;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class TournamentsController extends Controller
 {
     /**
-     * @Route("/tournaments")
+     * @Route("/tournaments", name="tournaments_index")
      */
     public function indexAction(Request $request)
     {
+        // Load the data for the current user into an object
         $user = $this->getUser();
 
+        // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
+
+        // get all
         $tournaments = $em->getRepository('DevlabsSportifyBundle:Tournament')
+            ->findAll();
+        $tournamentsJoined = $em->getRepository('DevlabsSportifyBundle:Tournament')
             ->getJoined($user);
 
         $forms = array();
@@ -28,9 +36,14 @@ class TournamentsController extends Controller
         if ($tournaments) {
             foreach ($tournaments as $tournament) {
                 $formData = array();
+                $buttonAction = in_array($tournament, $tournamentsJoined)
+                    ? 'leave'
+                    : 'join';
+
                 $form = $this->createFormBuilder($formData)
                     ->add('id', HiddenType::class, array('data' => $tournament->getId()))
-                    ->add('leave', SubmitType::class, array('label' => 'Leave'))
+                    ->add('action', HiddenType::class, array('data' => $buttonAction))
+                    ->add('button', SubmitType::class, array('label' => $buttonAction))
                     ->getForm();
 
                 $form->handleRequest($request);
@@ -39,25 +52,29 @@ class TournamentsController extends Controller
 
             foreach ($forms as $form) {
                 if ($form->isSubmitted() && $form->isValid()) {
-//                $em = $this->getDoctrine()->getManager();
                     $formData = $form->getData();
-//                    var_dump($formData);
-                    $tournament = $this->getDoctrine()
-                        ->getRepository('DevlabsSportifyBundle:Tournament')
+                    $tournament = $em->getRepository('DevlabsSportifyBundle:Tournament')
                         ->findOneById($formData['id']);
 
-                    if ($tournament) $em->remove($tournament);
+                    if ($formData['action'] === 'join') {
+                        $score = new Score();
+                        $score->setUserId($user);
+                        $score->setTournamentId($tournament);
+
+                        $em->persist($score);
+                    } elseif ($formData['action'] === 'leave') {
+                        $score = $em->getRepository('DevlabsSportifyBundle:Score')
+                            ->getByUserAndTournament($user, $tournament);
+                        $em->remove($score);
+                    }
 
                     // execute the queries
                     $em->flush();
 
-//                    unset($forms[$formData['id']]);
-//                    unset($tournaments);
+                    // clear the submitted data and reload the page
+                    return $this->redirectToRoute('tournaments_index');
                 }
             }
-
-            $tournaments = $em->getRepository('DevlabsSportifyBundle:Tournament')
-                ->getJoined($user);
 
             foreach ($tournaments as $tournament) {
                 $forms[$tournament->getId()] = $forms[$tournament->getId()]->createView();
