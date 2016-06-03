@@ -7117,7 +7117,8 @@ h2 {
   }
 
   .login-form input,
-  .signup-form input {
+  .signup-form input,
+  .myprofile-form input {
     margin: 35px 0 10px;
   }
 
@@ -7137,7 +7138,8 @@ h2 {
   }
 
   .login-form input,
-  .signup-form input {
+  .signup-form input,
+  .myprofile-form input {
     margin: 15px 0;
   }
 
