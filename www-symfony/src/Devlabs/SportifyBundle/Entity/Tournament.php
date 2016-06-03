@@ -37,10 +37,6 @@ class Tournament
      */
     private $scores;
 
-    public function __construct() {
-        $this->scores = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
     /**
      * Get id
      *

@@ -22,9 +22,4 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="Score" , mappedBy="userId" , cascade={"all"})
      */
     private $scores;
-
-    public function __construct() {
-        parent::__construct();
-        $this->scores = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 }
