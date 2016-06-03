@@ -66,6 +66,7 @@ body, html {
             img {
                 display: inline-block;
                 max-width: 55px;
+                width: auto;
                 max-height: 55px;
                 height: auto;
             }
@@ -204,17 +205,6 @@ body, html {
         z-index: 1;
         background: url(../img/settings.svg) no-repeat 15px 15px;
     }
-    .profile-picture {
-        padding-bottom: 100px;
-        img{
-            width: 120px;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 100%;
-            border: 5px solid #fff;
-            margin-top: 40px;
-        }
-    }
     .user-name {
         position: absolute;
         bottom: 60px;
@@ -230,6 +220,38 @@ body, html {
     }
 }
 
+.sidebar-nav, .myprofile-form {
+    .profile-picture {
+        padding-bottom: 100px;
+        img{
+            background: #ffc107;
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 100%;
+            border: 5px solid #fff;
+            margin-top: 40px;
+        }
+    }
+}
+.myprofile-form {
+    .profile-picture {
+        cursor: pointer;
+        padding: 10px 0 0;
+        img {
+            margin-top: 0;
+        }
+        span {
+            display: block;
+            padding: 10px 0 0;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+    }
+    .green-btn {
+        padding: 15px 35px;
+    }
+}
 .my-profile {
     background: url(../img/settings.svg) no-repeat 15px center;
 }
@@ -343,7 +365,7 @@ h2 {
     color: inherit;
     text-decoration: underline;
 }
-.login-form, .signup-form {
+.login-form, .signup-form, .myprofile-form {
     display: inline-block;
     width: 100%;
     max-width: 440px;
@@ -397,14 +419,14 @@ h2 {
 }
 .green-btn {
     background: #4caf50;
-    &:hover {
+    &:hover, &:active, &:focus, &:active:hover {
         color: inherit;
         background: #418e44;
     }
 }
 .yellow-btn {
     background: #ffc107;
-    &:hover {
+    &:hover, &:active, &:focus, &:active:hover {
         color: inherit;
         background: #ca9803;
     }

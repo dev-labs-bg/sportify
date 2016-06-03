@@ -6571,6 +6571,7 @@ html {
 .current-results-slider .slider-item .logo img {
   display: inline-block;
   max-width: 55px;
+  width: auto;
   max-height: 55px;
   height: auto;
 }
@@ -6720,19 +6721,6 @@ html {
   background: url(../img/settings.svg) no-repeat 15px 15px;
 }
 
-.sidebar-nav .profile-picture {
-  padding-bottom: 100px;
-}
-
-.sidebar-nav .profile-picture img {
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 100%;
-  border: 5px solid #fff;
-  margin-top: 40px;
-}
-
 .sidebar-nav .user-name {
   position: absolute;
   bottom: 60px;
@@ -6745,6 +6733,42 @@ html {
   text-transform: none;
   margin-top: -15px;
   margin-left: 60px;
+}
+
+.sidebar-nav .profile-picture,
+.myprofile-form .profile-picture {
+  padding-bottom: 100px;
+}
+
+.sidebar-nav .profile-picture img,
+.myprofile-form .profile-picture img {
+  background: #ffc107;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 100%;
+  border: 5px solid #fff;
+  margin-top: 40px;
+}
+
+.myprofile-form .profile-picture {
+  cursor: pointer;
+  padding: 10px 0 0;
+}
+
+.myprofile-form .profile-picture img {
+  margin-top: 0;
+}
+
+.myprofile-form .profile-picture span {
+  display: block;
+  padding: 10px 0 0;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.myprofile-form .green-btn {
+  padding: 15px 35px;
 }
 
 .my-profile {
@@ -6881,14 +6905,16 @@ h2 {
 }
 
 .login-form,
-.signup-form {
+.signup-form,
+.myprofile-form {
   display: inline-block;
   width: 100%;
   max-width: 440px;
 }
 
 .login-form input,
-.signup-form input {
+.signup-form input,
+.myprofile-form input {
   display: inline-block;
   border: 1px solid #fff;
   background-color: rgba(255, 255, 255, 0.2);
@@ -6948,7 +6974,10 @@ h2 {
   background: #4caf50;
 }
 
-.green-btn:hover {
+.green-btn:hover,
+.green-btn:active,
+.green-btn:focus,
+.green-btn:active:hover {
   color: inherit;
   background: #418e44;
 }
@@ -6957,7 +6986,10 @@ h2 {
   background: #ffc107;
 }
 
-.yellow-btn:hover {
+.yellow-btn:hover,
+.yellow-btn:active,
+.yellow-btn:focus,
+.yellow-btn:active:hover {
   color: inherit;
   background: #ca9803;
 }
