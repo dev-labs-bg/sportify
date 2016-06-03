@@ -11,6 +11,7 @@
         <li><a href="login.php">Login page</a></li>
         <li><a href="signup.php">Signup page</a></li>
         <li><a href="standings.php">Standings page</a></li>
+        <li><a href="tournaments.php">Tournaments page</a></li>
     </ul>
 </body>
 </html>
