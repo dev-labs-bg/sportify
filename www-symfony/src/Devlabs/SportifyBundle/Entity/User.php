@@ -17,4 +17,9 @@ class User extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Score" , mappedBy="userId" , cascade={"all"})
+     */
+    private $scores;
 }

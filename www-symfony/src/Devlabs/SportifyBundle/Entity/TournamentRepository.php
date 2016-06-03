@@ -8,25 +8,33 @@ namespace Devlabs\SportifyBundle\Entity;
  */
 class TournamentRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getJoined()
+    public function getJoined(User $user)
     {
+        /**
+         * Get a list of the tournaments joined by user
+         */
         return $this->getEntityManager()->createQueryBuilder()
             ->select('t')
             ->from('DevlabsSportifyBundle:Tournament', 't')
-//            ->where('t.id = :tournament_id')
-//            ->setParameters(array('tournament_id' => 1))
+            ->join('t.scores', 's')
+            ->where('s.userId = :user_id')
+            ->setParameters(array('user_id' => $user->getId()))
             ->getQuery()
             ->getResult();
-    }
 
-    public function getNotJoined()
-    {
-        return $this->getEntityManager()->createQueryBuilder()
-            ->select('t')
-            ->from('DevlabsSportifyBundle:Tournament', 't')
-//            ->where('t.id = :tournament_id')
-//            ->setParameters(array('tournament_id' => 1))
-            ->getQuery()
-            ->getResult();
+//        $scores = $this->getEntityManager()->createQueryBuilder()
+//            ->select('s')
+//            ->from('DevlabsSportifyBundle:Score', 's')
+//            ->where('s.userId = :user_id')
+//            ->setParameters(array('user_id' => $user->getId()))
+//            ->getQuery()
+//            ->getResult();
+//
+//        $result = array();
+//        foreach ($scores as $score) {
+//            $result[] = $score->getTournamentId();
+//        }
+//
+//        return $result;
     }
 }

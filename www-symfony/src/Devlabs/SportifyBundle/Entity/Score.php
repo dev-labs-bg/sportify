@@ -6,7 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="Devlabs\SportifyBundle\Entity\ScoreRepository")
- * @ORM\Table(name="scores")
+ * @ORM\Table(name="scores", uniqueConstraints={
+ *      @ORM\UniqueConstraint(name="user_tournament", columns={"user_id", "tournament_id"})
+ * })
  */
 class Score
 {
@@ -18,13 +20,13 @@ class Score
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="scores")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $userId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Tournament")
+     * @ORM\ManyToOne(targetEntity="Tournament", inversedBy="scores")
      * @ORM\JoinColumn(name="tournament_id", referencedColumnName="id")
      */
     private $tournamentId;
@@ -32,7 +34,7 @@ class Score
     /**
      * @ORM\Column(type="integer")
      */
-    private $points;
+    private $points = 0;
 
     /**
      * Get id

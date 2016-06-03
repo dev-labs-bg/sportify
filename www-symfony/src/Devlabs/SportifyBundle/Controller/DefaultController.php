@@ -14,7 +14,7 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $tournaments = $em->getRepository('DevlabsSportifyBundle:Tournament')
-            ->getJoined();
+            ->findAll();
 
         return $this->render(
             'DevlabsSportifyBundle:Default:index.html.twig',
