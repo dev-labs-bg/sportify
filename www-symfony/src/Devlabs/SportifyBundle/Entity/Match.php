@@ -43,10 +43,15 @@ class Match
     private $awayGoals;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Tournament")
+     * @ORM\ManyToOne(targetEntity="Tournament", inversedBy="matches")
      * @ORM\JoinColumn(name="tournament_id", referencedColumnName="id")
      */
     private $tournamentId;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Prediction" , mappedBy="matchId" , cascade={"all"})
+     */
+    private $predictions;
 
     /**
      * Get id

@@ -22,4 +22,9 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="Score" , mappedBy="userId" , cascade={"all"})
      */
     private $scores;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Prediction" , mappedBy="userId" , cascade={"all"})
+     */
+    private $predictions;
 }
