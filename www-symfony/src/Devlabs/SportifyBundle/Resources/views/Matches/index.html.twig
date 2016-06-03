@@ -1,0 +1,23 @@
+{% extends 'DevlabsSportifyBundle:Matches:layout.html.twig' %}
+
+{% block content %}
+
+    {% if app.user %}
+        Current user:
+        <p>{{ app.user.id }} - {{ app.user.username }} - {{app.user.email }}</p>
+    {% endif %}
+
+    Matches:
+    {% for match in matches %}
+        <p>
+            <div>
+            {{ form_start(forms[match.id]) }}
+                {{ match.id }} - {{ match.homeTeam }} - {{ match.awayTeam }}
+                {{ form_widget(forms[match.id]) }}
+            {{ form_end(forms[match.id]) }}
+            </div>
+        </p>
+
+    {% endfor %}
+
+{% endblock %}
