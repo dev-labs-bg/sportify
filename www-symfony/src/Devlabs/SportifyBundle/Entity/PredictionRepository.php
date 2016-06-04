@@ -8,24 +8,15 @@ namespace Devlabs\SportifyBundle\Entity;
  */
 class PredictionRepository extends \Doctrine\ORM\EntityRepository
 {
-    private $notScored = array();
-    private $alreadyScored = array();
-    private $finishedNotScored = array();
-
     /**
-     * Method for getting a list of the matches which have not been scored/finished yet
+     * Method for getting a list of the predictions for matches which have not been scored/finished yet
      *
      * @param User $user
-     * @param $tournament_id
-     * @param $dateFrom
-     * @param $dateTo
      * @return array
      */
     public function getNotScored(User $user)
     {
-        $this->notScored = array();
-
-        return $this->getEntityManager()->createQueryBuilder()
+        $queryResult = $this->getEntityManager()->createQueryBuilder()
             ->select('p')
             ->from('DevlabsSportifyBundle:Prediction', 'p')
             ->join('p.matchId', 'm')
@@ -37,5 +28,17 @@ class PredictionRepository extends \Doctrine\ORM\EntityRepository
             ->setParameters(array('user_id' => $user->getId()))
             ->getQuery()
             ->getResult();
+
+        $result = array();
+
+        /**
+         * Iterate the query result array
+         * and set the item key to be the match id
+         */
+        foreach ($queryResult as $prediction) {
+            $result[$prediction->getMatchId()->getId()] = $prediction;
+        }
+
+        return $result;
     }
 }

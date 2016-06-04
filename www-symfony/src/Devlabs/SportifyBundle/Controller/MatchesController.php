@@ -31,8 +31,6 @@ class MatchesController extends Controller
             ->getNotScored($user);
         $predictions = $em->getRepository('DevlabsSportifyBundle:Prediction')
             ->getNotScored($user);
-//        var_dump($predictions);
-//        die();
 
         $forms = array();
 

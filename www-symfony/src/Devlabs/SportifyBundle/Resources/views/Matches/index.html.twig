@@ -19,6 +19,10 @@
                             {#{{ form_start(forms[match.id]) }}#}
                             <td>
                                 {{ match.id }} - {{ match.homeTeam }} - {{ match.awayTeam }}
+                                    {% if predictions[match.id] is defined %}
+                                        {% set prediction = predictions[match.id] %}
+                                        --- {{ prediction.homeGoals }} - {{ prediction.awayGoals }}
+                                    {% endif %}
                             </td>
                             {#<td>#}
                                 {#{{ form_widget(forms[match.id]) }}#}
