@@ -18,11 +18,24 @@
                             <tr>
                             {#{{ form_start(forms[match.id]) }}#}
                             <td>
-                                {{ match.id }} - {{ match.homeTeam }} - {{ match.awayTeam }}
-                                    {% if predictions[match.id] is defined %}
-                                        {% set prediction = predictions[match.id] %}
-                                        --- {{ prediction.homeGoals }} - {{ prediction.awayGoals }}
-                                    {% endif %}
+                                {{ form_start(forms[match.id]) }}
+                                    {{ form_row(forms[match.id].match_id) }}
+                                    {{ form_errors(forms[match.id]) }}
+
+                                    {{ match.id }} - {{ match.homeTeam }} - {{ match.awayTeam }}
+
+                                    {{ form_row(forms[match.id].home_goals) }}
+                                    {{ form_row(forms[match.id].away_goals) }}
+                                    {{ form_row(forms[match.id].action) }}
+                                    {{ form_row(forms[match.id].button) }}
+                                {{ form_end(forms[match.id]) }}
+
+
+                                {#{{ match.id }} - {{ match.homeTeam }} - {{ match.awayTeam }}#}
+                                    {#{% if predictions[match.id] is defined %}#}
+                                        {#{% set prediction = predictions[match.id] %}#}
+                                        {#--- {{ prediction.homeGoals }} - {{ prediction.awayGoals }}#}
+                                    {#{% endif %}#}
                             </td>
                             {#<td>#}
                                 {#{{ form_widget(forms[match.id]) }}#}
