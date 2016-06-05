@@ -19,9 +19,11 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class MatchesController extends Controller
 {
     /**
-     * @Route("/matches", name="matches_index")
+     * @Route("/matches/{tournament}/{date_from}/{date_to}",
+     *     name="matches_index",
+     *     defaults={"tournament" = "all", "date_from" = "2016-01-01", "date_to" = "2050-12-31"})
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, $tournament, $date_from, $date_to)
     {
         // Load the data for the current user into an object
         $user = $this->getUser();
@@ -29,30 +31,40 @@ class MatchesController extends Controller
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
 
-        $forms = array();
+        // determine the selected tournament based on URL: {tournament} route parameter
+        $tournamentSelected = ($tournament === 'all')
+            ? null
+            : $em->getRepository('DevlabsSportifyBundle:Tournament')->findOneById($tournament);
 
         // get joined tournaments
         $tournamentsJoined = $em->getRepository('DevlabsSportifyBundle:Tournament')
             ->getJoined($user);
 
+        // creating a form for the tournament and date filter
         $formData = array();
-
-        $form = $this->createFormBuilder($formData)
-            ->setAction($this->generateUrl('matches_index')
-//                array('tournament_id' => )
-            )
-            ->setMethod('GET')
+        $filterForm = $this->createFormBuilder($formData)
+            ->setAction($this->generateUrl('matches_index'))
             ->add('tournament_id', EntityType::class, array(
                 'class' => 'DevlabsSportifyBundle:Tournament',
                 'choices' => $tournamentsJoined,
                 'choice_label' => 'name',
-                'label' => false
+                'label' => false,
+                'data' => $tournamentSelected
             ))
             ->add('button', SubmitType::class, array('label' => 'Filter'))
             ->getForm();
 
-        $form->handleRequest($request);
-        $forms['filter'] = $form;
+        $filterForm->handleRequest($request);
+
+        // if the filter form is submitted, redirect with appropriate url path parameters
+        if ($filterForm->isSubmitted() && $filterForm->isValid()) {
+            $formData = $filterForm->getData();
+            $tournamentChoice = $formData['tournament_id'];
+            return $this->redirectToRoute(
+                'matches_index',
+                array('tournament' => $tournamentChoice->getId())
+            );
+        }
 
         // get not finished matches and the user's predictions for them
         $matches = $em->getRepository('DevlabsSportifyBundle:Match')
@@ -61,6 +73,8 @@ class MatchesController extends Controller
             ->getNotScored($user);
 
         if ($matches) {
+            $matchForms = array();
+
             // creating a form with BET/EDIT button for each match
             foreach ($matches as $match) {
                 $prediction = new Prediction();
@@ -83,11 +97,11 @@ class MatchesController extends Controller
                     ->getForm();
 
                 $form->handleRequest($request);
-                $forms[$match->getId()] = $form;
+                $matchForms[$match->getId()] = $form;
             }
 
             // iterate the forms and and if form is submitted, then execute the bed/edit prediction code
-            foreach ($forms as $form) {
+            foreach ($matchForms as $form) {
                 if ($form->isSubmitted() && $form->isValid()) {
                     $formData = $form->getData();
                     $match = $em->getRepository('DevlabsSportifyBundle:Match')
@@ -114,16 +128,16 @@ class MatchesController extends Controller
                     $em->flush();
 
                     // clear the submitted POST data and reload the page
-                    return $this->redirectToRoute('matches_index');
+                    return $this->redirectToRoute(
+                        'matches_index',
+                        array('tournament' => $tournament)
+                    );
                 }
             }
-
-
-
         }
 
         // create view for each form
-        foreach ($forms as &$form) {
+        foreach ($matchForms as &$form) {
             $form = $form->createView();
         }
 
@@ -133,7 +147,8 @@ class MatchesController extends Controller
             array(
                 'matches' => $matches,
                 'predictions' => $predictions,
-                'forms' => $forms
+                'filter_form' => $filterForm->createView(),
+                'match_forms' => $matchForms
             )
         );
     }
