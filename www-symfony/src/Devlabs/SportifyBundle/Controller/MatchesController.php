@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -21,7 +22,7 @@ class MatchesController extends Controller
     /**
      * @Route("/matches/{tournament}/{date_from}/{date_to}",
      *     name="matches_index",
-     *     defaults={"tournament" = "all", "date_from" = "2016-01-01", "date_to" = "2050-12-31"})
+     *     defaults={"tournament" = "all", "date_from" = "2016-01-01", "date_to" = "2021-12-31"})
      */
     public function indexAction(Request $request, $tournament, $date_from, $date_to)
     {
@@ -51,6 +52,22 @@ class MatchesController extends Controller
                 'label' => false,
                 'data' => $tournamentSelected
             ))
+            ->add('date_from', DateType::class, array(
+                'input' => 'string',
+                'format' => 'yyyy-MM-dd',
+//                'widget' => 'single_text',
+                'label' => false,
+                'years' => range(date('Y') -10, date('Y') +10),
+                'data' => $date_from
+            ))
+            ->add('date_to', DateType::class, array(
+                'input' => 'string',
+                'format' => 'yyyy-MM-dd',
+//                'widget' => 'single_text',
+                'label' => false,
+                'years' => range(date('Y') -10, date('Y') +10),
+                'data' => $date_to
+            ))
             ->add('button', SubmitType::class, array('label' => 'Filter'))
             ->getForm();
 
@@ -59,10 +76,19 @@ class MatchesController extends Controller
         // if the filter form is submitted, redirect with appropriate url path parameters
         if ($filterForm->isSubmitted() && $filterForm->isValid()) {
             $formData = $filterForm->getData();
+
             $tournamentChoice = $formData['tournament_id'];
+            $dateFromChoice = $formData['date_from'];
+            $dateToChoice = $formData['date_to'];
+
+            // reload the page with the chosen filter(s) applied (as url path params)
             return $this->redirectToRoute(
                 'matches_index',
-                array('tournament' => $tournamentChoice->getId())
+                array(
+                    'tournament' => $tournamentChoice->getId(),
+                    'date_from' => $dateFromChoice,
+                    'date_to' => $dateToChoice
+                )
             );
         }
 
@@ -130,7 +156,11 @@ class MatchesController extends Controller
                     // clear the submitted POST data and reload the page
                     return $this->redirectToRoute(
                         'matches_index',
-                        array('tournament' => $tournament)
+                        array(
+                            'tournament' => $tournament,
+                            'date_from' => $date_from,
+                            'date_to' => $date_to
+                        )
                     );
                 }
             }

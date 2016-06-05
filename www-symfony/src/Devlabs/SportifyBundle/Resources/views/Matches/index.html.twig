@@ -10,7 +10,12 @@
     Filter bar:
 
     {{ form_start(filter_form) }}
-    {{ form_widget(filter_form) }}
+    Tournament:
+    {{ form_row(filter_form.tournament_id) }}
+    Date From:
+    {{ form_row(filter_form.date_from) }}
+    Date To:
+    {{ form_row(filter_form.date_to) }}
     {{ form_end(filter_form) }}
 
     Matches:
