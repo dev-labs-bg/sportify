@@ -14,9 +14,9 @@ class PredictionRepository extends \Doctrine\ORM\EntityRepository
      * @param User $user
      * @return array
      */
-    public function getNotScored(User $user)
+    public function getNotScored(User $user, $tournamentId, $dateFrom, $dateTo)
     {
-        $queryResult = $this->getEntityManager()->createQueryBuilder()
+        $query = $this->getEntityManager()->createQueryBuilder()
             ->select('p')
             ->from('DevlabsSportifyBundle:Prediction', 'p')
             ->join('p.matchId', 'm')
@@ -25,9 +25,23 @@ class PredictionRepository extends \Doctrine\ORM\EntityRepository
             ->where('p.userId = :user_id')
             ->andWhere('p.scoreAdded IS NULL OR p.scoreAdded = 0')
             ->andWhere('m.homeGoals IS NULL OR m.awayGoals IS NULL')
-            ->setParameters(array('user_id' => $user->getId()))
-            ->getQuery()
-            ->getResult();
+            ->andWhere('m.datetime >= :date_from AND m.datetime <= :date_to')
+            ->orderBy('m.tournamentId')
+            ->addOrderBy('m.datetime')
+            ->addOrderBy('m.homeTeam')
+            ->setParameters(array(
+                'user_id' => $user->getId(),
+                'date_from' => $dateFrom,
+                'date_to' => $dateTo
+            ));
+
+        // prepare a different query, if a tournament is selected for filtering
+        if ($tournamentId !== 'all') {
+            $query->andWhere('m.tournamentId = :tournament_id')
+                ->setParameter('tournament_id', $tournamentId);
+        }
+
+        $queryResult = $query->getQuery()->getResult();
 
         $result = array();
 

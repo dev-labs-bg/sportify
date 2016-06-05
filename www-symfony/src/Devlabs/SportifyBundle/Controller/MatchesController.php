@@ -32,7 +32,7 @@ class MatchesController extends Controller
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
 
-        // determine the selected tournament based on URL: {tournament} route parameter
+        // use the selected tournament as object, based on id URL: {tournament} route parameter
         $tournamentSelected = ($tournament === 'all')
             ? null
             : $em->getRepository('DevlabsSportifyBundle:Tournament')->findOneById($tournament);
@@ -94,13 +94,13 @@ class MatchesController extends Controller
 
         // get not finished matches and the user's predictions for them
         $matches = $em->getRepository('DevlabsSportifyBundle:Match')
-            ->getNotScored($user);
+            ->getNotScored($user, $tournament, $date_from, $date_to);
         $predictions = $em->getRepository('DevlabsSportifyBundle:Prediction')
-            ->getNotScored($user);
+            ->getNotScored($user, $tournament, $date_from, $date_to);
+
+        $matchForms = array();
 
         if ($matches) {
-            $matchForms = array();
-
             // creating a form with BET/EDIT button for each match
             foreach ($matches as $match) {
                 $prediction = new Prediction();
@@ -164,12 +164,13 @@ class MatchesController extends Controller
                     );
                 }
             }
+
+            // create view for each form
+            foreach ($matchForms as &$form) {
+                $form = $form->createView();
+            }
         }
 
-        // create view for each form
-        foreach ($matchForms as &$form) {
-            $form = $form->createView();
-        }
 
         // rendering the view and returning the response
         return $this->render(
