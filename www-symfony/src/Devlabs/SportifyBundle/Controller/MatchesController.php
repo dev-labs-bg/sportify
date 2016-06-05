@@ -7,6 +7,7 @@ use Devlabs\SportifyBundle\Entity\Prediction;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -28,15 +29,39 @@ class MatchesController extends Controller
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
 
+        $forms = array();
+
+        // get joined tournaments
+        $tournamentsJoined = $em->getRepository('DevlabsSportifyBundle:Tournament')
+            ->getJoined($user);
+
+        $formData = array();
+
+        $form = $this->createFormBuilder($formData)
+            ->setAction($this->generateUrl('matches_index')
+//                array('tournament_id' => )
+            )
+            ->setMethod('GET')
+            ->add('tournament_id', EntityType::class, array(
+                'class' => 'DevlabsSportifyBundle:Tournament',
+                'choices' => $tournamentsJoined,
+                'choice_label' => 'name',
+                'label' => false
+            ))
+            ->add('button', SubmitType::class, array('label' => 'Filter'))
+            ->getForm();
+
+        $form->handleRequest($request);
+        $forms['filter'] = $form;
+
         // get not finished matches and the user's predictions for them
         $matches = $em->getRepository('DevlabsSportifyBundle:Match')
             ->getNotScored($user);
         $predictions = $em->getRepository('DevlabsSportifyBundle:Prediction')
             ->getNotScored($user);
 
-        $forms = array();
-
         if ($matches) {
+            // creating a form with BET/EDIT button for each match
             foreach ($matches as $match) {
                 $prediction = new Prediction();
                 $prediction->setHomeGoals('');
@@ -61,7 +86,7 @@ class MatchesController extends Controller
                 $forms[$match->getId()] = $form;
             }
 
-            // iterate the forms and and if form is submitted, then execute the join/leave tournament code
+            // iterate the forms and and if form is submitted, then execute the bed/edit prediction code
             foreach ($forms as $form) {
                 if ($form->isSubmitted() && $form->isValid()) {
                     $formData = $form->getData();
@@ -94,10 +119,12 @@ class MatchesController extends Controller
             }
 
 
-            // create view for each matches' form
-            foreach ($matches as $match) {
-                $forms[$match->getId()] = $forms[$match->getId()]->createView();
-            }
+
+        }
+
+        // create view for each form
+        foreach ($forms as &$form) {
+            $form = $form->createView();
         }
 
         // rendering the view and returning the response

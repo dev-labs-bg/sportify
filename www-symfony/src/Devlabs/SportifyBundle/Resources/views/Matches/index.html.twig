@@ -7,6 +7,12 @@
         <p>{{ app.user.id }} - {{ app.user.username }} - {{app.user.email }}</p>
     {% endif %}
 
+    Filter bar:
+    
+    {{ form_start(forms['filter']) }}
+    {{ form_widget(forms['filter']) }}
+    {{ form_end(forms['filter']) }}
+
     Matches:
 
         <p>
