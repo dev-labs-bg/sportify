@@ -41,4 +41,25 @@ class PredictionRepository extends \Doctrine\ORM\EntityRepository
 
         return $result;
     }
+
+    /**
+     * Method for getting a single prediction by user and match id
+     *
+     * @param User $user
+     * @param Match $match
+     * @return mixed
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getOneByUserAndMatch(User $user, Match $match)
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('p')
+            ->from('DevlabsSportifyBundle:Prediction', 'p')
+            ->where('p.userId = :user_id')
+            ->andWhere('p.matchId = :match_id')
+            ->setParameters(array('user_id' => $user->getId(), 'match_id' => $match->getId()))
+            ->getQuery()
+            ->getSingleResult();
+    }
 }

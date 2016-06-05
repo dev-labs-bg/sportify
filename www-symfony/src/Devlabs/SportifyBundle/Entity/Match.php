@@ -206,4 +206,9 @@ class Match
     {
         return $this->tournamentId;
     }
+
+    public function __toString() {
+        return "$this->id";
+    }
+
 }

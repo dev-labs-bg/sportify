@@ -61,6 +61,38 @@ class MatchesController extends Controller
                 $forms[$match->getId()] = $form;
             }
 
+            // iterate the forms and and if form is submitted, then execute the join/leave tournament code
+            foreach ($forms as $form) {
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $formData = $form->getData();
+                    $match = $em->getRepository('DevlabsSportifyBundle:Match')
+                        ->findOneById($formData['match_id']);
+
+                    // prepare the Prediction object (new or modified one) for persisting in DB
+                    if ($formData['action'] === 'bet') {
+                        $prediction = new Prediction();
+                        $prediction->setUserId($user);
+                        $prediction->setMatchId($match);
+                        $prediction->setHomeGoals($formData['home_goals']);
+                        $prediction->setAwayGoals($formData['away_goals']);
+                    } elseif ($formData['action'] === 'edit') {
+                        $prediction = $em->getRepository('DevlabsSportifyBundle:Prediction')
+                            ->getOneByUserAndMatch($user, $match);
+                        $prediction->setHomeGoals($formData['home_goals']);
+                        $prediction->setAwayGoals($formData['away_goals']);
+                    }
+
+                    // prepare the queries
+                    $em->persist($prediction);
+
+                    // execute the queries
+                    $em->flush();
+
+                    // clear the submitted POST data and reload the page
+                    return $this->redirectToRoute('matches_index');
+                }
+            }
+
 
             // create view for each matches' form
             foreach ($matches as $match) {
