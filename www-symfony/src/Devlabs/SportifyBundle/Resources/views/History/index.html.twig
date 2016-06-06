@@ -1,0 +1,40 @@
+{% extends 'DevlabsSportifyBundle:History:layout.html.twig' %}
+
+{% block content %}
+
+    {% if app.user %}
+        Current user:
+        <p>{{ app.user.id }} - {{ app.user.username }} - {{app.user.email }}</p>
+    {% endif %}
+
+    Filter bar:
+
+    {{ form_start(filter_form) }}
+    Tournament:
+    {{ form_row(filter_form.tournament_id) }}
+    Date From:
+    {{ form_row(filter_form.date_from) }}
+    Date To:
+    {{ form_row(filter_form.date_to) }}
+    {{ form_end(filter_form) }}
+
+    Results:
+
+        <p>
+            <div>
+                <table>
+                    <thead></thead>
+                    <tbody>
+                        {% for match in matches %}
+                            <tr>
+                            <td>
+                                {{ match.homeTeam }} - {{ match.awayTeam }}
+                            </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </p>
+
+{% endblock %}
