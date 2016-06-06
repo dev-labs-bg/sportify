@@ -7,6 +7,11 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+        <a href="{{ path('home') }}">Home</a>
+        <a href="{{ path('tournaments_index') }}">Tournaments</a>
+        <a href="{{ path('matches_index') }}">Matches</a>
+        <a href="/logout">Logout</a>
+
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

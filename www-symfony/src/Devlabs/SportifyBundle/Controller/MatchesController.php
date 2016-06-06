@@ -22,7 +22,8 @@ class MatchesController extends Controller
     /**
      * @Route("/matches/{tournament}/{date_from}/{date_to}",
      *     name="matches_index",
-     *     defaults={"tournament" = "all", "date_from" = "2016-01-01", "date_to" = "2021-12-31"})
+     *     defaults={"tournament" = "all", "date_from" = "2016-01-01", "date_to" = "2021-12-31"}
+     *     )
      */
     public function indexAction(Request $request, $tournament, $date_from, $date_to)
     {
