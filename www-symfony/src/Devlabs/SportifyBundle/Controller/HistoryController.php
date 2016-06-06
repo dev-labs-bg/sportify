@@ -19,18 +19,31 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class HistoryController extends Controller
 {
     /**
-     * @Route("/history/{tournament}/{date_from}/{date_to}",
+     * @Route("/history/{user_id}/{tournament}/{date_from}/{date_to}",
      *     name="history_index",
-     *     defaults={"tournament" = "all", "date_from" = "2016-01-01", "date_to" = "2021-12-31"}
-     *     )
+     *     defaults={
+     *      "user_id" = "1",
+     *      "tournament" = "all",
+     *      "date_from" = "2016-01-01",
+     *      "date_to" = "2021-12-31"
+     *     }
+     * )
      */
-    public function indexAction(Request $request, $tournament, $date_from, $date_to)
+    public function indexAction(Request $request, $user_id, $tournament, $date_from, $date_to)
     {
         // Load the data for the current user into an object
         $user = $this->getUser();
 
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
+
+        // use the selected user as object, based on id URL: {user_id} route parameter
+        $userSelected = $em->getRepository('DevlabsSportifyBundle:User')
+            ->findOneById($user_id);
+
+        // get list of enabled users
+        $usersEnabled = $em->getRepository('DevlabsSportifyBundle:User')
+            ->getAllEnabled();
 
         // use the selected tournament as object, based on id URL: {tournament} route parameter
         $tournamentSelected = ($tournament === 'all')
@@ -41,10 +54,16 @@ class HistoryController extends Controller
         $tournamentsJoined = $em->getRepository('DevlabsSportifyBundle:Tournament')
             ->getJoined($user);
 
-        // creating a form for the tournament and date filter
+        // creating a form for user,tournament,date filter
         $formData = array();
         $filterForm = $this->createFormBuilder($formData)
-            ->setAction($this->generateUrl('matches_index'))
+            ->add('user', EntityType::class, array(
+                'class' => 'DevlabsSportifyBundle:User',
+                'choices' => $usersEnabled,
+                'choice_label' => 'email',
+                'label' => false,
+                'data' => $userSelected
+            ))
             ->add('tournament_id', EntityType::class, array(
                 'class' => 'DevlabsSportifyBundle:Tournament',
                 'choices' => $tournamentsJoined,
@@ -77,14 +96,16 @@ class HistoryController extends Controller
         if ($filterForm->isSubmitted() && $filterForm->isValid()) {
             $formData = $filterForm->getData();
 
+            $userChoice = $formData['user'];
             $tournamentChoice = $formData['tournament_id'];
             $dateFromChoice = $formData['date_from'];
             $dateToChoice = $formData['date_to'];
 
             // reload the page with the chosen filter(s) applied (as url path params)
             return $this->redirectToRoute(
-                'matches_index',
+                'history_index',
                 array(
+                    'user_id' => $userChoice->getId(),
                     'tournament' => $tournamentChoice->getId(),
                     'date_from' => $dateFromChoice,
                     'date_to' => $dateToChoice
