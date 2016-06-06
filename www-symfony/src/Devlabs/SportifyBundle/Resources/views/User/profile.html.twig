@@ -2,5 +2,8 @@
 
 {% block body %}
     <h1>User profile</h1>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
     {% block content %}{% endblock %}
 {% endblock %}
