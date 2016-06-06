@@ -46,4 +46,33 @@ class ScoreRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * Method for getting a given user's scores for all the tournaments he's joined
+     *
+     * @param User $user
+     * @return array
+     */
+    public function getByUser(User $user)
+    {
+        $queryResult = $this->getEntityManager()->createQueryBuilder()
+            ->select('s')
+            ->from('DevlabsSportifyBundle:Score', 's')
+            ->where('s.userId = :user_id')
+            ->setParameters(array('user_id' => $user->getId()))
+            ->getQuery()
+            ->getResult();
+
+        $result = array();
+
+        /**
+         * Iterate the query result array
+         * and set the item key to be the tournament id
+         */
+        foreach ($queryResult as $score) {
+            $result[$score->getTournamentId()->getId()] = $score;
+        }
+
+        return $result;
+    }
 }

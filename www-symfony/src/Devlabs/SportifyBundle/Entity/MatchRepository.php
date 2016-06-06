@@ -92,7 +92,7 @@ class MatchRepository extends \Doctrine\ORM\EntityRepository
      */
     public function getFinishedNotScored()
     {
-        return $this->getEntityManager()->createQueryBuilder()
+        $queryResult = $this->getEntityManager()->createQueryBuilder()
             ->select('DISTINCT m')
             ->from('DevlabsSportifyBundle:Match', 'm')
             ->join('m.predictions', 'p')
@@ -101,5 +101,17 @@ class MatchRepository extends \Doctrine\ORM\EntityRepository
             ->orderBy('m.id')
             ->getQuery()
             ->getResult();
+
+        $result = array();
+
+        /**
+         * Iterate the query result array
+         * and set the item key to be the match id
+         */
+        foreach ($queryResult as $match) {
+            $result[$match->getId()] = $match;
+        }
+
+        return $result;
     }
 }

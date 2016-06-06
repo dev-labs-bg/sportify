@@ -117,4 +117,18 @@ class Score
     {
         return $this->tournamentId;
     }
+
+    /**
+     * Method for updating the user's points in a tournament
+     * by passing the points to be added as an argument
+     *
+     * @param $addedPoints
+     * @return mixed
+     */
+    public function updatePoints($addedPoints)
+    {
+        $this->points = $this->points + $addedPoints;
+
+        return $this;
+    }
 }

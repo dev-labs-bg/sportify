@@ -113,7 +113,7 @@ class PredictionRepository extends \Doctrine\ORM\EntityRepository
      *
      * @return array
      */
-    public function getFinishedNotScored()
+    public function getFinishedNotScored(User $user)
     {
         $queryResult = $this->getEntityManager()->createQueryBuilder()
             ->select('p')
@@ -121,7 +121,9 @@ class PredictionRepository extends \Doctrine\ORM\EntityRepository
             ->join('p.matchId', 'm')
             ->where('p.scoreAdded IS NULL OR p.scoreAdded = 0')
             ->andWhere('m.homeGoals IS NOT NULL AND m.awayGoals IS NOT NULL')
+            ->andWhere('p.userId = :user_id')
             ->orderBy('m.id')
+            ->setParameters(array('user_id' => $user->getId()))
             ->getQuery()
             ->getResult();
 
@@ -132,9 +134,7 @@ class PredictionRepository extends \Doctrine\ORM\EntityRepository
          * and set the item key to be the match id
          */
         foreach ($queryResult as $prediction) {
-            $userId = $prediction->getUserId()->getId();
-            $matchId = $prediction->getMatchId()->getId();
-            $result[$userId][$matchId] = $prediction;
+            $result[$prediction->getMatchId()->getId()] = $prediction;
         }
 
         return $result;

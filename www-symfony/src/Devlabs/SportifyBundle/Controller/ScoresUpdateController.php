@@ -13,11 +13,11 @@ use Symfony\Component\HttpFoundation\Request;
 class ScoresUpdateController extends Controller
 {
     /**
-     * @Route("/scores_update",
-     *     name="scores_update_index"
+     * @Route("/scores/update",
+     *     name="scores_update"
      * )
      */
-    public function indexAction(Request $request)
+    public function updateAction(Request $request)
     {
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
@@ -40,12 +40,58 @@ class ScoresUpdateController extends Controller
         $users = $em->getRepository('DevlabsSportifyBundle:User')
             ->getAllEnabled();
 
-        foreach ($matches as $match) {
-            foreach ($users as $user) {
-                $prediction = $predictions[$user->getId()][$match->getId()];
+        // iterate for each user
+        foreach ($users as $user) {
+            /**
+             * Get the list of scores (tournament + points) for the user
+             */
+            $scores = $em->getRepository('DevlabsSportifyBundle:Score')
+                ->getByUser($user);
 
+            /**
+             * Get a list of NOT SCORED predictions by the user
+             * for matches with final score set
+             */
+            $predictions = $em->getRepository('DevlabsSportifyBundle:Prediction')
+                ->getFinishedNotScored($user);
+
+            // iterate on all of the user's predictions
+            foreach ($predictions as &$prediction) {
+                /**
+                 * Get corresponding match for the current prediction
+                 */
+                $matchId = $prediction->getMatchId()->getId();
+                $match = $matches[$matchId];
+
+                // get the points from the prediction
+                $predictionPoints = $prediction->calculatePoints($match);
+
+                /**
+                 * Update the prediction in the DB
+                 * by setting the points gained and the score_added flag to 1
+                 */
+                $prediction->setPoints($predictionPoints);
+                $prediction->setScoreAdded('1');
+
+                // prepare the queries
+                $em->persist($prediction);
+
+                /**
+                 * If the predictions's gained points are more than 0 (zero)
+                 * then update the user score for the prediction's tournament
+                 */
+                if ($predictionPoints > 0) {
+                    $tournamentId = $match->getTournamentId()->getId();
+                    $scores[$tournamentId]->updatePoints($predictionPoints);
+
+                    // prepare the queries
+                    $em->persist($scores[$tournamentId]);
+                }
             }
         }
+
+        // execute the queries
+        $em->flush();
 
         // redirect to the Home page
         return $this->redirectToRoute('home');
