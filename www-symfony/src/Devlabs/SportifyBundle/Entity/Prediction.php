@@ -3,10 +3,13 @@
 namespace Devlabs\SportifyBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="Devlabs\SportifyBundle\Entity\PredictionRepository")
- * @ORM\Table(name="predictions")
+ * @ORM\Table(name="predictions", uniqueConstraints={
+ *      @ORM\UniqueConstraint(name="user_match", columns={"user_id", "match_id"})
+ * })
  */
 class Prediction
 {
@@ -18,24 +21,32 @@ class Prediction
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Match")
+     * @ORM\ManyToOne(targetEntity="Match", inversedBy="predictions")
      * @ORM\JoinColumn(name="match_id", referencedColumnName="id")
      */
     private $matchId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="predictions")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $userId;
 
     /**
      * @ORM\Column(type="integer", name="home_goals")
+     * @Assert\Type(
+     *     type="integer",
+     *     message="The value {{ value }} is not a valid {{ type }}."
+     * )
      */
     private $homeGoals;
 
     /**
      * @ORM\Column(type="integer", name="away_goals")
+     * @Assert\Type(
+     *     type="integer",
+     *     message="The value {{ value }} is not a valid {{ type }}."
+     * )
      */
     private $awayGoals;
 

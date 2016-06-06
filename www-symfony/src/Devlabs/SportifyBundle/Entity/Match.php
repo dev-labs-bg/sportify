@@ -33,20 +33,25 @@ class Match
     private $awayTeam;
 
     /**
-     * @ORM\Column(type="integer", name="home_goals")
+     * @ORM\Column(type="integer", name="home_goals", nullable=TRUE)
      */
     private $homeGoals;
 
     /**
-     * @ORM\Column(type="integer", name="away_goals")
+     * @ORM\Column(type="integer", name="away_goals", nullable=true)
      */
     private $awayGoals;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Tournament")
+     * @ORM\ManyToOne(targetEntity="Tournament", inversedBy="matches")
      * @ORM\JoinColumn(name="tournament_id", referencedColumnName="id")
      */
     private $tournamentId;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Prediction" , mappedBy="matchId" , cascade={"all"})
+     */
+    private $predictions;
 
     /**
      * Get id
@@ -201,4 +206,9 @@ class Match
     {
         return $this->tournamentId;
     }
+
+    public function __toString() {
+        return "$this->id";
+    }
+
 }
