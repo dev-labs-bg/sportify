@@ -28,4 +28,16 @@ class ScoreRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getSingleResult();
     }
+
+    public function getByTournamentOrderByPoints(Tournament $tournament)
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('s')
+            ->from('DevlabsSportifyBundle:Score', 's')
+            ->where('s.tournamentId = :tournament_id')
+            ->orderBy('s.points', 'DESC')
+            ->setParameters(array('tournament_id' => $tournament->getId()))
+            ->getQuery()
+            ->getResult();
+    }
 }

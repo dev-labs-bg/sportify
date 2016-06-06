@@ -69,11 +69,11 @@ class StandingsController extends Controller
 
         // get scores standings for a given tournament
         $standings = $em->getRepository('DevlabsSportifyBundle:Score')
-            ->findOneByTournamentId($tournamentSelected);
+            ->getByTournamentOrderByPoints($tournamentSelected);
 
         // rendering the view and returning the response
         return $this->render(
-            'DevlabsSportifyBundle:History:index.html.twig',
+            'DevlabsSportifyBundle:Standings:index.html.twig',
             array(
                 'standings' => $standings,
                 'filter_form' => $filterForm->createView()

@@ -1,0 +1,47 @@
+{% extends 'DevlabsSportifyBundle:Standings:layout.html.twig' %}
+
+{% block content %}
+
+    {% if app.user %}
+        Current user:
+        <p>{{ app.user.id }} - {{ app.user.username }} - {{app.user.email }}</p>
+    {% endif %}
+
+    Filter bar:
+
+    {{ form_start(filter_form) }}
+    Tournament:
+    {{ form_row(filter_form.tournament_id) }}
+    {{ form_end(filter_form) }}
+
+    Table:
+
+        <p>
+            <div>
+                <table>
+                    <thead></thead>
+                    <tbody>
+                        <thead>
+                            <tr>
+                                <th>Position</th>
+                                <th>Username</th>
+                                <th>History</th>
+                                <th>Points</th>
+                            </tr>
+                        </thead>
+                        {% set position = 0 %}
+                        {% for score in standings %}
+                            {% set position = position + 1 %}
+                            <tr>
+                                <td>{{ position }}</td>
+                                <td>{{ score.userId.email }}</td>
+                                <td><a href="{{ path('history_index') }}">View</a></td>
+                                <td>{{ score.points }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </p>
+
+{% endblock %}
