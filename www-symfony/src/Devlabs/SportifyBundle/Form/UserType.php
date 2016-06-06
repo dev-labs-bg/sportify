@@ -7,6 +7,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 
 class UserType extends AbstractType
 {
@@ -25,6 +27,19 @@ class UserType extends AbstractType
     {
         $builder
             ->add('username')
+            ->add('password_confirm', PasswordType::class, array(
+                'constraints' => new UserPassword(),
+                'mapped' => false
+            ))
+            ->add('password', RepeatedType::class, array(
+                'mapped' => false,
+                'type' => PasswordType::class,
+                'invalid_message' => 'The password fields must match.',
+                'options' => array('attr' => array('class' => 'password-field')),
+                'required' => true,
+                'first_options'  => array('label' => 'Password'),
+                'second_options' => array('label' => 'Repeat Password'),
+            ))
             ->add('save', SubmitType::class)
         ;
     }
