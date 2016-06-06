@@ -2,7 +2,6 @@
 
 namespace Devlabs\SportifyBundle\Controller;
 
-use Devlabs\SportifyBundle\Entity\Score;
 use Devlabs\SportifyBundle\Entity\Prediction;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
