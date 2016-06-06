@@ -40,6 +40,13 @@ class ScoresUpdateController extends Controller
         $users = $em->getRepository('DevlabsSportifyBundle:User')
             ->getAllEnabled();
 
+        foreach ($matches as $match) {
+            foreach ($users as $user) {
+                $prediction = $predictions[$user->getId()][$match->getId()];
+
+            }
+        }
+
         // redirect to the Home page
         return $this->redirectToRoute('home');
     }

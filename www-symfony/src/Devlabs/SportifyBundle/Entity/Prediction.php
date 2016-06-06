@@ -213,4 +213,37 @@ class Prediction
     {
         return $this->userId;
     }
+
+    /**
+     * Get the outcome of the match
+     *
+     * @return string
+     */
+    public function getResultOutcome()
+    {
+        if ($this->homeGoals > $this->awayGoals) {
+            return '1';
+        } else if ($this->homeGoals < $this->awayGoals) {
+            return '2';
+        }
+
+        return 'X';
+    }
+
+    /**
+     * Calculate the points from the prediction
+     *
+     * @param Match $match
+     * @return int
+     */
+    public function calculatePoints(Match $match)
+    {
+        if (($this->homeGoals === $match->getHomeGoals()) && ($this->awayGoals === $match->getAwayGoals())) {
+            return 3;
+        } else if ($this->getResultOutcome() === $match->getResultOutcome()) {
+            return 1;
+        }
+
+        return 0;
+    }
 }

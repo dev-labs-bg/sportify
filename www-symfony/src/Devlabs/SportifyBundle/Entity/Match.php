@@ -211,4 +211,19 @@ class Match
         return "$this->id";
     }
 
+    /**
+     * Get the outcome of the match
+     *
+     * @return string
+     */
+    public function getResultOutcome()
+    {
+        if ($this->homeGoals > $this->awayGoals) {
+            return '1';
+        } else if ($this->homeGoals < $this->awayGoals) {
+            return '2';
+        }
+
+        return 'X';
+    }
 }
