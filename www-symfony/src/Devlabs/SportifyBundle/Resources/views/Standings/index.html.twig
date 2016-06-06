@@ -35,7 +35,7 @@
                             <tr>
                                 <td>{{ position }}</td>
                                 <td>{{ score.userId.email }}</td>
-                                <td><a href="{{ path('history_index') }}">View</a></td>
+                                <td><a href="{{ path('history_index', {'user_id' : score.userId.id, 'tournament' : score.tournamentId.id}) }}">View</a></td>
                                 <td>{{ score.points }}</td>
                             </tr>
                         {% endfor %}
