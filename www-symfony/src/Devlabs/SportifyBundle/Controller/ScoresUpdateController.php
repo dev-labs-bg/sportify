@@ -19,6 +19,27 @@ class ScoresUpdateController extends Controller
      */
     public function indexAction(Request $request)
     {
+        // Get an instance of the Entity Manager
+        $em = $this->getDoctrine()->getManager();
+
+        /**
+         * Get a list of the finished matches
+         * for which there are NOT SCORED predictions
+         */
+        $matches = $em->getRepository('DevlabsSportifyBundle:Match')
+            ->getFinishedNotScored();
+
+        /**
+         * Get a list of NOT SCORED predictions
+         * for matches with final score set
+         */
+        $predictions = $em->getRepository('DevlabsSportifyBundle:Prediction')
+            ->getFinishedNotScored();
+
+        // get list of enabled users
+        $users = $em->getRepository('DevlabsSportifyBundle:User')
+            ->getAllEnabled();
+
         // redirect to the Home page
         return $this->redirectToRoute('home');
     }

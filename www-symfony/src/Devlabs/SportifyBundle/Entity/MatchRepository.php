@@ -46,6 +46,15 @@ class MatchRepository extends \Doctrine\ORM\EntityRepository
         return $query->getQuery()->getResult();
     }
 
+    /**
+     * Method for getting a list of the matches which have already been scored/finished
+     *
+     * @param User $user
+     * @param $tournamentId
+     * @param $dateFrom
+     * @param $dateTo
+     * @return array
+     */
     public function getAlreadyScored(User $user, $tournamentId, $dateFrom, $dateTo)
     {
         $query = $this->getEntityManager()->createQueryBuilder()
@@ -54,7 +63,7 @@ class MatchRepository extends \Doctrine\ORM\EntityRepository
             ->join('m.tournamentId', 't')
             ->join('t.scores', 's', 'WITH', 's.userId = :user_id')
             ->leftJoin('m.predictions', 'p', 'WITH', 'p.userId = :user_id')
-//            ->where('p.scoreAdded = 1')
+            ->where('p.scoreAdded = 1 OR p.id IS NULL')
             ->andWhere('m.homeGoals IS NOT NULL AND m.awayGoals IS NOT NULL')
             ->andWhere('m.datetime >= :date_from AND m.datetime <= :date_to')
             ->orderBy('m.tournamentId')
@@ -73,5 +82,24 @@ class MatchRepository extends \Doctrine\ORM\EntityRepository
         }
 
         return $query->getQuery()->getResult();
+    }
+
+    /**
+     * Method for getting a list of the matches which have final score
+     * but there are NOT SCORED predictions for these matches
+     *
+     * @return array
+     */
+    public function getFinishedNotScored()
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('DISTINCT m')
+            ->from('DevlabsSportifyBundle:Match', 'm')
+            ->join('m.predictions', 'p')
+            ->where('p.scoreAdded IS NULL OR p.scoreAdded = 0')
+            ->andWhere('m.homeGoals IS NOT NULL AND m.awayGoals IS NOT NULL')
+            ->orderBy('m.id')
+            ->getQuery()
+            ->getResult();
     }
 }

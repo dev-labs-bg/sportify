@@ -56,6 +56,15 @@ class PredictionRepository extends \Doctrine\ORM\EntityRepository
         return $result;
     }
 
+    /**
+     * Method for getting a list of the predictions for matches which have already been scored/finished
+     *
+     * @param User $user
+     * @param $tournamentId
+     * @param $dateFrom
+     * @param $dateTo
+     * @return array
+     */
     public function getAlreadyScored(User $user, $tournamentId, $dateFrom, $dateTo)
     {
         $query = $this->getEntityManager()->createQueryBuilder()
@@ -65,7 +74,7 @@ class PredictionRepository extends \Doctrine\ORM\EntityRepository
             ->join('m.tournamentId', 't')
             ->join('t.scores', 's', 'WITH', 's.userId = :user_id')
             ->where('p.userId = :user_id')
-//            ->andWhere('p.scoreAdded = 1')
+            ->andWhere('p.scoreAdded = 1')
             ->andWhere('m.homeGoals IS NOT NULL AND m.awayGoals IS NOT NULL')
             ->andWhere('m.datetime >= :date_from AND m.datetime <= :date_to')
             ->orderBy('m.tournamentId')
@@ -93,6 +102,39 @@ class PredictionRepository extends \Doctrine\ORM\EntityRepository
          */
         foreach ($queryResult as $prediction) {
             $result[$prediction->getMatchId()->getId()] = $prediction;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Method for getting a list of the NOT SCORED predictions for matches
+     * which have final score
+     *
+     * @return array
+     */
+    public function getFinishedNotScored()
+    {
+        $queryResult = $this->getEntityManager()->createQueryBuilder()
+            ->select('p')
+            ->from('DevlabsSportifyBundle:Prediction', 'p')
+            ->join('p.matchId', 'm')
+            ->where('p.scoreAdded IS NULL OR p.scoreAdded = 0')
+            ->andWhere('m.homeGoals IS NOT NULL AND m.awayGoals IS NOT NULL')
+            ->orderBy('m.id')
+            ->getQuery()
+            ->getResult();
+
+        $result = array();
+
+        /**
+         * Iterate the query result array
+         * and set the item key to be the match id
+         */
+        foreach ($queryResult as $prediction) {
+            $userId = $prediction->getUserId()->getId();
+            $matchId = $prediction->getMatchId()->getId();
+            $result[$userId][$matchId] = $prediction;
         }
 
         return $result;
