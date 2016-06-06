@@ -29,13 +29,6 @@ class ScoresUpdateController extends Controller
         $matches = $em->getRepository('DevlabsSportifyBundle:Match')
             ->getFinishedNotScored();
 
-        /**
-         * Get a list of NOT SCORED predictions
-         * for matches with final score set
-         */
-        $predictions = $em->getRepository('DevlabsSportifyBundle:Prediction')
-            ->getFinishedNotScored();
-
         // get list of enabled users
         $users = $em->getRepository('DevlabsSportifyBundle:User')
             ->getAllEnabled();
