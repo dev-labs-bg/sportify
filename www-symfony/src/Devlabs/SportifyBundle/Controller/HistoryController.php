@@ -115,9 +115,9 @@ class HistoryController extends Controller
 
         // get finished scored matches and the user's predictions for them
         $matches = $em->getRepository('DevlabsSportifyBundle:Match')
-            ->getAlreadyScored($user, $tournament, $date_from, $date_to);
+            ->getAlreadyScored($userSelected, $tournament, $date_from, $date_to);
         $predictions = $em->getRepository('DevlabsSportifyBundle:Prediction')
-            ->getAlreadyScored($user, $tournament, $date_from, $date_to);
+            ->getAlreadyScored($userSelected, $tournament, $date_from, $date_to);
 
         // rendering the view and returning the response
         return $this->render(
