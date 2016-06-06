@@ -22,7 +22,7 @@ class StandingsController extends Controller
      *     }
      * )
      */
-    public function indexAction(Request $request, $user_id, $tournament, $date_from, $date_to)
+    public function indexAction(Request $request, $tournament)
     {
         // Load the data for the current user into an object
         $user = $this->getUser();
@@ -31,9 +31,8 @@ class StandingsController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         // use the selected tournament as object, based on id URL: {tournament} route parameter
-        $tournamentSelected = ($tournament === 'all')
-            ? null
-            : $em->getRepository('DevlabsSportifyBundle:Tournament')->findOneById($tournament);
+        $tournamentSelected = $em->getRepository('DevlabsSportifyBundle:Tournament')
+            ->findOneById($tournament);
 
         // get all tournaments
         $tournamentsAll = $em->getRepository('DevlabsSportifyBundle:Tournament')
@@ -68,18 +67,15 @@ class StandingsController extends Controller
             );
         }
 
-        // get finished scored matches and the user's predictions for them
-        $matches = $em->getRepository('DevlabsSportifyBundle:Match')
-            ->getAlreadyScored($userSelected, $tournament, $date_from, $date_to);
-        $predictions = $em->getRepository('DevlabsSportifyBundle:Prediction')
-            ->getAlreadyScored($userSelected, $tournament, $date_from, $date_to);
+        // get scores standings for a given tournament
+        $standings = $em->getRepository('DevlabsSportifyBundle:Score')
+            ->findOneByTournamentId($tournamentSelected);
 
         // rendering the view and returning the response
         return $this->render(
             'DevlabsSportifyBundle:History:index.html.twig',
             array(
-                'matches' => $matches,
-                'predictions' => $predictions,
+                'standings' => $standings,
                 'filter_form' => $filterForm->createView()
             )
         );
