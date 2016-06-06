@@ -38,7 +38,7 @@ class StandingsController extends Controller
         $tournamentsAll = $em->getRepository('DevlabsSportifyBundle:Tournament')
             ->findAll();
 
-        // creating a form for user,tournament,date filter
+        // creating a form for tournament filter
         $formData = array();
         $filterForm = $this->createFormBuilder($formData)
             ->add('tournament_id', EntityType::class, array(

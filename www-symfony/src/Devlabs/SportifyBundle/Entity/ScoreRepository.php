@@ -29,6 +29,12 @@ class ScoreRepository extends \Doctrine\ORM\EntityRepository
             ->getSingleResult();
     }
 
+    /**
+     * Method for getting the standings table (scores) for a given tournament
+     *
+     * @param Tournament $tournament
+     * @return array
+     */
     public function getByTournamentOrderByPoints(Tournament $tournament)
     {
         return $this->getEntityManager()->createQueryBuilder()
