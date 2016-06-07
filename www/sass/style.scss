@@ -239,7 +239,7 @@ body, html {
         cursor: pointer;
         padding: 10px 0 0;
         img {
-            margin-top: 0;
+            margin-top: 25px;
         }
         span {
             display: block;
@@ -270,7 +270,12 @@ body, html {
 .rules {
     background: url(../img/rules.svg) no-repeat 15px center;
 }
-
+.login {
+    background: url(../img/login.svg) no-repeat 15px center;
+}
+.signup {
+    background: url(../img/signup.svg) no-repeat 15px center;
+}
 .hamburger {
     margin: 1px 9px;
     background: none;
@@ -280,10 +285,10 @@ body, html {
 }
 
 .content {
-    padding-top: 70px;
+    padding-top: 72px;
 }
 .page-content-wrapper .content {
-    padding-top: 100px;
+    padding-top: 72px;
     padding-bottom: 100px;
 }
 
@@ -361,12 +366,22 @@ h2 {
 .page-content-wrapper h2 {
     margin: 50px 0 ;
 }
-.signup-screen h2 {
-    margin: 80px 0 10px;
+.signup-screen {
+    &.content{
+        padding-bottom: 10px;
+    }
+    h2 {
+        margin: 80px 0 10px;
+    }
 }
-.login-screen h2 a {
-    color: inherit;
-    text-decoration: underline;
+.login-screen {
+    &.content {
+        padding-bottom: 10px;
+    }
+    h2 a {
+        color: inherit;
+        text-decoration: underline;
+    }
 }
 .login-form, .signup-form, .myprofile-form {
     display: inline-block;
@@ -461,6 +476,48 @@ h2 {
     &-btn {
         padding: 8px 70px;
         width: 200px;
+    }
+}
+.matches-filters {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background: rgba(29, 41, 54, .7);
+    .form-control {
+        appearance: none;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        height: auto;
+        padding: 15px 45px 15px 25px;
+        border-radius: 100px;
+        background: #fff url(../img/select-arrow.svg) no-repeat 90% center;
+    }
+}
+.chosen-container {
+    font-size: 15px;
+    font-weight: 600;
+
+    &-single {
+        .chosen-single {
+            height: 52px;
+            line-height: 52px;
+            border-radius: 100px;
+            background: #fff url(../img/select-arrow.svg) no-repeat 95% center;
+            padding-left: 25px;
+            div b {
+                background: none;
+            }
+        }
+        .chosen-drop {
+            border-radius: 0 0 26px 26px;
+            padding-bottom: 26px;
+            .chosen-results {
+                padding-left: 24px;
+            }
+        }
+    }
+    &-active.chosen-with-drop .chosen-single {
+        border-radius: 26px 26px 0 0;
+        background: #fff;
     }
 }
 @media screen and (max-width: 991px){

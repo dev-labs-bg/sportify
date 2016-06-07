@@ -40,12 +40,6 @@
             <li>
                 <a class="rules" href="#">Rules</a>
             </li>
-            <li>
-                <a class="login" href="#">Log in</a>
-            </li>
-            <li>
-                <a class="signup" href="#">Sign up</a>
-            </li>
         </ul>
     </nav>
     <!-- /#sidebar-wrapper -->
@@ -82,39 +76,89 @@
                 <li>
                     <a class="rules" href="#">Rules</a>
                 </li>
-                <li>
-                    <a class="login" href="#">Log in</a>
-                </li>
-                <li>
-                    <a class="signup" href="#">Sign up</a>
-                </li>
               </ul>
             </div><!-- /.navbar-collapse -->
-            <h1 class="text-center">Sportify</h1>
+            <h1 class="text-center">Matches</h1>
           </div><!-- /.container-fluid -->
         </nav>
-        <div class="container content signup-screen">
-            <div class="row">
-                <div class="col-sm-6 col-sm-offset-3 text-center">
-                    <h2>Sign up</h2>
-                    <form class="signup-form">
-                        <div class="form-group">
-                            <input name="email" type="email" class="form-control" placeholder="Email address">
+        <div class="container-fluid content">
+            <div class="matches-filters row">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <form id="matches-form" method="GET">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <select name="tournament_id" id="tournament-id" class="form-control">
+                                    <option value="ALL">All joined</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <input name="date_from" id="date-from" class="form-control" type="text" />
+                            </div>
+                            <div class="col-sm-3">
+                                <input name="date_to" id="date-to" class="form-control" type="text" />
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <input name="first-name" type="text" class="form-control" placeholder="First Name">
-                        </div>
-                        <div class="form-group">
-                            <input name="last-name" type="text" class="form-control" placeholder="Last Name">
-                        </div>
-                        <div class="form-group">
-                            <input name="password" type="password" class="form-control" placeholder="Password">
-                        </div>
-                        <div class="form-group">
-                            <input name="confirm-password" type="password" class="form-control" placeholder="Confirm Password">
-                        </div>
-                        <button type="submit" class="btn btn-default green-btn">Confirm</button>
                     </form>
+                </div>
+            </div>
+            <div>
+                 <a class="c-btn c-datepicker-btn">
+                    <span class="material-icon">calender</span>
+                  </a>
+
+                  <pre id="output"></pre>
+
+
+                  
+            </div>
+        </div>
+    </div>
+    <div id="results-slider" class="results-slider">
+        <div class="container-fluid">
+            <div class="current-results-slider owl-carousel">
+                <div class="slider-item-holder">
+                    <div class="slider-item">
+                        <div class="logo">
+                            <img src="img/barclays-premier-league.png" alt="Barclays Premier League" />
+                        </div>
+                        <div class="result-info">
+                            <div class="title">Barclays Premier League</div>
+                            <div class="points">3p. <span class="position-up"></span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-item-holder">
+                <div class="slider-item">
+                    <div class="logo">
+                        <img src="img/la-liga-logo.png" alt="La Liga" />
+                    </div>
+                    <div class="result-info">
+                        <div class="title">La Liga</div>
+                        <div class="points">1p. <span class="position-down"></span></div>
+                    </div>
+                    </div>
+                </div>
+                <div class="slider-item-holder">
+                <div class="slider-item">
+                    <div class="logo">
+                        <img src="img/UEFA-champions-league-logo.png" alt="UEFA Champions League" />
+                    </div>
+                    <div class="result-info">
+                        <div class="title">UEFA Champions League</div>
+                        <div class="points">3p. <span class="position-same"></span></div>
+                    </div>
+                    </div>
+                </div>
+                <div class="slider-item-holder">
+                <div class="slider-item">
+                    <div class="logo">
+                        <img src="img/bundesliga.png" alt="bundesliga" />
+                    </div>
+                    <div class="result-info">
+                        <div class="title">Bundesliga</div>
+                        <div class="points">3p. <span class="position-up"></span></div>
+                    </div>
+                    </div>
                 </div>
             </div>
         </div>

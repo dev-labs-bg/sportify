@@ -35,13 +35,13 @@ $(function(){
             0: {
                 items:1
             },
-            480: {
+            560: {
                 items: 2
             },
-            768: {
-                items:3
+            1150: {
+                items: 3
             },
-            992: {
+            1450: {
                 items: 4
             }
         }
@@ -78,3 +78,58 @@ $(function(){
         };
     }
 });
+
+// $(function(){
+//     $('#tournament-id').chosen({
+//         no_results_text: 'Oops, nothing found!'
+//     });
+// });
+
+$(function(){
+
+    //Matches page filters
+
+    var tournamentId;
+    var dateFrom;
+    var dateTo;
+
+    /**
+     * select all form elements
+     * including inputs, selects, textarea etc.
+     */
+    $('#matches-form :input').on('change', function(){
+        tournamentId = $('#tournament-id').val();
+        dateFrom = $('#date-from').val();
+        dateTo = $('#date-to').val();
+
+        /**
+         * Check if all filters are selected
+         * and submit the form
+         */
+        if(
+            tournamentId != "" &&
+            dateFrom != "" &&
+            dateTo != ""
+            )
+            $('#matches-form').trigger('submit');
+    });
+});
+
+$(function(){
+        const fromDate = document.querySelector('#date-from');
+        fromDate.addEventListener('click', function() {
+          pickDateFrom.open();
+        }, false);
+
+        const pickDateFrom = new MaterialDatePicker({
+            el: fromDate,
+            openedBy: 'focus',
+            format: 'MM/DD/YYYY'
+        })
+          .on('submit', function(d) {
+           $('#date-from').text(d);
+          });
+
+                    
+
+})
