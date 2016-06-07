@@ -87,7 +87,7 @@
                     <form id="matches-form" method="GET">
                         <div class="row">
                             <div class="col-sm-6">
-                                <select name="matches_id" id="matches-id" class="form-control">
+                                <select name="tournament_id" id="tournament-id" class="form-control">
                                     <option value="ALL">All joined</option>
                                 </select>
                             </div>
