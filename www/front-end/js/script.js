@@ -81,7 +81,10 @@ $(function(){
 
 $(function(){
     $('#tournament-id').chosen({
-        no_results_text: 'Oops, nothing found!'
+        no_results_text: 'No such tournament!'
+    });
+    $('#username-list').chosen({
+        no_results_text: 'No such username!'
     });
 });
 
@@ -112,5 +115,37 @@ $(function(){
             dateTo != ""
             )
             $('#matches-form').trigger('submit');
+    });
+});
+$(function(){
+
+    //History page filters
+
+    var tournamentId;
+    var userName;
+    var dateFrom;
+    var dateTo;
+
+    /**
+     * select all form elements
+     * including inputs, selects, textarea etc.
+     */
+    $('#history-form :input').on('change', function(){
+        tournamentId = $('#tournament-id').val();
+        userName = $('#username-list').val();
+        dateFrom = $('#date-from').val();
+        dateTo = $('#date-to').val();
+
+        /**
+         * Check if all filters are selected
+         * and submit the form
+         */
+        if(
+            tournamentId != "" &&
+            userName != "" &&
+            dateFrom != "" &&
+            dateTo != ""
+            )
+            $('#history-form').trigger('submit');
     });
 });

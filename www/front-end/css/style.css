@@ -7125,7 +7125,7 @@ html {
 
 .wrapper {
   padding-left: 0;
-  transition: all 0.5s ease;
+  transition: all .5s ease;
 }
 
 .wrapper.toggled {
@@ -7163,7 +7163,7 @@ html {
   overflow-y: auto;
   overflow-x: hidden;
   background: #4caf50 url(../img/grass-pattern.png);
-  transition: all 0.5s ease;
+  transition: all .5s ease;
 }
 
 .sidebar-wrapper::-webkit-scrollbar {
@@ -7228,8 +7228,8 @@ html {
   left: 0;
   font-weight: 700;
   font-size: 16px;
-  line-height: 0.9;
-  letter-spacing: 0.9px;
+  line-height: .9;
+  letter-spacing: .9px;
   color: #ffffff;
   text-transform: none;
   margin-top: -15px;
@@ -7567,6 +7567,14 @@ h2 {
   background: #fff;
 }
 
+.matches-filters label {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 10px 5px 5px;
+}
+
 .chosen-container {
   font-size: 15px;
   font-weight: 600;
@@ -7609,7 +7617,7 @@ h2 {
 }
 
 .match-title {
-  font-size: 20px;
+  font-size: 24px;
   line-height: 30px;
   font-weight: 700;
   text-transform: uppercase;
@@ -7661,9 +7669,40 @@ h2 {
   color: #fff;
 }
 
+.match-item .bettings .bet-results {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.match-item .bettings .bet-results .bet-field {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+}
+
 .match-btn {
   padding: 5px 25px;
   margin: 5px 0;
+}
+
+.match .team-title,
+.match .prediction-title,
+.match .points-title {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.match .predictions,
+.match .points-gained {
+  color: #fff;
+  letter-spacing: 5px;
+  font-size: 22px;
+}
+
+.match .points-gained {
+  text-transform: none;
+  letter-spacing: 2px;
 }
 
 @media screen and (max-width: 991px) {
