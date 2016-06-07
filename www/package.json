@@ -5,6 +5,7 @@
     "gulp": "^3.9.1"
   },
   "dependencies": {
-    "laravel-elixir": "^3.0.0"
+    "laravel-elixir": "^3.0.0",
+    "material-datetime-picker": "^1.0.1"
   }
 }
