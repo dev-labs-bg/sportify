@@ -1,29 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8" />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
         <title>{% block title %}Spotify - symfony{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Exo:400,600,700,900' rel='stylesheet' type='text/css'>
+        {% block stylesheets %}
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        <div>
-            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                <a href="{{ path('home') }}">Home</a>
-                <a href="{{ path('tournaments_index') }}">Tournaments</a>
-                <a href="{{ path('matches_index') }}">Matches</a>
-                <a href="{{ path('history_index') }}">History</a>
-                <a href="{{ path('standings_index') }}">Standings</a>
-                <a href="{{ path('user_profile') }}">User profile</a>
-                <a href="{{ path('fos_user_security_logout') }}">Logout</a>
-            {% else %}
-                <a href="{{ path('home') }}">Home</a>
-                <a href="{{ path('fos_user_security_login') }}">Login</a>
-                <a href="{{ path('fos_user_registration_register') }}">Register</a>
-                <a href="{{ path('standings_index') }}">Standings</a>
-            {% endif %}
-        </div>
-
         {% for label, flashes in app.session.flashbag.all %}
             {% for flash in flashes %}
                 <div class="alert alert-{{ label }}">
@@ -32,7 +22,50 @@
             {% endfor %}
         {% endfor %}
 
+        <div id="wrapper" class="wrapper toggled">
+            <!-- Sidebar -->
+            <nav class="navbar navbar-inverse navbar-fixed-top sidebar-wrapper" id="sidebar-wrapper" role="navigation">
+                <ul class="nav sidebar-nav">
+                    <li class="sidebar-brand">
+                        <button class="hamburger is-open" data-toggle="offcanvas" >{% include 'img/menu.svg' %}</button>
+                    </li>
+                    <li class="my-profile">
+                        <a class="profile-picture" href="#">
+                            <img src="img/profile_pic.jpg" alt="" />
+                        </a>
+                        <p class="user-name">Botzi Dimitrova</p>
+                    </li>
+                    <li>
+                        <a class="tournaments" href="{{ path('tournaments_index') }}">Tournaments</a>
+                    </li>
+                    <li class="active">
+                        <a class="matches" href="{{ path('matches_index') }}">Matches</a>
+                    </li>
+                    <li>
+                        <a class="standings" href="{{ path('standings_index') }}">Standings</a>
+                    </li>
+                    <li>
+                        <a class="history" href="{{ path('history_index') }}">History</a>
+                    </li>
+                    <li>
+                        <a class="rules" href="#">Rules</a>
+                    </li>
+                    <li>
+                        <a class="login" href="{{ path('fos_user_security_login') }}">Log in</a>
+                    </li>
+                    <li>
+                        <a class="signup" href="{{ path('fos_user_registration_register') }}">Sign up</a>
+                    </li>
+                </ul>
+            </nav>
+
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+
+        </div>
+        <!-- /#page-content-wrapper -->
+
+        {% block javascripts %}
+            <script src="{{ asset('js/all-scripts.js') }}"></script>
+        {% endblock %}
     </body>
 </html>

@@ -17,3 +17,5 @@
 deploy.php
 .idea/
 .DS_Store
+lib/
+node_modules/

@@ -1,0 +1,21 @@
+{
+  "name": "Sportify",
+  "description": "Match prediction game",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "^3.3.6",
+    "owl.carousel": "^2.1.5",
+    "chosen": "^1.5.1"
+  }
+}
