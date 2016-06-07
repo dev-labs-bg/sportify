@@ -75,11 +75,11 @@ fos_user:
 #    registration:
 #        confirmation:
 #            enabled: true
-#    from_email:
-#        address:        sportify@devlabs-projects.com
-#        sender_name:    Sportify
-#    service:
-#        mailer: fos_user.mailer.twig_swift
-#    resetting:
-#        email:
+    from_email:
+        address:        sportify@devlabs-projects.com
+        sender_name:    Sportify
+    service:
+        mailer: fos_user.mailer.twig_swift
+    resetting:
+        email:
 #            template: email/password_resetting.email.twig

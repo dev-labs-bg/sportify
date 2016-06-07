@@ -7,15 +7,22 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        <a href="{{ path('home') }}">Home</a>
-        <a href="{{ path('fos_user_security_login') }}">Login</a>
-        <a href="{{ path('fos_user_registration_register') }}">Register</a>
-        <a href="{{ path('tournaments_index') }}">Tournaments</a>
-        <a href="{{ path('matches_index') }}">Matches</a>
-        <a href="{{ path('history_index') }}">History</a>
-        <a href="{{ path('standings_index') }}">Standings</a>
-        <a href="{{ path('user_profile') }}">User profile</a>
-        <a href="/logout">Logout</a>
+        <div>
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <a href="{{ path('home') }}">Home</a>
+                <a href="{{ path('tournaments_index') }}">Tournaments</a>
+                <a href="{{ path('matches_index') }}">Matches</a>
+                <a href="{{ path('history_index') }}">History</a>
+                <a href="{{ path('standings_index') }}">Standings</a>
+                <a href="{{ path('user_profile') }}">User profile</a>
+                <a href="{{ path('fos_user_security_logout') }}">Logout</a>
+            {% else %}
+                <a href="{{ path('home') }}">Home</a>
+                <a href="{{ path('fos_user_security_login') }}">Login</a>
+                <a href="{{ path('fos_user_registration_register') }}">Register</a>
+                <a href="{{ path('standings_index') }}">Standings</a>
+            {% endif %}
+        </div>
 
         {% for label, flashes in app.session.flashbag.all %}
             {% for flash in flashes %}
