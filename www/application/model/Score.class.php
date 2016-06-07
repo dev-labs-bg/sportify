@@ -21,7 +21,7 @@ class Score
         $this->email = $email;
         $this->tournamentId = $tournament_id;
         $this->points = $points;
-    }s
+    }
 
     /**
      * Method for updating the user's points in a tournament

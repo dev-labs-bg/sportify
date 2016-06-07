@@ -39,7 +39,7 @@
                         {% for match in matches %}
                             <tr>
                                 <td>{{ match.homeTeam }} - {{ match.awayTeam }}</td>
-                                <td>-StartTime-</td>
+                                <td>{{ match.datetime|date('Y-m-d H:i') }}</td>
                                 {% if predictions[match.id] is defined %}
                                     <td>{{ predictions[match.id].homeGoals }} : {{ predictions[match.id].awayGoals }}</td>
                                     <td>{{ match.homeGoals }} : {{ match.awayGoals }}</td>
