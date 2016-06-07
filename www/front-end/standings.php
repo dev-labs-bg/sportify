@@ -272,9 +272,6 @@
     </div>
 </div>
     <!-- /#page-content-wrapper -->
-<script src="../lib/jquery/dist/jquery.min.js"></script>
-<script src="../lib/bootstrap-sass/assets/javascripts/bootstrap.min.js"></script>
-<script src="../lib/owl.carousel/dist/owl.carousel.min.js"></script>
-<script src="js/script.js"></script>
+<script src="js/all-scripts.js"></script>
 </body>
 </html>

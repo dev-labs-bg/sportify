@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <title>Sportify</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Exo:400,600,700,900' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
@@ -300,10 +298,6 @@
     </div>
 </div>
     <!-- /#page-content-wrapper -->
-<script src="../lib/jquery/dist/jquery.min.js"></script>
-<script src="../lib/bootstrap-sass/assets/javascripts/bootstrap.min.js"></script>
-<script src="../lib/owl.carousel/dist/owl.carousel.min.js"></script>
-<script src="../lib/chosen/chosen.jquery.js"></script>
-<script src="js/script.js"></script>
+<script src="js/all-scripts.js"></script>
 </body>
 </html>
