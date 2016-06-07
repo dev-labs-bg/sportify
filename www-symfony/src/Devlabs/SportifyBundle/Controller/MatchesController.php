@@ -64,7 +64,6 @@ class MatchesController extends Controller
             ->add('date_from', DateType::class, array(
                 'input' => 'string',
                 'format' => 'yyyy-MM-dd',
-//                'widget' => 'single_text',
                 'label' => false,
                 'years' => range(date('Y') -10, date('Y') +10),
                 'data' => $date_from
@@ -72,7 +71,6 @@ class MatchesController extends Controller
             ->add('date_to', DateType::class, array(
                 'input' => 'string',
                 'format' => 'yyyy-MM-dd',
-//                'widget' => 'single_text',
                 'label' => false,
                 'years' => range(date('Y') -10, date('Y') +10),
                 'data' => $date_to
@@ -122,13 +120,25 @@ class MatchesController extends Controller
                     $buttonAction = 'edit';
                 }
 
+                //if match has started set disabled to true
+                if ($match->hasStarted()) $match->setDisabled();
+
                 $formData = array();
                 $form = $this->createFormBuilder($formData)
                     ->add('match_id', HiddenType::class, array('data' => $match->getId()))
-                    ->add('home_goals', TextType::class, array('data' => $prediction->getHomeGoals()))
-                    ->add('away_goals', TextType::class, array('data' => $prediction->getAwayGoals()))
+                    ->add('home_goals', TextType::class, array(
+                        'data' => $prediction->getHomeGoals(),
+                        'disabled' => $match->getDisabled()
+                    ))
+                    ->add('away_goals', TextType::class, array(
+                        'data' => $prediction->getAwayGoals(),
+                        'disabled' => $match->getDisabled()
+                    ))
                     ->add('action', HiddenType::class, array('data' => $buttonAction))
-                    ->add('button', SubmitType::class, array('label' => $buttonAction))
+                    ->add('button', SubmitType::class, array(
+                        'label' => $buttonAction,
+                        'disabled' => $match->getDisabled()
+                    ))
                     ->getForm();
 
                 $form->handleRequest($request);

@@ -54,6 +54,13 @@ class Match
     private $predictions;
 
     /**
+     * Property for indicating whether match form should be locked/disabled
+     *
+     * @var string
+     */
+    private $disabled = false;
+
+    /**
      * Get id
      *
      * @return integer
@@ -225,5 +232,33 @@ class Match
         }
 
         return 'X';
+    }
+
+    /**
+     * Check if match has started by comparing the current time with the match's datetime
+     *
+     * @return bool
+     */
+    public function hasStarted()
+    {
+        return (time() >= strtotime($this->datetime->format('Y-m-d H:i:s')));
+    }
+
+    /**
+     * Get disabled
+     *
+     * @return mixed
+     */
+    public function getDisabled()
+    {
+        return $this->disabled;
+    }
+
+    /**
+     * Set disabled
+     */
+    public function setDisabled()
+    {
+        $this->disabled = true;
     }
 }
