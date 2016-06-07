@@ -18,21 +18,24 @@ class StandingsController extends Controller
      * @Route("/standings/{tournament}",
      *     name="standings_index",
      *     defaults={
-     *      "tournament" = "1"
+     *      "tournament" = "empty"
      *     }
      * )
      */
     public function indexAction(Request $request, $tournament)
     {
-        // Load the data for the current user into an object
-        $user = $this->getUser();
-
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
 
-        // use the selected tournament as object, based on id URL: {tournament} route parameter
-        $tournamentSelected = $em->getRepository('DevlabsSportifyBundle:Tournament')
-            ->findOneById($tournament);
+        // set default values to route parameters if they are 'empty'
+        if ($tournament === 'empty') {
+            $tournamentSelected = $em->getRepository('DevlabsSportifyBundle:Tournament')
+                ->getFirst();
+        } else {
+            // use the selected tournament as object, based on id URL: {tournament} route parameter
+            $tournamentSelected = $em->getRepository('DevlabsSportifyBundle:Tournament')
+                ->findOneById($tournament);
+        }
 
         // get all tournaments
         $tournamentsAll = $em->getRepository('DevlabsSportifyBundle:Tournament')

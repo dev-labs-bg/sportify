@@ -8,11 +8,14 @@ namespace Devlabs\SportifyBundle\Entity;
  */
 class TournamentRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * Get a list of the tournaments joined by user
+     *
+     * @param User $user
+     * @return array
+     */
     public function getJoined(User $user)
     {
-        /**
-         * Get a list of the tournaments joined by user
-         */
         return $this->getEntityManager()->createQueryBuilder()
             ->select('t')
             ->from('DevlabsSportifyBundle:Tournament', 't')
@@ -21,20 +24,22 @@ class TournamentRepository extends \Doctrine\ORM\EntityRepository
             ->setParameters(array('user_id' => $user->getId()))
             ->getQuery()
             ->getResult();
+    }
 
-//        $scores = $this->getEntityManager()->createQueryBuilder()
-//            ->select('s')
-//            ->from('DevlabsSportifyBundle:Score', 's')
-//            ->where('s.userId = :user_id')
-//            ->setParameters(array('user_id' => $user->getId()))
-//            ->getQuery()
-//            ->getResult();
-//
-//        $result = array();
-//        foreach ($scores as $score) {
-//            $result[] = $score->getTournamentId();
-//        }
-//
-//        return $result;
+    /**
+     * Get the first tournament from the DB
+     *
+     * @return mixed
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getFirst()
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('t')
+            ->from('DevlabsSportifyBundle:Tournament', 't')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getSingleResult();
     }
 }

@@ -21,13 +21,22 @@ class MatchesController extends Controller
     /**
      * @Route("/matches/{tournament}/{date_from}/{date_to}",
      *     name="matches_index",
-     *     defaults={"tournament" = "all", "date_from" = "2016-01-01", "date_to" = "2021-12-31"}
-     *     )
+     *     defaults={
+     *      "tournament" = "empty",
+     *      "date_from" = "empty",
+     *      "date_to" = "empty"
+     *     }
+     * )
      */
     public function indexAction(Request $request, $tournament, $date_from, $date_to)
     {
         // Load the data for the current user into an object
         $user = $this->getUser();
+
+        // set default values to route parameters if they are 'empty'
+        if ($tournament === 'empty') $tournament = 'all';
+        if ($date_from === 'empty') $date_from = '2016-01-01';
+        if ($date_to === 'empty') $date_to = '2016-12-31';
 
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();

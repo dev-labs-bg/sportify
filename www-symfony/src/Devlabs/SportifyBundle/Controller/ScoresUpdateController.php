@@ -4,7 +4,6 @@ namespace Devlabs\SportifyBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class ScoresUpdateController
@@ -17,7 +16,7 @@ class ScoresUpdateController extends Controller
      *     name="scores_update"
      * )
      */
-    public function updateAction(Request $request)
+    public function updateAction()
     {
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();

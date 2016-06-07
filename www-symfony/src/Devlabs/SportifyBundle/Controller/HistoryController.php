@@ -19,10 +19,10 @@ class HistoryController extends Controller
      * @Route("/history/{user_id}/{tournament}/{date_from}/{date_to}",
      *     name="history_index",
      *     defaults={
-     *      "user_id" = "1",
-     *      "tournament" = "all",
-     *      "date_from" = "2016-01-01",
-     *      "date_to" = "2021-12-31"
+     *      "user_id" = "empty",
+     *      "tournament" = "empty",
+     *      "date_from" = "empty",
+     *      "date_to" = "empty"
      *     }
      * )
      */
@@ -30,6 +30,12 @@ class HistoryController extends Controller
     {
         // Load the data for the current user into an object
         $user = $this->getUser();
+
+        // set default values to route parameters if they are 'empty'
+        if ($user_id === 'empty') $user_id = $user->getId();
+        if ($tournament === 'empty') $tournament = 'all';
+        if ($date_from === 'empty') $date_from = '2016-01-01';
+        if ($date_to === 'empty') $date_to = '2016-12-31';
 
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
