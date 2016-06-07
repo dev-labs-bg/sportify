@@ -103,15 +103,6 @@
             </div>
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-12">
-                    <!-- <h2 class="text-center">Matches</h2>
-                    <div class="mats-header">
-                        <div class="row">
-                            <div class="col-lg-5 col-md-5">Tournaments</div>
-                            <div class="col-lg-2 col-md-2">Starts</div>
-                            <div class="col-lg-2 col-md-2">Ends</div>
-                            <div class="col-lg-3 col-md-3">Options</div>
-                        </div>
-                    </div> -->
                     <div class="match">
                         <div class="row">
                             <div class="match-date text-center">22.03.2016</div>
