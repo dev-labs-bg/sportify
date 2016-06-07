@@ -79,11 +79,11 @@ $(function(){
     }
 });
 
-// $(function(){
-//     $('#tournament-id').chosen({
-//         no_results_text: 'Oops, nothing found!'
-//     });
-// });
+$(function(){
+    $('#tournament-id').chosen({
+        no_results_text: 'Oops, nothing found!'
+    });
+});
 
 $(function(){
 
@@ -114,22 +114,3 @@ $(function(){
             $('#matches-form').trigger('submit');
     });
 });
-
-$(function(){
-        const fromDate = document.querySelector('#date-from');
-        fromDate.addEventListener('click', function() {
-          pickDateFrom.open();
-        }, false);
-
-        const pickDateFrom = new MaterialDatePicker({
-            el: fromDate,
-            openedBy: 'focus',
-            format: 'MM/DD/YYYY'
-        })
-          .on('submit', function(d) {
-           $('#date-from').text(d);
-          });
-
-                    
-
-})

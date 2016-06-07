@@ -87,29 +87,119 @@
                     <form id="matches-form" method="GET">
                         <div class="row">
                             <div class="col-sm-6">
-                                <select name="tournament_id" id="tournament-id" class="form-control">
+                                <select name="matches_id" id="matches-id" class="form-control">
                                     <option value="ALL">All joined</option>
                                 </select>
                             </div>
                             <div class="col-sm-3">
-                                <input name="date_from" id="date-from" class="form-control" type="text" />
+                                <input name="date_from" id="date-from" class="form-control" type="date" />
                             </div>
                             <div class="col-sm-3">
-                                <input name="date_to" id="date-to" class="form-control" type="text" />
+                                <input name="date_to" id="date-to" class="form-control" type="date" />
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-            <div>
-                 <a class="c-btn c-datepicker-btn">
-                    <span class="material-icon">calender</span>
-                  </a>
-
-                  <pre id="output"></pre>
-
-
-                  
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-12">
+                    <!-- <h2 class="text-center">Matches</h2>
+                    <div class="mats-header">
+                        <div class="row">
+                            <div class="col-lg-5 col-md-5">Tournaments</div>
+                            <div class="col-lg-2 col-md-2">Starts</div>
+                            <div class="col-lg-2 col-md-2">Ends</div>
+                            <div class="col-lg-3 col-md-3">Options</div>
+                        </div>
+                    </div> -->
+                    <div class="match">
+                        <div class="row">
+                            <div class="match-date text-center">22.03.2016</div>
+                            <div class="match-title text-center">UEFA EURO 2016</div>
+                            <div class="col-lg-12">
+                                <form method="get">
+                                    <div class="match-item">
+                                        <div class="row">
+                                            <div class="col-sm-4 match-item-mobile">Bulgaria</div>
+                                            <div class="col-sm-4 bettings">
+                                                <div class="bet-rectangle">
+                                                    <?php include('img/result-rectangle.svg'); ?>
+                                                </div>
+                                                <div class="bet-form not-filled">
+                                                    <input class="bet-field" type="text" placeholder="?"/>
+                                                    <span>:</span>
+                                                    <input class="bet-field" type="text" placeholder="?"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 match-item-mobile">Romania</div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 text-center"><button type="submit" class="btn green-btn match-btn">Bet</button></div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="match">
+                        <div class="row">
+                            <div class="match-date text-center">22.03.2016</div>
+                            <div class="match-title text-center">UEFA EURO 2016</div>
+                            <div class="col-lg-12">
+                                <form method="get">
+                                    <div class="match-item">
+                                        <div class="row">
+                                            <div class="col-sm-4 match-item-mobile">Bulgaria</div>
+                                            <div class="col-sm-4 bettings">
+                                                <div class="bet-rectangle">
+                                                    <?php include('img/result-rectangle.svg'); ?>
+                                                </div>
+                                                <div class="bet-form">
+                                                    <input class="bet-field" type="text" value="6"/>
+                                                    <span>:</span>
+                                                    <input class="bet-field" type="text" value="2"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 match-item-mobile">Romania</div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 text-center"><button type="submit" class="btn yellow-btn match-btn">Edit</button></div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="match">
+                        <div class="row">
+                            <div class="match-date text-center">22.03.2016</div>
+                            <div class="match-title text-center">UEFA EURO 2016</div>
+                            <div class="col-lg-12">
+                                <form method="get">
+                                    <div class="match-item">
+                                        <div class="row">
+                                            <div class="col-sm-4 match-item-mobile">Bulgaria</div>
+                                            <div class="col-sm-4 bettings">
+                                                <div class="bet-rectangle">
+                                                    <?php include('img/result-rectangle.svg'); ?>
+                                                </div>
+                                                <div class="bet-form not-filled">
+                                                    <input class="bet-field" type="text" placeholder="?"/>
+                                                    <span>:</span>
+                                                    <input class="bet-field" type="text" placeholder="?"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 match-item-mobile">Romania</div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 text-center"><button type="submit" class="btn green-btn match-btn">Bet</button></div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
