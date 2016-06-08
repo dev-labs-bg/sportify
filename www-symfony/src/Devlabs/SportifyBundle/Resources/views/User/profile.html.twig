@@ -1,9 +1,49 @@
 {% extends 'DevlabsSportifyBundle::base.html.twig' %}
 
+{% block nav_top %}
+    <h1 class="text-center">User Profile</h1>
+{% endblock %}
+
 {% block body %}
-    <h1>User profile</h1>
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
+
+    {#{{ form_start(form) }}#}
+    {#{{ form_errors(match_forms[match.id]) }}#}
+    {#{{ form_row(form.user_username, {'attr': {'class': 'form-control', 'placeholder': 'Username' } }) }}#}
+    {#{{ form_row(form.user_password_confirm, {'attr': {'class': 'form-control', 'placeholder': 'Username' } }) }}#}
+    {#{{ form_row(form.user_password_first, {'attr': {'class': 'form-control', 'placeholder': 'New Password' } }) }}#}
+    {#{{ form_row(form.user_password_second, {'attr': {'class': 'form-control', 'placeholder': 'Confirm New Password' } }) }}#}
+    {#{{ form_row(form.user_save, {'attr': {'class': 'btn btn-default green-btn', 'placeholder': 'Username' } }) }}#}
+    {#{{ form_row(form.user__token) }}#}
+    {#{{ form_end(form) }}#}
+
+    <div class="container-fluid content">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3 text-center">
+                {{ form_start(form, {'attr': {'class': 'myprofile-form'} }) }}
+                    {{ form_errors(form) }}
+                    <label class="profile-picture btn-file">
+                        <img src="{{ asset('img/devlabs_logo.png') }}" alt="" />
+                        <span>Add new profile picture</span>
+                        {#<input type="file" style="display: none;">#}
+                    </label>
+                    <div class="form-group">
+                        {{ form_row(form.username, {'attr': {'class': 'form-control', 'placeholder': 'Username'}, 'label': false}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form.password_confirm, {'attr': {'class': 'form-control', 'placeholder': 'Current Password'}, 'label': false}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form.password.first, {'attr': {'class': 'form-control', 'placeholder': 'New Password'}, 'label': false}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form.password.second, {'attr': {'class': 'form-control', 'placeholder': 'Confirm New Password'}, 'label': false}) }}
+                    </div>
+                    {{ form_row(form.save, {'attr': {'class': 'btn btn-default green-btn'}, 'label': 'Submit changes'}) }}
+                    {{ form_row(form._token) }}
+                {{ form_end(form, {'attr': {'class': 'form-control'} }) }}
+            </div>
+        </div>
+    </div>
+
     {% block content %}{% endblock %}
 {% endblock %}
