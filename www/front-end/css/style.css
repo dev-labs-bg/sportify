@@ -7523,8 +7523,25 @@ h2 {
   margin: 50px 0 30px;
 }
 
+.history-btn {
+  border: 3px solid #fff;
+  color: #fff;
+  padding: 15px 25px;
+  border-radius: 65px;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: .3s ease-in-out;
+  background: rgba(255, 255, 255, 0);
+}
+
+.history-btn:hover {
+  color: inherit;
+  background: rgba(255, 255, 255, 0.2);
+}
+
 .tournaments-header,
-.tournament {
+.tournament,
+.standing {
   border-bottom: 1px solid #979797;
 }
 
@@ -7717,6 +7734,116 @@ h2 {
 .match .points-gained {
   text-transform: none;
   letter-spacing: 2px;
+}
+
+.first-three-standings {
+  padding: 50px 0;
+}
+
+.first-three-standings img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 100%;
+}
+
+.first-three-standings .first-place,
+.first-three-standings .second-place,
+.first-three-standings .third-place {
+  height: 200px;
+  line-height: 200px;
+}
+
+.first-three-standings .first-place {
+  padding: 10px 0;
+}
+
+.first-three-standings .first-place .profile-img {
+  display: inline-block;
+  width: 177px;
+  height: 177px;
+}
+
+.first-three-standings .first-place .profile-img img {
+  border: 8px solid #fdca33;
+}
+
+.first-three-standings .first-place .points {
+  display: inline-block;
+  width: 117.6px;
+  height: 70.8px;
+  border-radius: 4px;
+  background-color: #fdca33;
+  box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.5);
+  margin: 20px;
+}
+
+.first-three-standings .second-place {
+  padding: 28px 0;
+}
+
+.first-three-standings .second-place .profile-img {
+  display: inline-block;
+  width: 145px;
+  height: 145px;
+}
+
+.first-three-standings .second-place .profile-img img {
+  border: 8px solid #d46827;
+}
+
+.first-three-standings .second-place .points {
+  display: inline-block;
+  width: 86.3px;
+  height: 51.8px;
+  border-radius: 4px;
+  background-color: #d46827;
+  box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.5);
+  margin: 20px;
+}
+
+.first-three-standings .third-place {
+  padding: 37px 0;
+}
+
+.first-three-standings .third-place .profile-img {
+  display: inline-block;
+  width: 125px;
+  height: 125px;
+}
+
+.first-three-standings .third-place .profile-img img {
+  border: 8px solid #a7a7a7;
+}
+
+.first-three-standings .third-place .points {
+  display: inline-block;
+  width: 86.3px;
+  height: 51.8px;
+  border-radius: 4px;
+  background-color: #a7a7a7;
+  box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.5);
+  margin: 20px;
+}
+
+.standing {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 70px;
+  padding: 10px 0;
+}
+
+.standing .profile-img {
+  display: inline-block;
+  width: 70px;
+  height: 70px;
+}
+
+.standing .profile-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 100%;
 }
 
 @media screen and (max-width: 991px) {

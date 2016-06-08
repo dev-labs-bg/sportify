@@ -456,8 +456,23 @@ h2 {
 .signup-screen .green-btn {
     margin: 50px 0 30px;
 }
+.history-btn {
+    border: 3px solid #fff;
+    color: #fff;
+    padding: 15px 25px;
+    border-radius: 65px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: .3s ease-in-out;
+    background: rgba(255,255,255,0);
+    &:hover {
+        color: inherit;
+        background: rgba(255,255,255,.2);
+    }
+}
 .tournaments-header,
-.tournament {
+.tournament,
+.standing {
     border-bottom: 1px solid #979797;
 }
 .tournaments-header, .mobile-heading {
@@ -622,6 +637,99 @@ h2 {
     .points-gained {
         text-transform: none;
         letter-spacing: 2px;
+    }
+}
+.first-three-standings {
+    padding: 50px 0;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 100%;
+    }
+    .first-place, .second-place, .third-place {
+        height: 200px;
+        line-height: 200px;
+    }
+    .first-place {
+        padding: 10px 0;
+        .profile-img {
+            display: inline-block;
+            width: 177px;
+            height: 177px;
+
+            img {
+                border: 8px solid #fdca33;
+            }
+        }
+        .points {
+            display: inline-block;
+            width: 117.6px;
+            height: 70.8px;
+            border-radius: 4px;
+            background-color: #fdca33;
+            box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.5);
+            margin: 20px;
+        }
+    }
+    .second-place {
+        padding: 28px 0;
+        .profile-img {
+            display: inline-block;
+            width: 145px;
+            height: 145px;
+
+            img {
+                border: 8px solid #d46827;
+            }
+        }
+        .points {
+            display: inline-block;
+            width: 86.3px;
+            height: 51.8px;
+            border-radius: 4px;
+            background-color: #d46827;
+            box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.5);
+            margin: 20px;
+        }
+    }
+    .third-place {
+        padding: 37px 0;
+        .profile-img {
+            display: inline-block;
+            width: 125px;
+            height: 125px;
+
+            img {
+                border: 8px solid #a7a7a7;
+            }
+        }
+        .points {
+            display: inline-block;
+            width: 86.3px;
+            height: 51.8px;
+            border-radius: 4px;
+            background-color: #a7a7a7;
+            box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.5);
+            margin: 20px;
+        }
+    }
+}
+.standing {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 70px;
+    padding: 10px 0;
+    .profile-img {
+        display: inline-block;
+        width: 70px;
+        height: 70px;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 100%;
+        }
     }
 }
 @media screen and (max-width: 991px){
