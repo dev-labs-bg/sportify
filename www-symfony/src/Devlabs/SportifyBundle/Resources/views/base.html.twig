@@ -24,42 +24,193 @@
 
         <div id="wrapper" class="wrapper toggled">
             <!-- Sidebar -->
-            <nav class="navbar navbar-inverse navbar-fixed-top sidebar-wrapper" id="sidebar-wrapper" role="navigation">
-                <ul class="nav sidebar-nav">
-                    <li class="sidebar-brand">
-                        <button class="hamburger is-open" data-toggle="offcanvas" >{% include 'img/menu.svg' %}</button>
-                    </li>
-                    <li class="my-profile">
-                        <a class="profile-picture" href="#">
-                            <img src="img/profile_pic.jpg" alt="" />
-                        </a>
-                        <p class="user-name">Botzi Dimitrova</p>
-                    </li>
-                    <li>
-                        <a class="tournaments" href="{{ path('tournaments_index') }}">Tournaments</a>
-                    </li>
-                    <li class="active">
-                        <a class="matches" href="{{ path('matches_index') }}">Matches</a>
-                    </li>
-                    <li>
-                        <a class="standings" href="{{ path('standings_index') }}">Standings</a>
-                    </li>
-                    <li>
-                        <a class="history" href="{{ path('history_index') }}">History</a>
-                    </li>
-                    <li>
-                        <a class="rules" href="#">Rules</a>
-                    </li>
-                    <li>
-                        <a class="login" href="{{ path('fos_user_security_login') }}">Log in</a>
-                    </li>
-                    <li>
-                        <a class="signup" href="{{ path('fos_user_registration_register') }}">Sign up</a>
-                    </li>
-                </ul>
-            </nav>
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <nav class="navbar navbar-inverse navbar-fixed-top sidebar-wrapper" id="sidebar-wrapper" role="navigation">
+                    <ul class="nav sidebar-nav">
+                        <li class="sidebar-brand">
+                            <button class="hamburger is-open" data-toggle="offcanvas" >{% include 'img/menu.svg' %}</button>
+                        </li>
+                        <li class="my-profile">
+                            <a class="profile-picture" href="{{ path('user_profile') }}">
+                                <img src="{{ asset('img/profile_pic.jpg') }}" alt="" />
+                            </a>
+                            <p class="user-name">Botzi Dimitrova</p>
+                        </li>
+                        <li>
+                            <a class="tournaments" href="{{ path('tournaments_index') }}">Tournaments</a>
+                        </li>
+                        <li class="active">
+                            <a class="matches" href="{{ path('matches_index') }}">Matches</a>
+                        </li>
+                        <li>
+                            <a class="standings" href="{{ path('standings_index') }}">Standings</a>
+                        </li>
+                        <li>
+                            <a class="history" href="{{ path('history_index') }}">History</a>
+                        </li>
+                        <li>
+                            <a class="rules" href="#">Rules</a>
+                        </li>
+                        <li>
+                            <a class="login" href="{{ path('fos_user_security_logout') }}">Logout</a>
+                        </li>
+                    </ul>
+                </nav>
+            {% else %}
+                <nav class="navbar navbar-inverse navbar-fixed-top sidebar-wrapper" id="sidebar-wrapper" role="navigation">
+                    <ul class="nav sidebar-nav">
+                        <li class="sidebar-brand">
+                            <button class="hamburger is-open" data-toggle="offcanvas" >{% include 'img/menu.svg' %}</button>
+                        </li>
+                        <li>
+                            <a class="standings" href="{{ path('standings_index') }}">Standings</a>
+                        </li>
+                        <li>
+                            <a class="rules" href="#">Rules</a>
+                        </li>
+                        <li>
+                            <a class="login" href="{{ path('fos_user_security_login') }}">Log in</a>
+                        </li>
+                        <li>
+                            <a class="signup" href="{{ path('fos_user_registration_register') }}">Sign up</a>
+                        </li>
+                    </ul>
+                </nav>
+            {% endif %}
+            <!-- /#sidebar-wrapper -->
 
-        {% block body %}{% endblock %}
+            <!-- Page Content -->
+            <div id="page-content-wrapper" class="page-content-wrapper">
+
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <nav id="navbar" class="navbar navbar-default navbar-fixed-top">
+                        <div class="container-fluid">
+                            <!-- Brand and toggle get grouped for better mobile display -->
+                            <div class="navbar-header">
+                                <button type="button" class="pull-left navbar-toggle collapsed" data-toggle="collapse" data-target="#mobile-menu" aria-expanded="false">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    {% include 'img/menu.svg' %}
+                                </button>
+                            </div>
+
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div class="collapse navbar-collapse mobile-menu" id="mobile-menu">
+                                <ul class="nav navbar-nav">
+                                    <li class="my-profile">
+                                        <a href="{{ path('user_profile') }}">My Profile</a>
+                                    </li>
+                                    <li>
+                                        <a class="tournaments" href="{{ path('tournaments_index') }}">Tournaments</a>
+                                    </li>
+                                    <li class="active">
+                                        <a class="matches" href="{{ path('matches_index') }}">Matches</a>
+                                    </li>
+                                    <li>
+                                        <a class="standings" href="{{ path('standings_index') }}">Standings</a>
+                                    </li>
+                                    <li>
+                                        <a class="history" href="{{ path('history_index') }}">History</a>
+                                    </li>
+                                    <li>
+                                        <a class="rules" href="#">Rules</a>
+                                    </li>
+                                    <li>
+                                        <a class="login" href="{{ path('fos_user_security_logout') }}">Logout</a>
+                                    </li>
+                                </ul>
+                            </div><!-- /.navbar-collapse -->
+                            <h1 class="text-center">Sportify</h1>
+                        </div><!-- /.container-fluid -->
+                    </nav>
+                {% else %}
+                    <nav id="navbar" class="navbar navbar-default navbar-fixed-top">
+                        <div class="container-fluid">
+                            <!-- Brand and toggle get grouped for better mobile display -->
+                            <div class="navbar-header">
+                                <button type="button" class="pull-left navbar-toggle collapsed" data-toggle="collapse" data-target="#mobile-menu" aria-expanded="false">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    {% include 'img/menu.svg' %}
+                                </button>
+                            </div>
+
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div class="collapse navbar-collapse mobile-menu" id="mobile-menu">
+                                <ul class="nav navbar-nav">
+                                    <li>
+                                        <a class="standings" href="{{ path('standings_index') }}">Standings</a>
+                                    </li>
+                                    <li>
+                                        <a class="rules" href="#">Rules</a>
+                                    </li>
+                                    <li>
+                                        <a class="login" href="{{ path('fos_user_security_login') }}">Log in</a>
+                                    </li>
+                                    <li>
+                                        <a class="signup" href="{{ path('fos_user_registration_register') }}">Sign up</a>
+                                    </li>
+                                </ul>
+                            </div><!-- /.navbar-collapse -->
+                            <h1 class="text-center">Sportify</h1>
+                        </div><!-- /.container-fluid -->
+                    </nav>
+                {% endif %}
+
+                {% block body %}{% endblock %}
+
+            </div>
+
+            {% block footer_user_positions %}
+                <div id="results-slider" class="results-slider">
+                    <div class="container-fluid">
+                        <div class="current-results-slider owl-carousel">
+                            <div class="slider-item-holder">
+                                <div class="slider-item">
+                                    <div class="logo">
+                                        <img src="{{ asset('img/barclays-premier-league.png') }}" alt="Barclays Premier League" />
+                                    </div>
+                                    <div class="result-info">
+                                        <div class="title">Barclays Premier League</div>
+                                        <div class="points">3p. <span class="position-up"></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slider-item-holder">
+                                <div class="slider-item">
+                                    <div class="logo">
+                                        <img src="{{ asset('img/la-liga-logo.png') }}" alt="La Liga" />
+                                    </div>
+                                    <div class="result-info">
+                                        <div class="title">La Liga</div>
+                                        <div class="points">1p. <span class="position-down"></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slider-item-holder">
+                                <div class="slider-item">
+                                    <div class="logo">
+                                        <img src="{{ asset('img/UEFA-champions-league-logo.png') }}" alt="UEFA Champions League" />
+                                    </div>
+                                    <div class="result-info">
+                                        <div class="title">UEFA Champions League</div>
+                                        <div class="points">3p. <span class="position-same"></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slider-item-holder">
+                                <div class="slider-item">
+                                    <div class="logo">
+                                        <img src="{{ asset('img/bundesliga.png') }}" alt="bundesliga" />
+                                    </div>
+                                    <div class="result-info">
+                                        <div class="title">Bundesliga</div>
+                                        <div class="points">3p. <span class="position-up"></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {%  endblock %}
 
         </div>
         <!-- /#page-content-wrapper -->
