@@ -86,6 +86,9 @@ $(function(){
     $('#username-list').chosen({
         no_results_text: 'No such username!'
     });
+    $('#tournament-filter').chosen({
+        no_results_text: 'No such tournament!'
+    });
 });
 
 // $(function(){
@@ -149,3 +152,22 @@ $(function(){
 //             $('#history-form').trigger('submit');
 //     });
 // });
+
+$(function(){
+
+    //Standings page filters
+
+    var tournamentId;
+
+    $('#tournament-filter').on('change', function(){
+        tournamentId = $('#tournament-filter').val();
+
+        /**
+         * Check if all filters are selected
+         * and submit the form
+         */
+        if(tournamentId != "") {
+            $('#standings-form').trigger('submit');
+        }
+    });
+});
