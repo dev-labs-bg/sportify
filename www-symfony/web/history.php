@@ -84,7 +84,7 @@
                 <div class="col-lg-10 col-lg-offset-1">
                     <form id="history-form" method="GET">
                         <div class="row">
-                            <div class="col-sm-5">
+                            <div class="col-sm-3">
                             <label>Tournament</label>
                                 <select name="tournament_id" id="username-list" class="form-control">
                                     <option value="ALL">All joined</option>
@@ -103,6 +103,9 @@
                             <div class="col-sm-2">
                                 <label>Date To</label>
                                 <input name="date_to" id="date-to" class="form-control" type="date" />
+                            </div>
+                            <div class="col-sm-2 text-center">
+                                <button type="submit" class="btn green-btn history-filter">Filter</button>
                             </div>
                         </div>
                     </form>

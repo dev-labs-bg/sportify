@@ -7300,6 +7300,10 @@ html {
   background: url(../img/login.svg) no-repeat 15px center;
 }
 
+.logout {
+  background: url(../img/logout.svg) no-repeat 15px center;
+}
+
 .signup {
   background: url(../img/signup.svg) no-repeat 15px center;
 }
@@ -7575,6 +7579,16 @@ h2 {
   padding: 10px 5px 5px;
 }
 
+.matches-filters .green-btn {
+  padding: 13px 40px;
+  margin: 0;
+  float: left;
+}
+
+.matches-filters .green-btn.history-filter {
+  margin-top: 40px;
+}
+
 .chosen-container {
   font-size: 15px;
   font-weight: 600;
@@ -7798,6 +7812,14 @@ h2 {
 
   .match-item .bettings {
     margin: 25px 0;
+  }
+
+  .matches-filters .form-control {
+    margin: 10px 0;
+  }
+
+  .matches-filters .green-btn {
+    float: none;
   }
 }
 

@@ -84,7 +84,7 @@
                 <div class="col-lg-10 col-lg-offset-1">
                     <form id="matches-form" method="GET">
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <select name="tournament_id" id="tournament-id" class="form-control">
                                     <option value="ALL">All joined</option>
                                 </select>
@@ -94,6 +94,9 @@
                             </div>
                             <div class="col-sm-3">
                                 <input name="date_to" id="date-to" class="form-control" type="date" />
+                            </div>
+                            <div class="col-sm-2 text-center">
+                                <button type="submit" class="btn green-btn">Filter</button>
                             </div>
                         </div>
                     </form>
