@@ -14,15 +14,6 @@
         </div>
     </div>
     {% for tournament in tournaments %}
-        {#<p>#}
-            {#<div>#}
-            {#{{ form_start(forms[tournament.id]) }}#}
-                {#{{ tournament.id }} - {{ tournament.name }}#}
-                {#{{ form_widget(forms[tournament.id]) }}#}
-            {#{{ form_end(forms[tournament.id]) }}#}
-            {#</div>#}
-        {#</p>#}
-
         <div class="tournament">
             <div class="row">
                 <div class="col-lg-5 col-md-5 tournament-item">
@@ -56,7 +47,6 @@
                 </div>
             </div>
         </div>
-
     {% endfor %}
 
 {% endblock %}

@@ -119,7 +119,7 @@
                                     </li>
                                 </ul>
                             </div><!-- /.navbar-collapse -->
-                            <h1 class="text-center">Sportify</h1>
+                            {% block nav_top %}{% endblock %}
                         </div><!-- /.container-fluid -->
                     </nav>
                 {% else %}
@@ -150,68 +150,68 @@
                                     </li>
                                 </ul>
                             </div><!-- /.navbar-collapse -->
-                            <h1 class="text-center">Sportify</h1>
                         </div><!-- /.container-fluid -->
                     </nav>
                 {% endif %}
 
-                {% block body %}
-                {% endblock %}
+                {% block body %}{% endblock %}
 
             </div>
 
-            {% block footer_user_positions %}
-                <div id="results-slider" class="results-slider">
-                    <div class="container-fluid">
-                        <div class="current-results-slider owl-carousel">
-                            <div class="slider-item-holder">
-                                <div class="slider-item">
-                                    <div class="logo">
-                                        <img src="{{ asset('img/barclays-premier-league.png') }}" alt="Barclays Premier League" />
-                                    </div>
-                                    <div class="result-info">
-                                        <div class="title">Barclays Premier League</div>
-                                        <div class="points">3p. <span class="position-up"></span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="slider-item-holder">
-                                <div class="slider-item">
-                                    <div class="logo">
-                                        <img src="{{ asset('img/la-liga-logo.png') }}" alt="La Liga" />
-                                    </div>
-                                    <div class="result-info">
-                                        <div class="title">La Liga</div>
-                                        <div class="points">1p. <span class="position-down"></span></div>
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                {% block footer_user_positions %}
+                    <div id="results-slider" class="results-slider">
+                        <div class="container-fluid">
+                            <div class="current-results-slider owl-carousel">
+                                <div class="slider-item-holder">
+                                    <div class="slider-item">
+                                        <div class="logo">
+                                            <img src="{{ asset('img/barclays-premier-league.png') }}" alt="Barclays Premier League" />
+                                        </div>
+                                        <div class="result-info">
+                                            <div class="title">Barclays Premier League</div>
+                                            <div class="points">3p. <span class="position-up"></span></div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="slider-item-holder">
-                                <div class="slider-item">
-                                    <div class="logo">
-                                        <img src="{{ asset('img/UEFA-champions-league-logo.png') }}" alt="UEFA Champions League" />
-                                    </div>
-                                    <div class="result-info">
-                                        <div class="title">UEFA Champions League</div>
-                                        <div class="points">3p. <span class="position-same"></span></div>
+                                <div class="slider-item-holder">
+                                    <div class="slider-item">
+                                        <div class="logo">
+                                            <img src="{{ asset('img/la-liga-logo.png') }}" alt="La Liga" />
+                                        </div>
+                                        <div class="result-info">
+                                            <div class="title">La Liga</div>
+                                            <div class="points">1p. <span class="position-down"></span></div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="slider-item-holder">
-                                <div class="slider-item">
-                                    <div class="logo">
-                                        <img src="{{ asset('img/bundesliga.png') }}" alt="bundesliga" />
+                                <div class="slider-item-holder">
+                                    <div class="slider-item">
+                                        <div class="logo">
+                                            <img src="{{ asset('img/UEFA-champions-league-logo.png') }}" alt="UEFA Champions League" />
+                                        </div>
+                                        <div class="result-info">
+                                            <div class="title">UEFA Champions League</div>
+                                            <div class="points">3p. <span class="position-same"></span></div>
+                                        </div>
                                     </div>
-                                    <div class="result-info">
-                                        <div class="title">Bundesliga</div>
-                                        <div class="points">3p. <span class="position-up"></span></div>
+                                </div>
+                                <div class="slider-item-holder">
+                                    <div class="slider-item">
+                                        <div class="logo">
+                                            <img src="{{ asset('img/bundesliga.png') }}" alt="bundesliga" />
+                                        </div>
+                                        <div class="result-info">
+                                            <div class="title">Bundesliga</div>
+                                            <div class="points">3p. <span class="position-up"></span></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {%  endblock %}
+                {%  endblock %}
+            {% endif %}
 
         </div>
         <!-- /#page-content-wrapper -->

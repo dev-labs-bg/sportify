@@ -1,0 +1,52 @@
+{% extends 'DevlabsSportifyBundle:Matches:layout.html.twig' %}
+
+{% block content %}
+    Filter bar:
+
+    {{ form_start(filter_form) }}
+    Tournament:
+    {{ form_row(filter_form.tournament_id) }}
+    Date From:
+    {{ form_row(filter_form.date_from) }}
+    Date To:
+    {{ form_row(filter_form.date_to) }}
+    {{ form_end(filter_form) }}
+
+    Matches:
+
+        <p>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Home Team - Away Team</th>
+                            <th>Start</th>
+                            <th>Status</th>
+                            <th>Prediction</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for match in matches %}
+                            <tr>
+                                {{ form_start(match_forms[match.id]) }}
+                                    {{ form_row(match_forms[match.id].match_id) }}
+                                    {{ form_errors(match_forms[match.id]) }}
+                                <td>{{ match.homeTeam }} - {{ match.awayTeam }}</td>
+                                <td>{{ match.datetime|date('Y-m-d H:i') }}</td>
+                                <td>
+                                    {% if match.disabled == true %} Match locked. Already started {% endif %}
+                                </td>
+                                <td>{{ form_row(match_forms[match.id].home_goals) }}
+                                    {{ form_row(match_forms[match.id].away_goals) }}
+                                    {{ form_row(match_forms[match.id].action) }}
+                                    {{ form_row(match_forms[match.id].button) }}
+                                </td>
+                                {{ form_end(match_forms[match.id]) }}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </p>
+
+{% endblock %}

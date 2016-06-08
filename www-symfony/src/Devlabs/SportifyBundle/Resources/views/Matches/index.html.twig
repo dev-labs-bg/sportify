@@ -1,60 +1,119 @@
 {% extends 'DevlabsSportifyBundle:Matches:layout.html.twig' %}
 
 {% block content %}
+    {#Filter bar:#}
 
-    {% if app.user %}
-        Current user:
-        <p>{{ app.user.id }} - {{ app.user.username }} - {{app.user.email }}</p>
-    {% endif %}
+    {#{{ form_start(filter_form) }}#}
+    {#Tournament:#}
+    {#{{ form_row(filter_form.tournament_id) }}#}
+    {#Date From:#}
+    {#{{ form_row(filter_form.date_from) }}#}
+    {#Date To:#}
+    {#{{ form_row(filter_form.date_to) }}#}
+    {#{{ form_end(filter_form) }}#}
 
-    Filter bar:
+    {#Matches:#}
 
-    {{ form_start(filter_form) }}
-    Tournament:
-    {{ form_row(filter_form.tournament_id) }}
-    Date From:
-    {{ form_row(filter_form.date_from) }}
-    Date To:
-    {{ form_row(filter_form.date_to) }}
-    {{ form_end(filter_form) }}
+        {#<p>#}
+            {#<div>#}
+                {#<table>#}
+                    {#<thead>#}
+                        {#<tr>#}
+                            {#<th>Home Team - Away Team</th>#}
+                            {#<th>Start</th>#}
+                            {#<th>Status</th>#}
+                            {#<th>Prediction</th>#}
+                        {#</tr>#}
+                    {#</thead>#}
+                    {#<tbody>#}
+                        {#{% for match in matches %}#}
+                            {#<tr>#}
+                                {#{{ form_start(match_forms[match.id]) }}#}
+                                    {#{{ form_row(match_forms[match.id].match_id) }}#}
+                                    {#{{ form_errors(match_forms[match.id]) }}#}
+                                {#<td>{{ match.homeTeam }} - {{ match.awayTeam }}</td>#}
+                                {#<td>{{ match.datetime|date('Y-m-d H:i') }}</td>#}
+                                {#<td>#}
+                                    {#{% if match.disabled == true %} Match locked. Already started {% endif %}#}
+                                {#</td>#}
+                                {#<td>{{ form_row(match_forms[match.id].home_goals) }}#}
+                                    {#{{ form_row(match_forms[match.id].away_goals) }}#}
+                                    {#{{ form_row(match_forms[match.id].action) }}#}
+                                    {#{{ form_row(match_forms[match.id].button) }}#}
+                                {#</td>#}
+                                {#{{ form_end(match_forms[match.id]) }}#}
+                            {#</tr>#}
+                        {#{% endfor %}#}
+                    {#</tbody>#}
+                {#</table>#}
+            {#</div>#}
+        {#</p>#}
 
-    Matches:
-
-        <p>
-            <div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Home Team - Away Team</th>
-                            <th>Start</th>
-                            <th>Status</th>
-                            <th>Prediction</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for match in matches %}
-                            <tr>
-                                {{ form_start(match_forms[match.id]) }}
-                                    {{ form_row(match_forms[match.id].match_id) }}
-                                    {{ form_errors(match_forms[match.id]) }}
-                                <td>{{ match.homeTeam }} - {{ match.awayTeam }}</td>
-                                <td>{{ match.datetime|date('Y-m-d H:i') }}</td>
-                                <td>
-                                    {% if match.disabled == true %} Match locked. Already started {% endif %}
-                                </td>
-                                <td>{{ form_row(match_forms[match.id].home_goals) }}
-                                    {{ form_row(match_forms[match.id].away_goals) }}
-                                    {{ form_row(match_forms[match.id].action) }}
-                                    {{ form_row(match_forms[match.id].button) }}
-                                </td>
-                                {{ form_end(match_forms[match.id]) }}
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+    <div class="container-fluid content">
+        <div class="matches-filters row">
+            <div class="col-lg-10 col-lg-offset-1">
+                {{ form_start(filter_form) }}
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {{ form_row(filter_form.tournament_id, {'attr': {'class': 'form-control' } }) }}
+                        </div>
+                        <div class="col-sm-3">
+                            {{ form_row(filter_form.date_from, {'attr': {'class': 'form-control' } }) }}
+                        </div>
+                        <div class="col-sm-3">
+                            {{ form_row(filter_form.date_to, {'attr': {'class': 'form-control' } }) }}
+                        </div>
+                        <div class="col-sm-2 text-center">
+                            {{ form_row(filter_form.button, {'attr': {'class': 'btn green-btn' } }) }}
+                        </div>
+                    </div>
+                {{ form_end(filter_form) }}
             </div>
-        </p>
-
-
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-12">
+                {% for match in matches %}
+                    {{ form_start(match_forms[match.id]) }}
+                        {{ form_row(match_forms[match.id].match_id) }}
+                        {{ form_errors(match_forms[match.id]) }}
+                        <div class="match">
+                            <div class="row">
+                                <div class="match-date text-center">{{ match.datetime|date('Y-m-d H:i') }}</div>
+                                <div class="match-title text-center">{{ match.tournamentId.name }}</div>
+                                <div class="col-lg-12">
+                                    <div class="match-item">
+                                        <div class="row">
+                                            <div class="col-sm-4 match-item-mobile">{{ match.homeTeam }}</div>
+                                            <div class="col-sm-4 bettings">
+                                                <div class="bet-rectangle">
+                                                    {% include 'img/result-rectangle.svg' %}
+                                                </div>
+                                                <div class="bet-results">
+                                                    {{ form_row(match_forms[match.id].home_goals, {'attr': {'class': 'bet-field' } }) }}
+                                                    <span>:</span>
+                                                    {{ form_row(match_forms[match.id].away_goals, {'attr': {'class': 'bet-field' } }) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 match-item-mobile">{{ match.awayTeam }}</div>
+                                        </div>
+                                    </div>
+                                    {% if match.disabled == true %}
+                                    <div class="row">
+                                        <div class="match-date text-center">Match locked. Already started</div>
+                                    </div>
+                                    {% endif %}
+                                    {{ form_row(match_forms[match.id].action) }}
+                                    <div class="row">
+                                        <div class="col-sm-12 text-center">
+                                            {{ form_row(match_forms[match.id].button, {'attr': {'class': 'btn green-btn match-btn' } }) }}
+                                        </div>
+                                     </div>
+                                </div>
+                            </div>
+                    {{ form_end(match_forms[match.id]) }}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
