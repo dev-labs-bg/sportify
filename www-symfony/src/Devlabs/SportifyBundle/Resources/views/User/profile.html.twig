@@ -1,20 +1,6 @@
-{% extends 'DevlabsSportifyBundle::base.html.twig' %}
+{% extends 'DevlabsSportifyBundle:User:layout.html.twig' %}
 
-{% block nav_top %}
-    <h1 class="text-center">User Profile</h1>
-{% endblock %}
-
-{% block body %}
-
-    {#{{ form_start(form) }}#}
-    {#{{ form_errors(match_forms[match.id]) }}#}
-    {#{{ form_row(form.user_username, {'attr': {'class': 'form-control', 'placeholder': 'Username' } }) }}#}
-    {#{{ form_row(form.user_password_confirm, {'attr': {'class': 'form-control', 'placeholder': 'Username' } }) }}#}
-    {#{{ form_row(form.user_password_first, {'attr': {'class': 'form-control', 'placeholder': 'New Password' } }) }}#}
-    {#{{ form_row(form.user_password_second, {'attr': {'class': 'form-control', 'placeholder': 'Confirm New Password' } }) }}#}
-    {#{{ form_row(form.user_save, {'attr': {'class': 'btn btn-default green-btn', 'placeholder': 'Username' } }) }}#}
-    {#{{ form_row(form.user__token) }}#}
-    {#{{ form_end(form) }}#}
+{% block content %}
 
     <div class="container-fluid content">
         <div class="row">
@@ -45,5 +31,4 @@
         </div>
     </div>
 
-    {% block content %}{% endblock %}
 {% endblock %}
