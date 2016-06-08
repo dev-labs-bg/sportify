@@ -26,13 +26,13 @@
             <li>
                 <a class="tournaments" href="#">Tournaments</a>
             </li>
-            <li class="active">
+            <li>
                 <a class="matches" href="#">Matches</a>
             </li>
             <li>
                 <a class="standings" href="#">Standings</a>
             </li>
-            <li>
+            <li class="active">
                 <a class="history" href="#">History</a>
             </li>
             <li>
@@ -62,13 +62,13 @@
                 <li>
                     <a class="tournaments" href="#">Tournaments</a>
                 </li>
-                <li class="active">
+                <li>
                     <a class="matches" href="#">Matches</a>
                 </li>
                 <li>
                     <a class="standings" href="#">Standings</a>
                 </li>
-                <li>
+                <li class="active">
                     <a class="history" href="#">History</a>
                 </li>
                 <li>
@@ -76,23 +76,32 @@
                 </li>
               </ul>
             </div><!-- /.navbar-collapse -->
-            <h1 class="text-center">Matches</h1>
+            <h1 class="text-center">History</h1>
           </div><!-- /.container-fluid -->
         </nav>
         <div class="container-fluid content">
             <div class="matches-filters row">
                 <div class="col-lg-10 col-lg-offset-1">
-                    <form id="matches-form" method="GET">
+                    <form id="history-form" method="GET">
                         <div class="row">
-                            <div class="col-sm-6">
-                                <select name="tournament_id" id="tournament-id" class="form-control">
+                            <div class="col-sm-5">
+                            <label>Tournament</label>
+                                <select name="tournament_id" id="username-list" class="form-control">
                                     <option value="ALL">All joined</option>
                                 </select>
                             </div>
                             <div class="col-sm-3">
+                                <label>Username</label>
+                                <select name="username" id="tournament-id" class="form-control">
+                                    <option value="ALL">All joined</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <label>Date From</label>
                                 <input name="date_from" id="date-from" class="form-control" type="date" />
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-2">
+                                <label>Date To</label>
                                 <input name="date_to" id="date-to" class="form-control" type="date" />
                             </div>
                         </div>
@@ -106,27 +115,42 @@
                             <div class="match-date text-center">22.03.2016</div>
                             <div class="match-title text-center">UEFA EURO 2016</div>
                             <div class="col-lg-12">
-                                <form method="get">
-                                    <div class="match-item">
-                                        <div class="row">
-                                            <div class="col-sm-4 match-item-mobile">Bulgaria</div>
-                                            <div class="col-sm-4 bettings">
-                                                <div class="bet-rectangle">
-                                                    <?php include('img/result-rectangle.svg'); ?>
-                                                </div>
-                                                <div class="bet-form not-filled">
-                                                    <input class="bet-field" type="text" placeholder="?"/>
-                                                    <span>:</span>
-                                                    <input class="bet-field" type="text" placeholder="?"/>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4 match-item-mobile">Romania</div>
-                                        </div>
+                                <div class="row">
+                                    <div class="col-xs-6 text-left">
+                                        <div class="team-title">Home team</div>
                                     </div>
+                                    <div class="col-xs-6 text-right">
+                                        <div class="team-title">Away team</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="match-item">
                                     <div class="row">
-                                        <div class="col-sm-12 text-center"><button type="submit" class="btn green-btn match-btn">Bet</button></div>
+                                        <div class="col-sm-4 match-item-mobile">Bulgaria</div>
+                                        <div class="col-sm-4 bettings">
+                                            <div class="bet-rectangle">
+                                                <?php include('img/result-rectangle.svg'); ?>
+                                            </div>
+                                            <div class="bet-results">
+                                                <div class="bet-field">4</div>
+                                                <span>:</span>
+                                                <div class="bet-field">4</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 match-item-mobile">Romania</div>
                                     </div>
-                                </form>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-xs-6 text-left">
+                                        <div class="prediction-title">Predictions: <span class="predictions">4:4</span></div>
+                                    </div>
+                                    <div class="col-xs-6 text-right">
+                                        <div class="points-title">Points gained: <span class="points-gained">3pt</span></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -135,27 +159,42 @@
                             <div class="match-date text-center">22.03.2016</div>
                             <div class="match-title text-center">UEFA EURO 2016</div>
                             <div class="col-lg-12">
-                                <form method="get">
-                                    <div class="match-item">
-                                        <div class="row">
-                                            <div class="col-sm-4 match-item-mobile">Bulgaria</div>
-                                            <div class="col-sm-4 bettings">
-                                                <div class="bet-rectangle">
-                                                    <?php include('img/result-rectangle.svg'); ?>
-                                                </div>
-                                                <div class="bet-form">
-                                                    <input class="bet-field" type="text" value="6"/>
-                                                    <span>:</span>
-                                                    <input class="bet-field" type="text" value="2"/>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4 match-item-mobile">Romania</div>
-                                        </div>
+                                <div class="row">
+                                    <div class="col-xs-6 text-left">
+                                        <div class="team-title">Home team</div>
                                     </div>
+                                    <div class="col-xs-6 text-right">
+                                        <div class="team-title">Away team</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="match-item">
                                     <div class="row">
-                                        <div class="col-sm-12 text-center"><button type="submit" class="btn yellow-btn match-btn">Edit</button></div>
+                                        <div class="col-sm-4 match-item-mobile">Bulgaria</div>
+                                        <div class="col-sm-4 bettings">
+                                            <div class="bet-rectangle">
+                                                <?php include('img/result-rectangle.svg'); ?>
+                                            </div>
+                                            <div class="bet-results">
+                                                <div class="bet-field">4</div>
+                                                <span>:</span>
+                                                <div class="bet-field">4</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 match-item-mobile">Romania</div>
                                     </div>
-                                </form>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-xs-6 text-left">
+                                        <div class="prediction-title">Predictions: <span class="predictions">4:4</span></div>
+                                    </div>
+                                    <div class="col-xs-6 text-right">
+                                        <div class="points-title">Points gained: <span class="points-gained">3pt</span></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -164,27 +203,42 @@
                             <div class="match-date text-center">22.03.2016</div>
                             <div class="match-title text-center">UEFA EURO 2016</div>
                             <div class="col-lg-12">
-                                <form method="get">
-                                    <div class="match-item">
-                                        <div class="row">
-                                            <div class="col-sm-4 match-item-mobile">Bulgaria</div>
-                                            <div class="col-sm-4 bettings">
-                                                <div class="bet-rectangle">
-                                                    <?php include('img/result-rectangle.svg'); ?>
-                                                </div>
-                                                <div class="bet-form not-filled">
-                                                    <input class="bet-field" type="text" placeholder="?"/>
-                                                    <span>:</span>
-                                                    <input class="bet-field" type="text" placeholder="?"/>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4 match-item-mobile">Romania</div>
-                                        </div>
+                                <div class="row">
+                                    <div class="col-xs-6 text-left">
+                                        <div class="team-title">Home team</div>
                                     </div>
+                                    <div class="col-xs-6 text-right">
+                                        <div class="team-title">Away team</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="match-item">
                                     <div class="row">
-                                        <div class="col-sm-12 text-center"><button type="submit" class="btn green-btn match-btn">Bet</button></div>
+                                        <div class="col-sm-4 match-item-mobile">Bulgaria</div>
+                                        <div class="col-sm-4 bettings">
+                                            <div class="bet-rectangle">
+                                                <?php include('img/result-rectangle.svg'); ?>
+                                            </div>
+                                            <div class="bet-results">
+                                                <div class="bet-field">4</div>
+                                                <span>:</span>
+                                                <div class="bet-field">4</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 match-item-mobile">Romania</div>
                                     </div>
-                                </form>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-xs-6 text-left">
+                                        <div class="prediction-title">Predictions: <span class="predictions">4:4</span></div>
+                                    </div>
+                                    <div class="col-xs-6 text-right">
+                                        <div class="points-title">Points gained: <span class="points-gained">3pt</span></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
