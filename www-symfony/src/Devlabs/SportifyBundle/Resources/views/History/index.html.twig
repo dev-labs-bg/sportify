@@ -96,6 +96,11 @@
                         </div>
                     </div>
                 {% endfor %}
+                {% if matches|length == 0 %}
+                    <div class="text-center">
+                        No matches to display.
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
