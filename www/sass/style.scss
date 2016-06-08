@@ -274,6 +274,9 @@ body, html {
 .login {
     background: url(../img/login.svg) no-repeat 15px center;
 }
+.logout {
+    background: url(../img/logout.svg) no-repeat 15px center;
+}
 .signup {
     background: url(../img/signup.svg) no-repeat 15px center;
 }
@@ -500,6 +503,14 @@ h2 {
         text-transform: uppercase;
         padding: 10px 5px 5px;
     }
+    .green-btn {
+        padding: 13px 40px;
+        margin: 0;
+        float: left;
+        &.history-filter {
+            margin-top: 40px;
+        }
+    }
 }
 .chosen-container {
     font-size: 15px;
@@ -688,6 +699,14 @@ h2 {
             .bettings {
                 margin: 25px 0;
             }
+        }
+    }
+    .matches-filters {
+        .form-control {
+            margin: 10px 0;
+        }
+        .green-btn {
+            float: none;
         }
     }
 }

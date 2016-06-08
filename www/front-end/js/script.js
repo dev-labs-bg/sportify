@@ -88,64 +88,64 @@ $(function(){
     });
 });
 
-$(function(){
+// $(function(){
 
-    //Matches page filters
+//     //Matches page filters
 
-    var tournamentId;
-    var dateFrom;
-    var dateTo;
+//     var tournamentId;
+//     var dateFrom;
+//     var dateTo;
 
-    /**
-     * select all form elements
-     * including inputs, selects, textarea etc.
-     */
-    $('#matches-form :input').on('change', function(){
-        tournamentId = $('#tournament-id').val();
-        dateFrom = $('#date-from').val();
-        dateTo = $('#date-to').val();
+//     /**
+//      * select all form elements
+//      * including inputs, selects, textarea etc.
+//      */
+//     $('#matches-form :input').on('change', function(){
+//         tournamentId = $('#tournament-id').val();
+//         dateFrom = $('#date-from').val();
+//         dateTo = $('#date-to').val();
 
-        /**
-         * Check if all filters are selected
-         * and submit the form
-         */
-        if(
-            tournamentId != "" &&
-            dateFrom != "" &&
-            dateTo != ""
-            )
-            $('#matches-form').trigger('submit');
-    });
-});
-$(function(){
+//         /**
+//          * Check if all filters are selected
+//          * and submit the form
+//          */
+//         if(
+//             tournamentId != "" &&
+//             dateFrom != "" &&
+//             dateTo != ""
+//             )
+//             $('#matches-form').trigger('submit');
+//     });
+// });
+// $(function(){
 
-    //History page filters
+//     //History page filters
 
-    var tournamentId;
-    var userName;
-    var dateFrom;
-    var dateTo;
+//     var tournamentId;
+//     var userName;
+//     var dateFrom;
+//     var dateTo;
 
-    /**
-     * select all form elements
-     * including inputs, selects, textarea etc.
-     */
-    $('#history-form :input').on('change', function(){
-        tournamentId = $('#tournament-id').val();
-        userName = $('#username-list').val();
-        dateFrom = $('#date-from').val();
-        dateTo = $('#date-to').val();
+//     /**
+//      * select all form elements
+//      * including inputs, selects, textarea etc.
+//      */
+//     $('#history-form :input').on('change', function(){
+//         tournamentId = $('#tournament-id').val();
+//         userName = $('#username-list').val();
+//         dateFrom = $('#date-from').val();
+//         dateTo = $('#date-to').val();
 
-        /**
-         * Check if all filters are selected
-         * and submit the form
-         */
-        if(
-            tournamentId != "" &&
-            userName != "" &&
-            dateFrom != "" &&
-            dateTo != ""
-            )
-            $('#history-form').trigger('submit');
-    });
-});
+//         /**
+//          * Check if all filters are selected
+//          * and submit the form
+//          */
+//         if(
+//             tournamentId != "" &&
+//             userName != "" &&
+//             dateFrom != "" &&
+//             dateTo != ""
+//             )
+//             $('#history-form').trigger('submit');
+//     });
+// });
