@@ -30,25 +30,25 @@
                         <li class="sidebar-brand">
                             <button class="hamburger is-open" data-toggle="offcanvas" >{% include 'img/menu.svg' %}</button>
                         </li>
-                        <li class="my-profile">
+                        <li class="my-profile {% if app.request.attributes.get('_route') == 'user_profile'%} active{% endif %}">
                             <a class="profile-picture" href="{{ path('user_profile') }}">
                                 <img src="{{ asset('img/devlabs_logo.png') }}" alt="" />
                             </a>
                             <p class="user-name">{{ app.user.email }}</p>
                         </li>
-                        <li>
+                        <li {% if app.request.attributes.get('_route') == 'tournaments_index'%}class="active"{% endif %}>
                             <a class="tournaments" href="{{ path('tournaments_index') }}">Tournaments</a>
                         </li>
-                        <li class="active">
+                        <li {% if app.request.attributes.get('_route') == 'matches_index'%}class="active"{% endif %}>
                             <a class="matches" href="{{ path('matches_index') }}">Matches</a>
                         </li>
-                        <li>
+                        <li {% if app.request.attributes.get('_route') == 'standings_index'%}class="active"{% endif %}>
                             <a class="standings" href="{{ path('standings_index') }}">Standings</a>
                         </li>
-                        <li>
+                        <li {% if app.request.attributes.get('_route') == 'history_index'%}class="active"{% endif %}>
                             <a class="history" href="{{ path('history_index') }}">History</a>
                         </li>
-                        <li>
+                        <li {% if app.request.attributes.get('_route') == 'rules_index'%}class="active"{% endif %}>
                             <a class="rules" href="#">Rules</a>
                         </li>
                         <li>
@@ -62,16 +62,16 @@
                         <li class="sidebar-brand">
                             <button class="hamburger is-open" data-toggle="offcanvas" >{% include 'img/menu.svg' %}</button>
                         </li>
-                        <li>
+                        <li {% if app.request.attributes.get('_route') == 'standings_index'%}class="active"{% endif %}>
                             <a class="standings" href="{{ path('standings_index') }}">Standings</a>
                         </li>
-                        <li>
+                        <li {% if app.request.attributes.get('_route') == 'rules_index'%}class="active"{% endif %}>
                             <a class="rules" href="#">Rules</a>
                         </li>
-                        <li>
+                        <li {% if app.request.attributes.get('_route') == 'fos_user_security_login'%}class="active"{% endif %}>
                             <a class="login" href="{{ path('fos_user_security_login') }}">Log in</a>
                         </li>
-                        <li>
+                        <li {% if app.request.attributes.get('_route') == 'fos_user_registration_register'%}class="active"{% endif %}>
                             <a class="signup" href="{{ path('fos_user_registration_register') }}">Sign up</a>
                         </li>
                     </ul>
@@ -96,25 +96,25 @@
                             <!-- Collect the nav links, forms, and other content for toggling -->
                             <div class="collapse navbar-collapse mobile-menu" id="mobile-menu">
                                 <ul class="nav navbar-nav">
-                                    <li class="my-profile">
+                                    <li class="my-profile {% if app.request.attributes.get('_route') == 'user_profile'%} active{% endif %}">
                                         <a href="{{ path('user_profile') }}">My Profile</a>
                                     </li>
-                                    <li>
+                                    <li {% if app.request.attributes.get('_route') == 'tournaments_index'%}class="active"{% endif %}>
                                         <a class="tournaments" href="{{ path('tournaments_index') }}">Tournaments</a>
                                     </li>
-                                    <li class="active">
+                                    <li {% if app.request.attributes.get('_route') == 'matches_index'%}class="active"{% endif %}>
                                         <a class="matches" href="{{ path('matches_index') }}">Matches</a>
                                     </li>
-                                    <li>
+                                    <li {% if app.request.attributes.get('_route') == 'standings_index'%}class="active"{% endif %}>
                                         <a class="standings" href="{{ path('standings_index') }}">Standings</a>
                                     </li>
-                                    <li>
+                                    <li {% if app.request.attributes.get('_route') == 'history_index'%}class="active"{% endif %}>
                                         <a class="history" href="{{ path('history_index') }}">History</a>
                                     </li>
-                                    <li>
+                                    <li {% if app.request.attributes.get('_route') == 'rules_index'%}class="active"{% endif %}>
                                         <a class="rules" href="#">Rules</a>
                                     </li>
-                                    <li>
+                                    <li {% if app.request.attributes.get('_route') == 'fos_user_security_logout'%}class="active"{% endif %}>
                                         <a class="login" href="{{ path('fos_user_security_logout') }}">Logout</a>
                                     </li>
                                 </ul>
@@ -136,16 +136,16 @@
                             <!-- Collect the nav links, forms, and other content for toggling -->
                             <div class="collapse navbar-collapse mobile-menu" id="mobile-menu">
                                 <ul class="nav navbar-nav">
-                                    <li>
+                                    <li {% if app.request.attributes.get('_route') == 'standings_index'%}class="active"{% endif %}>
                                         <a class="standings" href="{{ path('standings_index') }}">Standings</a>
                                     </li>
-                                    <li>
+                                    <li {% if app.request.attributes.get('_route') == 'rules_index'%}class="active"{% endif %}>
                                         <a class="rules" href="#">Rules</a>
                                     </li>
-                                    <li>
+                                    <li {% if app.request.attributes.get('_route') == 'fos_user_security_login'%}class="active"{% endif %}>
                                         <a class="login" href="{{ path('fos_user_security_login') }}">Log in</a>
                                     </li>
-                                    <li>
+                                    <li {% if app.request.attributes.get('_route') == 'fos_user_registration_register'%}class="active"{% endif %}>
                                         <a class="signup" href="{{ path('fos_user_registration_register') }}">Sign up</a>
                                     </li>
                                 </ul>
@@ -158,60 +158,60 @@
 
             </div>
 
-            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                {% block footer_user_positions %}
-                    <div id="results-slider" class="results-slider">
-                        <div class="container-fluid">
-                            <div class="current-results-slider owl-carousel">
-                                <div class="slider-item-holder">
-                                    <div class="slider-item">
-                                        <div class="logo">
-                                            <img src="{{ asset('img/barclays-premier-league.png') }}" alt="Barclays Premier League" />
-                                        </div>
-                                        <div class="result-info">
-                                            <div class="title">Barclays Premier League</div>
-                                            <div class="points">3p. <span class="position-up"></span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="slider-item-holder">
-                                    <div class="slider-item">
-                                        <div class="logo">
-                                            <img src="{{ asset('img/la-liga-logo.png') }}" alt="La Liga" />
-                                        </div>
-                                        <div class="result-info">
-                                            <div class="title">La Liga</div>
-                                            <div class="points">1p. <span class="position-down"></span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="slider-item-holder">
-                                    <div class="slider-item">
-                                        <div class="logo">
-                                            <img src="{{ asset('img/UEFA-champions-league-logo.png') }}" alt="UEFA Champions League" />
-                                        </div>
-                                        <div class="result-info">
-                                            <div class="title">UEFA Champions League</div>
-                                            <div class="points">3p. <span class="position-same"></span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="slider-item-holder">
-                                    <div class="slider-item">
-                                        <div class="logo">
-                                            <img src="{{ asset('img/bundesliga.png') }}" alt="bundesliga" />
-                                        </div>
-                                        <div class="result-info">
-                                            <div class="title">Bundesliga</div>
-                                            <div class="points">3p. <span class="position-up"></span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {%  endblock %}
-            {% endif %}
+            {#{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}#}
+                {#{% block footer_user_positions %}#}
+                    {#<div id="results-slider" class="results-slider">#}
+                        {#<div class="container-fluid">#}
+                            {#<div class="current-results-slider owl-carousel">#}
+                                {#<div class="slider-item-holder">#}
+                                    {#<div class="slider-item">#}
+                                        {#<div class="logo">#}
+                                            {#<img src="{{ asset('img/barclays-premier-league.png') }}" alt="Barclays Premier League" />#}
+                                        {#</div>#}
+                                        {#<div class="result-info">#}
+                                            {#<div class="title">Barclays Premier League</div>#}
+                                            {#<div class="points">3p. <span class="position-up"></span></div>#}
+                                        {#</div>#}
+                                    {#</div>#}
+                                {#</div>#}
+                                {#<div class="slider-item-holder">#}
+                                    {#<div class="slider-item">#}
+                                        {#<div class="logo">#}
+                                            {#<img src="{{ asset('img/la-liga-logo.png') }}" alt="La Liga" />#}
+                                        {#</div>#}
+                                        {#<div class="result-info">#}
+                                            {#<div class="title">La Liga</div>#}
+                                            {#<div class="points">1p. <span class="position-down"></span></div>#}
+                                        {#</div>#}
+                                    {#</div>#}
+                                {#</div>#}
+                                {#<div class="slider-item-holder">#}
+                                    {#<div class="slider-item">#}
+                                        {#<div class="logo">#}
+                                            {#<img src="{{ asset('img/UEFA-champions-league-logo.png') }}" alt="UEFA Champions League" />#}
+                                        {#</div>#}
+                                        {#<div class="result-info">#}
+                                            {#<div class="title">UEFA Champions League</div>#}
+                                            {#<div class="points">3p. <span class="position-same"></span></div>#}
+                                        {#</div>#}
+                                    {#</div>#}
+                                {#</div>#}
+                                {#<div class="slider-item-holder">#}
+                                    {#<div class="slider-item">#}
+                                        {#<div class="logo">#}
+                                            {#<img src="{{ asset('img/bundesliga.png') }}" alt="bundesliga" />#}
+                                        {#</div>#}
+                                        {#<div class="result-info">#}
+                                            {#<div class="title">Bundesliga</div>#}
+                                            {#<div class="points">3p. <span class="position-up"></span></div>#}
+                                        {#</div>#}
+                                    {#</div>#}
+                                {#</div>#}
+                            {#</div>#}
+                        {#</div>#}
+                    {#</div>#}
+                {#{%  endblock %}#}
+            {#{% endif %}#}
 
         </div>
         <!-- /#page-content-wrapper -->

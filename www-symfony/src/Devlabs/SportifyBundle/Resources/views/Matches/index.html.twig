@@ -41,7 +41,7 @@
                                                 <div class="bet-rectangle">
                                                     {% include 'img/result-rectangle.svg' %}
                                                 </div>
-                                                <div class="bet-form not-filled">
+                                                <div class="bet-form{% if predictions[match.id] is not defined%} not-filled{% endif %}">
                                                     {{ form_row(match_forms[match.id].home_goals, {'attr': {'class': 'bet-field' }, 'disabled': match.disabledAttribute }) }}
                                                     <span>:</span>
                                                     {{ form_row(match_forms[match.id].away_goals, {'attr': {'class': 'bet-field' }, 'disabled': match.disabledAttribute }) }}
