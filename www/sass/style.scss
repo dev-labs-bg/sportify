@@ -657,6 +657,12 @@ h2 {
         min-width: 310px;
         position: relative;
     }
+    .points {
+        margin-left: 5px;
+        display: inline-block;
+        border-radius: 4px;
+        position: absolute;
+    }
     .points:after, .points:before {
         right: 100%;
         top: 50%;
@@ -692,13 +698,9 @@ h2 {
             }
         }
         .points {
-            display: inline-block;
             width: 105px;
             height: 70.8px;
-            border-radius: 4px;
             background-color: #fdca33;
-            position: absolute;
-            bottom: 0;
             padding: 15px 20px;
             font-size: 32px;
             &:after{
@@ -718,13 +720,9 @@ h2 {
             }
         }
         .points {
-            display: inline-block;
             width: 91.3px;
             height: 60px;
-            border-radius: 4px;
             background-color: #d46827;
-            position: absolute;
-            bottom: 0;
             padding: 12px 18px;
             font-size: 26px;
             &:after{
@@ -744,13 +742,9 @@ h2 {
             }
         }
         .points {
-            display: inline-block;
             width: 86.3px;
             height: 51.8px;
-            border-radius: 4px;
             background-color: #a7a7a7;
-            position: absolute;
-            bottom: 0;
             padding: 10px 20px;
             font-size: 22px;
             &:after{

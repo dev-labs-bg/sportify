@@ -7761,6 +7761,13 @@ h2 {
   position: relative;
 }
 
+.first-three-standings .points {
+  margin-left: 5px;
+  display: inline-block;
+  border-radius: 4px;
+  position: absolute;
+}
+
 .first-three-standings .points:after,
 .first-three-standings .points:before {
   right: 100%;
@@ -7802,13 +7809,9 @@ h2 {
 }
 
 .first-three-standings .first-place .points {
-  display: inline-block;
   width: 105px;
   height: 70.8px;
-  border-radius: 4px;
   background-color: #fdca33;
-  position: absolute;
-  bottom: 0;
   padding: 15px 20px;
   font-size: 32px;
 }
@@ -7832,13 +7835,9 @@ h2 {
 }
 
 .first-three-standings .second-place .points {
-  display: inline-block;
   width: 91.3px;
   height: 60px;
-  border-radius: 4px;
   background-color: #d46827;
-  position: absolute;
-  bottom: 0;
   padding: 12px 18px;
   font-size: 26px;
 }
@@ -7862,13 +7861,9 @@ h2 {
 }
 
 .first-three-standings .third-place .points {
-  display: inline-block;
   width: 86.3px;
   height: 51.8px;
-  border-radius: 4px;
   background-color: #a7a7a7;
-  position: absolute;
-  bottom: 0;
   padding: 10px 20px;
   font-size: 22px;
 }
