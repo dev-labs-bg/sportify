@@ -2,46 +2,127 @@
 
 {% block content %}
 
-    {% if app.user %}
-        Current user:
-        <p>{{ app.user.id }} - {{ app.user.username }} - {{app.user.email }}</p>
-    {% endif %}
+    {#{{ form_start(filter_form) }}#}
+    {#Tournament:#}
+    {#{{ form_row(filter_form.tournament_id) }}#}
+    {#{{ form_end(filter_form) }}#}
 
-    Filter bar:
+    {#Table:#}
 
-    {{ form_start(filter_form) }}
-    Tournament:
-    {{ form_row(filter_form.tournament_id) }}
-    {{ form_end(filter_form) }}
+        {#<p>#}
+            {#<div>#}
+                {#<table>#}
+                    {#<thead></thead>#}
+                    {#<tbody>#}
+                        {#<thead>#}
+                            {#<tr>#}
+                                {#<th>Position</th>#}
+                                {#<th>Username</th>#}
+                                {#<th>History</th>#}
+                                {#<th>Points</th>#}
+                            {#</tr>#}
+                        {#</thead>#}
+                        {#{% set position = 0 %}#}
+                        {#{% for score in standings %}#}
+                            {#{% set position = position + 1 %}#}
+                            {#<tr>#}
+                                {#<td>{{ position }}</td>#}
+                                {#<td>{{ score.userId.email }}</td>#}
+                                {#<td><a href="{{ path('history_index', {'user_id' : score.userId.id, 'tournament' : score.tournamentId.id}) }}">View</a></td>#}
+                                {#<td>{{ score.points }}</td>#}
+                            {#</tr>#}
+                        {#{% endfor %}#}
+                    {#</tbody>#}
+                {#</table>#}
+            {#</div>#}
+        {#</p>#}
 
-    Table:
 
-        <p>
-            <div>
-                <table>
-                    <thead></thead>
-                    <tbody>
-                        <thead>
-                            <tr>
-                                <th>Position</th>
-                                <th>Username</th>
-                                <th>History</th>
-                                <th>Points</th>
-                            </tr>
-                        </thead>
-                        {% set position = 0 %}
-                        {% for score in standings %}
-                            {% set position = position + 1 %}
-                            <tr>
-                                <td>{{ position }}</td>
-                                <td>{{ score.userId.email }}</td>
-                                <td><a href="{{ path('history_index', {'user_id' : score.userId.id, 'tournament' : score.tournamentId.id}) }}">View</a></td>
-                                <td>{{ score.points }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+    <div class="container-fluid content">
+        <div class="matches-filters row">
+            <div class="col-lg-10 col-lg-offset-1">
+                {{ form_start(filter_form) }}
+                    <div class="row">
+                        <div class="col-sm-4 col-sm-offset-3">
+                            <label>Filter by Tournament</label>
+                            {{ form_row(filter_form.tournament_id, {'attr': {'class': 'form-control' } }) }}
+                        </div>
+                        <div class="col-sm-2 text-center">
+                            {{ form_row(filter_form.button, {'attr': {'class': 'btn green-btn history-filter' } }) }}
+                        </div>
+                    </div>
+                {{ form_end(filter_form) }}
             </div>
-        </p>
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-12">
+
+            {% set position = 0 %}
+            {% for score in standings %}
+                {% set position = position + 1 %}
+
+                {% if position <= 3 %}
+                <div class="first-three-standings">
+                    <div class="row standings-slider owl-carousel">
+                        <div class="text-center">
+                            <div class="second-place">
+                                <div class="profile-img">
+                                    <img src="img/devlabs_logo.png" alt="" />
+                                </div>
+                                <div class="points">{{ score.points }} pt</div>
+                            </div>
+                            <div class="name">{{ position }}. {{ score.userId.email }}</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="first-place">
+                                <div class="profile-img">
+                                    <img src="img/devlabs_logo.png" alt="" />
+                                </div>
+                                <div class="points">{{ score.points }} pt</div>
+                            </div>
+                            <div class="name">{{ position }}. {{ score.userId.email }}</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="third-place">
+                                <div class="profile-img">
+                                    <img src="img/devlabs_logo.png" alt="" />
+                                </div>
+                                <div class="points">{{ score.points }} pt</div>
+                            </div>
+                            <div class="name">{{ position }}. {{ score.userId.email }}</div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="standing">
+                    <div class="row">
+                        <div class="col-xs-2 col-md-1">
+                            {{ position }}.
+                        </div>
+                        <div class="col-xs-10 col-md-5 col-xs-6">
+                            <div class="row">
+                                <div class="col-xs-4 text-center">
+                                    <div class="profile-img">
+                                        <img src="img/profile_pic.jpg" alt="" />
+                                    </div>
+                                </div>
+                                <div class="col-xs-8">{{ score.userId.email }}</div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-4 text-center">
+                            <a class="btn history-btn" href="javascript:;">History</a>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-2 text-center">{{ score.points }} pt </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
 
 {% endblock %}

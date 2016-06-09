@@ -456,8 +456,23 @@ h2 {
 .signup-screen .green-btn {
     margin: 50px 0 30px;
 }
+.history-btn {
+    border: 3px solid #fff;
+    color: #fff;
+    padding: 15px 25px;
+    border-radius: 65px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: .3s ease-in-out;
+    background: rgba(255,255,255,0);
+    &:hover {
+        color: inherit;
+        background: rgba(255,255,255,.2);
+    }
+}
 .tournaments-header,
-.tournament {
+.tournament,
+.standing {
     border-bottom: 1px solid #979797;
 }
 .tournaments-header, .mobile-heading {
@@ -627,6 +642,137 @@ h2 {
         letter-spacing: 2px;
     }
 }
+.first-three-standings {
+    padding: 50px 0;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 100%;
+    }
+    .name {
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 70px;
+    }
+    .first-place, .second-place, .third-place {
+        height: 200px;
+        min-width: 310px;
+        position: relative;
+    }
+    .points {
+        margin-left: 5px;
+        display: inline-block;
+        border-radius: 4px;
+        position: absolute;
+    }
+    .points:after, .points:before {
+        right: 100%;
+        top: 50%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+
+    .points:after {
+        border-color: transparent;
+        border-right-color: #d46827;
+        border-width: 10px;
+        margin-top: -10px;
+    }
+    .points:before {
+        border-color: rgba(0, 0, 0, 0);
+        border-right-color: transparent;
+        border-width: 17px;
+        margin-top: -17px;
+    }
+    .first-place {
+        padding: 20px 10px 0;
+        .profile-img {
+            display: inline-block;
+            width: 165px;
+            height: 165px;
+
+            img {
+                border: 8px solid #fdca33;
+            }
+        }
+        .points {
+            width: 105px;
+            height: 70.8px;
+            background-color: #fdca33;
+            padding: 15px 20px;
+            font-size: 32px;
+            &:after{
+                border-right-color: #fdca33;
+            }
+        }
+    }
+    .second-place {
+        padding: 50px 28px 0;
+        .profile-img {
+            display: inline-block;
+            width: 145px;
+            height: 145px;
+
+            img {
+                border: 8px solid #d46827;
+            }
+        }
+        .points {
+            width: 91.3px;
+            height: 60px;
+            background-color: #d46827;
+            padding: 12px 18px;
+            font-size: 26px;
+            &:after{
+                border-right-color: #d46827;
+            }
+        }
+    }
+    .third-place {
+        padding: 70px 37px 0;
+        .profile-img {
+            display: inline-block;
+            width: 125px;
+            height: 125px;
+
+            img {
+                border: 8px solid #a7a7a7;
+            }
+        }
+        .points {
+            width: 86.3px;
+            height: 51.8px;
+            background-color: #a7a7a7;
+            padding: 10px 20px;
+            font-size: 22px;
+            &:after{
+                border-right-color: #a7a7a7;
+            }
+        }
+    }
+}
+.standing {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 70px;
+    padding: 10px 0;
+    .profile-img {
+        display: inline-block;
+        width: 70px;
+        height: 70px;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 100%;
+        }
+    }
+}
 @media screen and (max-width: 991px){
     .page-content-wrapper h2 {
         margin: 30px 0 25px;
@@ -725,6 +871,11 @@ h2 {
     }
     .signup-screen .green-btn {
         margin-top: 30px;
+    }
+}
+@media screen and (max-width: 420px){
+    .first-place, .second-place, .third-place {
+        text-align: left;
     }
 }
 @media screen and (max-width: 400px){

@@ -7686,7 +7686,11 @@ h2 {
 }
 
 .match-item .bettings .bet-form div {
-  display: inline-block;
+  display: inline-block !important;
+}
+
+.match-item .bettings .bet-form span {
+  display: inline-block !important;
 }
 
 .match-item .bettings .bet-form .bet-field {
