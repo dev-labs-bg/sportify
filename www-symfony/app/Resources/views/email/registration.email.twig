@@ -12,10 +12,26 @@
 {% endblock %}
 
 {% block body_html %}
+    {% autoescape false %}
+        <p>
+            Hello {{ user.username }} !
+        </p>
+        <br/>
+        <p>
+            You can confirm your account by accessing {{ confirmationUrl }}
+        </p>
+        <br/>
+        <p>
+            Greetings,
+        </p>
+        <p>
+            The Sportify team
+        </p>
+    {% endautoescape %}
     {#
         You can of course render the html directly here.
         Including a template as done here allows keeping things DRY by using
         the template inheritance in it
     #}
-    {% include 'email/registration.html.twig' %}
+    {#{% include 'email/registration.html.twig' %}#}
 {% endblock %}

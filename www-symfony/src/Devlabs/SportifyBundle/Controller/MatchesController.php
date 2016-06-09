@@ -154,6 +154,17 @@ class MatchesController extends Controller
                     $match = $em->getRepository('DevlabsSportifyBundle:Match')
                         ->findOneById($formData['match_id']);
 
+                    if ($match->hasStarted())
+                        // clear the submitted POST data and reload the page
+                        return $this->redirectToRoute(
+                            'matches_index',
+                            array(
+                                'tournament' => $tournament,
+                                'date_from' => $date_from,
+                                'date_to' => $date_to
+                            )
+                        );
+
                     // prepare the Prediction object (new or modified one) for persisting in DB
                     if ($formData['action'] === 'BET') {
                         //var_dump($formData);die;

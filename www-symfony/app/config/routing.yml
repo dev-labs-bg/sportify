@@ -4,4 +4,5 @@ devlabs_sportify:
     prefix:   /
 
 fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+#    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+    resource: "@DevlabsSportifyBundle/Resources/config/routing/all.xml"

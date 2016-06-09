@@ -41,12 +41,4 @@ class UserController extends Controller
 			)
 		);
 	}
-
-	/**
-	 * @Route("/user/update", name="user_update")
-	 */
-	public function updateAction(Request $request)
-	{
-
-	}
 }

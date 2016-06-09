@@ -34,7 +34,7 @@
                             <a class="profile-picture" href="{{ path('user_profile') }}">
                                 <img src="{{ asset('img/devlabs_logo.png') }}" alt="" />
                             </a>
-                            <p class="user-name">User Profile</p>
+                            <p class="user-name">{{ app.user.email }}</p>
                         </li>
                         <li>
                             <a class="tournaments" href="{{ path('tournaments_index') }}">Tournaments</a>

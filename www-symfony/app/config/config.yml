@@ -64,6 +64,7 @@ doctrine:
 swiftmailer:
     transport: "%mailer_transport%"
     host:      "%mailer_host%"
+    port:      "%mailer_port%"
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
@@ -75,6 +76,7 @@ fos_user:
     registration:
         confirmation:
             enabled: true
+            template: email/registration.email.twig
     from_email:
         address:        sportify@devlabs-projects.com
         sender_name:    Sportify
@@ -82,4 +84,4 @@ fos_user:
         mailer: fos_user.mailer.twig_swift
     resetting:
         email:
-#            template: email/password_resetting.email.twig
+            template: email/password_resetting.email.twig
