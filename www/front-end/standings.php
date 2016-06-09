@@ -98,111 +98,165 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-10 col-lg-offset-1 col-md-12">
-                    <h2 class="text-center">Choose Tournaments</h2>
-                    <div class="tournaments-header">
-                        <div class="row">
-                            <div class="col-lg-5 col-md-5">Tournaments</div>
-                            <div class="col-lg-2 col-md-2">Starts</div>
-                            <div class="col-lg-2 col-md-2">Ends</div>
-                            <div class="col-lg-3 col-md-3">Options</div>
+                <div class="col-lg-8 col-lg-offset-2 col-md-12">
+                    <div class="first-three-standings">
+                        <div class="row standings-slider owl-carousel">
+                            <div class="text-center">
+                                <div class="second-place">
+                                    <div class="profile-img">
+                                        <img src="img/devlabs_logo.png" alt="" />
+                                    </div>
+                                    <div class="points">25pt</div>
+                                </div>
+                                <div class="name">2. Anita Stamova</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="first-place">
+                                    <div class="profile-img">
+                                        <img src="img/devlabs_logo.png" alt="" />
+                                    </div>
+                                    <div class="points">27pt</div>
+                                </div>
+                                <div class="name">1. Anita Stamova</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="third-place">
+                                    <div class="profile-img">
+                                        <img src="img/devlabs_logo.png" alt="" />
+                                    </div>
+                                    <div class="points">23pt</div>
+                                </div>
+                                <div class="name">3. Anita Stamova</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="tournament">
+
+                    <div class="standing">
                         <div class="row">
-                            <div class="col-lg-5 col-md-5 tournament-item">
+                            <div class="col-xs-2 col-md-1">
+                                4.
+                            </div>
+                            <div class="col-xs-10 col-md-5 col-xs-6">
                                 <div class="row">
-                                    <div class="col-lg-12 mobile-heading">Tournament</div>
-                                    <div class="col-lg-12">UEFA Champions League 2015/2016</div>
+                                    <div class="col-xs-4 text-center">
+                                        <div class="profile-img">
+                                            <img src="img/profile_pic.jpg" alt="" />
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-8">Botzi Dimitrova</div>
                                 </div>
                             </div>
-                            <div class="col-lg-2 col-md-2 col-xs-6 tournament-item">
-                                <div class="row">
-                                    <div class="col-lg-12 mobile-heading">Starts</div>
-                                    <div class="col-lg-12">2015-09-15 05:00:00</div>
-                                </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 text-center">
+                                <a class="btn history-btn" href="javascript:;">History</a>
                             </div>
-                            <div class="col-lg-2 col-md-2 col-xs-6 tournament-item">
-                                <div class="row">
-                                    <div class="col-lg-12 mobile-heading">Ends</div>
-                                    <div class="col-lg-12">2016-05-29 05:00:00</div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-3"><a href="#" class="btn green-btn tournament-btn">Join</a></div>
+                            <div class="col-xs-12 col-sm-12 col-md-2 text-center">22pt </div>
                         </div>
                     </div>
-                    <div class="tournament">
+                    <div class="standing">
                         <div class="row">
-                            <div class="col-lg-5 col-md-5 tournament-item">
+                            <div class="col-xs-2 col-md-1">
+                                4.
+                            </div>
+                            <div class="col-xs-10 col-md-5 col-xs-6">
                                 <div class="row">
-                                    <div class="col-lg-12 mobile-heading">Tournament</div>
-                                    <div class="col-lg-12">UEFA Champions League 2015/2016</div>
+                                    <div class="col-xs-4 text-center">
+                                        <div class="profile-img">
+                                            <img src="img/profile_pic.jpg" alt="" />
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-8">Botzi Dimitrova</div>
                                 </div>
                             </div>
-                            <div class="col-lg-2 col-md-2 col-xs-6 tournament-item">
-                                <div class="row">
-                                    <div class="col-lg-12 mobile-heading">Starts</div>
-                                    <div class="col-lg-12">2015-09-15 05:00:00</div>
-                                </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 text-center">
+                                <a class="btn history-btn" href="javascript:;">History</a>
                             </div>
-                            <div class="col-lg-2 col-md-2 col-xs-6 tournament-item">
-                                <div class="row">
-                                    <div class="col-lg-12 mobile-heading">Ends</div>
-                                    <div class="col-lg-12">2016-05-29 05:00:00</div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-3"><a href="#" class="btn yellow-btn tournament-btn">Leave</a></div>
+                            <div class="col-xs-12 col-sm-12 col-md-2 text-center">22pt</div>
                         </div>
                     </div>
-                    <div class="tournament">
+                    <div class="standing">
                         <div class="row">
-                            <div class="col-lg-5 col-md-5 tournament-item">
+                            <div class="col-xs-2 col-md-1">
+                                4.
+                            </div>
+                            <div class="col-xs-10 col-md-5 col-xs-6">
                                 <div class="row">
-                                    <div class="col-lg-12 mobile-heading">Tournament</div>
-                                    <div class="col-lg-12">UEFA Champions League 2015/2016</div>
+                                    <div class="col-xs-4 text-center">
+                                        <div class="profile-img">
+                                            <img src="img/profile_pic.jpg" alt="" />
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-8">Botzi Dimitrova</div>
                                 </div>
                             </div>
-                            <div class="col-lg-2 col-md-2 col-xs-6 tournament-item">
-                                <div class="row">
-                                    <div class="col-lg-12 mobile-heading">Starts</div>
-                                    <div class="col-lg-12">2015-09-15 05:00:00</div>
-                                </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 text-center">
+                                <a class="btn history-btn" href="javascript:;">History</a>
                             </div>
-                            <div class="col-lg-2 col-md-2 col-xs-6 tournament-item">
-                                <div class="row">
-                                    <div class="col-lg-12 mobile-heading">Ends</div>
-                                    <div class="col-lg-12">2016-05-29 05:00:00</div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-3"><a href="#" class="btn green-btn tournament-btn">Join</a></div>
+                            <div class="col-xs-12 col-sm-12 col-md-2 text-center">22pt</div>
                         </div>
                     </div>
-                    <div class="tournament">
+                    <div class="standing">
                         <div class="row">
-                            <div class="col-lg-5 col-md-5 tournament-item">
+                            <div class="col-xs-2 col-md-1">
+                                4.
+                            </div>
+                            <div class="col-xs-10 col-md-5 col-xs-6">
                                 <div class="row">
-                                    <div class="col-lg-12 mobile-heading">Tournament</div>
-                                    <div class="col-lg-12">UEFA Champions League 2015/2016</div>
+                                    <div class="col-xs-4 text-center">
+                                        <div class="profile-img">
+                                            <img src="img/profile_pic.jpg" alt="" />
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-8">Botzi Dimitrova</div>
                                 </div>
                             </div>
-                            <div class="col-lg-2 col-md-2 col-xs-6 tournament-item">
-                                <div class="row">
-                                    <div class="col-lg-12 mobile-heading">Starts</div>
-                                    <div class="col-lg-12">2015-09-15 05:00:00</div>
-                                </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 text-center">
+                                <a class="btn history-btn" href="javascript:;">History</a>
                             </div>
-                            <div class="col-lg-2 col-md-2 col-xs-6 tournament-item">
-                                <div class="row">
-                                    <div class="col-lg-12 mobile-heading">Ends</div>
-                                    <div class="col-lg-12">2016-05-29 05:00:00</div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-3"><a href="#" class="btn yellow-btn tournament-btn">Leave</a></div>
+                            <div class="col-xs-12 col-sm-12 col-md-2 text-center">22pt</div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <button type="button" class="btn btn-default green-btn">Confirm</button>
+                    <div class="standing">
+                        <div class="row">
+                            <div class="col-xs-2 col-md-1">
+                                4.
+                            </div>
+                            <div class="col-xs-10 col-md-5 col-xs-6">
+                                <div class="row">
+                                    <div class="col-xs-4 text-center">
+                                        <div class="profile-img">
+                                            <img src="img/profile_pic.jpg" alt="" />
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-8">Botzi Dimitrova</div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 text-center">
+                                <a class="btn history-btn" href="javascript:;">History</a>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-2 text-center">22pt</div>
+                        </div>
+                    </div>
+                    <div class="standing">
+                        <div class="row">
+                            <div class="col-xs-2 col-md-1">
+                                4.
+                            </div>
+                            <div class="col-xs-10 col-md-5 col-xs-6">
+                                <div class="row">
+                                    <div class="col-xs-4 text-center">
+                                        <div class="profile-img">
+                                            <img src="img/profile_pic.jpg" alt="" />
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-8">Botzi Dimitrova</div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 text-center">
+                                <a class="btn history-btn" href="javascript:;">History</a>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-2 text-center">22pt</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
