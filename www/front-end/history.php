@@ -98,11 +98,11 @@
                             </div>
                             <div class="col-sm-2">
                                 <label>Date From</label>
-                                <input name="date_from" id="date-from" class="form-control" type="date" />
+                                <input name="date_from" id="date-from" class="form-control" type="text" placeholder="Choose a date"/>
                             </div>
                             <div class="col-sm-2">
                                 <label>Date To</label>
-                                <input name="date_to" id="date-to" class="form-control" type="date" />
+                                <input name="date_to" id="date-to" class="form-control" type="text" placeholder="Choose a date"/>
                             </div>
                             <div class="col-sm-2 text-center">
                                 <button type="submit" class="btn green-btn history-filter">Filter</button>

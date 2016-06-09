@@ -107,3 +107,8 @@ $(function(){
         no_results_text: 'No such tournament!'
     });
 });
+
+$(function(){
+    $('#date-from').datepicker();
+    $('#date-to').datepicker();
+});
