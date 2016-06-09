@@ -33,9 +33,11 @@
                             {% if position == 1 %}
                                 <div class="text-center">
                                     <div class="first-place">
-                                        <div class="profile-img">
-                                            <img src="{{ asset('img/devlabs_logo.png') }}" alt="" />
-                                        </div>
+                                        <a href="{{ path('history_index', {'user_id' : score.userId.id, 'tournament' : score.tournamentId.id}) }}">
+                                            <div class="profile-img">
+                                                <img src="{{ asset('img/devlabs_logo.png') }}" alt="" />
+                                            </div>
+                                        </a>
                                         <div class="points">{{ score.points }}pt</div>
                                     </div>
                                     <div class="name">{{ position }}. {{ score.userId.email }}</div>
@@ -44,9 +46,11 @@
                             {% if position == 2 %}
                                 <div class="text-center">
                                     <div class="second-place">
-                                        <div class="profile-img">
-                                            <img src="{{ asset('img/devlabs_logo.png') }}" alt="" />
-                                        </div>
+                                        <a href="{{ path('history_index', {'user_id' : score.userId.id, 'tournament' : score.tournamentId.id}) }}">
+                                            <div class="profile-img">
+                                                <img src="{{ asset('img/devlabs_logo.png') }}" alt="" />
+                                            </div>
+                                        </a>
                                         <div class="points">{{ score.points }}pt</div>
                                     </div>
                                     <div class="name">{{ position }}. {{ score.userId.email }}</div>
@@ -55,9 +59,11 @@
                             {% if position == 3 %}
                                 <div class="text-center">
                                     <div class="third-place">
-                                        <div class="profile-img">
-                                            <img src="{{ asset('img/devlabs_logo.png') }}" alt="" />
-                                        </div>
+                                        <a href="{{ path('history_index', {'user_id' : score.userId.id, 'tournament' : score.tournamentId.id}) }}">
+                                            <div class="profile-img">
+                                                <img src="{{ asset('img/devlabs_logo.png') }}" alt="" />
+                                            </div>
+                                        </a>
                                         <div class="points">{{ score.points }}pt</div>
                                     </div>
                                     <div class="name">{{ position }}. {{ score.userId.email }}</div>
@@ -85,7 +91,7 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-4 text-center">
-                                    <a class="btn history-btn" href="javascript:;">History</a>
+                                    <a class="btn history-btn" href="{{ path('history_index', {'user_id' : score.userId.id, 'tournament' : score.tournamentId.id}) }}">History</a>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-2 text-center">{{ score.points }}pt </div>
                             </div>

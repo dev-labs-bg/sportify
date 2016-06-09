@@ -14,13 +14,6 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% for label, flashes in app.session.flashbag.all %}
-            {% for flash in flashes %}
-                <div class="alert alert-{{ label }}">
-                    {{ flash }}
-                </div>
-            {% endfor %}
-        {% endfor %}
 
         <div id="wrapper" class="wrapper toggled">
             <!-- Sidebar -->
@@ -153,6 +146,14 @@
                         </div><!-- /.container-fluid -->
                     </nav>
                 {% endif %}
+
+                {% for label, flashes in app.session.flashbag.all %}
+                    {% for flash in flashes %}
+                        <div class="alert alert-{{ label }}">
+                            {{ flash }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
 
                 {% block body %}{% endblock %}
 
