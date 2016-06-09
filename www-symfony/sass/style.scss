@@ -576,6 +576,9 @@ h2 {
                 z-index: -1;
             }
             .bet-form {
+                div {
+                    display: inline-block;
+                }
                 z-index: 1;
                 .bet-field {
                     width: 40px;

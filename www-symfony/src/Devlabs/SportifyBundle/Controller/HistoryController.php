@@ -77,17 +77,17 @@ class HistoryController extends Controller
             ->add('date_from', DateType::class, array(
                 'input' => 'string',
                 'format' => 'yyyy-MM-dd',
-//                'widget' => 'single_text',
+                'widget' => 'single_text',
                 'label' => false,
-                'years' => range(date('Y') -10, date('Y') +10),
+                'years' => range(date('Y') -5, date('Y') +5),
                 'data' => $date_from
             ))
             ->add('date_to', DateType::class, array(
                 'input' => 'string',
                 'format' => 'yyyy-MM-dd',
-//                'widget' => 'single_text',
+                'widget' => 'single_text',
                 'label' => false,
-                'years' => range(date('Y') -10, date('Y') +10),
+                'years' => range(date('Y') -5, date('Y') +5),
                 'data' => $date_to
             ))
             ->add('button', SubmitType::class, array('label' => 'FILTER'))

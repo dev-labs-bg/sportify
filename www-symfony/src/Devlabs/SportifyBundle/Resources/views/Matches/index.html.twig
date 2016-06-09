@@ -42,15 +42,15 @@
                                                     {% include 'img/result-rectangle.svg' %}
                                                 </div>
                                                 <div class="bet-form not-filled">
-                                                    {{ form_row(match_forms[match.id].home_goals, {'attr': {'class': 'bet-field' } }) }}
+                                                    {{ form_row(match_forms[match.id].home_goals, {'attr': {'class': 'bet-field' }, 'disabled': match.disabledAttribute }) }}
                                                     <span>:</span>
-                                                    {{ form_row(match_forms[match.id].away_goals, {'attr': {'class': 'bet-field' } }) }}
+                                                    {{ form_row(match_forms[match.id].away_goals, {'attr': {'class': 'bet-field' }, 'disabled': match.disabledAttribute }) }}
                                                 </div>
                                             </div>
                                             <div class="col-sm-4 match-item-mobile">{{ match.awayTeam }}</div>
                                         </div>
                                     </div>
-                                    {% if match.disabled == true %}
+                                    {% if match.disabledAttribute == true %}
                                     <div class="row">
                                         <div class="match-date text-center">Match locked. Already started</div>
                                     </div>
@@ -58,7 +58,7 @@
                                     {{ form_row(match_forms[match.id].action) }}
                                     <div class="row">
                                         <div class="col-sm-12 text-center">
-                                            {{ form_row(match_forms[match.id].button, {'attr': {'class': 'btn green-btn match-btn' } }) }}
+                                            {{ form_row(match_forms[match.id].button, {'attr': {'class': 'btn green-btn match-btn' }, 'disabled': match.disabledAttribute }) }}
                                         </div>
                                      </div>
                                 </div>
