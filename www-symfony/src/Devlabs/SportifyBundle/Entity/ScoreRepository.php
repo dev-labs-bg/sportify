@@ -40,8 +40,10 @@ class ScoreRepository extends \Doctrine\ORM\EntityRepository
         return $this->getEntityManager()->createQueryBuilder()
             ->select('s')
             ->from('DevlabsSportifyBundle:Score', 's')
+            ->join('s.userId', 'u')
             ->where('s.tournamentId = :tournament_id')
             ->orderBy('s.points', 'DESC')
+            ->addOrderBy('u.email', 'ASC')
             ->setParameters(array('tournament_id' => $tournament->getId()))
             ->getQuery()
             ->getResult();
