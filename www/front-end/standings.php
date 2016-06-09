@@ -149,7 +149,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-4 text-center">
                                 <a class="btn history-btn" href="javascript:;">History</a>
                             </div>
-                            <div class="col-xs-12 col-sm-12 col-md-2 text-center">22pt</div>
+                            <div class="col-xs-12 col-sm-12 col-md-2 text-center">22pt </div>
                         </div>
                     </div>
                     <div class="standing">
