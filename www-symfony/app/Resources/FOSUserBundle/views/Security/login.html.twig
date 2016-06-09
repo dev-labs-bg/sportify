@@ -1,55 +1,10 @@
 {% extends 'DevlabsSportifyBundle::base.html.twig' %}
 
 {% block body %}
-{% if error %}
-    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
 
-    <!-- /#sidebar-wrapper -->
-    <!-- Page Content -->
-    <div id="page-content-wrapper" class="page-content-wrapper">
-        <nav id="navbar" class="navbar navbar-default navbar-fixed-top">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="pull-left navbar-toggle collapsed" data-toggle="collapse" data-target="#mobile-menu" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        {% include 'img/menu.svg' %}
-                    </button>
-                </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse mobile-menu" id="mobile-menu">
-                    <ul class="nav navbar-nav">
-                        <li class="my-profile">
-                            <a href="#">My Profile</a>
-                        </li>
-                        <li>
-                            <a class="tournaments" href="#">Tournaments</a>
-                        </li>
-                        <li class="active">
-                            <a class="matches" href="#">Matches</a>
-                        </li>
-                        <li>
-                            <a class="standings" href="#">Standings</a>
-                        </li>
-                        <li>
-                            <a class="history" href="#">History</a>
-                        </li>
-                        <li>
-                            <a class="rules" href="#">Rules</a>
-                        </li>
-                        <li>
-                            <a class="login" href="#">Log in</a>
-                        </li>
-                        <li>
-                            <a class="signup" href="#">Sign up</a>
-                        </li>
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-                <h1 class="text-center">Sportify</h1>
-            </div><!-- /.container-fluid -->
-        </nav>
         <div class="container content login-screen">
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-3 text-center">
@@ -57,34 +12,19 @@
                     <form class="login-form" action="{{ path("fos_user_security_check") }}" method="post">
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
                         <div class="form-group">
-                            <input type="text" id="username" name="_username" class="form-control" placeholder="Emaila address">
+                            <input type="text" id="username" name="_username" class="form-control" placeholder="Email address">
                         </div>
                         <div class="form-group">
                             <input type="password" id="password" name="_password" class="form-control" placeholder="Password">
                         </div>
-                        <p class="forgotten-password"><a href="#">Forgotten password?</a></p>
+                        <p class="forgotten-password"><a href="{{ path('fos_user_resetting_request') }}">Forgotten password?</a></p>
                         <button type="submit" id="_submit" name="_submit" class="btn btn-default green-btn">Login</button>
                     </form>
                     <h2>Don't have an account?<br/>
-                        <a href="signup.php">Sign up here</a>
+                        <a href="{{ path('fos_user_registration_register') }}">Sign up here</a>
                     </h2>
                 </div>
             </div>
         </div>
-    </div>
 
-{#<form action="{{ path("fos_user_security_check") }}" method="post">#}
-    {#<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />#}
-
-    {#<label for="username">{{ 'security.login.username'|trans }}</label>#}
-    {#<input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />#}
-
-    {#<label for="password">{{ 'security.login.password'|trans }}</label>#}
-    {#<input type="password" id="password" name="_password" required="required" />#}
-
-    {#<input type="checkbox" id="remember_me" name="_remember_me" value="on" />#}
-    {#<label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>#}
-
-    {#<input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />#}
-</form>
 {% endblock %}

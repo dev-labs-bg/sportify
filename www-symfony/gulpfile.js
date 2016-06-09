@@ -10,7 +10,7 @@ elixir(function(mix) {
 
         'bootstrap.scss',
         '../lib/owl.carousel/dist/assets/owl.carousel.min.css',
-        '../web/css/datepicker.css',
+        '../lib/chosen/chosen.css',
         'style.scss'
 
         ],'web/css/style.css')

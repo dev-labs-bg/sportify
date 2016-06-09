@@ -90,7 +90,7 @@ class HistoryController extends Controller
                 'years' => range(date('Y') -10, date('Y') +10),
                 'data' => $date_to
             ))
-            ->add('button', SubmitType::class, array('label' => 'Filter'))
+            ->add('button', SubmitType::class, array('label' => 'FILTER'))
             ->getForm();
 
         $filterForm->handleRequest($request);

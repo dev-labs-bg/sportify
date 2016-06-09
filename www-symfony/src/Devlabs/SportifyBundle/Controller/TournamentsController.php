@@ -39,8 +39,8 @@ class TournamentsController extends Controller
             foreach ($tournaments as $tournament) {
                 // determine the button action, depending on if the tournament is joined
                 $buttonAction = in_array($tournament, $tournamentsJoined)
-                    ? 'leave'
-                    : 'join';
+                    ? 'LEAVE'
+                    : 'JOIN';
 
                 $formData = array();
                 $form = $this->createFormBuilder($formData)
@@ -61,12 +61,12 @@ class TournamentsController extends Controller
                         ->findOneById($formData['id']);
 
                     // prepare the queries for tournament join/leave (add/delete row in `scores` table)
-                    if ($formData['action'] === 'join') {
+                    if ($formData['action'] === 'JOIN') {
                         $score = new Score();
                         $score->setUserId($user);
                         $score->setTournamentId($tournament);
                         $em->persist($score);
-                    } elseif ($formData['action'] === 'leave') {
+                    } elseif ($formData['action'] === 'LEAVE') {
                         $score = $em->getRepository('DevlabsSportifyBundle:Score')
                             ->getByUserAndTournament($user, $tournament);
                         $em->remove($score);
