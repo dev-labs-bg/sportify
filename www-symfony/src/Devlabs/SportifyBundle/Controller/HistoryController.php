@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
@@ -74,20 +75,20 @@ class HistoryController extends Controller
                 'label' => false,
                 'data' => $tournamentSelected
             ))
-            ->add('date_from', DateType::class, array(
-                'input' => 'string',
-                'format' => 'yyyy-MM-dd',
-                'widget' => 'single_text',
+            ->add('date_from', TextType::class, array(
+//                'input' => 'string',
+//                'format' => 'yyyy-MM-dd',
+//                'widget' => 'single_text',
                 'label' => false,
-                'years' => range(date('Y') -5, date('Y') +5),
+//                'years' => range(date('Y') -5, date('Y') +5),
                 'data' => $date_from
             ))
-            ->add('date_to', DateType::class, array(
-                'input' => 'string',
-                'format' => 'yyyy-MM-dd',
-                'widget' => 'single_text',
+            ->add('date_to', TextType::class, array(
+//                'input' => 'string',
+//                'format' => 'yyyy-MM-dd',
+//                'widget' => 'single_text',
                 'label' => false,
-                'years' => range(date('Y') -5, date('Y') +5),
+//                'years' => range(date('Y') -5, date('Y') +5),
                 'data' => $date_to
             ))
             ->add('button', SubmitType::class, array('label' => 'FILTER'))

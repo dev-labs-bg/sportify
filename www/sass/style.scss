@@ -408,10 +408,10 @@ h2 {
 .login-form input{
     padding: 30px 75px 30px 35px;
 
-    &[name=email] {
+    &[name=_username] {
         background: rgba(255,255,255,.2) url(../img/ghost.svg) no-repeat 90% center;
     }
-    &[name=password] {
+    &[name=_password] {
         background: rgba(255,255,255,.2) url(../img/controller.svg) no-repeat 90% center;
     }
 }

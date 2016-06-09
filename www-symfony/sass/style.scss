@@ -408,10 +408,10 @@ h2 {
 .login-form input{
     padding: 30px 75px 30px 35px;
 
-    &[name=email] {
+    &[name=_username] {
         background: rgba(255,255,255,.2) url(../img/ghost.svg) no-repeat 90% center;
     }
-    &[name=password] {
+    &[name=_password] {
         background: rgba(255,255,255,.2) url(../img/controller.svg) no-repeat 90% center;
     }
 }
@@ -859,6 +859,24 @@ h2 {
         }
     }
 }
+/**
+ * Datepicker plugin styles
+ */
+ .table-condensed > thead > tr > th,
+ .table-condensed > thead > tr > td,
+ .table-condensed > tbody > tr > th,
+ .table-condensed > tbody > tr > td,
+ .table-condensed > tfoot > tr > th,
+ .table-condensed > tfoot > tr > td {
+    color: #000;
+ }
+ .datepicker table tr td.active,
+ .datepicker table tr td.active.disabled,
+ .datepicker table tr td.active.disabled:hover,
+ .datepicker table tr td.active:hover {
+    background: #ccc;
+    background-image: linear-gradient(to bottom, #4caf50, #418e44);
+ }
 @media screen and (max-width: 480px){
     .login-screen h2, .signup-screen h2 {
         margin: 55px 0 35px;

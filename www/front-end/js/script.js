@@ -109,6 +109,10 @@ $(function(){
 });
 
 $(function(){
-    $('#date-from').datepicker();
-    $('#date-to').datepicker();
+    $('#form_date_from').datepicker({
+        format : 'yyyy-mm-dd'
+    });
+    $('#form_date_to').datepicker({
+        format : 'yyyy-mm-dd'
+    });
 });
