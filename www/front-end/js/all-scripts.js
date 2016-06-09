@@ -1339,6 +1339,23 @@ $(function(){
         }
     });
 });
+$(function(){
+    $('.standings-slider').owlCarousel({
+        items:3,
+        loop:false,
+        responsive: {
+            0: {
+                items:1,
+                loop:true,
+                autoplay:true,
+                autoplayTimeout:5000
+            },
+            1450: {
+                items: 3
+            }
+        }
+    });
+});
 
 $(function(){
     if ($('#page-content-wrapper').length > 0) {
