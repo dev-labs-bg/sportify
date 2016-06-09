@@ -56,9 +56,9 @@ class Match
     /**
      * Property for indicating whether match form should be locked/disabled
      *
-     * @var string
+     * @var bool
      */
-    private $disabled = false;
+    public $disabledAttribute = false;
 
     /**
      * Get id
@@ -249,16 +249,16 @@ class Match
      *
      * @return mixed
      */
-    public function getDisabled()
+    public function getDisabledAttribute()
     {
-        return $this->disabled;
+        return $this->disabledAttribute;
     }
 
     /**
      * Set disabled
      */
-    public function setDisabled()
+    public function setDisabledAttribute()
     {
-        $this->disabled = true;
+        $this->disabledAttribute = true;
     }
 }

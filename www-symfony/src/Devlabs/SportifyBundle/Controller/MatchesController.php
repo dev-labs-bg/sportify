@@ -64,15 +64,17 @@ class MatchesController extends Controller
             ->add('date_from', DateType::class, array(
                 'input' => 'string',
                 'format' => 'yyyy-MM-dd',
+                'widget' => 'single_text',
                 'label' => false,
-                'years' => range(date('Y') -10, date('Y') +10),
+                'years' => range(date('Y') -5, date('Y') +5),
                 'data' => $date_from
             ))
             ->add('date_to', DateType::class, array(
                 'input' => 'string',
                 'format' => 'yyyy-MM-dd',
+                'widget' => 'single_text',
                 'label' => false,
-                'years' => range(date('Y') -10, date('Y') +10),
+                'years' => range(date('Y') -5, date('Y') +5),
                 'data' => $date_to
             ))
             ->add('button', SubmitType::class, array('label' => 'FILTER'))
@@ -121,25 +123,23 @@ class MatchesController extends Controller
                 }
 
                 //if match has started set disabled to true
-                if ($match->hasStarted()) $match->setDisabled();
+                if ($match->hasStarted()) $match->setDisabledAttribute();
 
                 $formData = array();
+
                 $form = $this->createFormBuilder($formData)
                     ->add('match_id', HiddenType::class, array('data' => $match->getId()))
                     ->add('home_goals', TextType::class, array(
                         'data' => $prediction->getHomeGoals(),
-                        'disabled' => $match->getDisabled(),
                         'label' => false
                     ))
                     ->add('away_goals', TextType::class, array(
                         'data' => $prediction->getAwayGoals(),
-                        'disabled' => $match->getDisabled(),
                         'label' => false
                     ))
                     ->add('action', HiddenType::class, array('data' => $buttonAction))
                     ->add('button', SubmitType::class, array(
-                        'label' => $buttonAction,
-                        'disabled' => $match->getDisabled()
+                        'label' => $buttonAction
                     ))
                     ->getForm();
 
@@ -156,6 +156,7 @@ class MatchesController extends Controller
 
                     // prepare the Prediction object (new or modified one) for persisting in DB
                     if ($formData['action'] === 'BET') {
+                        //var_dump($formData);die;
                         $prediction = new Prediction();
                         $prediction->setUserId($user);
                         $prediction->setMatchId($match);

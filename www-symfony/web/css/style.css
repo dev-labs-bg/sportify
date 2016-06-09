@@ -7668,6 +7668,10 @@ h2 {
   z-index: 1;
 }
 
+.match-item .bettings .bet-form div {
+  display: inline-block;
+}
+
 .match-item .bettings .bet-form .bet-field {
   width: 40px;
   height: 35px;

@@ -1,9 +1,34 @@
-{% extends 'DevlabsSportifyBundle::base.html.twig' %}
+{% extends 'DevlabsSportifyBundle:User:layout.html.twig' %}
 
-{% block body %}
-    <h1>User profile</h1>
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
-    {% block content %}{% endblock %}
+{% block content %}
+
+    <div class="container-fluid content">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3 text-center">
+                {{ form_start(form, {'attr': {'class': 'myprofile-form'} }) }}
+                    {{ form_errors(form) }}
+                    <label class="profile-picture btn-file">
+                        <img src="{{ asset('img/devlabs_logo.png') }}" alt="" />
+                        <span>Add new profile picture</span>
+                        {#<input type="file" style="display: none;">#}
+                    </label>
+                    <div class="form-group">
+                        {{ form_row(form.username, {'attr': {'class': 'form-control', 'placeholder': 'Username'}, 'label': false}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form.password_confirm, {'attr': {'class': 'form-control', 'placeholder': 'Current Password'}, 'label': false}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form.password.first, {'attr': {'class': 'form-control', 'placeholder': 'New Password'}, 'label': false}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form.password.second, {'attr': {'class': 'form-control', 'placeholder': 'Confirm New Password'}, 'label': false}) }}
+                    </div>
+                    {{ form_row(form.save, {'attr': {'class': 'btn btn-default green-btn'}, 'label': 'Submit changes'}) }}
+                    {{ form_row(form._token) }}
+                {{ form_end(form, {'attr': {'class': 'form-control'} }) }}
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

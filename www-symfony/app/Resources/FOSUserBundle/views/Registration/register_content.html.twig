@@ -5,8 +5,20 @@
         <div class="col-sm-6 col-sm-offset-3 text-center">
             <h2>Sign up</h2>
             {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'signup-form'}}) }}
-                {{ form_widget(form) }}
-            <button type="submit" class="btn btn-default green-btn">Confirm</button>
+                <div class="form-group">
+                    {{ form_row(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}, 'label': false}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.username, {'attr': {'class': 'form-control', 'placeholder': 'Username'}, 'label': false}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.plainPassword.first, {'attr': {'class': 'form-control', 'placeholder': 'Password'}, 'label': false}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.plainPassword.second, {'attr': {'class': 'form-control', 'placeholder': 'Confirm Password'}, 'label': false}) }}
+                </div>
+                {{ form_row(form._token) }}
+                <button type="submit" class="btn btn-default green-btn">Confirm</button>
             {{ form_end(form) }}
         </div>
     </div>
