@@ -19,3 +19,4 @@ deploy.php
 .DS_Store
 lib/
 node_modules/
+web/deploy.php
