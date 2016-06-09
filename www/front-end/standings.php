@@ -104,26 +104,29 @@
                             <div class="text-center">
                                 <div class="second-place">
                                     <div class="profile-img">
-                                        <img src="img/profile_pic.jpg" alt="" />
+                                        <img src="img/devlabs_logo.png" alt="" />
                                     </div>
-                                    <div class="points">23pt</div>
+                                    <div class="points">25pt</div>
                                 </div>
+                                <div class="name">2. Anita Stamova</div>
                             </div>
                             <div class="text-center">
                                 <div class="first-place">
                                     <div class="profile-img">
-                                        <img src="img/profile_pic.jpg" alt="" />
+                                        <img src="img/devlabs_logo.png" alt="" />
                                     </div>
-                                    <div class="points">23pt</div>
+                                    <div class="points">27pt</div>
                                 </div>
+                                <div class="name">1. Anita Stamova</div>
                             </div>
                             <div class="text-center">
                                 <div class="third-place">
                                     <div class="profile-img">
-                                        <img src="img/profile_pic.jpg" alt="" />
+                                        <img src="img/devlabs_logo.png" alt="" />
                                     </div>
                                     <div class="points">23pt</div>
                                 </div>
+                                <div class="name">3. Anita Stamova</div>
                             </div>
                         </div>
                     </div>

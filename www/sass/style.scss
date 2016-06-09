@@ -647,16 +647,45 @@ h2 {
         object-fit: cover;
         border-radius: 100%;
     }
+    .name {
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 70px;
+    }
     .first-place, .second-place, .third-place {
         height: 200px;
-        line-height: 200px;
+        min-width: 310px;
+        position: relative;
+    }
+    .points:after, .points:before {
+        right: 100%;
+        top: 50%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+
+    .points:after {
+        border-color: transparent;
+        border-right-color: #d46827;
+        border-width: 10px;
+        margin-top: -10px;
+    }
+    .points:before {
+        border-color: rgba(0, 0, 0, 0);
+        border-right-color: transparent;
+        border-width: 17px;
+        margin-top: -17px;
     }
     .first-place {
-        padding: 10px 0;
+        padding: 20px 10px 0;
         .profile-img {
             display: inline-block;
-            width: 177px;
-            height: 177px;
+            width: 165px;
+            height: 165px;
 
             img {
                 border: 8px solid #fdca33;
@@ -664,16 +693,21 @@ h2 {
         }
         .points {
             display: inline-block;
-            width: 117.6px;
+            width: 105px;
             height: 70.8px;
             border-radius: 4px;
             background-color: #fdca33;
-            box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.5);
-            margin: 20px;
+            position: absolute;
+            bottom: 0;
+            padding: 15px 20px;
+            font-size: 32px;
+            &:after{
+                border-right-color: #fdca33;
+            }
         }
     }
     .second-place {
-        padding: 28px 0;
+        padding: 50px 28px 0;
         .profile-img {
             display: inline-block;
             width: 145px;
@@ -685,16 +719,21 @@ h2 {
         }
         .points {
             display: inline-block;
-            width: 86.3px;
-            height: 51.8px;
+            width: 91.3px;
+            height: 60px;
             border-radius: 4px;
             background-color: #d46827;
-            box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.5);
-            margin: 20px;
+            position: absolute;
+            bottom: 0;
+            padding: 12px 18px;
+            font-size: 26px;
+            &:after{
+                border-right-color: #d46827;
+            }
         }
     }
     .third-place {
-        padding: 37px 0;
+        padding: 70px 37px 0;
         .profile-img {
             display: inline-block;
             width: 125px;
@@ -710,8 +749,13 @@ h2 {
             height: 51.8px;
             border-radius: 4px;
             background-color: #a7a7a7;
-            box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.5);
-            margin: 20px;
+            position: absolute;
+            bottom: 0;
+            padding: 10px 20px;
+            font-size: 22px;
+            &:after{
+                border-right-color: #a7a7a7;
+            }
         }
     }
 }
@@ -830,6 +874,11 @@ h2 {
     }
     .signup-screen .green-btn {
         margin-top: 30px;
+    }
+}
+@media screen and (max-width: 420px){
+    .first-place, .second-place, .third-place {
+        text-align: left;
     }
 }
 @media screen and (max-width: 400px){
