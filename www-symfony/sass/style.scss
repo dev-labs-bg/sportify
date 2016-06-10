@@ -125,8 +125,8 @@ body, html {
             width: 255px;
             .sidebar-nav {
                 .user-name {
+                    padding-left: 0;
                     margin-left: 0;
-                    width: 100%;
                     text-align: center;
                 }
             }
@@ -215,6 +215,7 @@ body, html {
     }
     .user-name {
         position: absolute;
+        width: 255px;
         bottom: 50px;
         left: 0;
         font-weight: 700;
@@ -223,8 +224,10 @@ body, html {
         letter-spacing: .9px;
         color: #ffffff;
         text-transform: none;
+        text-align: center;
         margin-top: -15px;
-        margin-left: 60px;
+        padding-left: 60px;
+        transition: .5s ease;
     }
 }
 
