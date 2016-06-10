@@ -40,7 +40,7 @@
                                         </a>
                                         <div class="points">{{ score.points }}pt</div>
                                     </div>
-                                    <div class="name">{{ position }}. {{ score.userId.email }}</div>
+                                    <div class="name">{{ position }}. {{ score.userId.username }}</div>
                                 </div>
                             {% endif %}
                             {% if position == 2 %}
@@ -53,7 +53,7 @@
                                         </a>
                                         <div class="points">{{ score.points }}pt</div>
                                     </div>
-                                    <div class="name">{{ position }}. {{ score.userId.email }}</div>
+                                    <div class="name">{{ position }}. {{ score.userId.username }}</div>
                                 </div>
                             {% endif %}
                             {% if position == 3 %}
@@ -66,7 +66,7 @@
                                         </a>
                                         <div class="points">{{ score.points }}pt</div>
                                     </div>
-                                    <div class="name">{{ position }}. {{ score.userId.email }}</div>
+                                    <div class="name">{{ position }}. {{ score.userId.username }}</div>
                                 </div>
                     </div>
                 </div>
@@ -87,7 +87,7 @@
                                                 <img src="{{ asset('img/devlabs_logo.png') }}" alt="" />
                                             </div>
                                         </div>
-                                        <div class="col-xs-8">{{ score.userId.email }}</div>
+                                        <div class="col-xs-8">{{ score.userId.username }}</div>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-4 text-center">

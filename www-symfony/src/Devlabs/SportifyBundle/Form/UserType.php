@@ -37,7 +37,7 @@ class UserType extends AbstractType
                 'type' => PasswordType::class,
                 'invalid_message' => 'The two new password fields must match.',
                 'options' => array('attr' => array('class' => 'password-field')),
-                'required' => true,
+                'required' => false,
                 'first_options'  => array('label' => 'Password'),
                 'second_options' => array('label' => 'Repeat Password'),
                 'error_bubbling' => true
