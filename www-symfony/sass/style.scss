@@ -11,6 +11,10 @@ body {
 }
 body, html {
     height: 100%;
+    font-size: 18px;
+}
+ul, li {
+    font-size: 18px;
 }
 .nav .open {
 
@@ -125,8 +129,8 @@ body, html {
             width: 255px;
             .sidebar-nav {
                 .user-name {
+                    padding-left: 0;
                     margin-left: 0;
-                    width: 100%;
                     text-align: center;
                 }
             }
@@ -215,6 +219,7 @@ body, html {
     }
     .user-name {
         position: absolute;
+        width: 255px;
         bottom: 50px;
         left: 0;
         font-weight: 700;
@@ -223,14 +228,17 @@ body, html {
         letter-spacing: .9px;
         color: #ffffff;
         text-transform: none;
+        text-align: center;
         margin-top: -15px;
-        margin-left: 60px;
+        padding-left: 60px;
+        transition: .5s ease;
     }
 }
 
 .sidebar-nav, .myprofile-form {
     .profile-picture {
-        padding-bottom: 100px;
+        padding: 25px 15px 100px;
+        text-align: center;
         img{
             background: #ffc107;
             width: 120px;
@@ -808,6 +816,7 @@ h2 {
             height: 100%;
             object-fit: cover;
             border-radius: 100%;
+            border: 3px solid #fff;
         }
     }
 }

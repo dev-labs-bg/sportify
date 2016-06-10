@@ -7503,6 +7503,12 @@ body {
 body,
 html {
   height: 100%;
+  font-size: 18px;
+}
+
+ul,
+li {
+  font-size: 18px;
 }
 
 .nav .open a,
@@ -7628,8 +7634,8 @@ html {
 }
 
 .wrapper.toggled .sidebar-wrapper .sidebar-nav .user-name {
+  padding-left: 0;
   margin-left: 0;
-  width: 100%;
   text-align: center;
 }
 
@@ -7721,7 +7727,8 @@ html {
 
 .sidebar-nav .user-name {
   position: absolute;
-  bottom: 60px;
+  width: 255px;
+  bottom: 50px;
   left: 0;
   font-weight: 700;
   font-size: 16px;
@@ -7729,13 +7736,16 @@ html {
   letter-spacing: .9px;
   color: #ffffff;
   text-transform: none;
+  text-align: center;
   margin-top: -15px;
-  margin-left: 60px;
+  padding-left: 60px;
+  transition: .5s ease;
 }
 
 .sidebar-nav .profile-picture,
 .myprofile-form .profile-picture {
-  padding-bottom: 100px;
+  padding: 25px 15px 100px;
+  text-align: center;
 }
 
 .sidebar-nav .profile-picture img,
@@ -7949,6 +7959,7 @@ h2 {
   background-color: rgba(255, 255, 255, 0.2);
   padding: 15px 35px;
   color: #fff;
+  text-transform: uppercase;
   font-weight: 700;
   font-size: 16px;
   border-radius: 100px;
@@ -7998,6 +8009,12 @@ h2 {
   text-transform: uppercase;
 }
 
+.login-form input[type="password"],
+.signup-form input[type="password"],
+.myprofile-form input[type="password"] {
+  text-transform: none;
+}
+
 .login-form input {
   padding: 0 75px 0 35px;
 }
@@ -8007,7 +8024,6 @@ h2 {
 }
 
 .login-form input[name=_password] {
-  text-transform: none;
   background: rgba(255, 255, 255, 0.2) url(../img/controller.svg) no-repeat 90% center;
 }
 
@@ -8441,6 +8457,7 @@ h2 {
   height: 100%;
   object-fit: cover;
   border-radius: 100%;
+  border: 3px solid #fff;
 }
 
 @media screen and (max-width: 991px) {

@@ -64,7 +64,7 @@
                             <a class="rules" href="{{ path('rules_index') }}">Rules</a>
                         </li>
                         <li>
-                            <a class="login" href="{{ path('fos_user_security_logout') }}">Logout</a>
+                            <a class="logout" href="{{ path('fos_user_security_logout') }}">Logout</a>
                         </li>
                     </ul>
                 </nav>
@@ -127,13 +127,9 @@
                                         <a class="rules" href="{{ path('rules_index') }}">Rules</a>
                                     </li>
                                     <li {% if app.request.attributes.get('_route') == 'fos_user_security_logout'%}class="active"{% endif %}>
-                                        <a class="login" href="{{ path('fos_user_security_logout') }}">Logout</a>
+                                        <a class="logout" href="{{ path('fos_user_security_logout') }}">Logout</a>
                                     </li>
                                 </ul>
-                            </div><!-- /.navbar-collapse -->
-                            {% block nav_top %}{% endblock %}
-                        </div><!-- /.container-fluid -->
-                    </nav>
                 {% else %}
                     <nav id="navbar" class="navbar navbar-default navbar-fixed-top">
                         <div class="container-fluid">
@@ -161,10 +157,11 @@
                                         <a class="signup" href="{{ path('fos_user_registration_register') }}">Sign up</a>
                                     </li>
                                 </ul>
+                {% endif %}
                             </div><!-- /.navbar-collapse -->
+                            {% block nav_top %}{% endblock %}
                         </div><!-- /.container-fluid -->
                     </nav>
-                {% endif %}
 
                 {% for label, flashes in app.session.flashbag.all %}
                     {% for flash in flashes %}
