@@ -7503,6 +7503,12 @@ body {
 body,
 html {
   height: 100%;
+  font-size: 18px;
+}
+
+ul,
+li {
+  font-size: 18px;
 }
 
 .nav .open a,
