@@ -29,6 +29,12 @@ class HistoryController extends Controller
      */
     public function indexAction(Request $request, $user_id, $tournament, $date_from, $date_to)
     {
+        // if user is not logged in, redirect to login page
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+
         // Load the data for the current user into an object
         $user = $this->getUser();
 
@@ -64,7 +70,7 @@ class HistoryController extends Controller
             ->add('user', EntityType::class, array(
                 'class' => 'DevlabsSportifyBundle:User',
                 'choices' => $usersEnabled,
-                'choice_label' => 'email',
+                'choice_label' => 'username',
                 'label' => false,
                 'data' => $userSelected
             ))
