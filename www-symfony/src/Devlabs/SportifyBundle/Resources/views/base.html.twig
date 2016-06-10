@@ -4,14 +4,14 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-        <title>{% block title %}Spotify{% endblock %}</title>
+        <title>{% block title %}Sportify{% endblock %}</title>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Exo:400,600,700,900' rel='stylesheet' type='text/css'>
         {% block stylesheets %}
             <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
         {% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.ico') }}" />
     </head>
     <body>
 
@@ -42,7 +42,7 @@
                             <a class="history" href="{{ path('history_index') }}">History</a>
                         </li>
                         <li {% if app.request.attributes.get('_route') == 'rules_index'%}class="active"{% endif %}>
-                            <a class="rules" href="#">Rules</a>
+                            <a class="rules" href="{{ path('rules_index') }}">Rules</a>
                         </li>
                         <li>
                             <a class="login" href="{{ path('fos_user_security_logout') }}">Logout</a>
@@ -59,7 +59,7 @@
                             <a class="standings" href="{{ path('standings_index') }}">Standings</a>
                         </li>
                         <li {% if app.request.attributes.get('_route') == 'rules_index'%}class="active"{% endif %}>
-                            <a class="rules" href="#">Rules</a>
+                            <a class="rules" href="{{ path('rules_index') }}">Rules</a>
                         </li>
                         <li {% if app.request.attributes.get('_route') == 'fos_user_security_login'%}class="active"{% endif %}>
                             <a class="login" href="{{ path('fos_user_security_login') }}">Log in</a>
@@ -105,7 +105,7 @@
                                         <a class="history" href="{{ path('history_index') }}">History</a>
                                     </li>
                                     <li {% if app.request.attributes.get('_route') == 'rules_index'%}class="active"{% endif %}>
-                                        <a class="rules" href="#">Rules</a>
+                                        <a class="rules" href="{{ path('rules_index') }}">Rules</a>
                                     </li>
                                     <li {% if app.request.attributes.get('_route') == 'fos_user_security_logout'%}class="active"{% endif %}>
                                         <a class="login" href="{{ path('fos_user_security_logout') }}">Logout</a>
@@ -133,7 +133,7 @@
                                         <a class="standings" href="{{ path('standings_index') }}">Standings</a>
                                     </li>
                                     <li {% if app.request.attributes.get('_route') == 'rules_index'%}class="active"{% endif %}>
-                                        <a class="rules" href="#">Rules</a>
+                                        <a class="rules" href="{{ path('rules_index') }}">Rules</a>
                                     </li>
                                     <li {% if app.request.attributes.get('_route') == 'fos_user_security_login'%}class="active"{% endif %}>
                                         <a class="login" href="{{ path('fos_user_security_login') }}">Log in</a>
