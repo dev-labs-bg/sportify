@@ -7920,6 +7920,13 @@ h2 {
   text-decoration: underline;
 }
 
+.error-msg > ul > li,
+.error-msg p {
+  list-style: none;
+  color: #FF1F5A;
+  font-size: 16px;
+}
+
 .login-form,
 .signup-form,
 .myprofile-form {

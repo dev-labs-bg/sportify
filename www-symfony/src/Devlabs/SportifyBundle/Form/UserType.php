@@ -29,16 +29,18 @@ class UserType extends AbstractType
             ->add('username')
             ->add('password_confirm', PasswordType::class, array(
                 'constraints' => new UserPassword(),
-                'mapped' => false
+                'mapped' => false,
+                'error_bubbling' => true
             ))
             ->add('password', RepeatedType::class, array(
                 'mapped' => false,
                 'type' => PasswordType::class,
-                'invalid_message' => 'The password fields must match.',
+                'invalid_message' => 'The two new password fields must match.',
                 'options' => array('attr' => array('class' => 'password-field')),
                 'required' => true,
                 'first_options'  => array('label' => 'Password'),
                 'second_options' => array('label' => 'Repeat Password'),
+                'error_bubbling' => true
             ))
             ->add('save', SubmitType::class)
         ;

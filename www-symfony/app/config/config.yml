@@ -11,6 +11,7 @@ parameters:
 
 framework:
     #esi:             ~
+    translator: { fallbacks: [en] }
     #translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
@@ -74,6 +75,8 @@ fos_user:
     firewall_name: main
     user_class: Devlabs\SportifyBundle\Entity\User
     registration:
+        form:
+            type: Devlabs\SportifyBundle\Form\RegistrationFormType
         confirmation:
             enabled: true
             template: email/registration.email.twig
@@ -83,5 +86,10 @@ fos_user:
     service:
         mailer: fos_user.mailer.twig_swift
     resetting:
+        form:
+            type: Devlabs\SportifyBundle\Form\ResettingFormType
         email:
             template: email/password_resetting.email.twig
+    change_password:
+        form:
+            type: Devlabs\SportifyBundle\Form\ChangePasswordFormType

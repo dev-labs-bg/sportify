@@ -387,6 +387,13 @@ h2 {
         text-decoration: underline;
     }
 }
+.error-msg {
+    > li {
+        list-style: none;
+        color: #FF1F5A;
+        font-size: 16px;
+    }
+}
 .login-form, .signup-form, .myprofile-form {
     display: inline-block;
     width: 100%;

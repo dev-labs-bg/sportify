@@ -1,14 +1,23 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
 {% extends 'DevlabsSportifyBundle::base.html.twig' %}
 
 {% block body %}
-    {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+        <div class="error-msg">
+            {% if error %}
+                <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+            {% endif %}
+        </div>
 
         <div class="container content login-screen">
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-3 text-center">
                     <h2>Log in to place your bets</h2>
+                    <div class="error-msg">
+                        {% if error %}
+                            <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+                        {% endif %}
+                    </div>
                     <form class="login-form" action="{{ path("fos_user_security_check") }}" method="post">
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
                         <div class="form-group">

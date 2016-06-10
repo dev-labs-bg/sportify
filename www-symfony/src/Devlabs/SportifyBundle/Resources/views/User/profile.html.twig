@@ -6,12 +6,14 @@
         <div class="row">
             <div class="col-sm-6 col-sm-offset-3 text-center">
                 {{ form_start(form, {'attr': {'class': 'myprofile-form'} }) }}
-                    {{ form_errors(form) }}
                     <label class="profile-picture btn-file">
                         <img src="{{ asset('img/devlabs_logo.png') }}" alt="" />
                         <span>Add new profile picture</span>
                         {#<input type="file" style="display: none;">#}
                     </label>
+                    <div class="error-msg">
+                        {{ form_errors(form) }}
+                    </div>
                     <div class="form-group">
                         {{ form_row(form.username, {'attr': {'class': 'form-control', 'placeholder': 'Username'}, 'label': false}) }}
                     </div>
