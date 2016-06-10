@@ -35,8 +35,12 @@ class MatchesController extends Controller
 
         // set default values to route parameters if they are 'empty'
         if ($tournament === 'empty') $tournament = 'all';
-        if ($date_from === 'empty') $date_from = '2016-01-01';
-        if ($date_to === 'empty') $date_to = '2016-12-31';
+        if ($date_from === 'empty') $date_from = date("Y-m-d");
+        if ($date_to === 'empty') {
+            $date_to = date("Y-m-d", time() + 1209600);
+        } else {
+            $date_to = date("Y-m-d", strtotime($date_to) + 86390);
+        }
 
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
