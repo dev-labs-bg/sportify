@@ -39,12 +39,12 @@ class Score
     /**
      * @ORM\Column(type="integer", name="pos_old")
      */
-    private $posOld;
+    private $posOld = 0;
 
     /**
      * @ORM\Column(type="integer", name="pos_new")
      */
-    private $posNew;
+    private $posNew = 0;
 
     /**
      * Get id
