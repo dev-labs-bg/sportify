@@ -27,4 +27,72 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="Prediction" , mappedBy="userId" , cascade={"all"})
      */
     private $predictions;
+
+    /**
+     * Add score
+     *
+     * @param \Devlabs\SportifyBundle\Entity\Score $score
+     *
+     * @return User
+     */
+    public function addScore(\Devlabs\SportifyBundle\Entity\Score $score)
+    {
+        $this->scores[] = $score;
+
+        return $this;
+    }
+
+    /**
+     * Remove score
+     *
+     * @param \Devlabs\SportifyBundle\Entity\Score $score
+     */
+    public function removeScore(\Devlabs\SportifyBundle\Entity\Score $score)
+    {
+        $this->scores->removeElement($score);
+    }
+
+    /**
+     * Get scores
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getScores()
+    {
+        return $this->scores;
+    }
+
+    /**
+     * Add prediction
+     *
+     * @param \Devlabs\SportifyBundle\Entity\Prediction $prediction
+     *
+     * @return User
+     */
+    public function addPrediction(\Devlabs\SportifyBundle\Entity\Prediction $prediction)
+    {
+        $this->predictions[] = $prediction;
+
+        return $this;
+    }
+
+    /**
+     * Remove prediction
+     *
+     * @param \Devlabs\SportifyBundle\Entity\Prediction $prediction
+     */
+    public function removePrediction(\Devlabs\SportifyBundle\Entity\Prediction $prediction)
+    {
+        $this->predictions->removeElement($prediction);
+    }
+
+    /**
+     * Get predictions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPredictions()
+    {
+        return $this->predictions;
+    }
 }

@@ -43,6 +43,11 @@ class Tournament
     private $matches;
 
     /**
+     * @ORM\Column(type="string", length=10, name="name_short")
+     */
+    private $nameShort;
+
+    /**
      * Get id
      *
      * @return integer
@@ -122,5 +127,105 @@ class Tournament
     public function getEndDate()
     {
         return $this->endDate;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->scores = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->matches = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set nameShort
+     *
+     * @param string $nameShort
+     *
+     * @return Tournament
+     */
+    public function setNameShort($nameShort)
+    {
+        $this->nameShort = $nameShort;
+
+        return $this;
+    }
+
+    /**
+     * Get nameShort
+     *
+     * @return string
+     */
+    public function getNameShort()
+    {
+        return $this->nameShort;
+    }
+
+    /**
+     * Add score
+     *
+     * @param \Devlabs\SportifyBundle\Entity\Score $score
+     *
+     * @return Tournament
+     */
+    public function addScore(\Devlabs\SportifyBundle\Entity\Score $score)
+    {
+        $this->scores[] = $score;
+
+        return $this;
+    }
+
+    /**
+     * Remove score
+     *
+     * @param \Devlabs\SportifyBundle\Entity\Score $score
+     */
+    public function removeScore(\Devlabs\SportifyBundle\Entity\Score $score)
+    {
+        $this->scores->removeElement($score);
+    }
+
+    /**
+     * Get scores
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getScores()
+    {
+        return $this->scores;
+    }
+
+    /**
+     * Add match
+     *
+     * @param \Devlabs\SportifyBundle\Entity\Match $match
+     *
+     * @return Tournament
+     */
+    public function addMatch(\Devlabs\SportifyBundle\Entity\Match $match)
+    {
+        $this->matches[] = $match;
+
+        return $this;
+    }
+
+    /**
+     * Remove match
+     *
+     * @param \Devlabs\SportifyBundle\Entity\Match $match
+     */
+    public function removeMatch(\Devlabs\SportifyBundle\Entity\Match $match)
+    {
+        $this->matches->removeElement($match);
+    }
+
+    /**
+     * Get matches
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMatches()
+    {
+        return $this->matches;
     }
 }

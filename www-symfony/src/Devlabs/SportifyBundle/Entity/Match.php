@@ -261,4 +261,45 @@ class Match
     {
         $this->disabledAttribute = true;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->predictions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add prediction
+     *
+     * @param \Devlabs\SportifyBundle\Entity\Prediction $prediction
+     *
+     * @return Match
+     */
+    public function addPrediction(\Devlabs\SportifyBundle\Entity\Prediction $prediction)
+    {
+        $this->predictions[] = $prediction;
+
+        return $this;
+    }
+
+    /**
+     * Remove prediction
+     *
+     * @param \Devlabs\SportifyBundle\Entity\Prediction $prediction
+     */
+    public function removePrediction(\Devlabs\SportifyBundle\Entity\Prediction $prediction)
+    {
+        $this->predictions->removeElement($prediction);
+    }
+
+    /**
+     * Get predictions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPredictions()
+    {
+        return $this->predictions;
+    }
 }

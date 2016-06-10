@@ -41,11 +41,19 @@
                                                 <div class="bet-rectangle">
                                                     {% include 'img/result-rectangle.svg' %}
                                                 </div>
-                                                <div class="bet-form{% if predictions[match.id] is not defined%} not-filled{% endif %}">
-                                                    {{ form_row(match_forms[match.id].home_goals, {'attr': {'class': 'bet-field' }, 'disabled': match.disabledAttribute }) }}
-                                                    <span>:</span>
-                                                    {{ form_row(match_forms[match.id].away_goals, {'attr': {'class': 'bet-field' }, 'disabled': match.disabledAttribute }) }}
-                                                </div>
+                                                {% if predictions[match.id] is not defined%}
+                                                    <div class="bet-form not-filled">
+                                                        {{ form_row(match_forms[match.id].home_goals, {'attr': {'class': 'bet-field', 'placeholder': '?' }, 'disabled': match.disabledAttribute}) }}
+                                                        <span>:</span>
+                                                        {{ form_row(match_forms[match.id].away_goals, {'attr': {'class': 'bet-field', 'placeholder': '?' }, 'disabled': match.disabledAttribute }) }}
+                                                    </div>
+                                                {% else %}
+                                                    <div class="bet-form">
+                                                        {{ form_row(match_forms[match.id].home_goals, {'attr': {'class': 'bet-field' }, 'disabled': match.disabledAttribute }) }}
+                                                        <span>:</span>
+                                                        {{ form_row(match_forms[match.id].away_goals, {'attr': {'class': 'bet-field' }, 'disabled': match.disabledAttribute }) }}
+                                                    </div>
+                                                {% endif %}
                                             </div>
                                             <div class="col-sm-4 match-item-mobile">{{ match.awayTeam }}</div>
                                         </div>
@@ -58,7 +66,11 @@
                                     {{ form_row(match_forms[match.id].action) }}
                                     <div class="row">
                                         <div class="col-sm-12 text-center">
-                                            {{ form_row(match_forms[match.id].button, {'attr': {'class': 'btn green-btn match-btn' }, 'disabled': match.disabledAttribute }) }}
+                                            {% if predictions[match.id] is not defined%}
+                                                {{ form_row(match_forms[match.id].button, {'attr': {'class': 'btn green-btn match-btn' }, 'disabled': match.disabledAttribute }) }}
+                                            {% else %}
+                                                {{ form_row(match_forms[match.id].button, {'attr': {'class': 'btn yellow-btn match-btn' }, 'disabled': match.disabledAttribute }) }}
+                                            {% endif %}
                                         </div>
                                      </div>
                                 </div>

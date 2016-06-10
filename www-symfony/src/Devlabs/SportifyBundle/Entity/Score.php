@@ -37,6 +37,16 @@ class Score
     private $points = 0;
 
     /**
+     * @ORM\Column(type="integer", name="pos_old")
+     */
+    private $posOld;
+
+    /**
+     * @ORM\Column(type="integer", name="pos_new")
+     */
+    private $posNew;
+
+    /**
      * Get id
      *
      * @return integer
@@ -130,5 +140,53 @@ class Score
         $this->points = $this->points + $addedPoints;
 
         return $this;
+    }
+
+    /**
+     * Set posOld
+     *
+     * @param integer $posOld
+     *
+     * @return Score
+     */
+    public function setPosOld($posOld)
+    {
+        $this->posOld = $posOld;
+
+        return $this;
+    }
+
+    /**
+     * Get posOld
+     *
+     * @return integer
+     */
+    public function getPosOld()
+    {
+        return $this->posOld;
+    }
+
+    /**
+     * Set posNew
+     *
+     * @param integer $posNew
+     *
+     * @return Score
+     */
+    public function setPosNew($posNew)
+    {
+        $this->posNew = $posNew;
+
+        return $this;
+    }
+
+    /**
+     * Get posNew
+     *
+     * @return integer
+     */
+    public function getPosNew()
+    {
+        return $this->posNew;
     }
 }

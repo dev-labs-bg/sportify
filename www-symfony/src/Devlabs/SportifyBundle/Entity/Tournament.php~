@@ -33,6 +33,21 @@ class Tournament
     private $endDate;
 
     /**
+     * @ORM\OneToMany(targetEntity="Score" , mappedBy="tournamentId" , cascade={"all"})
+     */
+    private $scores;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Match" , mappedBy="tournamentId" , cascade={"all"})
+     */
+    private $matches;
+
+    /**
+     * @ORM\Column(type="string", length=10, name="name_short")
+     */
+    private $nameShort;
+
+    /**
      * Get id
      *
      * @return integer
