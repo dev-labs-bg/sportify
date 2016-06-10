@@ -7627,6 +7627,12 @@ html {
   width: 255px;
 }
 
+.wrapper.toggled .sidebar-wrapper .sidebar-nav .user-name {
+  margin-left: 0;
+  width: 100%;
+  text-align: center;
+}
+
 .wrapper.toggled .page-content-wrapper {
   position: absolute;
   margin-right: -255px;
@@ -7710,7 +7716,7 @@ html {
 
 .sidebar-nav .my-profile {
   z-index: 1;
-  background: url(../img/settings.svg) no-repeat 15px 15px;
+  background: none;
 }
 
 .sidebar-nav .user-name {
@@ -7941,17 +7947,59 @@ h2 {
   display: inline-block;
   border: 1px solid #fff;
   background-color: rgba(255, 255, 255, 0.2);
-  padding: 30px 35px;
+  padding: 15px 35px;
   color: #fff;
-  text-transform: uppercase;
   font-weight: 700;
   font-size: 16px;
   border-radius: 100px;
   margin: 50px 0 10px;
 }
 
+.login-form input[type="email"],
+.login-form input[type="password"],
+.login-form input[type="text"],
+.signup-form input[type="email"],
+.signup-form input[type="password"],
+.signup-form input[type="text"],
+.myprofile-form input[type="email"],
+.myprofile-form input[type="password"],
+.myprofile-form input[type="text"] {
+  box-sizing: border-box;
+  height: 62px;
+  margin: 50px 0 10px;
+  padding: 15px 35px;
+}
+
+.login-form ::-webkit-input-placeholder,
+.signup-form ::-webkit-input-placeholder,
+.myprofile-form ::-webkit-input-placeholder {
+  /* WebKit browsers */
+  text-transform: uppercase;
+}
+
+.login-form :-moz-placeholder,
+.signup-form :-moz-placeholder,
+.myprofile-form :-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  text-transform: uppercase;
+}
+
+.login-form ::-moz-placeholder,
+.signup-form ::-moz-placeholder,
+.myprofile-form ::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  text-transform: uppercase;
+}
+
+.login-form :-ms-input-placeholder,
+.signup-form :-ms-input-placeholder,
+.myprofile-form :-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  text-transform: uppercase;
+}
+
 .login-form input {
-  padding: 30px 75px 30px 35px;
+  padding: 0 75px 0 35px;
 }
 
 .login-form input[name=_username] {
@@ -7959,6 +8007,7 @@ h2 {
 }
 
 .login-form input[name=_password] {
+  text-transform: none;
   background: rgba(255, 255, 255, 0.2) url(../img/controller.svg) no-repeat 90% center;
 }
 

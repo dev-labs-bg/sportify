@@ -123,6 +123,13 @@ body, html {
 
         .sidebar-wrapper {
             width: 255px;
+            .sidebar-nav {
+                .user-name {
+                    margin-left: 0;
+                    width: 100%;
+                    text-align: center;
+                }
+            }
         }
 
         .page-content-wrapper {
@@ -204,11 +211,11 @@ body, html {
     }
     .my-profile {
         z-index: 1;
-        background: url(../img/settings.svg) no-repeat 15px 15px;
+        background: none;
     }
     .user-name {
         position: absolute;
-        bottom: 60px;
+        bottom: 50px;
         left: 0;
         font-weight: 700;
         font-size: 16px;
@@ -403,7 +410,7 @@ h2 {
         display: inline-block;
         border: 1px solid #fff;
         background-color: rgba(255,255,255,.2);
-        padding: 30px 35px;
+        padding: 15px 35px;
         color: #fff;
         text-transform: uppercase;
         font-weight: 700;
@@ -411,9 +418,33 @@ h2 {
         border-radius: 100px;
         margin: 50px 0 10px;
     }
+    input[type="email"], input[type="password"], input[type="text"] 
+    {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        height: 62px; // Increase height as required
+        margin: 50px 0 10px;
+        padding: 15px 35px; // Now only left & right padding
+    }
+    ::-webkit-input-placeholder { /* WebKit browsers */
+        text-transform: uppercase;
+    }
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        text-transform: uppercase;
+    }
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+        text-transform: uppercase;
+    }
+    :-ms-input-placeholder { /* Internet Explorer 10+ */
+        text-transform: uppercase;
+    }
+    input[type="password"] {
+        text-transform: none;
+    }
 }
 .login-form input{
-    padding: 30px 75px 30px 35px;
+    padding: 0 75px 0 35px;
 
     &[name=_username] {
         background: rgba(255,255,255,.2) url(../img/ghost.svg) no-repeat 90% center;
