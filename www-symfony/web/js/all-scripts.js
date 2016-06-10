@@ -1398,10 +1398,10 @@ $(function(){
 });
 
 $(function(){
-    $('#tournament-id').chosen({
+    $('#form_tournament_id').chosen({
         no_results_text: 'No such tournament!'
     });
-    $('#username-list').chosen({
+    $('#form_user').chosen({
         no_results_text: 'No such username!'
     });
     $('#tournament-filter').chosen({
