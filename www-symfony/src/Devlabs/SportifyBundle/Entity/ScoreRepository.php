@@ -43,7 +43,7 @@ class ScoreRepository extends \Doctrine\ORM\EntityRepository
             ->join('s.userId', 'u')
             ->where('s.tournamentId = :tournament_id')
             ->orderBy('s.points', 'DESC')
-            ->addOrderBy('u.email', 'ASC')
+            ->addOrderBy('u.username', 'ASC')
             ->setParameters(array('tournament_id' => $tournament->getId()))
             ->getQuery()
             ->getResult();

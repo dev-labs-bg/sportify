@@ -21,6 +21,8 @@ class ScoresUpdateController extends Controller
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
 
+        $tournamentsModified = array();
+
         /**
          * Get a list of the finished matches
          * for which there are NOT SCORED predictions
@@ -73,16 +75,41 @@ class ScoresUpdateController extends Controller
                  * then update the user score for the prediction's tournament
                  */
                 if ($predictionPoints > 0) {
-                    $tournamentId = $match->getTournamentId()->getId();
-                    $scores[$tournamentId]->updatePoints($predictionPoints);
+                    $tournament = $match->getTournamentId();
+                    $scores[$tournament->getId()]->updatePoints($predictionPoints);
+
+                    if (!in_array($tournament, $tournamentsModified)) {
+                        $tournamentsModified[] = $tournament;
+                    }
 
                     // prepare the queries
-                    $em->persist($scores[$tournamentId]);
+                    $em->persist($scores[$tournament->getId()]);
                 }
             }
         }
 
-        // execute the queries
+        // execute the points update queries
+        $em->flush();
+
+        // recalculation of the user positions in each of the modified tournaments
+        foreach ($tournamentsModified as $tournament) {
+            $scores = $em->getRepository('DevlabsSportifyBundle:Score')
+                ->getByTournamentOrderByPoints($tournament);
+
+            $position = 0;
+            foreach ($scores as &$score) {
+                $position = $position + 1;
+                $currentPosition = $score->getPosNew();
+
+                $score->setPosOld($currentPosition);
+                $score->setPosNew($position);
+
+                // prepare the queries
+                $em->persist($score);
+            }
+        }
+
+        // execute the positions update queries
         $em->flush();
 
         // redirect to the Home page
