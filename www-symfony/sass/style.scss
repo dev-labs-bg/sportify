@@ -230,7 +230,8 @@ body, html {
 
 .sidebar-nav, .myprofile-form {
     .profile-picture {
-        padding-bottom: 100px;
+        padding: 25px 15px 100px;
+        text-align: center;
         img{
             background: #ffc107;
             width: 120px;
@@ -808,6 +809,7 @@ h2 {
             height: 100%;
             object-fit: cover;
             border-radius: 100%;
+            border: 3px solid #fff;
         }
     }
 }

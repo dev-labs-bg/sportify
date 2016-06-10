@@ -7721,7 +7721,7 @@ html {
 
 .sidebar-nav .user-name {
   position: absolute;
-  bottom: 60px;
+  bottom: 50px;
   left: 0;
   font-weight: 700;
   font-size: 16px;
@@ -7735,7 +7735,8 @@ html {
 
 .sidebar-nav .profile-picture,
 .myprofile-form .profile-picture {
-  padding-bottom: 100px;
+  padding: 25px 15px 100px;
+  text-align: center;
 }
 
 .sidebar-nav .profile-picture img,
@@ -7949,6 +7950,7 @@ h2 {
   background-color: rgba(255, 255, 255, 0.2);
   padding: 15px 35px;
   color: #fff;
+  text-transform: uppercase;
   font-weight: 700;
   font-size: 16px;
   border-radius: 100px;
@@ -7998,6 +8000,12 @@ h2 {
   text-transform: uppercase;
 }
 
+.login-form input[type="password"],
+.signup-form input[type="password"],
+.myprofile-form input[type="password"] {
+  text-transform: none;
+}
+
 .login-form input {
   padding: 0 75px 0 35px;
 }
@@ -8007,7 +8015,6 @@ h2 {
 }
 
 .login-form input[name=_password] {
-  text-transform: none;
   background: rgba(255, 255, 255, 0.2) url(../img/controller.svg) no-repeat 90% center;
 }
 
@@ -8441,6 +8448,7 @@ h2 {
   height: 100%;
   object-fit: cover;
   border-radius: 100%;
+  border: 3px solid #fff;
 }
 
 @media screen and (max-width: 991px) {
