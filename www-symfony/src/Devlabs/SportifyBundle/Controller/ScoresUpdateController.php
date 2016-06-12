@@ -18,6 +18,12 @@ class ScoresUpdateController extends Controller
      */
     public function updateAction()
     {
+        // if user is not logged in, redirect to login page
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
 
