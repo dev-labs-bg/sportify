@@ -175,22 +175,22 @@
 
             </div>
 
-            {#{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}#}
-                {#{% block footer_user_positions %}#}
-                    {#<div id="results-slider" class="results-slider">#}
-                        {#<div class="container-fluid">#}
-                            {#<div class="current-results-slider owl-carousel">#}
-                                {#<div class="slider-item-holder">#}
-                                    {#<div class="slider-item">#}
-                                        {#<div class="logo">#}
-                                            {#<img src="{{ asset('img/barclays-premier-league.png') }}" alt="Barclays Premier League" />#}
-                                        {#</div>#}
-                                        {#<div class="result-info">#}
-                                            {#<div class="title">Barclays Premier League</div>#}
-                                            {#<div class="points">3p. <span class="position-up"></span></div>#}
-                                        {#</div>#}
-                                    {#</div>#}
-                                {#</div>#}
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                {% block footer_user_positions %}
+                    <div id="results-slider" class="results-slider">
+                        <div class="container-fluid">
+                            <div class="current-results-slider owl-carousel">
+                                <div class="slider-item-holder">
+                                    <div class="slider-item">
+                                        <div class="logo">
+                                            <img src="{{ asset('img/UEFA_Euro_2016_logo.png') }}" alt="UEFA_Euro_2016_logo.png" />
+                                        </div>
+                                        <div class="result-info">
+                                            <div class="title">UEFA Euro 2016</div>
+                                            <div class="points">3p. <span class="position-up"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
                                 {#<div class="slider-item-holder">#}
                                     {#<div class="slider-item">#}
                                         {#<div class="logo">#}
@@ -224,11 +224,11 @@
                                         {#</div>#}
                                     {#</div>#}
                                 {#</div>#}
-                            {#</div>#}
-                        {#</div>#}
-                    {#</div>#}
-                {#{%  endblock %}#}
-            {#{% endif %}#}
+                            </div>
+                        </div>
+                    </div>
+                {%  endblock %}
+            {% endif %}
 
         </div>
         <!-- /#page-content-wrapper -->

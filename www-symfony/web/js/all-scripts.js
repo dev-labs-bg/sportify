@@ -1327,25 +1327,25 @@ $(document).ready(function () {
 
 $(function(){
     $('.current-results-slider').owlCarousel({
-        items:4,
-        loop:true,
-        autoplay:true,
-        autoplayTimeout:5000,
-        autoplayHoverPause:true,
-        responsive: {
-            0: {
-                items:1
-            },
-            560: {
-                items: 2
-            },
-            1150: {
-                items: 3
-            },
-            1450: {
-                items: 4
-            }
-        }
+        items:1,
+        loop:false,
+        autoplay:false,
+        // autoplayTimeout:5000,
+        // autoplayHoverPause:true,
+        // responsive: {
+        //     0: {
+        //         items:1
+        //     },
+        //     560: {
+        //         items: 2
+        //     },
+        //     1150: {
+        //         items: 3
+        //     },
+        //     1450: {
+        //         items: 4
+        //     }
+        // }
     });
 });
 $(function(){
@@ -1411,10 +1411,17 @@ $(function(){
 
 $(function(){
     $('#form_date_from').datepicker({
-        format : 'yyyy-mm-dd'
+        format : 'yyyy-mm-dd',
+        disableTouchKeyboard: true
     });
     $('#form_date_to').datepicker({
-        format : 'yyyy-mm-dd'
+        format : 'yyyy-mm-dd',
+        disableTouchKeyboard: true
     });
 });
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip();
+});
+
 //# sourceMappingURL=all-scripts.js.map

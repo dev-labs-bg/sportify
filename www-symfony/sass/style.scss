@@ -90,30 +90,30 @@ ul, li {
             .title {
                 padding: 20px 20px 10px;
             }
-            .points {
-                .position-up, .position-down, .position-same {
-                    display: inline-block;
-                    width: 0;
-                    height: 0;
-                }
-                .position-up {
-                    border-left: 8px solid transparent;
-                    border-right: 8px solid transparent;
-                    border-bottom: 13px solid #7ed321;
-                }
-                .position-down {
-                    border-left: 8px solid transparent;
-                    border-right: 8px solid transparent;
-                    border-top: 13px solid #d33122;
-                }
-                .position-same {
-                    border-top: 8px solid transparent;
-                    border-bottom: 8px solid transparent;
-                    border-left: 13px solid #959693;
-                }
-            }
         }
     }
+}
+.position-up,
+.position-down,
+.position-same {
+    display: inline-block;
+    width: 0;
+    height: 0;
+}
+.position-up {
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 13px solid #7ed321;
+}
+.position-down {
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 13px solid #d33122;
+}
+.position-same {
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 13px solid #959693;
 }
 .wrapper {
     padding-left: 0;
@@ -209,7 +209,7 @@ ul, li {
         }
     }
     .sidebar-brand {
-        height: 72px;
+        height: 76px;
         line-height: 70px;
         background: rgba(0,0,0,.25);
     }
@@ -304,16 +304,16 @@ ul, li {
 }
 
 .content {
-    padding-top: 72px;
+    padding-top: 76px;
 }
 .page-content-wrapper .content {
-    padding-top: 72px;
+    padding-top: 76px;
     padding-bottom: 100px;
 }
 
 .page-content-wrapper .navbar-default, header .navbar-default {
     width: 100%;
-    height: 72px;
+    height: 76px;
     background: #1d2936;
     border: none;
     border-bottom: 1px solid #1d2936;
@@ -750,8 +750,8 @@ h2 {
             width: 105px;
             height: 70.8px;
             background-color: #fdca33;
-            padding: 15px 20px;
-            font-size: 32px;
+            padding: 0 20px;
+            font-size: 25px;
             &:after{
                 border-right-color: #fdca33;
             }
@@ -772,8 +772,8 @@ h2 {
             width: 91.3px;
             height: 60px;
             background-color: #d46827;
-            padding: 12px 18px;
-            font-size: 26px;
+            padding: 0 18px;
+            font-size: 22px;
             &:after{
                 border-right-color: #d46827;
             }
@@ -794,8 +794,8 @@ h2 {
             width: 86.3px;
             height: 51.8px;
             background-color: #a7a7a7;
-            padding: 10px 20px;
-            font-size: 22px;
+            padding: 0 20px;
+            font-size: 20px;
             &:after{
                 border-right-color: #a7a7a7;
             }
@@ -818,6 +818,17 @@ h2 {
             border-radius: 100%;
             border: 3px solid #fff;
         }
+    }
+}
+.text- {
+    &green {
+        color: #20e828;
+    }
+    &yellow {
+        color: #ffc107;
+    }
+    &red {
+        color: #fb1717;
     }
 }
 @media screen and (max-width: 991px){
