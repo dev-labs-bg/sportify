@@ -26,6 +26,11 @@ security:
                 csrf_token_generator: security.csrf.token_manager
             logout:       true
             anonymous:    true
+            remember_me:
+                secret:   A3mkS!24D@11WjLg7OI9#Zzx%7fBNS
+                lifetime: 7776000 # 90 days in seconds
+                path:     /
+                domain:   ~
 
             # activate different ways to authenticate
 

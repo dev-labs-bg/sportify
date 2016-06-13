@@ -26,8 +26,14 @@
                         <div class="form-group">
                             <input type="password" id="password" name="_password" class="form-control" placeholder="Password">
                         </div>
-                        <p class="forgotten-password"><a href="{{ path('fos_user_resetting_request') }}">Forgotten password?</a></p>
+                        <div class="forgotten-password">
+                            <a href="{{ path('fos_user_resetting_request') }}">Forgotten password?</a>
+                        </div>
                         <button type="submit" id="_submit" name="_submit" class="btn btn-default green-btn">Login</button>
+                        <div class="form-group">
+                            <input type="checkbox" id="remember_me" name="_remember_me" value="on" checked="checked"/>
+                            Remember me
+                        </div>
                     </form>
                     <h2>Don't have an account?<br/>
                         <a href="{{ path('fos_user_registration_register') }}">Sign up here</a>
