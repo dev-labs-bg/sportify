@@ -1,0 +1,38 @@
+<?php
+
+namespace Devlabs\SportifyBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+/**
+ * @ORM\Entity(repositoryClass="Devlabs\SportifyBundle\Entity\TeamRepository")
+ * @ORM\Table(name="teams")
+ * @UniqueEntity("name")
+ * @UniqueEntity("nameShort")
+ */
+class Team
+{
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=100, unique = true)
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(type="string", length=10, name="name_short", unique = true)
+     */
+    private $nameShort;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Tournament", inversedBy="teams")
+     * @ORM\JoinColumn(name="tournament_id", referencedColumnName="id")
+     */
+    private $tournamentId;
+}

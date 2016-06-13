@@ -58,7 +58,7 @@ class Match
      *
      * @var bool
      */
-    public $disabledAttribute = false;
+    private $disabledAttribute = false;
 
     /**
      * Get id

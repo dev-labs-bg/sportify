@@ -48,6 +48,11 @@ class Tournament
     private $nameShort;
 
     /**
+     * @ORM\OneToMany(targetEntity="Team" , mappedBy="tournamentId" , cascade={"all"})
+     */
+    private $teams;
+
+    /**
      * Get id
      *
      * @return integer
@@ -227,5 +232,39 @@ class Tournament
     public function getMatches()
     {
         return $this->matches;
+    }
+
+    /**
+     * Add team
+     *
+     * @param \Devlabs\SportifyBundle\Entity\Team $team
+     *
+     * @return Tournament
+     */
+    public function addTeam(\Devlabs\SportifyBundle\Entity\Team $team)
+    {
+        $this->teams[] = $team;
+
+        return $this;
+    }
+
+    /**
+     * Remove team
+     *
+     * @param \Devlabs\SportifyBundle\Entity\Team $team
+     */
+    public function removeTeam(\Devlabs\SportifyBundle\Entity\Team $team)
+    {
+        $this->teams->removeElement($team);
+    }
+
+    /**
+     * Get teams
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTeams()
+    {
+        return $this->teams;
     }
 }
