@@ -10685,8 +10685,9 @@ h2 {
 }
 
 .flag {
-  height: 20px;
-  width: 30px;
+  height: 21px;
+  width: 28px;
+  box-shadow: 1px 2px 6px 0 rgba(0, 0, 0, 0.5);
   margin: 0 10px;
   display: inline-block;
 }
