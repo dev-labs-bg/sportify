@@ -29,6 +29,23 @@ class User extends BaseUser
     private $predictions;
 
     /**
+     * @ORM\OneToMany(targetEntity="PredictionChampion" , mappedBy="userId" , cascade={"all"})
+     */
+    private $predictionsChampion;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->scores = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->predictions = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->predictionsChampion = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Add score
      *
      * @param \Devlabs\SportifyBundle\Entity\Score $score
@@ -94,5 +111,39 @@ class User extends BaseUser
     public function getPredictions()
     {
         return $this->predictions;
+    }
+
+    /**
+     * Add predictionsChampion
+     *
+     * @param \Devlabs\SportifyBundle\Entity\PredictionChampion $predictionsChampion
+     *
+     * @return User
+     */
+    public function addPredictionsChampion(\Devlabs\SportifyBundle\Entity\PredictionChampion $predictionsChampion)
+    {
+        $this->predictionsChampion[] = $predictionsChampion;
+
+        return $this;
+    }
+
+    /**
+     * Remove predictionsChampion
+     *
+     * @param \Devlabs\SportifyBundle\Entity\PredictionChampion $predictionsChampion
+     */
+    public function removePredictionsChampion(\Devlabs\SportifyBundle\Entity\PredictionChampion $predictionsChampion)
+    {
+        $this->predictionsChampion->removeElement($predictionsChampion);
+    }
+
+    /**
+     * Get predictionsChampion
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPredictionsChampion()
+    {
+        return $this->predictionsChampion;
     }
 }

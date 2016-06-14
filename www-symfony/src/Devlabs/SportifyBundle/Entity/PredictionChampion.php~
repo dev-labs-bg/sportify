@@ -3,14 +3,15 @@
 namespace Devlabs\SportifyBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="Devlabs\SportifyBundle\Entity\ScoreRepository")
- * @ORM\Table(name="scores", uniqueConstraints={
+ * @ORM\Entity(repositoryClass="Devlabs\SportifyBundle\Entity\PredictionChampionRepository")
+ * @ORM\Table(name="predictions_champion", uniqueConstraints={
  *      @ORM\UniqueConstraint(name="user_tournament", columns={"user_id", "tournament_id"})
  * })
  */
-class Score
+class PredictionChampion
 {
     /**
      * @ORM\Column(type="integer")
@@ -20,31 +21,32 @@ class Score
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="scores")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="predictionsChampion")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $userId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Tournament", inversedBy="scores")
+     * @ORM\ManyToOne(targetEntity="Tournament", inversedBy="predictionsChampion")
      * @ORM\JoinColumn(name="tournament_id", referencedColumnName="id")
      */
     private $tournamentId;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="Team", inversedBy="predictionsChampion")
+     * @ORM\JoinColumn(name="team_id", referencedColumnName="id")
      */
-    private $points = 0;
+    private $teamId;
 
     /**
-     * @ORM\Column(type="integer", name="pos_old")
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $posOld = 0;
+    private $points;
 
     /**
-     * @ORM\Column(type="integer", name="pos_new")
+     * @ORM\Column(type="boolean", name="score_added")
      */
-    private $posNew = 0;
+    private $scoreAdded = 0;
 
     /**
      * Get id
@@ -61,7 +63,7 @@ class Score
      *
      * @param integer $points
      *
-     * @return Score
+     * @return PredictionWinner
      */
     public function setPoints($points)
     {
@@ -81,11 +83,35 @@ class Score
     }
 
     /**
+     * Set scoreAdded
+     *
+     * @param boolean $scoreAdded
+     *
+     * @return PredictionWinner
+     */
+    public function setScoreAdded($scoreAdded)
+    {
+        $this->scoreAdded = $scoreAdded;
+
+        return $this;
+    }
+
+    /**
+     * Get scoreAdded
+     *
+     * @return boolean
+     */
+    public function getScoreAdded()
+    {
+        return $this->scoreAdded;
+    }
+
+    /**
      * Set userId
      *
      * @param \Devlabs\SportifyBundle\Entity\User $userId
      *
-     * @return Score
+     * @return PredictionWinner
      */
     public function setUserId(\Devlabs\SportifyBundle\Entity\User $userId = null)
     {
@@ -109,7 +135,7 @@ class Score
      *
      * @param \Devlabs\SportifyBundle\Entity\Tournament $tournamentId
      *
-     * @return Score
+     * @return PredictionWinner
      */
     public function setTournamentId(\Devlabs\SportifyBundle\Entity\Tournament $tournamentId = null)
     {
@@ -129,64 +155,26 @@ class Score
     }
 
     /**
-     * Method for updating the user's points in a tournament
-     * by passing the points to be added as an argument
+     * Set teamId
      *
-     * @param $addedPoints
-     * @return mixed
+     * @param \Devlabs\SportifyBundle\Entity\Team $teamId
+     *
+     * @return PredictionWinner
      */
-    public function updatePoints($addedPoints)
+    public function setTeamId(\Devlabs\SportifyBundle\Entity\Team $teamId = null)
     {
-        $this->points = $this->points + $addedPoints;
+        $this->teamId = $teamId;
 
         return $this;
     }
 
     /**
-     * Set posOld
+     * Get teamId
      *
-     * @param integer $posOld
-     *
-     * @return Score
+     * @return \Devlabs\SportifyBundle\Entity\Team
      */
-    public function setPosOld($posOld)
+    public function getTeamId()
     {
-        $this->posOld = $posOld;
-
-        return $this;
-    }
-
-    /**
-     * Get posOld
-     *
-     * @return integer
-     */
-    public function getPosOld()
-    {
-        return $this->posOld;
-    }
-
-    /**
-     * Set posNew
-     *
-     * @param integer $posNew
-     *
-     * @return Score
-     */
-    public function setPosNew($posNew)
-    {
-        $this->posNew = $posNew;
-
-        return $this;
-    }
-
-    /**
-     * Get posNew
-     *
-     * @return integer
-     */
-    public function getPosNew()
-    {
-        return $this->posNew;
+        return $this->teamId;
     }
 }

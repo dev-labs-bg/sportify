@@ -175,7 +175,6 @@ class MatchesController extends Controller
 
                     // prepare the Prediction object (new or modified one) for persisting in DB
                     if ($formData['action'] === 'BET') {
-                        //var_dump($formData);die;
                         $prediction = new Prediction();
                         $prediction->setUserId($user);
                         $prediction->setMatchId($match);
