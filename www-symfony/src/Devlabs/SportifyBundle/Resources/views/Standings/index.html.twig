@@ -25,12 +25,18 @@
 
                 <div class="first-three-standings">
                     <div class="row standings-slider owl-carousel">
-                    {% set position = 0 %}
+                    
                     {% for score in standings %}
-                        {% set position = position + 1 %}
+                        {% if score.posNew == score.posOld %}
+                            {% set pos_change = 'same' %}
+                        {% elseif score.posNew > score.posOld %}
+                            {% set pos_change = 'down' %}
+                        {% elseif score.posNew < score.posOld %}
+                            {% set pos_change = 'up' %}
+                        {% endif %}
 
-                        {% if position <= 3 %}
-                            {% if position == 1 %}
+                        {% if score.posNew <= 3 %}
+                            {% if score.posNew == 1 %}
                                 <div class="text-center">
                                     <div class="first-place">
                                         <a href="{{ path('history_index', {'user_id' : score.userId.id, 'tournament' : score.tournamentId.id}) }}">
@@ -43,10 +49,10 @@
                                         </div>
                                     </div>
                                     <div class="name">
-                                <span class="position-same"></span>{{ position }}. {{ score.userId.username }}</div>
+                                <span class="position-{{ pos_change }}"></span>{{ score.posNew }}. {{ score.userId.username }}</div>
                                 </div>
                             {% endif %}
-                            {% if position == 2 %}
+                            {% if score.posNew == 2 %}
                                 <div class="text-center">
                                     <div class="second-place">
                                         <a href="{{ path('history_index', {'user_id' : score.userId.id, 'tournament' : score.tournamentId.id}) }}">
@@ -59,10 +65,10 @@
                                         </div>
                                     </div>
                                     <div class="name">
-                                <span class="position-same"></span>{{ position }}. {{ score.userId.username }}</div>
+                                <span class="position-{{ pos_change }}"></span>{{ score.posNew }}. {{ score.userId.username }}</div>
                                 </div>
                             {% endif %}
-                            {% if position == 3 %}
+                            {% if score.posNew == 3 %}
                                 <div class="text-center">
                                     <div class="third-place">
                                         <a href="{{ path('history_index', {'user_id' : score.userId.id, 'tournament' : score.tournamentId.id}) }}">
@@ -75,19 +81,19 @@
                                         </div>
                                     </div>
                                     <div class="name">
-                                <span class="position-same"></span>{{ position }}. {{ score.userId.username }}</div>
+                                <span class="position-{{ pos_change }}"></span>{{ score.posNew }}. {{ score.userId.username }}</div>
                                 </div>
                     </div>
                 </div>
                             {% endif %}
                         {% endif %}
 
-                        {% if position > 3 %}
+                        {% if score.posNew > 3 %}
                         <div class="standing">
                             <div class="row">
                                 <div class="col-xs-2 col-md-1">
-                                <span class="position-same"></span>
-                                    {{ position }}.
+                                <span class="position-{{ pos_change }}"></span>
+                                    {{ score.posNew }}.
                                 </div>
                                 <div class="col-xs-10 col-md-5 col-xs-6">
                                     <div class="row">

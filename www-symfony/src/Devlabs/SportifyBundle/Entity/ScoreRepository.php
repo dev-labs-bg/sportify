@@ -43,6 +43,7 @@ class ScoreRepository extends \Doctrine\ORM\EntityRepository
             ->join('s.userId', 'u')
             ->where('s.tournamentId = :tournament_id')
             ->orderBy('s.points', 'DESC')
+            ->addOrderBy('s.exactPredictionPercentage', 'DESC')
             ->addOrderBy('u.username', 'ASC')
             ->setParameters(array('tournament_id' => $tournament->getId()))
             ->getQuery()
