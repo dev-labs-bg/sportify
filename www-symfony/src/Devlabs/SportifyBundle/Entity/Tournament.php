@@ -33,6 +33,11 @@ class Tournament
     private $endDate;
 
     /**
+     * @ORM\Column(type="string", length=10, name="name_short")
+     */
+    private $nameShort;
+
+    /**
      * @ORM\OneToMany(targetEntity="Score" , mappedBy="tournamentId" , cascade={"all"})
      */
     private $scores;
@@ -43,19 +48,25 @@ class Tournament
     private $matches;
 
     /**
-     * @ORM\Column(type="string", length=10, name="name_short")
-     */
-    private $nameShort;
-
-    /**
      * @ORM\OneToMany(targetEntity="Team" , mappedBy="tournamentId" , cascade={"all"})
      */
     private $teams;
 
     /**
-     * @ORM\OneToMany(targetEntity="PredictionWinner" , mappedBy="tournamentId" , cascade={"all"})
+     * @ORM\OneToMany(targetEntity="PredictionChampion" , mappedBy="tournamentId" , cascade={"all"})
      */
-    private $predictionsWinner;
+    private $predictionsChampion;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->scores = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->matches = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->teams = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->predictionsChampion = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -137,14 +148,6 @@ class Tournament
     public function getEndDate()
     {
         return $this->endDate;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->scores = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->matches = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -274,36 +277,36 @@ class Tournament
     }
 
     /**
-     * Add predictionsWinner
+     * Add predictionsChampion
      *
-     * @param \Devlabs\SportifyBundle\Entity\PredictionWinner $predictionsWinner
+     * @param \Devlabs\SportifyBundle\Entity\PredictionChampion $predictionsChampion
      *
      * @return Tournament
      */
-    public function addPredictionsWinner(\Devlabs\SportifyBundle\Entity\PredictionWinner $predictionsWinner)
+    public function addPredictionsChampion(\Devlabs\SportifyBundle\Entity\PredictionChampion $predictionsChampion)
     {
-        $this->predictionsWinner[] = $predictionsWinner;
+        $this->predictionsChampion[] = $predictionsChampion;
 
         return $this;
     }
 
     /**
-     * Remove predictionsWinner
+     * Remove predictionsChampion
      *
-     * @param \Devlabs\SportifyBundle\Entity\PredictionWinner $predictionsWinner
+     * @param \Devlabs\SportifyBundle\Entity\PredictionChampion $predictionsChampion
      */
-    public function removePredictionsWinner(\Devlabs\SportifyBundle\Entity\PredictionWinner $predictionsWinner)
+    public function removePredictionsChampion(\Devlabs\SportifyBundle\Entity\PredictionChampion $predictionsChampion)
     {
-        $this->predictionsWinner->removeElement($predictionsWinner);
+        $this->predictionsChampion->removeElement($predictionsChampion);
     }
 
     /**
-     * Get predictionsWinner
+     * Get predictionsChampion
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getPredictionsWinner()
+    public function getPredictionsChampion()
     {
-        return $this->predictionsWinner;
+        return $this->predictionsChampion;
     }
 }

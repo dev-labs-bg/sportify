@@ -6,12 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="Devlabs\SportifyBundle\Entity\PredictionWinnerRepository")
- * @ORM\Table(name="predictions_winner", uniqueConstraints={
+ * @ORM\Entity(repositoryClass="Devlabs\SportifyBundle\Entity\PredictionChampionRepository")
+ * @ORM\Table(name="predictions_champion", uniqueConstraints={
  *      @ORM\UniqueConstraint(name="user_tournament", columns={"user_id", "tournament_id"})
  * })
  */
-class PredictionWinner
+class PredictionChampion
 {
     /**
      * @ORM\Column(type="integer")
@@ -21,20 +21,20 @@ class PredictionWinner
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="predictionsWinner")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="predictionsChampion")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $userId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Tournament", inversedBy="predictionsWinner")
+     * @ORM\ManyToOne(targetEntity="Tournament", inversedBy="predictionsChampion")
      * @ORM\JoinColumn(name="tournament_id", referencedColumnName="id")
      */
     private $tournamentId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Team", inversedBy="predictionsWinner")
-     * @ORM\JoinColumn(name="tournament_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Team", inversedBy="predictionsChampion")
+     * @ORM\JoinColumn(name="team_id", referencedColumnName="id")
      */
     private $teamId;
 

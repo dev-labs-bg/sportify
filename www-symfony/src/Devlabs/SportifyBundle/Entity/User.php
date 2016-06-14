@@ -29,9 +29,20 @@ class User extends BaseUser
     private $predictions;
 
     /**
-     * @ORM\OneToMany(targetEntity="PredictionWinner" , mappedBy="userId" , cascade={"all"})
+     * @ORM\OneToMany(targetEntity="PredictionChampion" , mappedBy="userId" , cascade={"all"})
      */
-    private $predictionsWinner;
+    private $predictionsChampion;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->scores = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->predictions = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->predictionsChampion = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Add score
@@ -102,36 +113,36 @@ class User extends BaseUser
     }
 
     /**
-     * Add predictionsWinner
+     * Add predictionsChampion
      *
-     * @param \Devlabs\SportifyBundle\Entity\PredictionWinner $predictionsWinner
+     * @param \Devlabs\SportifyBundle\Entity\PredictionChampion $predictionsChampion
      *
      * @return User
      */
-    public function addPredictionsWinner(\Devlabs\SportifyBundle\Entity\PredictionWinner $predictionsWinner)
+    public function addPredictionsChampion(\Devlabs\SportifyBundle\Entity\PredictionChampion $predictionsChampion)
     {
-        $this->predictionsWinner[] = $predictionsWinner;
+        $this->predictionsChampion[] = $predictionsChampion;
 
         return $this;
     }
 
     /**
-     * Remove predictionsWinner
+     * Remove predictionsChampion
      *
-     * @param \Devlabs\SportifyBundle\Entity\PredictionWinner $predictionsWinner
+     * @param \Devlabs\SportifyBundle\Entity\PredictionChampion $predictionsChampion
      */
-    public function removePredictionsWinner(\Devlabs\SportifyBundle\Entity\PredictionWinner $predictionsWinner)
+    public function removePredictionsChampion(\Devlabs\SportifyBundle\Entity\PredictionChampion $predictionsChampion)
     {
-        $this->predictionsWinner->removeElement($predictionsWinner);
+        $this->predictionsChampion->removeElement($predictionsChampion);
     }
 
     /**
-     * Get predictionsWinner
+     * Get predictionsChampion
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getPredictionsWinner()
+    public function getPredictionsChampion()
     {
-        return $this->predictionsWinner;
+        return $this->predictionsChampion;
     }
 }
