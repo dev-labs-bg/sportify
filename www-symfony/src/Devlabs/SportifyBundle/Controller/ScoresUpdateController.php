@@ -105,9 +105,9 @@ class ScoresUpdateController extends Controller
             $position = 0;
             foreach ($scores as &$score) {
                 $position = $position + 1;
-                $currentPosition = $score->getPosNew();
+                $previousPosition = $score->getPosNew();
 
-                $score->setPosOld($currentPosition);
+                $score->setPosOld($previousPosition);
                 $score->setPosNew($position);
 
                 // prepare the queries
