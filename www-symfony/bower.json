@@ -18,6 +18,7 @@
     "jquery": "#2.2.4",
     "owl.carousel": "^2.1.5",
     "chosen": "^1.5.1",
-    "bootstrap-datepicker": "^1.6.1"
+    "bootstrap-datepicker": "^1.6.1",
+    "flag-icon-css": "^2.3.1"
   }
 }

@@ -643,7 +643,7 @@ h2 {
         font-size: 16px;
         text-transform: uppercase;
         &-mobile {
-            padding: 6px 30px;
+            padding: 6px 10px;
         }
         .bettings {
             text-align: center;
@@ -852,6 +852,15 @@ h2 {
         color: #fb1717;
     }
 }
+.flag {
+    height: 20px;
+    width: 30px;
+    margin: 0 10px;
+    display: inline-block;
+    &-icon {
+        line-height: 1.4;
+    }
+}
 @media screen and (max-width: 991px){
     .page-content-wrapper h2 {
         margin: 30px 0 25px;
@@ -936,6 +945,9 @@ h2 {
         .green-btn {
             float: none;
         }
+    }
+    .flag {
+        float: left !important;
     }
 }
 /**

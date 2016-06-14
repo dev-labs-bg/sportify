@@ -39,7 +39,7 @@
                                 <div class="col-lg-12">
                                     <div class="match-item">
                                         <div class="row">
-                                            <div class="col-sm-4 match-item-mobile">{{ match.homeTeam }}</div>
+                                            <div class="col-sm-4 match-item-mobile"><span class="pull-left flag flag-icon flag-icon-gr"></span>{{ match.homeTeam }}</div>
                                             <div class="col-sm-4 bettings">
                                                 <div class="bet-rectangle">
                                                     {% include 'img/result-rectangle.svg' %}
@@ -58,7 +58,7 @@
                                                     </div>
                                                 {% endif %}
                                             </div>
-                                            <div class="col-sm-4 match-item-mobile">{{ match.awayTeam }}</div>
+                                            <div class="col-sm-4 match-item-mobile">{{ match.awayTeam }}<span class="pull-right flag flag-icon flag-icon-gr"></span></div>
                                         </div>
                                     </div>
                                     {% if match.disabledAttribute == true %}
