@@ -175,7 +175,7 @@ class PredictionRepository extends \Doctrine\ORM\EntityRepository
             ->from('DevlabsSportifyBundle:Prediction', 'p')
             ->join('p.matchId', 'm')
             ->where('p.userId = :user_id')
-            ->andWhere('p.scoreAdded = 1')
+            ->andWhere('p.scoreAdded = 1 AND p.points = 3')
             ->andWhere('m.tournamentId = :tournament_id')
             ->setParameters(array(
                 'user_id' => $user->getId(),
