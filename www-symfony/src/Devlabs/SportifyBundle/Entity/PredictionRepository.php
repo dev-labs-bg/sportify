@@ -78,7 +78,7 @@ class PredictionRepository extends \Doctrine\ORM\EntityRepository
             ->andWhere('m.homeGoals IS NOT NULL AND m.awayGoals IS NOT NULL')
             ->andWhere('m.datetime >= :date_from AND m.datetime <= :date_to')
             ->orderBy('m.tournamentId')
-            ->addOrderBy('m.datetime')
+            ->addOrderBy('m.datetime', 'DESC')
             ->addOrderBy('m.homeTeam')
             ->setParameters(array(
                 'user_id' => $user->getId(),
