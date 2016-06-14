@@ -1,0 +1,22 @@
+{% extends 'DevlabsSportifyBundle:Champion:layout.html.twig' %}
+
+{% block content %}
+
+    <div class="container-fluid content">
+        <div class="matches-filters row">
+            <div class="col-lg-10 col-lg-offset-1">
+                {{ form_start(filter_form) }}
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {{ form_row(filter_form.tournament_id, {'attr': {'class': 'form-control' } }) }}
+                        </div>
+                        <div class="col-sm-2 text-center">
+                            {{ form_row(filter_form.button, {'attr': {'class': 'btn green-btn' } }) }}
+                        </div>
+                    </div>
+                {{ form_end(filter_form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

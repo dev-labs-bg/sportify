@@ -39,6 +39,7 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
+
         $this->scores = new \Doctrine\Common\Collections\ArrayCollection();
         $this->predictions = new \Doctrine\Common\Collections\ArrayCollection();
         $this->predictionsChampion = new \Doctrine\Common\Collections\ArrayCollection();
