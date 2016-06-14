@@ -186,50 +186,61 @@
                     <div id="results-slider" class="results-slider">
                         <div class="container-fluid">
                             <div class="current-results-slider owl-carousel">
+                                {% for score in user_scores %}
+
+                                    {% if score.posNew == score.posOld %}
+                                        {% set pos_change = 'same' %}
+                                    {% elseif score.posNew > score.posOld %}
+                                        {% set pos_change = 'down' %}
+                                    {% elseif score.posNew < score.posOld %}
+                                        {% set pos_change = 'up' %}
+                                    {% endif %}
+
+                                    <div class="slider-item-holder">
+                                        <div class="slider-item">
+                                            <div class="logo">
+                                                <img src="{{ asset('img/UEFA_Euro_2016_logo.png') }}" alt="UEFA_Euro_2016_logo.png" />
+                                            </div>
+                                            <div class="result-info">
+                                                <div class="title">UEFA Euro 2016</div>
+                                                <div class="points">{{ score.posNew }}<span class="position-{{ pos_change }}"></span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
                                 <div class="slider-item-holder">
                                     <div class="slider-item">
                                         <div class="logo">
-                                            <img src="{{ asset('img/UEFA_Euro_2016_logo.png') }}" alt="UEFA_Euro_2016_logo.png" />
+                                            <img src="{{ asset('img/la-liga-logo.png') }}" alt="La Liga" />
                                         </div>
                                         <div class="result-info">
-                                            <div class="title">UEFA Euro 2016</div>
+                                            <div class="title">La Liga</div>
+                                            <div class="points">1p. <span class="position-down"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slider-item-holder">
+                                    <div class="slider-item">
+                                        <div class="logo">
+                                            <img src="{{ asset('img/UEFA-champions-league-logo.png') }}" alt="UEFA Champions League" />
+                                        </div>
+                                        <div class="result-info">
+                                            <div class="title">UEFA Champions League</div>
+                                            <div class="points">3p. <span class="position-same"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slider-item-holder">
+                                    <div class="slider-item">
+                                        <div class="logo">
+                                            <img src="{{ asset('img/bundesliga.png') }}" alt="bundesliga" />
+                                        </div>
+                                        <div class="result-info">
+                                            <div class="title">Bundesliga</div>
                                             <div class="points">3p. <span class="position-up"></span></div>
                                         </div>
                                     </div>
                                 </div>
-                                {#<div class="slider-item-holder">#}
-                                    {#<div class="slider-item">#}
-                                        {#<div class="logo">#}
-                                            {#<img src="{{ asset('img/la-liga-logo.png') }}" alt="La Liga" />#}
-                                        {#</div>#}
-                                        {#<div class="result-info">#}
-                                            {#<div class="title">La Liga</div>#}
-                                            {#<div class="points">1p. <span class="position-down"></span></div>#}
-                                        {#</div>#}
-                                    {#</div>#}
-                                {#</div>#}
-                                {#<div class="slider-item-holder">#}
-                                    {#<div class="slider-item">#}
-                                        {#<div class="logo">#}
-                                            {#<img src="{{ asset('img/UEFA-champions-league-logo.png') }}" alt="UEFA Champions League" />#}
-                                        {#</div>#}
-                                        {#<div class="result-info">#}
-                                            {#<div class="title">UEFA Champions League</div>#}
-                                            {#<div class="points">3p. <span class="position-same"></span></div>#}
-                                        {#</div>#}
-                                    {#</div>#}
-                                {#</div>#}
-                                {#<div class="slider-item-holder">#}
-                                    {#<div class="slider-item">#}
-                                        {#<div class="logo">#}
-                                            {#<img src="{{ asset('img/bundesliga.png') }}" alt="bundesliga" />#}
-                                        {#</div>#}
-                                        {#<div class="result-info">#}
-                                            {#<div class="title">Bundesliga</div>#}
-                                            {#<div class="points">3p. <span class="position-up"></span></div>#}
-                                        {#</div>#}
-                                    {#</div>#}
-                                {#</div>#}
                             </div>
                         </div>
                     </div>

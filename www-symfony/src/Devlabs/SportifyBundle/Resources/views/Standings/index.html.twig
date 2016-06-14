@@ -25,8 +25,8 @@
 
                 <div class="first-three-standings">
                     <div class="row standings-slider owl-carousel">
-                    
-                    {% for score in standings %}
+
+                    {% for score in all_scores %}
                         {% if score.posNew == score.posOld %}
                             {% set pos_change = 'same' %}
                         {% elseif score.posNew > score.posOld %}
