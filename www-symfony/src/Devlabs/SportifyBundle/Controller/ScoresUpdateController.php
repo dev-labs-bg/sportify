@@ -113,15 +113,16 @@ class ScoresUpdateController extends Controller
                     ->getExactPredictionsByUserAndTournament($user, $tournament);
 
                 $predictionCount = count($predictionsExact);
+                $exactPercentage = $predictionCount / $matchCount;
 
-//                $score->setExactPredictionPercentage();
+                $score->setExactPredictionPercentage($exactPercentage);
 
                 // prepare the queries
                 $em->persist($score);
             }
         }
 
-        // execute the positions update queries
+        // execute the exact percentage update queries
         $em->flush();
 
         // recalculation of the user positions in each of the modified tournaments
