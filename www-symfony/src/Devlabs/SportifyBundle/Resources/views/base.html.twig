@@ -51,6 +51,9 @@
                         <li {% if app.request.attributes.get('_route') == 'tournaments_index'%}class="active"{% endif %}>
                             <a class="tournaments" href="{{ path('tournaments_index') }}">Tournaments</a>
                         </li>
+                        <li {% if app.request.attributes.get('_route') == 'champion_index'%}class="active"{% endif %}>
+                            <a class="champion" href="{{ path('champion_index') }}">Champion</a>
+                        </li>
                         <li {% if app.request.attributes.get('_route') == 'matches_index'%}class="active"{% endif %}>
                             <a class="matches" href="{{ path('matches_index') }}">Matches</a>
                         </li>
@@ -113,6 +116,9 @@
                                     </li>
                                     <li {% if app.request.attributes.get('_route') == 'tournaments_index'%}class="active"{% endif %}>
                                         <a class="tournaments" href="{{ path('tournaments_index') }}">Tournaments</a>
+                                    </li>
+                                    <li {% if app.request.attributes.get('_route') == 'champion_index'%}class="active"{% endif %}>
+                                        <a class="champion" href="{{ path('champion_index') }}">Champion</a>
                                     </li>
                                     <li {% if app.request.attributes.get('_route') == 'matches_index'%}class="active"{% endif %}>
                                         <a class="matches" href="{{ path('matches_index') }}">Matches</a>

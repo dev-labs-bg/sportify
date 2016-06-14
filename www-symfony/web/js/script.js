@@ -106,6 +106,9 @@ $(function(){
     $('#tournament-filter').chosen({
         no_results_text: 'No such tournament!'
     });
+    $('#form_team_id').chosen({
+        no_results_text: 'No such team!'
+    });
 });
 
 $(function(){

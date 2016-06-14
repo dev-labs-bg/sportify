@@ -273,6 +273,9 @@ ul, li {
     background: url(../img/settings.svg) no-repeat 15px center;
 }
 .tournaments {
+    background: url(../img/soccer-dates.svg) no-repeat 15px center;
+}
+.champion {
     background: url(../img/trophy.svg) no-repeat 15px center;
 }
 .matches {
@@ -478,7 +481,7 @@ h2 {
 .green-btn, .yellow-btn {
     border: none;
     color: #fff;
-    padding: 15px 80px;
+    padding: 13px 40px;
     border-radius: 100px;
     font-size: 20px;
     font-weight: 600;
@@ -540,14 +543,10 @@ h2 {
         padding-bottom: 30px;
     }
     &-btn {
-        padding: 8px 70px;
-        width: 200px;
+        padding: 13px 40px;
     }
 }
-.matches-filters {
-    padding-top: 40px;
-    padding-bottom: 40px;
-    background: rgba(29, 41, 54, .7);
+.matches-filters, .champion-page {
     .form-control, input[type="date"].form-control {
         appearance: none;
         -moz-appearance: none;
@@ -568,10 +567,22 @@ h2 {
     .green-btn {
         padding: 13px 40px;
         margin: 0;
-        float: left;
         &.history-filter {
             margin-top: 40px;
         }
+    }
+}
+.matches-filters {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background: rgba(29, 41, 54, .7);
+    .green-btn {
+        float: left;
+    }
+}
+.champion-page {
+    .col-sm-8 {
+        margin-bottom: 40px;
     }
 }
 .chosen-container {
@@ -594,6 +605,11 @@ h2 {
             padding-bottom: 26px;
             .chosen-results li {
                 padding-left: 24px;
+            }
+        }
+        .chosen-search {
+            input[type="text"] {
+                color: #444;
             }
         }
     }
@@ -624,12 +640,16 @@ h2 {
         box-shadow: 1px 2px 6px 0 rgba(0, 0, 0, .5);
         color: #2c3e50;
         font-weight: 900;
-        font-size: 22px;
+        font-size: 16px;
         text-transform: uppercase;
+        &-mobile {
+            padding: 6px 30px;
+        }
         .bettings {
             text-align: center;
             position: relative;
             z-index: 1;
+            font-size: 22px;
             .bet-rectangle {
                 position: absolute;
                 width: 100%;
@@ -670,7 +690,7 @@ h2 {
         }
     }
     &-btn {
-        padding: 5px 25px;
+        padding: 13px 40px;
         margin: 5px 0;
     }
     .team-title, .prediction-title, .points-title {

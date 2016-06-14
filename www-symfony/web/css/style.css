@@ -7730,7 +7730,7 @@ li {
   display: inline-block;
   width: 0;
   height: 0;
-  margin: 0 2px;
+  margin: 0 5px;
 }
 
 .position-up {
@@ -7915,6 +7915,10 @@ li {
 }
 
 .tournaments {
+  background: url(../img/soccer-dates.svg) no-repeat 15px center;
+}
+
+.champion {
   background: url(../img/trophy.svg) no-repeat 15px center;
 }
 
@@ -8180,7 +8184,7 @@ h2 {
 .yellow-btn {
   border: none;
   color: #fff;
-  padding: 15px 80px;
+  padding: 13px 40px;
   border-radius: 100px;
   font-size: 20px;
   font-weight: 600;
@@ -8260,18 +8264,13 @@ h2 {
 }
 
 .tournament-btn {
-  padding: 8px 70px;
-  width: 200px;
-}
-
-.matches-filters {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background: rgba(29, 41, 54, 0.7);
+  padding: 13px 40px;
 }
 
 .matches-filters .form-control,
-.matches-filters input[type="date"].form-control {
+.matches-filters input[type="date"].form-control,
+.champion-page .form-control,
+.champion-page input[type="date"].form-control {
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -8282,7 +8281,8 @@ h2 {
   background: #fff;
 }
 
-.matches-filters label {
+.matches-filters label,
+.champion-page label {
   color: rgba(255, 255, 255, 0.3);
   font-size: 16px;
   font-weight: 600;
@@ -8290,14 +8290,29 @@ h2 {
   padding: 10px 5px 5px;
 }
 
-.matches-filters .green-btn {
+.matches-filters .green-btn,
+.champion-page .green-btn {
   padding: 13px 40px;
   margin: 0;
+}
+
+.matches-filters .green-btn.history-filter,
+.champion-page .green-btn.history-filter {
+  margin-top: 40px;
+}
+
+.matches-filters {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background: rgba(29, 41, 54, 0.7);
+}
+
+.matches-filters .green-btn {
   float: left;
 }
 
-.matches-filters .green-btn.history-filter {
-  margin-top: 40px;
+.champion-page .col-sm-8 {
+  margin-bottom: 40px;
 }
 
 .chosen-container {
@@ -8324,6 +8339,10 @@ h2 {
 
 .chosen-container-single .chosen-drop .chosen-results li {
   padding-left: 24px;
+}
+
+.chosen-container-single .chosen-search input[type="text"] {
+  color: #444;
 }
 
 .chosen-container-active.chosen-with-drop .chosen-single {
@@ -8357,14 +8376,19 @@ h2 {
   box-shadow: 1px 2px 6px 0 rgba(0, 0, 0, 0.5);
   color: #2c3e50;
   font-weight: 900;
-  font-size: 22px;
+  font-size: 16px;
   text-transform: uppercase;
+}
+
+.match-item-mobile {
+  padding: 6px 30px;
 }
 
 .match-item .bettings {
   text-align: center;
   position: relative;
   z-index: 1;
+  font-size: 22px;
 }
 
 .match-item .bettings .bet-rectangle {
@@ -8409,7 +8433,7 @@ h2 {
 }
 
 .match-btn {
-  padding: 5px 25px;
+  padding: 13px 40px;
   margin: 5px 0;
 }
 
