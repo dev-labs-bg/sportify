@@ -29,6 +29,11 @@ class User extends BaseUser
     private $predictions;
 
     /**
+     * @ORM\OneToMany(targetEntity="PredictionWinner" , mappedBy="userId" , cascade={"all"})
+     */
+    private $predictionsWinner;
+
+    /**
      * Add score
      *
      * @param \Devlabs\SportifyBundle\Entity\Score $score
@@ -94,5 +99,39 @@ class User extends BaseUser
     public function getPredictions()
     {
         return $this->predictions;
+    }
+
+    /**
+     * Add predictionsWinner
+     *
+     * @param \Devlabs\SportifyBundle\Entity\PredictionWinner $predictionsWinner
+     *
+     * @return User
+     */
+    public function addPredictionsWinner(\Devlabs\SportifyBundle\Entity\PredictionWinner $predictionsWinner)
+    {
+        $this->predictionsWinner[] = $predictionsWinner;
+
+        return $this;
+    }
+
+    /**
+     * Remove predictionsWinner
+     *
+     * @param \Devlabs\SportifyBundle\Entity\PredictionWinner $predictionsWinner
+     */
+    public function removePredictionsWinner(\Devlabs\SportifyBundle\Entity\PredictionWinner $predictionsWinner)
+    {
+        $this->predictionsWinner->removeElement($predictionsWinner);
+    }
+
+    /**
+     * Get predictionsWinner
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPredictionsWinner()
+    {
+        return $this->predictionsWinner;
     }
 }

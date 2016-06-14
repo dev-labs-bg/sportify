@@ -53,6 +53,11 @@ class Tournament
     private $teams;
 
     /**
+     * @ORM\OneToMany(targetEntity="PredictionWinner" , mappedBy="tournamentId" , cascade={"all"})
+     */
+    private $predictionsWinner;
+
+    /**
      * Get id
      *
      * @return integer
@@ -266,5 +271,39 @@ class Tournament
     public function getTeams()
     {
         return $this->teams;
+    }
+
+    /**
+     * Add predictionsWinner
+     *
+     * @param \Devlabs\SportifyBundle\Entity\PredictionWinner $predictionsWinner
+     *
+     * @return Tournament
+     */
+    public function addPredictionsWinner(\Devlabs\SportifyBundle\Entity\PredictionWinner $predictionsWinner)
+    {
+        $this->predictionsWinner[] = $predictionsWinner;
+
+        return $this;
+    }
+
+    /**
+     * Remove predictionsWinner
+     *
+     * @param \Devlabs\SportifyBundle\Entity\PredictionWinner $predictionsWinner
+     */
+    public function removePredictionsWinner(\Devlabs\SportifyBundle\Entity\PredictionWinner $predictionsWinner)
+    {
+        $this->predictionsWinner->removeElement($predictionsWinner);
+    }
+
+    /**
+     * Get predictionsWinner
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPredictionsWinner()
+    {
+        return $this->predictionsWinner;
     }
 }
