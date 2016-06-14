@@ -42,6 +42,14 @@ class Team
     private $predictionsChampion;
 
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->predictionsChampion = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Get id
      *
      * @return integer
@@ -121,13 +129,6 @@ class Team
     public function getTournamentId()
     {
         return $this->tournamentId;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->predictionsWinner = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

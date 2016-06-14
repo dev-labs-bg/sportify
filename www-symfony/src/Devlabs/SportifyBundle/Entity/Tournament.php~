@@ -33,6 +33,11 @@ class Tournament
     private $endDate;
 
     /**
+     * @ORM\Column(type="string", length=10, name="name_short")
+     */
+    private $nameShort;
+
+    /**
      * @ORM\OneToMany(targetEntity="Score" , mappedBy="tournamentId" , cascade={"all"})
      */
     private $scores;
@@ -43,11 +48,6 @@ class Tournament
     private $matches;
 
     /**
-     * @ORM\Column(type="string", length=10, name="name_short")
-     */
-    private $nameShort;
-
-    /**
      * @ORM\OneToMany(targetEntity="Team" , mappedBy="tournamentId" , cascade={"all"})
      */
     private $teams;
@@ -56,6 +56,17 @@ class Tournament
      * @ORM\OneToMany(targetEntity="PredictionChampion" , mappedBy="tournamentId" , cascade={"all"})
      */
     private $predictionsChampion;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->scores = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->matches = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->teams = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->predictionsChampion = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -137,16 +148,6 @@ class Tournament
     public function getEndDate()
     {
         return $this->endDate;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->scores = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->matches = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->teams = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->predictionsChampion = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

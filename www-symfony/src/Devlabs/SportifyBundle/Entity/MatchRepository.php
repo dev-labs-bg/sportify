@@ -118,6 +118,7 @@ class MatchRepository extends \Doctrine\ORM\EntityRepository
     /**
      * Method for getting a list of the matches which have final score
      *
+     * @param Tournament $tournament
      * @return array
      */
     public function getFinishedByTournament(Tournament $tournament)

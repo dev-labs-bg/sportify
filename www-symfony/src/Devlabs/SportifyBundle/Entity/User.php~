@@ -34,6 +34,18 @@ class User extends BaseUser
     private $predictionsChampion;
 
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->scores = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->predictions = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->predictionsChampion = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Add score
      *
      * @param \Devlabs\SportifyBundle\Entity\Score $score

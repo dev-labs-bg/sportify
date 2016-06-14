@@ -97,7 +97,7 @@ class ScoresUpdateController extends Controller
         // execute the points update queries
         $em->flush();
 
-        // recalculation of the user positions in each of the modified tournaments
+        // recalculation of the user's exact score prediction percentage in each of the modified tournaments
         foreach ($tournamentsModified as $tournament) {
             $scores = $em->getRepository('DevlabsSportifyBundle:Score')
                 ->getByTournamentOrderByPoints($tournament);
@@ -108,13 +108,13 @@ class ScoresUpdateController extends Controller
             $matchCount = count($matchesFinished);
 
             foreach ($scores as &$score) {
-                $position = $position + 1;
-                $previousPosition = $score->getPosNew();
+                $user = $score->getUserId();
+                $predictionsExact = $em->getRepository('DevlabsSportifyBundle:Prediction')
+                    ->getExactPredictionsByUserAndTournament($user, $tournament);
 
-                $score->setPosOld($previousPosition);
-                $score->setPosNew($position);
+                $predictionCount = count($predictionsExact);
 
-
+//                $score->setExactPredictionPercentage();
 
                 // prepare the queries
                 $em->persist($score);

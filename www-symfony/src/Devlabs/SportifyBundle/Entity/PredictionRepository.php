@@ -160,4 +160,28 @@ class PredictionRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getSingleResult();
     }
+
+    /**
+     * Method for getting a list exact score predictions for a user's tournament
+     *
+     * @param User $user
+     * @param Tournament $tournament
+     * @return array
+     */
+    public function getExactPredictionsByUserAndTournament(User $user, Tournament $tournament)
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('p')
+            ->from('DevlabsSportifyBundle:Prediction', 'p')
+            ->join('p.matchId', 'm')
+            ->where('p.userId = :user_id')
+            ->andWhere('p.scoreAdded = 1')
+            ->andWhere('m.tournamentId = :tournament_id')
+            ->setParameters(array(
+                'user_id' => $user->getId(),
+                'tournament_id' => $tournament->getId()
+            ))
+            ->getQuery()
+            ->getResult();
+    }
 }

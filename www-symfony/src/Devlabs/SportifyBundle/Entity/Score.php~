@@ -47,6 +47,11 @@ class Score
     private $posNew = 0;
 
     /**
+     * @ORM\Column(type="integer", name="exact_percentage")
+     */
+    private $exactPredictionPercentage = 0;
+
+    /**
      * Get id
      *
      * @return integer
