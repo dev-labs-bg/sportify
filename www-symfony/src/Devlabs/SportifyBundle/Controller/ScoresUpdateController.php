@@ -102,6 +102,33 @@ class ScoresUpdateController extends Controller
             $scores = $em->getRepository('DevlabsSportifyBundle:Score')
                 ->getByTournamentOrderByPoints($tournament);
 
+            $matchesFinished = $em->getRepository('DevlabsSportifyBundle:Match')
+                ->getFinishedByTournament($tournament);
+
+            $matchCount = count($matchesFinished);
+
+            foreach ($scores as &$score) {
+                $position = $position + 1;
+                $previousPosition = $score->getPosNew();
+
+                $score->setPosOld($previousPosition);
+                $score->setPosNew($position);
+
+
+
+                // prepare the queries
+                $em->persist($score);
+            }
+        }
+
+        // execute the positions update queries
+        $em->flush();
+
+        // recalculation of the user positions in each of the modified tournaments
+        foreach ($tournamentsModified as $tournament) {
+            $scores = $em->getRepository('DevlabsSportifyBundle:Score')
+                ->getByTournamentOrderByPoints($tournament);
+
             $position = 0;
             foreach ($scores as &$score) {
                 $position = $position + 1;

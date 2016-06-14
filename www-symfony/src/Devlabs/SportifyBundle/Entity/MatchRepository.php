@@ -114,4 +114,22 @@ class MatchRepository extends \Doctrine\ORM\EntityRepository
 
         return $result;
     }
+
+    /**
+     * Method for getting a list of the matches which have final score
+     *
+     * @return array
+     */
+    public function getFinishedByTournament(Tournament $tournament)
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('DISTINCT m')
+            ->from('DevlabsSportifyBundle:Match', 'm')
+            ->where('m.homeGoals IS NOT NULL AND m.awayGoals IS NOT NULL')
+            ->andWhere('m.tournamentId = :tournament_id')
+            ->setParameter('tournament_id', $tournament->getId())
+            ->orderBy('m.id')
+            ->getQuery()
+            ->getResult();
+    }
 }
