@@ -2,14 +2,12 @@
 
 namespace Devlabs\SportifyBundle\Controller;
 
-use Devlabs\SportifyBundle\Entity\Prediction;
+use Devlabs\SportifyBundle\Entity\PredictionChampion;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
@@ -63,7 +61,7 @@ class ChampionController extends Controller
                 'label' => false,
                 'data' => $tournamentSelected
             ))
-            ->add('button', SubmitType::class, array('label' => 'FILTER'))
+            ->add('button', SubmitType::class, array('label' => 'SELECT'))
             ->getForm();
 
         $filterForm->handleRequest($request);
@@ -89,9 +87,21 @@ class ChampionController extends Controller
         $predictionChampion = $em->getRepository('DevlabsSportifyBundle:PredictionChampion')
             ->getByUserAndTournament($user, $tournamentSelected);
 
-        $teamSelected = ($predictionChampion === null)
-            ? $em->getRepository('DevlabsSportifyBundle:Team')->getFirstByTournament($tournamentSelected)
-            : $predictionChampion->getTeamId();
+        $buttonAction = 'BET';
+
+        if ($predictionChampion === null) {
+            $teamSelected = $em->getRepository('DevlabsSportifyBundle:Team')
+                ->getFirstByTournament($tournamentSelected);
+        } else {
+            $teamSelected = $predictionChampion->getTeamId();
+            $buttonAction = 'EDIT';
+        }
+
+        $deadline = '2016-06-15 16:00';
+        $disabledAttribute = false;
+
+        //if bet champion deadline is met, set disabled attribute to true
+        if ((time() >= strtotime($deadline))) $disabledAttribute = true;
 
         $championForm = $this->createFormBuilder($formData)
             ->add('team_id', EntityType::class, array(
@@ -101,7 +111,8 @@ class ChampionController extends Controller
                 'label' => false,
                 'data' => $teamSelected
             ))
-            ->add('button', SubmitType::class, array('label' => 'SELECT'))
+            ->add('action', HiddenType::class, array('data' => $buttonAction))
+            ->add('button', SubmitType::class, array('label' => $buttonAction))
             ->getForm();
 
         $championForm->handleRequest($request);
@@ -111,6 +122,29 @@ class ChampionController extends Controller
             $formData = $championForm->getData();
 
             $teamChoice = $formData['team_id'];
+
+            if ($disabledAttribute)
+                // clear the submitted POST data and reload the page
+                return $this->redirectToRoute(
+                    'champion_index',
+                    array('tournament' => $tournamentSelected->getId())
+                );
+
+            // prepare the PredictionChampion object (new or modified one) for persisting in DB
+            if ($formData['action'] === 'BET') {
+                $predictionChampion = new PredictionChampion();
+                $predictionChampion->setUserId($user);
+                $predictionChampion->setTournamentId($tournamentSelected);
+                $predictionChampion->setTeamId($teamChoice);
+            } elseif ($formData['action'] === 'EDIT') {
+                $predictionChampion->setTeamId($teamChoice);
+            }
+
+            // prepare the queries
+            $em->persist($predictionChampion);
+
+            // execute the queries
+            $em->flush();
 
             // reload the page with the chosen filter(s) applied (as url path params)
             return $this->redirectToRoute(
@@ -124,7 +158,11 @@ class ChampionController extends Controller
             'DevlabsSportifyBundle:Champion:index.html.twig',
             array(
                 'filter_form' => $filterForm->createView(),
-                'champion_form' => $championForm->createView()
+                'champion_form' => $championForm->createView(),
+                'prediction_champion' => $predictionChampion,
+                'deadline' => $deadline,
+                'disabled_attribute' => $disabledAttribute,
+                'button_action' => $buttonAction
             )
         );
     }
