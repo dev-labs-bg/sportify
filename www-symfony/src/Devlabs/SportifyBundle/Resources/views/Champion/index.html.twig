@@ -17,6 +17,21 @@
                 {{ form_end(filter_form) }}
             </div>
         </div>
+
+        <div class="matches-filters row">
+            <div class="col-lg-10 col-lg-offset-1">
+                {{ form_start(champion_form) }}
+                <div class="row">
+                    <div class="col-sm-4">
+                        {{ form_row(champion_form.team_id, {'attr': {'class': 'form-control' } }) }}
+                    </div>
+                    <div class="col-sm-2 text-center">
+                        {{ form_row(champion_form.button, {'attr': {'class': 'btn green-btn' } }) }}
+                    </div>
+                </div>
+                {{ form_end(champion_form) }}
+            </div>
+        </div>
     </div>
 
 {% endblock %}

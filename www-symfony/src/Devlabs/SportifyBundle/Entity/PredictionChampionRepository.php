@@ -10,4 +10,33 @@ namespace Devlabs\SportifyBundle\Entity;
  */
 class PredictionChampionRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * Method for getting a user's champion prediction for a tournament
+     *
+     * @param User $user
+     * @param Tournament $tournament
+     * @return mixed|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getByUserAndTournament(User $user, Tournament $tournament)
+    {
+        $query = $this->getEntityManager()->createQueryBuilder()
+            ->select('p')
+            ->from('DevlabsSportifyBundle:PredictionChampion', 'p')
+            ->where('p.userId = :user_id')
+            ->andWhere('p.tournamentId = :tournament_id')
+            ->setParameters(array(
+                'user_id' => $user->getId(),
+                'tournament_id' => $tournament->getId()
+            ));
+
+//        return $query->getQuery()->getSingleResult();
+
+        try {
+            return $query->getQuery()->getSingleResult();
+        }
+        catch(\Doctrine\ORM\NoResultException $e) {
+            return null;
+        }
+    }
 }

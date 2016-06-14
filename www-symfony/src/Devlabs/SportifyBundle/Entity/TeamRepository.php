@@ -10,4 +10,25 @@ namespace Devlabs\SportifyBundle\Entity;
  */
 class TeamRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * Get the first team for a tournament from the DB
+     *
+     * @param Tournament $tournament
+     * @return mixed
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getFirstByTournament(Tournament $tournament)
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('t')
+            ->from('DevlabsSportifyBundle:Team', 't')
+            ->where('t.tournamentId = :tournament_id')
+            ->setParameters(array(
+                'tournament_id' => $tournament->getId()
+            ))
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getSingleResult();
+    }
 }

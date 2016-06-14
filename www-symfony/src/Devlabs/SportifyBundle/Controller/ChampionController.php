@@ -81,13 +81,17 @@ class ChampionController extends Controller
             );
         }
 
-        // get user's champion prediction
-        $predictionChampion = $em->getRepository('DevlabsSportifyBundle:PredictionChampion')
-            ->getNotScored($user, $tournament);
-
         // get a list of teams for the selected tournament
         $teams = $em->getRepository('DevlabsSportifyBundle:Team')
-            ->findOneByTournamentId($tournamentSelected);
+            ->findByTournamentId($tournamentSelected);
+
+        // get user's champion prediction
+        $predictionChampion = $em->getRepository('DevlabsSportifyBundle:PredictionChampion')
+            ->getByUserAndTournament($user, $tournamentSelected);
+
+        $teamSelected = ($predictionChampion === null)
+            ? $em->getRepository('DevlabsSportifyBundle:Team')->getFirstByTournament($tournamentSelected)
+            : $predictionChampion->getTeamId();
 
         $championForm = $this->createFormBuilder($formData)
             ->add('team_id', EntityType::class, array(
@@ -95,9 +99,9 @@ class ChampionController extends Controller
                 'choices' => $teams,
                 'choice_label' => 'name',
                 'label' => false,
-                'data' => $tournamentSelected
+                'data' => $teamSelected
             ))
-            ->add('button', SubmitType::class, array('label' => 'FILTER'))
+            ->add('button', SubmitType::class, array('label' => 'SELECT'))
             ->getForm();
 
         $championForm->handleRequest($request);
@@ -111,10 +115,9 @@ class ChampionController extends Controller
             // reload the page with the chosen filter(s) applied (as url path params)
             return $this->redirectToRoute(
                 'champion_index',
-                array('team' => $teamChoice->getId())
+                array('tournament' => $tournamentSelected->getId())
             );
         }
-
 
         // rendering the view and returning the response
         return $this->render(
