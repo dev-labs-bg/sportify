@@ -78,7 +78,7 @@ class PredictionRepository extends \Doctrine\ORM\EntityRepository
             ->andWhere('m.homeGoals IS NOT NULL AND m.awayGoals IS NOT NULL')
             ->andWhere('m.datetime >= :date_from AND m.datetime <= :date_to')
             ->orderBy('m.tournamentId')
-            ->addOrderBy('m.datetime')
+            ->addOrderBy('m.datetime', 'DESC')
             ->addOrderBy('m.homeTeam')
             ->setParameters(array(
                 'user_id' => $user->getId(),
@@ -159,5 +159,29 @@ class PredictionRepository extends \Doctrine\ORM\EntityRepository
             ->setParameters(array('user_id' => $user->getId(), 'match_id' => $match->getId()))
             ->getQuery()
             ->getSingleResult();
+    }
+
+    /**
+     * Method for getting a list exact score predictions for a user's tournament
+     *
+     * @param User $user
+     * @param Tournament $tournament
+     * @return array
+     */
+    public function getExactPredictionsByUserAndTournament(User $user, Tournament $tournament)
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('p')
+            ->from('DevlabsSportifyBundle:Prediction', 'p')
+            ->join('p.matchId', 'm')
+            ->where('p.userId = :user_id')
+            ->andWhere('p.scoreAdded = 1 AND p.points = 3')
+            ->andWhere('m.tournamentId = :tournament_id')
+            ->setParameters(array(
+                'user_id' => $user->getId(),
+                'tournament_id' => $tournament->getId()
+            ))
+            ->getQuery()
+            ->getResult();
     }
 }

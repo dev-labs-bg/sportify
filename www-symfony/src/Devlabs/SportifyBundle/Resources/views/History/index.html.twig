@@ -32,7 +32,7 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-12">
+            <div class="col-lg-6 col-lg-offset-3 col-md-10 col-md-offset-1 col-sm-12">
                 {% for match in matches %}
                     <div class="match">
                         <div class="row">
@@ -51,7 +51,7 @@
                             <div class="col-lg-12">
                                 <div class="match-item">
                                     <div class="row">
-                                        <div class="col-sm-4 match-item-mobile">{{ match.homeTeam }}</div>
+                                        <div class="col-sm-4 match-item-mobile"><span class="pull-left flag flag-icon flag-icon-{{ match.homeTeamId.nameShort|lower }}"></span>{{ match.homeTeam }}</div>
                                         <div class="col-sm-4 bettings">
                                             <div class="bet-rectangle">
                                                 {% include 'img/result-rectangle.svg' %}
@@ -62,33 +62,42 @@
                                                 <div class="bet-field">{{ match.awayGoals }}</div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4 match-item-mobile">{{ match.awayTeam }}</div>
+                                        <div class="col-sm-4 match-item-mobile">{{ match.awayTeam }}<span class="pull-right flag flag-icon flag-icon-{{ match.awayTeamId.nameShort|lower }}"></span></div>
                                     </div>
                                 </div>
                             </div>
                             {% if predictions[match.id] is defined %}
+                                {% if predictions[match.id].points == 3 %}
+                                    {% set points_class = 'text-green' %}
+                                {% elseif predictions[match.id].points == 1 %}
+                                    {% set points_class = 'text-yellow' %}
+                                {% elseif predictions[match.id].points == 0 %}
+                                    {% set points_class = 'text-red' %}
+                                {% endif %}
+
                                 <div class="col-lg-12">
                                     <div class="row">
                                         <div class="col-xs-6 text-left">
                                             <div class="prediction-title">
-                                                Prediction: <span class="predictions">{{ predictions[match.id].homeGoals }}:{{ predictions[match.id].awayGoals }}</span>
+                                                Prediction: <span class="predictions {{ points_class }}">{{ predictions[match.id].homeGoals }}:{{ predictions[match.id].awayGoals }}</span>
                                             </div>
                                         </div>
                                         <div class="col-xs-6 text-right">
-                                            <div class="points-title">Points gained: <span class="points-gained">{{ predictions[match.id].points }} pt</span></div>
+                                            <div class="points-title">Points gained: <span class="points-gained {{ points_class }}">{{ predictions[match.id].points }} pt</span></div>
                                         </div>
                                     </div>
                                 </div>
                             {% else %}
+                                {% set points_class = 'text-red' %}
                                 <div class="col-lg-12">
                                     <div class="row">
                                         <div class="col-xs-6 text-left">
                                             <div class="prediction-title">
-                                                Prediction: <span class="predictions">N/A</span>
+                                                Prediction: <span class="predictions {{ points_class }}">N/A</span>
                                             </div>
                                         </div>
                                         <div class="col-xs-6 text-right">
-                                            <div class="points-title">Points gained: <span class="points-gained">0 pt</span></div>
+                                            <div class="points-title">Points gained: <span class="points-gained {{ points_class }}">0 pt</span></div>
                                         </div>
                                     </div>
                                 </div>

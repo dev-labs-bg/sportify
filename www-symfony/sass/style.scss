@@ -90,30 +90,31 @@ ul, li {
             .title {
                 padding: 20px 20px 10px;
             }
-            .points {
-                .position-up, .position-down, .position-same {
-                    display: inline-block;
-                    width: 0;
-                    height: 0;
-                }
-                .position-up {
-                    border-left: 8px solid transparent;
-                    border-right: 8px solid transparent;
-                    border-bottom: 13px solid #7ed321;
-                }
-                .position-down {
-                    border-left: 8px solid transparent;
-                    border-right: 8px solid transparent;
-                    border-top: 13px solid #d33122;
-                }
-                .position-same {
-                    border-top: 8px solid transparent;
-                    border-bottom: 8px solid transparent;
-                    border-left: 13px solid #959693;
-                }
-            }
         }
     }
+}
+.position-up,
+.position-down,
+.position-same {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin: 0 5px;
+}
+.position-up {
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 13px solid #7ed321;
+}
+.position-down {
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 13px solid #d33122;
+}
+.position-same {
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 13px solid #959693;
 }
 .wrapper {
     padding-left: 0;
@@ -209,7 +210,7 @@ ul, li {
         }
     }
     .sidebar-brand {
-        height: 72px;
+        height: 76px;
         line-height: 70px;
         background: rgba(0,0,0,.25);
     }
@@ -272,6 +273,9 @@ ul, li {
     background: url(../img/settings.svg) no-repeat 15px center;
 }
 .tournaments {
+    background: url(../img/soccer-dates.svg) no-repeat 15px center;
+}
+.champion {
     background: url(../img/trophy.svg) no-repeat 15px center;
 }
 .matches {
@@ -304,16 +308,16 @@ ul, li {
 }
 
 .content {
-    padding-top: 72px;
+    padding-top: 76px;
 }
 .page-content-wrapper .content {
-    padding-top: 72px;
+    padding-top: 76px;
     padding-bottom: 100px;
 }
 
 .page-content-wrapper .navbar-default, header .navbar-default {
     width: 100%;
-    height: 72px;
+    height: 76px;
     background: #1d2936;
     border: none;
     border-bottom: 1px solid #1d2936;
@@ -477,7 +481,7 @@ h2 {
 .green-btn, .yellow-btn {
     border: none;
     color: #fff;
-    padding: 15px 80px;
+    padding: 13px 40px;
     border-radius: 100px;
     font-size: 20px;
     font-weight: 600;
@@ -539,14 +543,10 @@ h2 {
         padding-bottom: 30px;
     }
     &-btn {
-        padding: 8px 70px;
-        width: 200px;
+        padding: 13px 40px;
     }
 }
-.matches-filters {
-    padding-top: 40px;
-    padding-bottom: 40px;
-    background: rgba(29, 41, 54, .7);
+.matches-filters, .champion-page {
     .form-control, input[type="date"].form-control {
         appearance: none;
         -moz-appearance: none;
@@ -567,10 +567,22 @@ h2 {
     .green-btn {
         padding: 13px 40px;
         margin: 0;
-        float: left;
         &.history-filter {
             margin-top: 40px;
         }
+    }
+}
+.matches-filters {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background: rgba(29, 41, 54, .7);
+    .green-btn {
+        float: left;
+    }
+}
+.champion-page {
+    .col-sm-8 {
+        margin-bottom: 40px;
     }
 }
 .chosen-container {
@@ -593,6 +605,11 @@ h2 {
             padding-bottom: 26px;
             .chosen-results li {
                 padding-left: 24px;
+            }
+        }
+        .chosen-search {
+            input[type="text"] {
+                color: #444;
             }
         }
     }
@@ -623,12 +640,16 @@ h2 {
         box-shadow: 1px 2px 6px 0 rgba(0, 0, 0, .5);
         color: #2c3e50;
         font-weight: 900;
-        font-size: 22px;
+        font-size: 16px;
         text-transform: uppercase;
+        &-mobile {
+            padding: 6px 10px;
+        }
         .bettings {
             text-align: center;
             position: relative;
             z-index: 1;
+            font-size: 22px;
             .bet-rectangle {
                 position: absolute;
                 width: 100%;
@@ -669,7 +690,7 @@ h2 {
         }
     }
     &-btn {
-        padding: 5px 25px;
+        padding: 13px 40px;
         margin: 5px 0;
     }
     .team-title, .prediction-title, .points-title {
@@ -750,8 +771,8 @@ h2 {
             width: 105px;
             height: 70.8px;
             background-color: #fdca33;
-            padding: 15px 20px;
-            font-size: 32px;
+            padding: 0 20px;
+            font-size: 25px;
             &:after{
                 border-right-color: #fdca33;
             }
@@ -772,8 +793,8 @@ h2 {
             width: 91.3px;
             height: 60px;
             background-color: #d46827;
-            padding: 12px 18px;
-            font-size: 26px;
+            padding: 0 18px;
+            font-size: 22px;
             &:after{
                 border-right-color: #d46827;
             }
@@ -794,8 +815,8 @@ h2 {
             width: 86.3px;
             height: 51.8px;
             background-color: #a7a7a7;
-            padding: 10px 20px;
-            font-size: 22px;
+            padding: 0 20px;
+            font-size: 20px;
             &:after{
                 border-right-color: #a7a7a7;
             }
@@ -819,6 +840,39 @@ h2 {
             border: 3px solid #fff;
         }
     }
+}
+.text- {
+    &green {
+        color: #20e828 !important;
+    }
+    &yellow {
+        color: #ffc107 !important;
+    }
+    &red {
+        color: #fb1717 !important;
+    }
+}
+.flag {
+    height: 21px;
+    width: 28px;
+    box-shadow: 1px 2px 6px 0 rgba(0, 0, 0, 0.5);
+    margin: 0 10px;
+    display: inline-block;
+    &-icon {
+        line-height: 1.4;
+    }
+}
+/**
+ * Additional flags missing from flag-icon css library
+ */
+.flag-icon-en {
+    background-image: url(../flags/4x3/en.svg);
+}
+.flag-icon-wa {
+    background-image: url(../flags/4x3/wa.svg);
+}
+.flag-icon-nn {
+    background-image: url(../flags/4x3/nn.svg);
 }
 @media screen and (max-width: 991px){
     .page-content-wrapper h2 {
@@ -904,6 +958,9 @@ h2 {
         .green-btn {
             float: none;
         }
+    }
+    .flag {
+        float: left !important;
     }
 }
 /**

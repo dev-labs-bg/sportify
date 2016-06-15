@@ -12,6 +12,7 @@ elixir(function(mix) {
         '../lib/owl.carousel/dist/assets/owl.carousel.min.css',
         '../lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css',
         '../lib/chosen/chosen.css',
+        'flag-icon.scss',
         'style.scss'
 
         ],'web/css/style.css')

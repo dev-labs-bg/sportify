@@ -175,7 +175,6 @@ class MatchesController extends Controller
 
                     // prepare the Prediction object (new or modified one) for persisting in DB
                     if ($formData['action'] === 'BET') {
-                        //var_dump($formData);die;
                         $prediction = new Prediction();
                         $prediction->setUserId($user);
                         $prediction->setMatchId($match);
@@ -212,6 +211,10 @@ class MatchesController extends Controller
             }
         }
 
+        $userScores = $em->getRepository('DevlabsSportifyBundle:Score')
+            ->getByUser($user);
+        $twig = $this->container->get('twig');
+        $twig->addGlobal('user_scores', $userScores);
 
         // rendering the view and returning the response
         return $this->render(
