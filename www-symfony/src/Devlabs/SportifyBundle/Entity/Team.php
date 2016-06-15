@@ -42,11 +42,23 @@ class Team
     private $predictionsChampion;
 
     /**
+     * @ORM\OneToMany(targetEntity="Match" , mappedBy="homeTeamId" , cascade={"all"})
+     */
+    private $matchesHomeTeam;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Match" , mappedBy="awayTeamId" , cascade={"all"})
+     */
+    private $matchesAwayTeam;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->predictionsChampion = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->matchesHomeTeam = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->matchesAwayTeam = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -163,5 +175,73 @@ class Team
     public function getPredictionsChampion()
     {
         return $this->predictionsChampion;
+    }
+
+    /**
+     * Add matchesHomeTeam
+     *
+     * @param \Devlabs\SportifyBundle\Entity\Match $matchesHomeTeam
+     *
+     * @return Team
+     */
+    public function addMatchesHomeTeam(\Devlabs\SportifyBundle\Entity\Match $matchesHomeTeam)
+    {
+        $this->matchesHomeTeam[] = $matchesHomeTeam;
+
+        return $this;
+    }
+
+    /**
+     * Remove matchesHomeTeam
+     *
+     * @param \Devlabs\SportifyBundle\Entity\Match $matchesHomeTeam
+     */
+    public function removeMatchesHomeTeam(\Devlabs\SportifyBundle\Entity\Match $matchesHomeTeam)
+    {
+        $this->matchesHomeTeam->removeElement($matchesHomeTeam);
+    }
+
+    /**
+     * Get matchesHomeTeam
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMatchesHomeTeam()
+    {
+        return $this->matchesHomeTeam;
+    }
+
+    /**
+     * Add matchesAwayTeam
+     *
+     * @param \Devlabs\SportifyBundle\Entity\Match $matchesAwayTeam
+     *
+     * @return Team
+     */
+    public function addMatchesAwayTeam(\Devlabs\SportifyBundle\Entity\Match $matchesAwayTeam)
+    {
+        $this->matchesAwayTeam[] = $matchesAwayTeam;
+
+        return $this;
+    }
+
+    /**
+     * Remove matchesAwayTeam
+     *
+     * @param \Devlabs\SportifyBundle\Entity\Match $matchesAwayTeam
+     */
+    public function removeMatchesAwayTeam(\Devlabs\SportifyBundle\Entity\Match $matchesAwayTeam)
+    {
+        $this->matchesAwayTeam->removeElement($matchesAwayTeam);
+    }
+
+    /**
+     * Get matchesAwayTeam
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMatchesAwayTeam()
+    {
+        return $this->matchesAwayTeam;
     }
 }

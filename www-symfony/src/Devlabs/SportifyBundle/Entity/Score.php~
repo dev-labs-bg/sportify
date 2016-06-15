@@ -194,4 +194,28 @@ class Score
     {
         return $this->posNew;
     }
+
+    /**
+     * Set exactPredictionPercentage
+     *
+     * @param integer $exactPredictionPercentage
+     *
+     * @return Score
+     */
+    public function setExactPredictionPercentage($exactPredictionPercentage)
+    {
+        $this->exactPredictionPercentage = $exactPredictionPercentage;
+
+        return $this;
+    }
+
+    /**
+     * Get exactPredictionPercentage
+     *
+     * @return integer
+     */
+    public function getExactPredictionPercentage()
+    {
+        return $this->exactPredictionPercentage;
+    }
 }

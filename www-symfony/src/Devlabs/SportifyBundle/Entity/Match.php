@@ -33,6 +33,18 @@ class Match
     private $awayTeam;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Team", inversedBy="matchesHomeTeam")
+     * @ORM\JoinColumn(name="home_team_id", referencedColumnName="id")
+     */
+    private $homeTeamId;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Team", inversedBy="matchesAwayTeam")
+     * @ORM\JoinColumn(name="away_team_id", referencedColumnName="id")
+     */
+    private $awayTeamId;
+
+    /**
      * @ORM\Column(type="integer", name="home_goals", nullable=TRUE)
      */
     private $homeGoals;
@@ -301,5 +313,53 @@ class Match
     public function getPredictions()
     {
         return $this->predictions;
+    }
+
+    /**
+     * Set homeTeamId
+     *
+     * @param \Devlabs\SportifyBundle\Entity\Team $homeTeamId
+     *
+     * @return Match
+     */
+    public function setHomeTeamId(\Devlabs\SportifyBundle\Entity\Team $homeTeamId = null)
+    {
+        $this->homeTeamId = $homeTeamId;
+
+        return $this;
+    }
+
+    /**
+     * Get homeTeamId
+     *
+     * @return \Devlabs\SportifyBundle\Entity\Team
+     */
+    public function getHomeTeamId()
+    {
+        return $this->homeTeamId;
+    }
+
+    /**
+     * Set awayTeamId
+     *
+     * @param \Devlabs\SportifyBundle\Entity\Team $awayTeamId
+     *
+     * @return Match
+     */
+    public function setAwayTeamId(\Devlabs\SportifyBundle\Entity\Team $awayTeamId = null)
+    {
+        $this->awayTeamId = $awayTeamId;
+
+        return $this;
+    }
+
+    /**
+     * Get awayTeamId
+     *
+     * @return \Devlabs\SportifyBundle\Entity\Team
+     */
+    public function getAwayTeamId()
+    {
+        return $this->awayTeamId;
     }
 }

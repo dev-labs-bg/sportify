@@ -42,6 +42,16 @@ class Team
     private $predictionsChampion;
 
     /**
+     * @ORM\OneToMany(targetEntity="Match" , mappedBy="homeTeamId" , cascade={"all"})
+     */
+    private $matchesHomeTeam;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Match" , mappedBy="awayTeamId" , cascade={"all"})
+     */
+    private $matchesAwayTeam;
+
+    /**
      * Constructor
      */
     public function __construct()
