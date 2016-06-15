@@ -843,13 +843,13 @@ h2 {
 }
 .text- {
     &green {
-        color: #20e828;
+        color: #20e828 !important;
     }
     &yellow {
-        color: #ffc107;
+        color: #ffc107 !important;
     }
     &red {
-        color: #fb1717;
+        color: #fb1717 !important;
     }
 }
 .flag {
@@ -861,6 +861,18 @@ h2 {
     &-icon {
         line-height: 1.4;
     }
+}
+/**
+ * Additional flags missing from flag-icon css library
+ */
+.flag-icon-en {
+    background-image: url(../flags/4x3/en.svg);
+}
+.flag-icon-wa {
+    background-image: url(../flags/4x3/wa.svg);
+}
+.flag-icon-nn {
+    background-image: url(../flags/4x3/nn.svg);
 }
 @media screen and (max-width: 991px){
     .page-content-wrapper h2 {

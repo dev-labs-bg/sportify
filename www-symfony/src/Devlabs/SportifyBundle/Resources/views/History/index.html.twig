@@ -88,15 +88,16 @@
                                     </div>
                                 </div>
                             {% else %}
+                                {% set points_class = 'text-red' %}
                                 <div class="col-lg-12">
                                     <div class="row">
                                         <div class="col-xs-6 text-left">
                                             <div class="prediction-title">
-                                                Prediction: <span class="predictions text-red">N/A</span>
+                                                Prediction: <span class="predictions {{ points_class }}">N/A</span>
                                             </div>
                                         </div>
                                         <div class="col-xs-6 text-right">
-                                            <div class="points-title">Points gained: <span class="points-gained text-red">0 pt</span></div>
+                                            <div class="points-title">Points gained: <span class="points-gained {{ points_class }}">0 pt</span></div>
                                         </div>
                                     </div>
                                 </div>
