@@ -97,7 +97,7 @@ class ChampionController extends Controller
             $buttonAction = 'EDIT';
         }
 
-        $deadline = '2016-06-15 16:00';
+        $deadline = '2016-06-16 16:00';
         $disabledAttribute = false;
 
         //if bet champion deadline is met, set disabled attribute to true

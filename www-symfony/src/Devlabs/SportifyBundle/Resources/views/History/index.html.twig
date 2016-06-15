@@ -67,15 +67,23 @@
                                 </div>
                             </div>
                             {% if predictions[match.id] is defined %}
+                                {% if predictions[match.id].points == 3 %}
+                                    {% set points_class = 'text-green' %}
+                                {% elseif predictions[match.id].points == 1 %}
+                                    {% set points_class = 'text-yellow' %}
+                                {% elseif predictions[match.id].points == 0 %}
+                                    {% set points_class = 'text-red' %}
+                                {% endif %}
+
                                 <div class="col-lg-12">
                                     <div class="row">
                                         <div class="col-xs-6 text-left">
                                             <div class="prediction-title">
-                                                Prediction: <span class="predictions">{{ predictions[match.id].homeGoals }}:{{ predictions[match.id].awayGoals }}</span>
+                                                Prediction: <span class="predictions {{ points_class }}">{{ predictions[match.id].homeGoals }}:{{ predictions[match.id].awayGoals }}</span>
                                             </div>
                                         </div>
                                         <div class="col-xs-6 text-right">
-                                            <div class="points-title">Points gained: <span class="points-gained">{{ predictions[match.id].points }} pt</span></div>
+                                            <div class="points-title">Points gained: <span class="points-gained {{ points_class }}">{{ predictions[match.id].points }} pt</span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -84,11 +92,11 @@
                                     <div class="row">
                                         <div class="col-xs-6 text-left">
                                             <div class="prediction-title">
-                                                Prediction: <span class="predictions">N/A</span>
+                                                Prediction: <span class="predictions text-red">N/A</span>
                                             </div>
                                         </div>
                                         <div class="col-xs-6 text-right">
-                                            <div class="points-title">Points gained: <span class="points-gained">0 pt</span></div>
+                                            <div class="points-title">Points gained: <span class="points-gained text-red">0 pt</span></div>
                                         </div>
                                     </div>
                                 </div>
