@@ -10815,6 +10815,30 @@ h2 {
     float: none;
   }
 
+  .champion-page .col-sm-8 {
+    margin-bottom: 0;
+  }
+
+  .results-slider {
+    height: 60px;
+  }
+
+  .results-slider .current-results-slider .slider-item .result-info .title {
+    padding: 0;
+  }
+
+  .results-slider .current-results-slider .slider-item .logo {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    margin: 0 10px;
+  }
+
+  .results-slider .current-results-slider .slider-item .logo img {
+    max-width: 30px;
+    max-height: 30px;
+  }
+
   .flag {
     float: left !important;
   }
