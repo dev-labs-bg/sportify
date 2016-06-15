@@ -40,6 +40,13 @@ class UserController extends Controller
 			);
 		}
 
+		// Get an instance of the Entity Manager
+		$em = $this->getDoctrine()->getManager();
+		$userScores = $em->getRepository('DevlabsSportifyBundle:Score')
+			->getByUser($user);
+		$twig = $this->container->get('twig');
+		$twig->addGlobal('user_scores', $userScores);
+
 		return $this->render(
 			'DevlabsSportifyBundle:User:profile.html.twig',
 			array(

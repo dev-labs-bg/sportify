@@ -87,11 +87,13 @@ class StandingsController extends Controller
                 ->getByUser($user);
         }
 
+        $twig = $this->container->get('twig');
+        $twig->addGlobal('user_scores', $userScores);
+
         // rendering the view and returning the response
         return $this->render(
             'DevlabsSportifyBundle:Standings:index.html.twig',
             array(
-                'user_scores' => $userScores,
                 'all_scores' => $allScores,
                 'filter_form' => $filterForm->createView()
             )

@@ -131,6 +131,11 @@ class HistoryController extends Controller
         $predictions = $em->getRepository('DevlabsSportifyBundle:Prediction')
             ->getAlreadyScored($userSelected, $tournament, $date_from, $modifiedDateTo);
 
+        $userScores = $em->getRepository('DevlabsSportifyBundle:Score')
+            ->getByUser($user);
+        $twig = $this->container->get('twig');
+        $twig->addGlobal('user_scores', $userScores);
+
         // rendering the view and returning the response
         return $this->render(
             'DevlabsSportifyBundle:History:index.html.twig',

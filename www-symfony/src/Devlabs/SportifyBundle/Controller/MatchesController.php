@@ -211,6 +211,10 @@ class MatchesController extends Controller
             }
         }
 
+        $userScores = $em->getRepository('DevlabsSportifyBundle:Score')
+            ->getByUser($user);
+        $twig = $this->container->get('twig');
+        $twig->addGlobal('user_scores', $userScores);
 
         // rendering the view and returning the response
         return $this->render(
