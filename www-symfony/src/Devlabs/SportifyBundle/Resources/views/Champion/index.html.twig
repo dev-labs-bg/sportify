@@ -4,7 +4,14 @@
 
     <div class="container-fluid content champion-page">
         <div class="row">
-            <h2 class="text-center">Open until: <span class="text-green">{{ deadline }}</span></h2>
+            <h2 class="text-center">
+                {% if disabled_attribute == false %}
+                    Open until: <span class="text-green">{{ deadline }}</span>
+                {% else %}
+                    Open until: <span class="text-red">{{ deadline }}</span>
+                    <p>(form locked now!)</p>
+                {% endif %}
+            </h2>
             <h2 class="text-center">
                 Your Champion prediction is:
                 {% if prediction_champion == null %}
