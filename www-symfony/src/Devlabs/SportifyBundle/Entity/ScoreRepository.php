@@ -31,6 +31,7 @@ class ScoreRepository extends \Doctrine\ORM\EntityRepository
 
     /**
      * Method for getting the standings table (scores) for a given tournament
+     * ordered by points, exactPredictionPercentage, username properties
      *
      * @param Tournament $tournament
      * @return array
@@ -45,6 +46,25 @@ class ScoreRepository extends \Doctrine\ORM\EntityRepository
             ->orderBy('s.points', 'DESC')
             ->addOrderBy('s.exactPredictionPercentage', 'DESC')
             ->addOrderBy('u.username', 'ASC')
+            ->setParameters(array('tournament_id' => $tournament->getId()))
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Method for getting the standings table (scores) for a given tournament
+     * ordered by the posNew (pos_new) property
+     *
+     * @param Tournament $tournament
+     * @return array
+     */
+    public function getByTournamentOrderByPosNew(Tournament $tournament)
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('s')
+            ->from('DevlabsSportifyBundle:Score', 's')
+            ->where('s.tournamentId = :tournament_id')
+            ->orderBy('s.posNew', 'ASC')
             ->setParameters(array('tournament_id' => $tournament->getId()))
             ->getQuery()
             ->getResult();
