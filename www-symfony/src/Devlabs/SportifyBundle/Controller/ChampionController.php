@@ -89,6 +89,7 @@ class ChampionController extends Controller
 
         $buttonAction = 'BET';
 
+        // determine if the user has already set a champion prediction
         if ($predictionChampion === null) {
             $teamSelected = $em->getRepository('DevlabsSportifyBundle:Team')
                 ->getFirstByTournament($tournamentSelected);
@@ -97,12 +98,14 @@ class ChampionController extends Controller
             $buttonAction = 'EDIT';
         }
 
+        // set the deadline for champion prediction
         $deadline = '2016-06-16 16:00';
         $disabledAttribute = false;
 
         //if bet champion deadline is met, set disabled attribute to true
         if ((time() >= strtotime($deadline))) $disabledAttribute = true;
 
+        // creating the form for selecting the champion team
         $championForm = $this->createFormBuilder($formData)
             ->add('team_id', EntityType::class, array(
                 'class' => 'DevlabsSportifyBundle:Team',
@@ -119,10 +122,11 @@ class ChampionController extends Controller
 
         // if the filter form is submitted, redirect with appropriate url path parameters
         if ($championForm->isSubmitted() && $championForm->isValid()) {
+            // get the team selected via the form
             $formData = $championForm->getData();
-
             $teamChoice = $formData['team_id'];
 
+            // reload the page is form is submitted but deadline has passed
             if ($disabledAttribute)
                 // clear the submitted POST data and reload the page
                 return $this->redirectToRoute(
@@ -153,6 +157,7 @@ class ChampionController extends Controller
             );
         }
 
+        // get the user's tournaments position data
         $userScores = $em->getRepository('DevlabsSportifyBundle:Score')
             ->getByUser($user);
         $twig = $this->container->get('twig');

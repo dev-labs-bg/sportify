@@ -211,6 +211,7 @@ class MatchesController extends Controller
             }
         }
 
+        // get the user's tournaments position data
         $userScores = $em->getRepository('DevlabsSportifyBundle:Score')
             ->getByUser($user);
         $twig = $this->container->get('twig');

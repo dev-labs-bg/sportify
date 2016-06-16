@@ -74,6 +74,7 @@ class StandingsController extends Controller
         $allScores = $em->getRepository('DevlabsSportifyBundle:Score')
             ->getByTournamentOrderByPoints($tournamentSelected);
 
+        // get the user's tournaments position data
         $userScores = array();
 
         // if user is logged in, get his standings

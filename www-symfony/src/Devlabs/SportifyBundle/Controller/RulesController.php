@@ -12,6 +12,7 @@ class RulesController extends Controller
      */
     public function indexAction()
     {
+        // get the user's tournaments position data
         $userScores = array();
 
         // if user is logged in, get his standings

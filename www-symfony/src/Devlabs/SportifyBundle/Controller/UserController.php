@@ -40,7 +40,7 @@ class UserController extends Controller
 			);
 		}
 
-		// Get an instance of the Entity Manager
+		// get the user's tournaments position data
 		$em = $this->getDoctrine()->getManager();
 		$userScores = $em->getRepository('DevlabsSportifyBundle:Score')
 			->getByUser($user);

@@ -131,6 +131,7 @@ class HistoryController extends Controller
         $predictions = $em->getRepository('DevlabsSportifyBundle:Prediction')
             ->getAlreadyScored($userSelected, $tournament, $date_from, $modifiedDateTo);
 
+        // get the user's tournaments position data
         $userScores = $em->getRepository('DevlabsSportifyBundle:Score')
             ->getByUser($user);
         $twig = $this->container->get('twig');
