@@ -9930,6 +9930,15 @@ li {
   transition: .5s ease;
 }
 
+.sportify-logo {
+  float: left;
+  padding: 0px !important;
+}
+
+.sportify-logo-mobile {
+  display: none;
+}
+
 .sidebar-nav .profile-picture,
 .myprofile-form .profile-picture {
   padding: 25px 15px 100px;
@@ -10740,6 +10749,14 @@ h2 {
 }
 
 @media screen and (max-width: 767px) {
+  .sportify-logo-mobile {
+    display: block;
+    margin: 0 auto;
+    width: 90%;
+    text-align: center;
+    float: none;
+  }
+
   .login-screen h2,
   .signup-screen h2 {
     margin: 80px 0 50px;

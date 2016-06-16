@@ -236,6 +236,15 @@ ul, li {
     }
 }
 
+.sportify-logo {
+    float: left;
+    padding: 0px !important;
+}
+
+.sportify-logo-mobile {
+    display: none;
+}
+
 .sidebar-nav, .myprofile-form {
     .profile-picture {
         padding: 25px 15px 100px;
@@ -306,7 +315,6 @@ ul, li {
     outline: none;
     padding: 0 6px;
 }
-
 .content {
     padding-top: 76px;
 }
@@ -896,6 +904,13 @@ h2 {
     }
 }
 @media screen and (max-width: 767px){
+    .sportify-logo-mobile {
+        display: block;
+        margin: 0 auto;
+        width: 90%;
+        text-align: center;
+        float: none;
+    }
     .login-screen h2, .signup-screen h2 {
         margin: 80px 0 50px;
     }

@@ -40,7 +40,10 @@
                 <nav class="navbar navbar-inverse navbar-fixed-top sidebar-wrapper" id="sidebar-wrapper" role="navigation">
                     <ul class="nav sidebar-nav">
                         <li class="sidebar-brand">
-                            <button class="hamburger is-open" data-toggle="offcanvas" >{% include 'img/menu.svg' %}</button>
+                            <button class="hamburger is-open pull-left" data-toggle="offcanvas" >{% include 'img/menu.svg' %}</button>
+                            <a href="/" class="sportify-logo">
+                                <img src="{{ asset('img/sportify-logo.png') }}" width="150" height="72">
+                            </a>
                         </li>
                         <li class="my-profile {% if app.request.attributes.get('_route') == 'user_profile'%} active{% endif %}">
                             <a class="profile-picture" href="{{ path('user_profile') }}">
@@ -75,7 +78,10 @@
                 <nav class="navbar navbar-inverse navbar-fixed-top sidebar-wrapper" id="sidebar-wrapper" role="navigation">
                     <ul class="nav sidebar-nav">
                         <li class="sidebar-brand">
-                            <button class="hamburger is-open" data-toggle="offcanvas" >{% include 'img/menu.svg' %}</button>
+                            <button class="hamburger is-open pull-left" data-toggle="offcanvas" >{% include 'img/menu.svg' %}</button>
+                            <a href="/" class="sportify-logo">
+                                <img src="{{ asset('img/sportify-logo.png') }}" width="150" height="72">
+                            </a>
                         </li>
                         <li {% if app.request.attributes.get('_route') == 'standings_index'%}class="active"{% endif %}>
                             <a class="standings" href="{{ path('standings_index') }}">Standings</a>
@@ -106,6 +112,9 @@
                                     <span class="sr-only">Toggle navigation</span>
                                     {% include 'img/menu.svg' %}
                                 </button>
+                                <a href="/" class="sportify-logo sportify-logo-mobile">
+                                    <img src="{{ asset('img/sportify-logo.png') }}" width="150" height="72">
+                                </a>
                             </div>
 
                             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -145,6 +154,9 @@
                                     <span class="sr-only">Toggle navigation</span>
                                     {% include 'img/menu.svg' %}
                                 </button>
+                                <a href="/" class="sportify-logo sportify-logo-mobile">
+                                    <img src="{{ asset('img/sportify-logo.png') }}" width="150" height="72">
+                                </a>
                             </div>
 
                             <!-- Collect the nav links, forms, and other content for toggling -->
