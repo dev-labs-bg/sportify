@@ -19,12 +19,16 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class MatchesController extends Controller
 {
     /**
-     * @Route("/matches/{tournament}/{date_from}/{date_to}",
+     * @Route("/matches/{action}/{tournament}/{date_from}/{date_to}",
      *     name="matches_index",
      *     defaults={
+     *      "action" = "index",
      *      "tournament" = "empty",
      *      "date_from" = "empty",
      *      "date_to" = "empty"
+     *     },
+     *     requirements={
+     *      "action" : "^index$"
      *     }
      * )
      */
@@ -227,5 +231,66 @@ class MatchesController extends Controller
                 'match_forms' => $matchForms
             )
         );
+    }
+
+    /**
+     * @Route("/matches/betall",
+     *     name="matches_betall")
+     */
+    public function betAllAction(Request $request)
+    {
+        // if user is not logged in, redirect to login page
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+
+        // check if the 'matches' array is present in the POST data
+        if (!$request->request->get('matches')) {
+            // redirect to the matches main page
+            return $this->redirectToRoute('matches_index');
+        }
+
+        // Load the data for the current user into an object
+        $user = $this->getUser();
+
+        // Get an instance of the Entity Manager
+        $em = $this->getDoctrine()->getManager();
+
+        $formsArray = $request->request->get('matches');
+
+        foreach ($formsArray as $submittedForm) {
+            $match = $em->getRepository('DevlabsSportifyBundle:Match')
+                ->findOneById($submittedForm['match_id']);
+
+            // skip to next form if this match has started or data is invalid
+            if ($match->hasStarted() ||
+                !(is_numeric($submittedForm['home_goals']) && $submittedForm['home_goals'] >= 0) ||
+                !(is_numeric($submittedForm['away_goals']) && $submittedForm['away_goals'] >= 0))
+                continue;
+
+            // prepare the Prediction object (new or modified one) for persisting in DB
+            if ($submittedForm['action'] === 'BET') {
+                $prediction = new Prediction();
+                $prediction->setUserId($user);
+                $prediction->setMatchId($match);
+                $prediction->setHomeGoals($submittedForm['home_goals']);
+                $prediction->setAwayGoals($submittedForm['away_goals']);
+            } elseif ($submittedForm['action'] === 'EDIT') {
+                $prediction = $em->getRepository('DevlabsSportifyBundle:Prediction')
+                    ->getOneByUserAndMatch($user, $match);
+                $prediction->setHomeGoals($submittedForm['home_goals']);
+                $prediction->setAwayGoals($submittedForm['away_goals']);
+            }
+
+            // prepare the queries
+            $em->persist($prediction);
+        }
+
+        // execute the queries
+        $em->flush();
+
+        // redirect to the matches main page
+        return $this->redirectToRoute('matches_index');
     }
 }

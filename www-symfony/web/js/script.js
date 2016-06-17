@@ -125,3 +125,37 @@ $(function(){
 $(function () {
   $('[data-toggle="tooltip"]').tooltip();
 });
+
+// Bet/update all matches which have a prediction
+$( "#btn-bet-all" ).click(function () {
+    var matches = [];
+    $.each( $('#matches form'), function( index, form ) {
+        var matchData = getMatchFormData( form );
+
+        // If the match has a prediction, add it to matches
+        if ( matchData.home_goals != "" && matchData.away_goals != "" ) {
+            matches.push( matchData );
+        }
+    });
+
+    $.post("matches/betall", {matches:matches})
+        .done(function(data, textStatus, jqXHR) {
+            console.log(data);
+            location.reload();
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+            // log error to browser's console
+            console.log(errorThrown.toString());
+            alert("Unable to submit data. Please try again.")
+        });
+});
+
+// Get a form data as a key value object
+function getMatchFormData( form ) {
+    return $( form ).serializeArray().reduce( function( obj, item ) {
+        var name = item.name;
+        name = name.replace("form", "").replace("[", "").replace("]","");
+        obj[ name ] = item.value;
+        return obj;
+    }, {});
+}
