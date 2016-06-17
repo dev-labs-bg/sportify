@@ -28,7 +28,7 @@ class MatchesController extends Controller
      *      "date_to" = "empty"
      *     },
      *     requirements={
-     *      "action" : "^index$"
+     *      "action" : "index"
      *     }
      * )
      */
