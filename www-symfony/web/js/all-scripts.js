@@ -1427,7 +1427,7 @@ $(function () {
   $('[data-toggle="tooltip"]').tooltip();
 });
 
-// Store all matches which have a prediction
+// Bet/update all matches which have a prediction
 $( "#btn-bet-all" ).click(function () {
     var matches = [];
     $.each( $('#matches form'), function( index, form ) {
@@ -1439,7 +1439,7 @@ $( "#btn-bet-all" ).click(function () {
         }
     });
 
-    $.post("matches/betall", {matches:matches})
+    $.post("/matches/betall", {matches:matches})
         .done(function(data, textStatus, jqXHR) {
             console.log(data);
             location.reload();
