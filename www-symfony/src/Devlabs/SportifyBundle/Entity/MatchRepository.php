@@ -133,4 +133,27 @@ class MatchRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * Method for getting a list of upcoming matches
+     *
+     * @param $dateFrom
+     * @param $dateTo
+     * @return array
+     */
+    public function getUpcoming($dateFrom, $dateTo)
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('m')
+            ->from('DevlabsSportifyBundle:Match', 'm')
+            ->where('m.datetime >= :date_from AND m.datetime <= :date_to')
+            ->orderBy('m.datetime')
+            ->addOrderBy('m.homeTeam')
+            ->setParameters(array(
+                'date_from' => $dateFrom,
+                'date_to' => $dateTo
+            ))
+            ->getQuery()
+            ->getResult();
+    }
 }
