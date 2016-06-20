@@ -25,8 +25,17 @@ class NotificationsController extends Controller
             return $this->redirectToRoute('fos_user_security_login');
         }
 
-        $dateFrom = date("Y-m-d H:i:s");
-        $dateTo = date("Y-m-d H:i:s", time() + 3600);
+        $httpClient = new Client();
+        $slackURL = 'https://hooks.slack.com/services/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';
+//        $slackText = '<@ceco> пробвам малко API 123';
+//        $slackBody = [
+//            'channel' => '@ceco',
+//            'text' => $slackText
+//        ];
+
+//        $dateFrom = date("Y-m-d H:i:s");
+        $dateFrom = '2016-06-20 21:02:00';
+        $dateTo = date("Y-m-d H:i:s", strtotime($dateFrom) + 98000);
 
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
@@ -35,26 +44,29 @@ class NotificationsController extends Controller
             ->getUpcoming($dateFrom, $dateTo);
 
         foreach ($matches as $match) {
-            $users = $em->getRepository('DevlabsSportifyBundle:User')
-                ->getNotPredictedByMatch($dateFrom, $dateTo);
+            $matchText = $match->getDatetime()->format('Y-m-d H:i:s')." : ".$match->getHomeTeam()." - ".$match->getAwayTeam();
 
+            $usersNotPredicted = $em->getRepository('DevlabsSportifyBundle:User')
+                ->getNotPredictedByMatch($match);
+
+            foreach ($usersNotPredicted as $user) {
+                $matchText = $matchText." : ".$user->getUsername();
+            }
+
+            $slackBody = [
+                'channel' => '@ceco',
+                'text' => $matchText
+            ];
+
+            $httpClient->post(
+                $slackURL,
+                [
+                    'body' => json_encode($slackBody),
+                    'allow_redirects' => false,
+                    'timeout'         => 3
+                ]
+            );
         }
-
-        $httpClient = new Client();
-        $slackURL = 'https://hooks.slack.com/services/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';
-        $slackBody = [
-            'channel' => '@ceco',
-            'text' => '<@ceco> пробвам малко API 123'
-        ];
-
-        $httpClient->post(
-            $slackURL,
-            [
-                'body' => json_encode($slackBody),
-                'allow_redirects' => false,
-                'timeout'         => 3
-            ]
-        );
 
         // redirect to the Home page
         return $this->redirectToRoute('home');
