@@ -33,25 +33,43 @@ class NotificationsController extends Controller
 //            'text' => $slackText
 //        ];
 
+        $dateFrom = '2016-06-21 21:02:00';
 //        $dateFrom = date("Y-m-d H:i:s");
-        $dateFrom = '2016-06-20 21:02:00';
-        $dateTo = date("Y-m-d H:i:s", strtotime($dateFrom) + 98000);
+        $dateTo = date("Y-m-d H:i:s", strtotime($dateFrom) + 3600);
 
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
-
         $matches = $em->getRepository('DevlabsSportifyBundle:Match')
             ->getUpcoming($dateFrom, $dateTo);
 
+        if ($matches) {
+            $slackBody = [
+                'channel' => '@ceco',
+                'text' => 'Потребители, които все още не са дали прогноза за предстоящите мачове:'
+            ];
+
+            $httpClient->post(
+                $slackURL,
+                [
+                    'body' => json_encode($slackBody),
+                    'allow_redirects' => false,
+                    'timeout'         => 5
+                ]
+            );
+        }
+
         foreach ($matches as $match) {
-            $matchText = $match->getDatetime()->format('Y-m-d H:i:s')." : ".$match->getHomeTeam()." - ".$match->getAwayTeam();
+            $matchText = $match->getDatetime()->format('Y-m-d H:i')." : ".$match->getHomeTeam()." - ".$match->getAwayTeam();
 
             $usersNotPredicted = $em->getRepository('DevlabsSportifyBundle:User')
                 ->getNotPredictedByMatch($match);
 
+            $userList = '';
             foreach ($usersNotPredicted as $user) {
-                $matchText = $matchText." : ".$user->getUsername();
+                $userList = $userList.' <@'.$user->getSlackUsername().'>';
             }
+
+            $matchText = $matchText." : ".$userList;
 
             $slackBody = [
                 'channel' => '@ceco',
@@ -63,7 +81,7 @@ class NotificationsController extends Controller
                 [
                     'body' => json_encode($slackBody),
                     'allow_redirects' => false,
-                    'timeout'         => 3
+                    'timeout'         => 5
                 ]
             );
         }
