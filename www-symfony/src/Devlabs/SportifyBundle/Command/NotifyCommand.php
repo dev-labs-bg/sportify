@@ -7,8 +7,11 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use GuzzleHttp\Client;
 
+/**
+ * Class NotifyCommand
+ * @package Devlabs\SportifyBundle\Command
+ */
 class NotifyCommand extends ContainerAwareCommand
 {
     protected function configure()
@@ -29,11 +32,9 @@ class NotifyCommand extends ContainerAwareCommand
         $reason = $input->getArgument('reason');
 
         if ($reason === 'users-not-predicted') {
-            $httpClient = new Client();
-            $slackURL = 'https://hooks.slack.com/services/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';
-            $dateFrom = '2016-06-21 21:02:00';
+            $dateFrom = '2016-06-21 18:02:00';
 //        $dateFrom = date("Y-m-d H:i:s");
-            $dateTo = date("Y-m-d H:i:s", strtotime($dateFrom) + 3600);
+            $dateTo = date("Y-m-d H:i:s", strtotime($dateFrom) + 15000);
 
             // Get an instance of the Entity Manager
             $em = $this->getContainer()->get('doctrine')->getManager();
@@ -42,66 +43,61 @@ class NotifyCommand extends ContainerAwareCommand
             $matches = $em->getRepository('DevlabsSportifyBundle:Match')
                 ->getUpcoming($dateFrom, $dateTo);
 
+            $logText = '';
+
             if ($matches) {
-                $slackBody = [
-                    'channel' => '@ceco',
-                    'text' => 'Upcoming matches without prediction(s):'
-                ];
+                // creating a Slack object for setting and sending messages
+                $slack = $this->getContainer()->get('app.slack');
+                $slack->setUrl('https://hooks.slack.com/services/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');
 
-                $httpClient->post(
-                    $slackURL,
-                    [
-                        'body' => json_encode($slackBody),
-                        'allow_redirects' => false,
-                        'timeout'         => 5
-                    ]
-                );
-            }
+                // array for holding the user's messages
+                $messages = array();
 
-            $notifiedText = '';
+                // set a Heading for all user messages
+                $msgHeading = "Upcoming matches without prediction(s):";
 
-            foreach ($matches as $match) {
-                $notifiedText = $notifiedText . "\n";
+                // iterate the matches and create the notification messages for each user
+                foreach ($matches as $match) {
+                    $matchText = $match->getDatetime()->format('Y-m-d H:i')." : ".$match->getHomeTeam()." - ".$match->getAwayTeam();
+                    $logText = $logText . "\n" . "Match: " . $matchText . "\n";
 
-                $matchText = $match->getDatetime()->format('Y-m-d H:i')." : ".$match->getHomeTeam()." - ".$match->getAwayTeam();
+                    // get the users which have no prediction for this match
+                    $usersNotPredicted = $em->getRepository('DevlabsSportifyBundle:User')
+                        ->getNotPredictedByMatch($match);
 
-                $usersNotPredicted = $em->getRepository('DevlabsSportifyBundle:User')
-                    ->getNotPredictedByMatch($match);
+                    // creating the messages for each user
+                    foreach ($usersNotPredicted as $user) {
+                        if (!isset($messages[$user->getId()])) {
+                            $messages[$user->getId()] = $msgHeading . "\n" . $matchText . "\n";
+                        } else {
+                            $messages[$user->getId()] = $messages[$user->getId()] . $matchText . "\n";
+                        }
 
-                $notifiedText = $notifiedText . "Match: " . $matchText . "\n";
-
-                foreach ($usersNotPredicted as $user) {
-                    if ($user->getSlackUsername() === 'ceco') {
-                        $slackBody = [
-                            'channel' => '@'.$user->getSlackUsername(),
-                            'text' => $matchText
-                        ];
-
-                        $httpClient->post(
-                            $slackURL,
-                            [
-                                'body' => json_encode($slackBody),
-                                'allow_redirects' => false,
-                                'timeout' => 5
-                            ]
-                        );
+                        $logText = $logText.' '.$user->getSlackUsername();
                     }
 
-                    $notifiedText = $notifiedText.' '.$user->getSlackUsername();
+                    // set the match's notification sent flag
+                    $match->setNotificationSent('1');
+
+                    // prepare queries
+                    $em->persist($match);
                 }
 
-                $match->setNotificationSent('1');
+                // sending the messages to the users
+                foreach ($usersNotPredicted as $user) {
+                    if ($user->getSlackUsername() === 'ceco') {
+                        $slack->setChannel('@'.$user->getSlackUsername());
+                        $slack->setText($messages[$user->getId()]);
+                        $slack->post();
+                    }
+                }
 
-                // prepare queries
-                $em->persist($match);
+                // execute queries
+                $em->flush();
             }
 
-            // execute the queries
-            $em->flush();
-
-            $notifiedText = ($notifiedText === '') ? 'none' : $notifiedText;
+            $logText = ($logText === '') ? 'none' : $logText;
+            $output->writeln("Notification(s) sent: \n".$logText);
         }
-
-        $output->writeln("Notification(s) sent: \n".$notifiedText);
     }
 }
