@@ -32,9 +32,8 @@ class NotifyCommand extends ContainerAwareCommand
         $reason = $input->getArgument('reason');
 
         if ($reason === 'users-not-predicted') {
-            $dateFrom = '2016-06-21 18:02:00';
-//        $dateFrom = date("Y-m-d H:i:s");
-            $dateTo = date("Y-m-d H:i:s", strtotime($dateFrom) + 15000);
+            $dateFrom = date("Y-m-d H:i:s");
+            $dateTo = date("Y-m-d H:i:s", strtotime($dateFrom) + 3600);
 
             // Get an instance of the Entity Manager
             $em = $this->getContainer()->get('doctrine')->getManager();
@@ -85,11 +84,9 @@ class NotifyCommand extends ContainerAwareCommand
 
                 // sending the messages to the users
                 foreach ($usersNotPredicted as $user) {
-                    if ($user->getSlackUsername() === 'ceco') {
-                        $slack->setChannel('@'.$user->getSlackUsername());
-                        $slack->setText($messages[$user->getId()]);
-                        $slack->post();
-                    }
+                    $slack->setChannel('@'.$user->getSlackUsername());
+                    $slack->setText($messages[$user->getId()]);
+                    $slack->post();
                 }
 
                 // execute queries
