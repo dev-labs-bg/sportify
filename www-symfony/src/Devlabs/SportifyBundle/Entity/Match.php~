@@ -73,6 +73,11 @@ class Match
     private $disabledAttribute = false;
 
     /**
+     * @ORM\Column(type="boolean", name="notification_sent")
+     */
+    private $notificationSent = 0;
+
+    /**
      * Get id
      *
      * @return integer

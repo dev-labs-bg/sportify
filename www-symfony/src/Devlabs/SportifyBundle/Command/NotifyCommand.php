@@ -33,9 +33,12 @@ class NotifyCommand extends ContainerAwareCommand
             $slackURL = 'https://hooks.slack.com/services/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';
             $dateFrom = '2016-06-21 21:02:00';
 //        $dateFrom = date("Y-m-d H:i:s");
-            $dateTo = date("Y-m-d H:i:s", strtotime($dateFrom) + 3600);// Get an instance of the Entity Manager
+            $dateTo = date("Y-m-d H:i:s", strtotime($dateFrom) + 3600);
 
+            // Get an instance of the Entity Manager
             $em = $this->getContainer()->get('doctrine')->getManager();
+
+            // get the upcoming matches for the next 1 hour
             $matches = $em->getRepository('DevlabsSportifyBundle:Match')
                 ->getUpcoming($dateFrom, $dateTo);
 
@@ -55,16 +58,22 @@ class NotifyCommand extends ContainerAwareCommand
                 );
             }
 
+            $notifiedText = '';
+
             foreach ($matches as $match) {
+                $notifiedText = $notifiedText . "\n";
+
                 $matchText = $match->getDatetime()->format('Y-m-d H:i')." : ".$match->getHomeTeam()." - ".$match->getAwayTeam();
 
                 $usersNotPredicted = $em->getRepository('DevlabsSportifyBundle:User')
                     ->getNotPredictedByMatch($match);
 
+                $notifiedText = $notifiedText . "Match: " . $matchText . "\n";
+
                 foreach ($usersNotPredicted as $user) {
                     if ($user->getSlackUsername() === 'ceco') {
                         $slackBody = [
-                            'channel' => '@' . $user->getSlackUsername(),
+                            'channel' => '@'.$user->getSlackUsername(),
                             'text' => $matchText
                         ];
 
@@ -77,11 +86,22 @@ class NotifyCommand extends ContainerAwareCommand
                             ]
                         );
                     }
+
+                    $notifiedText = $notifiedText.' '.$user->getSlackUsername();
                 }
 
+                $match->setNotificationSent('1');
+
+                // prepare queries
+                $em->persist($match);
             }
+
+            // execute the queries
+            $em->flush();
+
+            $notifiedText = ($notifiedText === '') ? 'none' : $notifiedText;
         }
 
-//        $output->writeln('Successfully notified users.');
+        $output->writeln("Notification(s) sent: \n".$notifiedText);
     }
 }

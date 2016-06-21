@@ -146,7 +146,8 @@ class MatchRepository extends \Doctrine\ORM\EntityRepository
         return $this->getEntityManager()->createQueryBuilder()
             ->select('m')
             ->from('DevlabsSportifyBundle:Match', 'm')
-            ->where('m.datetime >= :date_from AND m.datetime <= :date_to')
+            ->where('m.notificationSent = 0')
+            ->andWhere('m.datetime >= :date_from AND m.datetime <= :date_to')
             ->orderBy('m.datetime')
             ->addOrderBy('m.homeTeam')
             ->setParameters(array(
