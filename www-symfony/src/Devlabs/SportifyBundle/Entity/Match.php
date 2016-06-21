@@ -73,6 +73,11 @@ class Match
     private $disabledAttribute = false;
 
     /**
+     * @ORM\Column(type="boolean", name="notification_sent")
+     */
+    private $notificationSent = 0;
+
+    /**
      * Get id
      *
      * @return integer
@@ -361,5 +366,29 @@ class Match
     public function getAwayTeamId()
     {
         return $this->awayTeamId;
+    }
+
+    /**
+     * Set notificationSent
+     *
+     * @param boolean $notificationSent
+     *
+     * @return Match
+     */
+    public function setNotificationSent($notificationSent)
+    {
+        $this->notificationSent = $notificationSent;
+
+        return $this;
+    }
+
+    /**
+     * Get notificationSent
+     *
+     * @return boolean
+     */
+    public function getNotificationSent()
+    {
+        return $this->notificationSent;
     }
 }

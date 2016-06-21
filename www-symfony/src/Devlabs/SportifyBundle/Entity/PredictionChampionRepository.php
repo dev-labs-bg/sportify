@@ -30,8 +30,6 @@ class PredictionChampionRepository extends \Doctrine\ORM\EntityRepository
                 'tournament_id' => $tournament->getId()
             ));
 
-//        return $query->getQuery()->getSingleResult();
-
         try {
             return $query->getQuery()->getSingleResult();
         }

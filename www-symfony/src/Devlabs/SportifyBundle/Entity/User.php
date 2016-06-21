@@ -19,6 +19,11 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @ORM\Column(type="string", length=100, name="slack_username")
+     */
+    private $slackUsername;
+
+    /**
      * @ORM\OneToMany(targetEntity="Score" , mappedBy="userId" , cascade={"all"})
      */
     private $scores;
@@ -145,5 +150,29 @@ class User extends BaseUser
     public function getPredictionsChampion()
     {
         return $this->predictionsChampion;
+    }
+
+    /**
+     * Set slackUsername
+     *
+     * @param string $slackUsername
+     *
+     * @return User
+     */
+    public function setSlackUsername($slackUsername)
+    {
+        $this->slackUsername = $slackUsername;
+
+        return $this;
+    }
+
+    /**
+     * Get slackUsername
+     *
+     * @return string
+     */
+    public function getSlackUsername()
+    {
+        return $this->slackUsername;
     }
 }
