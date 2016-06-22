@@ -25,16 +25,7 @@ class NotificationsController extends Controller
             return $this->redirectToRoute('fos_user_security_login');
         }
 
-        $httpClient = new Client();
-        $slackURL = 'https://hooks.slack.com/services/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';
-//        $slackText = '<@ceco> пробвам малко API 123';
-//        $slackBody = [
-//            'channel' => '@ceco',
-//            'text' => $slackText
-//        ];
-
-        $dateFrom = '2016-06-21 21:02:00';
-//        $dateFrom = date("Y-m-d H:i:s");
+        $dateFrom = date("Y-m-d H:i:s");
         $dateTo = date("Y-m-d H:i:s", strtotime($dateFrom) + 3600);
 
         // Get an instance of the Entity Manager
@@ -43,19 +34,12 @@ class NotificationsController extends Controller
             ->getUpcoming($dateFrom, $dateTo);
 
         if ($matches) {
-            $slackBody = [
-                'channel' => '@ceco',
-                'text' => 'Потребители, които все още не са дали прогноза за предстоящите мачове:'
-            ];
-
-            $httpClient->post(
-                $slackURL,
-                [
-                    'body' => json_encode($slackBody),
-                    'allow_redirects' => false,
-                    'timeout'         => 5
-                ]
-            );
+            // creating a Slack object for setting and sending messages
+            $slack = $this->getContainer()->get('app.slack');
+            $slack->setUrl('https://hooks.slack.com/services/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');
+            $slack->setChannel('@ceco');
+            $slack->setText('Потребители, които все още не са дали прогноза за предстоящите мачове:');
+            $slack->post();
         }
 
         foreach ($matches as $match) {
@@ -71,19 +55,9 @@ class NotificationsController extends Controller
 
             $matchText = $matchText." : ".$userList;
 
-            $slackBody = [
-                'channel' => '@ceco',
-                'text' => $matchText
-            ];
-
-            $httpClient->post(
-                $slackURL,
-                [
-                    'body' => json_encode($slackBody),
-                    'allow_redirects' => false,
-                    'timeout'         => 5
-                ]
-            );
+            $slack->setChannel('@ceco');
+            $slack->setText($matchText);
+            $slack->post();
         }
 
         // redirect to the Home page
