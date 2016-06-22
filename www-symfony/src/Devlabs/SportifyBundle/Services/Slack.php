@@ -32,6 +32,14 @@ class Slack
     }
 
     /**
+     * @return mixed
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
      * @param $channel
      * @return $this
      */
@@ -43,6 +51,14 @@ class Slack
     }
 
     /**
+     * @return mixed
+     */
+    public function getChannel()
+    {
+        return $this->channel;
+    }
+
+    /**
      * @param $text
      * @return $this
      */
@@ -51,6 +67,14 @@ class Slack
         $this->text = $text;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getText()
+    {
+        return $this->text;
     }
 
     /**
