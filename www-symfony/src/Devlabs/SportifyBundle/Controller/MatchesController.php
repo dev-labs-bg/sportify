@@ -54,19 +54,21 @@ class MatchesController extends Controller
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
 
-        $formInputData = array();
-        $formInputData['page'] = 'matches';
-        $formInputData['date_from'] = $date_from;
-        $formInputData['date_to'] = $date_to;
-
         // use the selected tournament as object, based on id URL: {tournament} route parameter
-        $formInputData['tournament_selected'] = ($tournament === 'all')
+        $tournamentSelected = ($tournament === 'all')
             ? null
             : $em->getRepository('DevlabsSportifyBundle:Tournament')->findOneById($tournament);
 
         // get joined tournaments
-        $formInputData['tournaments_joined'] = $em->getRepository('DevlabsSportifyBundle:Tournament')
+        $tournamentsJoined = $em->getRepository('DevlabsSportifyBundle:Tournament')
             ->getJoined($user);
+
+        $formInputData = array();
+        $formInputData['page'] = 'matches';
+        $formInputData['date_from'] = $date_from;
+        $formInputData['date_to'] = $date_to;
+        $formInputData['tournament']['data'] = $tournamentSelected;
+        $formInputData['tournament']['choices'] = $tournamentsJoined;
 
         // creating a form for the tournament and date filter
         $formData = array();

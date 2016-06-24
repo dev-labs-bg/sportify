@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Devlabs\SportifyBundle\Form\TournamentChoiceType;
 
 class FilterType extends AbstractType
 {
@@ -27,13 +28,20 @@ class FilterType extends AbstractType
     {
         $this->data = $options['data'];
 
+//        $builder
+//            ->add('tournament_id', EntityType::class, array(
+//                'class' => 'DevlabsSportifyBundle:Tournament',
+//                'choices' => $this->data['tournaments_joined'],
+//                'choice_label' => 'name',
+//                'label' => false,
+//                'data' => $this->data['tournament_selected']
+//            ))
+//        ;
+
         $builder
-            ->add('tournament_id', EntityType::class, array(
-                'class' => 'DevlabsSportifyBundle:Tournament',
-                'choices' => $this->data['tournaments_joined'],
-                'choice_label' => 'name',
-                'label' => false,
-                'data' => $this->data['tournament_selected']
+            ->add('tournament', TournamentChoiceType::class, array(
+                'choices' => $this->data['tournament']['choices'],
+                'data' => $this->data['tournament']['data']
             ))
         ;
 

@@ -1401,7 +1401,7 @@ $(function(){
     $('#filter_tournament_id').chosen({
         no_results_text: 'No such tournament!'
     });
-    $('#form_user').chosen({
+    $('#filter_user').chosen({
         no_results_text: 'No such username!'
     });
     $('#tournament-filter').chosen({

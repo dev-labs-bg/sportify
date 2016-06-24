@@ -7,9 +7,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-class TournamentType extends AbstractType
+class TournamentChoiceType extends AbstractType
 {
     protected $data;
+    protected $choices;
 
     /**
      * @param OptionsResolver $resolver
@@ -17,21 +18,22 @@ class TournamentType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => null
+            'data_class' => 'Devlabs\SportifyBundle\Entity\Tournament'
         ));
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $this->data = $options['data'];
+        $this->choices = $options['choices'];
 
         $builder
             ->add('id', EntityType::class, array(
                 'class' => 'DevlabsSportifyBundle:Tournament',
-                'choices' => $this->data['tournaments_joined'],
+                'choices' => $this->choices,
                 'choice_label' => 'name',
                 'label' => false,
-                'data' => $this->data['tournament_selected']
+                'data' => $this->data
             ))
         ;
     }
