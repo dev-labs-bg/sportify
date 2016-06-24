@@ -84,19 +84,11 @@ class HistoryController extends Controller
                 'data' => $tournamentSelected
             ))
             ->add('date_from', TextType::class, array(
-//                'input' => 'string',
-//                'format' => 'yyyy-MM-dd',
-//                'widget' => 'single_text',
                 'label' => false,
-//                'years' => range(date('Y') -5, date('Y') +5),
                 'data' => $date_from
             ))
             ->add('date_to', TextType::class, array(
-//                'input' => 'string',
-//                'format' => 'yyyy-MM-dd',
-//                'widget' => 'single_text',
                 'label' => false,
-//                'years' => range(date('Y') -5, date('Y') +5),
                 'data' => $date_to
             ))
             ->add('button', SubmitType::class, array('label' => 'FILTER'))

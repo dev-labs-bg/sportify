@@ -1398,7 +1398,7 @@ $(function(){
 });
 
 $(function(){
-    $('#form_tournament_id').chosen({
+    $('#filter_tournament_id').chosen({
         no_results_text: 'No such tournament!'
     });
     $('#form_user').chosen({
@@ -1413,11 +1413,11 @@ $(function(){
 });
 
 $(function(){
-    $('#form_date_from').datepicker({
+    $('#filter_date_from').datepicker({
         format : 'yyyy-mm-dd',
         disableTouchKeyboard: true
     });
-    $('#form_date_to').datepicker({
+    $('#filter_date_to').datepicker({
         format : 'yyyy-mm-dd',
         disableTouchKeyboard: true
     });
