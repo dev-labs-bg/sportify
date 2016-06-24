@@ -55,7 +55,7 @@ class MatchesController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $formInputData = array();
-
+        $formInputData['page'] = 'matches';
         $formInputData['date_from'] = $date_from;
         $formInputData['date_to'] = $date_to;
 
@@ -70,26 +70,6 @@ class MatchesController extends Controller
 
         // creating a form for the tournament and date filter
         $formData = array();
-
-//        $filterForm = $this->createFormBuilder($formData)
-//            ->setAction($this->generateUrl('matches_index'))
-//            ->add('tournament_id', EntityType::class, array(
-//                'class' => 'DevlabsSportifyBundle:Tournament',
-//                'choices' => $tournamentsJoined,
-//                'choice_label' => 'name',
-//                'label' => false,
-//                'data' => $tournamentSelected
-//            ))
-//            ->add('date_from', TextType::class, array(
-//                'label' => false,
-//                'data' => $date_from
-//            ))
-//            ->add('date_to', TextType::class, array(
-//                'label' => false,
-//                'data' => $date_to
-//            ))
-//            ->add('button', SubmitType::class, array('label' => 'FILTER'))
-//            ->getForm();
 
         $filterForm = $this->createForm(FilterType::class, $formData, array(
             'data' => $formInputData

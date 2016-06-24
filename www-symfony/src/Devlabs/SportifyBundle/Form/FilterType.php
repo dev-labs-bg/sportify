@@ -35,6 +35,20 @@ class FilterType extends AbstractType
                 'label' => false,
                 'data' => $this->data['tournament_selected']
             ))
+        ;
+
+        if ($this->data['page'] === 'history') {
+            $builder
+                ->add('user', EntityType::class, array(
+                    'class' => 'DevlabsSportifyBundle:User',
+                    'choices' => $this->data['users_enabled'],
+                    'choice_label' => 'username',
+                    'label' => false,
+                    'data' => $this->data['user_selected']
+                ));
+        }
+
+        $builder
             ->add('date_from', TextType::class, array(
                 'label' => false,
                 'data' => $this->data['date_from']
