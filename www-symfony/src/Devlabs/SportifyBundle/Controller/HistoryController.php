@@ -18,17 +18,17 @@ use Devlabs\SportifyBundle\Form\FilterType;
 class HistoryController extends Controller
 {
     /**
-     * @Route("/history/{user_id}/{tournament}/{date_from}/{date_to}",
+     * @Route("/history/{user_id}/{tournament_id}/{date_from}/{date_to}",
      *     name="history_index",
      *     defaults={
      *      "user_id" = "empty",
-     *      "tournament" = "empty",
+     *      "tournament_id" = "empty",
      *      "date_from" = "empty",
      *      "date_to" = "empty"
      *     }
      * )
      */
-    public function indexAction(Request $request, $user_id, $tournament, $date_from, $date_to)
+    public function indexAction(Request $request, $user_id, $tournament_id, $date_from, $date_to)
     {
         // if user is not logged in, redirect to login page
         $securityContext = $this->container->get('security.authorization_checker');
@@ -41,7 +41,7 @@ class HistoryController extends Controller
 
         // set default values to route parameters if they are 'empty'
         if ($user_id === 'empty') $user_id = $user->getId();
-        if ($tournament === 'empty') $tournament = 'all';
+        if ($tournament_id === 'empty') $tournament_id = 'all';
         if ($date_from === 'empty') $date_from = date("Y-m-d", time() - 1209600);
         if ($date_to === 'empty') $date_to = date("Y-m-d");
 
@@ -59,27 +59,27 @@ class HistoryController extends Controller
             ->getAllEnabled();
 
         // use the selected tournament as object, based on id URL: {tournament} route parameter
-        $tournamentSelected = ($tournament === 'all')
+        $tournamentSelected = ($tournament_id === 'all')
             ? null
-            : $em->getRepository('DevlabsSportifyBundle:Tournament')->findOneById($tournament);
+            : $em->getRepository('DevlabsSportifyBundle:Tournament')->findOneById($tournament_id);
 
         // get joined tournaments
         $tournamentsJoined = $em->getRepository('DevlabsSportifyBundle:Tournament')
             ->getJoined($user);
 
         $formInputData = array();
-        $formInputData['page'] = 'history';
         $formInputData['date_from'] = $date_from;
         $formInputData['date_to'] = $date_to;
-        $formInputData['user']['data'] = $userSelected;
+        $formInputData['user']['data'] = ($request->request->get('filter')) ? null : $userSelected;
         $formInputData['user']['choices'] = $usersEnabled;
-        $formInputData['tournament']['data'] = $tournamentSelected;
+        $formInputData['tournament']['data'] = ($request->request->get('filter')) ? null : $tournamentSelected;
         $formInputData['tournament']['choices'] = $tournamentsJoined;
 
         // creating a form for user,tournament,date filter
         $formData = array();
 
         $filterForm = $this->createForm(FilterType::class, $formData, array(
+            'fields'=> ['tournament', 'user', 'date_from', 'date_to'],
             'data' => $formInputData
         ));
 
@@ -89,8 +89,8 @@ class HistoryController extends Controller
         if ($filterForm->isSubmitted() && $filterForm->isValid()) {
             $formData = $filterForm->getData();
 
-            $userChoice = $formData['user'];
-            $tournamentChoice = $formData['tournament_id'];
+            $userChoice = $formData['user']->getId()->getId();
+            $tournamentChoice = $formData['tournament']->getId()->getId();
             $dateFromChoice = $formData['date_from'];
             $dateToChoice = $formData['date_to'];
 
@@ -98,8 +98,8 @@ class HistoryController extends Controller
             return $this->redirectToRoute(
                 'history_index',
                 array(
-                    'user_id' => $userChoice->getId(),
-                    'tournament' => $tournamentChoice->getId(),
+                    'user_id' => $userChoice,
+                    'tournament_id' => $tournamentChoice,
                     'date_from' => $dateFromChoice,
                     'date_to' => $dateToChoice
                 )
@@ -108,9 +108,9 @@ class HistoryController extends Controller
 
         // get finished scored matches and the user's predictions for them
         $matches = $em->getRepository('DevlabsSportifyBundle:Match')
-            ->getAlreadyScored($userSelected, $tournament, $date_from, $modifiedDateTo);
+            ->getAlreadyScored($userSelected, $tournament_id, $date_from, $modifiedDateTo);
         $predictions = $em->getRepository('DevlabsSportifyBundle:Prediction')
-            ->getAlreadyScored($userSelected, $tournament, $date_from, $modifiedDateTo);
+            ->getAlreadyScored($userSelected, $tournament_id, $date_from, $modifiedDateTo);
 
         // get the user's tournaments position data
         $userScores = $em->getRepository('DevlabsSportifyBundle:Score')

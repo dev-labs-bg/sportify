@@ -20,11 +20,11 @@ use Devlabs\SportifyBundle\Form\FilterType;
 class MatchesController extends Controller
 {
     /**
-     * @Route("/matches/{action}/{tournament}/{date_from}/{date_to}",
+     * @Route("/matches/{action}/{tournament_id}/{date_from}/{date_to}",
      *     name="matches_index",
      *     defaults={
      *      "action" = "index",
-     *      "tournament" = "empty",
+     *      "tournament_id" = "empty",
      *      "date_from" = "empty",
      *      "date_to" = "empty"
      *     },
@@ -33,7 +33,7 @@ class MatchesController extends Controller
      *     }
      * )
      */
-    public function indexAction(Request $request, $tournament, $date_from, $date_to)
+    public function indexAction(Request $request, $tournament_id, $date_from, $date_to)
     {
         // if user is not logged in, redirect to login page
         $securityContext = $this->container->get('security.authorization_checker');
@@ -45,7 +45,7 @@ class MatchesController extends Controller
         $user = $this->getUser();
 
         // set default values to route parameters if they are 'empty'
-        if ($tournament === 'empty') $tournament = 'all';
+        if ($tournament_id === 'empty') $tournament_id = 'all';
         if ($date_from === 'empty') $date_from = date("Y-m-d");
         if ($date_to === 'empty') $date_to = date("Y-m-d", time() + 1209600);
 
@@ -55,25 +55,25 @@ class MatchesController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         // use the selected tournament as object, based on id URL: {tournament} route parameter
-        $tournamentSelected = ($tournament === 'all')
+        $tournamentSelected = ($tournament_id === 'all')
             ? null
-            : $em->getRepository('DevlabsSportifyBundle:Tournament')->findOneById($tournament);
+            : $em->getRepository('DevlabsSportifyBundle:Tournament')->findOneById($tournament_id);
 
         // get joined tournaments
         $tournamentsJoined = $em->getRepository('DevlabsSportifyBundle:Tournament')
             ->getJoined($user);
 
         $formInputData = array();
-        $formInputData['page'] = 'matches';
         $formInputData['date_from'] = $date_from;
         $formInputData['date_to'] = $date_to;
-        $formInputData['tournament']['data'] = $tournamentSelected;
+        $formInputData['tournament']['data'] = ($request->request->get('filter')) ? null : $tournamentSelected;
         $formInputData['tournament']['choices'] = $tournamentsJoined;
 
         // creating a form for the tournament and date filter
         $formData = array();
 
         $filterForm = $this->createForm(FilterType::class, $formData, array(
+            'fields'=> ['tournament', 'date_from', 'date_to'],
             'data' => $formInputData
         ));
 
@@ -83,7 +83,7 @@ class MatchesController extends Controller
         if ($filterForm->isSubmitted() && $filterForm->isValid()) {
             $formData = $filterForm->getData();
 
-            $tournamentChoice = $formData['tournament_id'];
+            $tournamentChoice = $formData['tournament']->getId()->getId();
             $dateFromChoice = $formData['date_from'];
             $dateToChoice = $formData['date_to'];
 
@@ -91,7 +91,7 @@ class MatchesController extends Controller
             return $this->redirectToRoute(
                 'matches_index',
                 array(
-                    'tournament' => $tournamentChoice->getId(),
+                    'tournament_id' => $tournamentChoice,
                     'date_from' => $dateFromChoice,
                     'date_to' => $dateToChoice
                 )
@@ -100,9 +100,9 @@ class MatchesController extends Controller
 
         // get not finished matches and the user's predictions for them
         $matches = $em->getRepository('DevlabsSportifyBundle:Match')
-            ->getNotScored($user, $tournament, $date_from, $modifiedDateTo);
+            ->getNotScored($user, $tournament_id, $date_from, $modifiedDateTo);
         $predictions = $em->getRepository('DevlabsSportifyBundle:Prediction')
-            ->getNotScored($user, $tournament, $date_from, $modifiedDateTo);
+            ->getNotScored($user, $tournament_id, $date_from, $modifiedDateTo);
 
         $matchForms = array();
 
@@ -156,7 +156,7 @@ class MatchesController extends Controller
                         return $this->redirectToRoute(
                             'matches_index',
                             array(
-                                'tournament' => $tournament,
+                                'tournament' => $tournamentt,
                                 'date_from' => $date_from,
                                 'date_to' => $date_to
                             )
@@ -186,7 +186,7 @@ class MatchesController extends Controller
                     return $this->redirectToRoute(
                         'matches_index',
                         array(
-                            'tournament' => $tournament,
+                            'tournament_id' => $tournament_id,
                             'date_from' => $date_from,
                             'date_to' => $date_to
                         )

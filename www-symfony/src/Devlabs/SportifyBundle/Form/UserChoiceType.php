@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-class TournamentChoiceType extends AbstractType
+class UserChoiceType extends AbstractType
 {
     protected $data;
     protected $choices;
@@ -18,7 +18,7 @@ class TournamentChoiceType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Devlabs\SportifyBundle\Entity\Tournament',
+            'data_class' => 'Devlabs\SportifyBundle\Entity\User',
             'choices' => null
         ));
     }
@@ -30,9 +30,9 @@ class TournamentChoiceType extends AbstractType
 
         $builder
             ->add('id', EntityType::class, array(
-                'class' => 'DevlabsSportifyBundle:Tournament',
+                'class' => 'DevlabsSportifyBundle:User',
                 'choices' => $this->choices,
-                'choice_label' => 'name',
+                'choice_label' => 'username',
                 'label' => false,
                 'data' => $this->data
             ))
