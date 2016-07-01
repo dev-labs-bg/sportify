@@ -72,9 +72,8 @@ class MatchesController extends Controller
 
         // creating a form for the tournament and date filter
         $formData = array();
-
         $filterForm = $this->createForm(FilterType::class, $formData, array(
-            'fields'=> ['tournament', 'date_from', 'date_to'],
+            'fields'=> array('tournament', 'date_from', 'date_to'),
             'data' => $formInputData
         ));
 

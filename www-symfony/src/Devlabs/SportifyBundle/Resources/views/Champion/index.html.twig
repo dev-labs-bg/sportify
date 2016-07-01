@@ -25,7 +25,7 @@
                         {{ form_start(filter_form) }}
                         <div class="col-sm-8">
                             <label>Tournament</label>
-                            {{ form_row(filter_form.tournament_id, {'attr': {'class': 'form-control' } }) }}
+                            {{ form_row(filter_form.tournament.id, {'attr': {'class': 'form-control' } }) }}
                         </div>
                         <div class="col-sm-4 text-center">
                             {{ form_row(filter_form.button, {'attr': {'class': 'btn green-btn history-filter' } }) }}
@@ -34,7 +34,7 @@
                     {{ form_start(champion_form) }}
                     <div class="col-sm-8">
                         <label>Champion Team</label>
-                        {{ form_row(champion_form.team_id, {'attr': {'class': 'form-control' }, 'disabled': disabled_attribute}) }}
+                        {{ form_row(champion_form.team.id, {'attr': {'class': 'form-control' }, 'disabled': disabled_attribute}) }}
                     </div>
                     <div class="col-sm-4 text-center">
                         {% if button_action == 'BET' %}

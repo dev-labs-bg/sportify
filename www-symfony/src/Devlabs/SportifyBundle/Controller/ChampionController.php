@@ -6,9 +6,8 @@ use Devlabs\SportifyBundle\Entity\PredictionChampion;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Devlabs\SportifyBundle\Form\FilterType;
+use Devlabs\SportifyBundle\Form\ChampionSelectType;
 
 /**
  * Class ChampionController
@@ -17,14 +16,14 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class ChampionController extends Controller
 {
     /**
-     * @Route("/champion/{tournament}",
+     * @Route("/champion/{tournament_id}",
      *     name="champion_index",
      *     defaults={
-     *      "tournament" = "empty"
+     *      "tournament_id" = "empty"
      *     }
      * )
      */
-    public function indexAction(Request $request, $tournament)
+    public function indexAction(Request $request, $tournament_id)
     {
         // if user is not logged in, redirect to login page
         $securityContext = $this->container->get('security.authorization_checker');
@@ -43,26 +42,25 @@ class ChampionController extends Controller
             ->getJoined($user);
 
         // set default values to route parameters if they are 'empty'
-        if ($tournament === 'empty') {
+        if ($tournament_id === 'empty') {
             $tournamentSelected = $tournamentsJoined[0];
         } else {
             // use the selected tournament as object, based on id URL: {tournament} route parameter
             $tournamentSelected = $em->getRepository('DevlabsSportifyBundle:Tournament')
-                ->findOneById($tournament);
+                ->findOneById($tournament_id);
         }
+
+        // set the input form-data
+        $formInputData = array();
+        $formInputData['tournament']['data'] = ($request->request->get('filter')) ? null : $tournamentSelected;
+        $formInputData['tournament']['choices'] = $tournamentsJoined;
 
         // creating a form for the tournament filter
         $formData = array();
-        $filterForm = $this->createFormBuilder($formData)
-            ->add('tournament_id', EntityType::class, array(
-                'class' => 'DevlabsSportifyBundle:Tournament',
-                'choices' => $tournamentsJoined,
-                'choice_label' => 'name',
-                'label' => false,
-                'data' => $tournamentSelected
-            ))
-            ->add('button', SubmitType::class, array('label' => 'SELECT'))
-            ->getForm();
+        $filterForm = $this->createForm(FilterType::class, $formData, array(
+            'fields'=> array('tournament'),
+            'data' => $formInputData
+        ));
 
         $filterForm->handleRequest($request);
 
@@ -70,12 +68,12 @@ class ChampionController extends Controller
         if ($filterForm->isSubmitted() && $filterForm->isValid()) {
             $formData = $filterForm->getData();
 
-            $tournamentChoice = $formData['tournament_id'];
+            $tournamentChoice = $formData['tournament']->getId()->getId();
 
             // reload the page with the chosen filter(s) applied (as url path params)
             return $this->redirectToRoute(
                 'champion_index',
-                array('tournament' => $tournamentChoice->getId())
+                array('tournament_id' => $tournamentChoice)
             );
         }
 
@@ -105,18 +103,16 @@ class ChampionController extends Controller
         //if bet champion deadline is met, set disabled attribute to true
         if ((time() >= strtotime($deadline))) $disabledAttribute = true;
 
+        // set the input form-data
+        $formInputData = array();
+        $formInputData['team']['data'] = $teamSelected;
+        $formInputData['team']['choices'] = $teams;
+
         // creating the form for selecting the champion team
-        $championForm = $this->createFormBuilder($formData)
-            ->add('team_id', EntityType::class, array(
-                'class' => 'DevlabsSportifyBundle:Team',
-                'choices' => $teams,
-                'choice_label' => 'name',
-                'label' => false,
-                'data' => $teamSelected
-            ))
-            ->add('action', HiddenType::class, array('data' => $buttonAction))
-            ->add('button', SubmitType::class, array('label' => $buttonAction))
-            ->getForm();
+        $championForm = $this->createForm(ChampionSelectType::class, $formData, array(
+            'data' => $formInputData,
+            'button_action' => $buttonAction
+        ));
 
         $championForm->handleRequest($request);
 
@@ -124,14 +120,15 @@ class ChampionController extends Controller
         if ($championForm->isSubmitted() && $championForm->isValid()) {
             // get the team selected via the form
             $formData = $championForm->getData();
-            $teamChoice = $formData['team_id'];
+//            var_dump($formData);die;
+            $teamChoice = $formData['team']->getId();
 
             // reload the page is form is submitted but deadline has passed
             if ($disabledAttribute)
                 // clear the submitted POST data and reload the page
                 return $this->redirectToRoute(
                     'champion_index',
-                    array('tournament' => $tournamentSelected->getId())
+                    array('tournament_id' => $tournamentSelected->getId())
                 );
 
             // prepare the PredictionChampion object (new or modified one) for persisting in DB
@@ -153,7 +150,7 @@ class ChampionController extends Controller
             // reload the page with the chosen filter(s) applied (as url path params)
             return $this->redirectToRoute(
                 'champion_index',
-                array('tournament' => $tournamentSelected->getId())
+                array('tournament_id' => $tournamentSelected->getId())
             );
         }
 

@@ -47,9 +47,8 @@ class StandingsController extends Controller
 
         // creating a form for tournament filter
         $formData = array();
-
         $filterForm = $this->createForm(FilterType::class, $formData, array(
-            'fields'=> ['tournament'],
+            'fields'=> array('tournament'),
             'data' => $formInputData
         ));
 
@@ -64,9 +63,7 @@ class StandingsController extends Controller
             // reload the page with the chosen filter(s) applied (as url path params)
             return $this->redirectToRoute(
                 'standings_index',
-                array(
-                    'tournament_id' => $tournamentChoice
-                )
+                array('tournament_id' => $tournamentChoice)
             );
         }
 

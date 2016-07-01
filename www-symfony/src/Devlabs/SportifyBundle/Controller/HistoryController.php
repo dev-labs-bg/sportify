@@ -78,9 +78,8 @@ class HistoryController extends Controller
 
         // creating a form for user,tournament,date filter
         $formData = array();
-
         $filterForm = $this->createForm(FilterType::class, $formData, array(
-            'fields'=> ['tournament', 'user', 'date_from', 'date_to'],
+            'fields'=> array('tournament', 'user', 'date_from', 'date_to'),
             'data' => $formInputData
         ));
 
