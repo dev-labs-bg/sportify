@@ -63,6 +63,7 @@ class MatchesController extends Controller
         $tournamentsJoined = $em->getRepository('DevlabsSportifyBundle:Tournament')
             ->getJoined($user);
 
+        // set the input form-data
         $formInputData = array();
         $formInputData['date_from'] = $date_from;
         $formInputData['date_to'] = $date_to;
