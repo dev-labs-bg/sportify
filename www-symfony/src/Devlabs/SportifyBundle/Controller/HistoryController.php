@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Devlabs\SportifyBundle\Form\FilterType;
 
 /**
  * Class HistoryController
@@ -17,17 +18,17 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class HistoryController extends Controller
 {
     /**
-     * @Route("/history/{user_id}/{tournament}/{date_from}/{date_to}",
+     * @Route("/history/{user_id}/{tournament_id}/{date_from}/{date_to}",
      *     name="history_index",
      *     defaults={
      *      "user_id" = "empty",
-     *      "tournament" = "empty",
+     *      "tournament_id" = "empty",
      *      "date_from" = "empty",
      *      "date_to" = "empty"
      *     }
      * )
      */
-    public function indexAction(Request $request, $user_id, $tournament, $date_from, $date_to)
+    public function indexAction(Request $request, $user_id, $tournament_id, $date_from, $date_to)
     {
         // if user is not logged in, redirect to login page
         $securityContext = $this->container->get('security.authorization_checker');
@@ -40,7 +41,7 @@ class HistoryController extends Controller
 
         // set default values to route parameters if they are 'empty'
         if ($user_id === 'empty') $user_id = $user->getId();
-        if ($tournament === 'empty') $tournament = 'all';
+        if ($tournament_id === 'empty') $tournament_id = 'all';
         if ($date_from === 'empty') $date_from = date("Y-m-d", time() - 1209600);
         if ($date_to === 'empty') $date_to = date("Y-m-d");
 
@@ -58,49 +59,29 @@ class HistoryController extends Controller
             ->getAllEnabled();
 
         // use the selected tournament as object, based on id URL: {tournament} route parameter
-        $tournamentSelected = ($tournament === 'all')
+        $tournamentSelected = ($tournament_id === 'all')
             ? null
-            : $em->getRepository('DevlabsSportifyBundle:Tournament')->findOneById($tournament);
+            : $em->getRepository('DevlabsSportifyBundle:Tournament')->findOneById($tournament_id);
 
         // get joined tournaments
         $tournamentsJoined = $em->getRepository('DevlabsSportifyBundle:Tournament')
             ->getJoined($user);
 
+        // set the input form-data
+        $formInputData = array();
+        $formInputData['date_from'] = $date_from;
+        $formInputData['date_to'] = $date_to;
+        $formInputData['user']['data'] = ($request->request->get('filter')) ? null : $userSelected;
+        $formInputData['user']['choices'] = $usersEnabled;
+        $formInputData['tournament']['data'] = ($request->request->get('filter')) ? null : $tournamentSelected;
+        $formInputData['tournament']['choices'] = $tournamentsJoined;
+
         // creating a form for user,tournament,date filter
         $formData = array();
-        $filterForm = $this->createFormBuilder($formData)
-            ->add('user', EntityType::class, array(
-                'class' => 'DevlabsSportifyBundle:User',
-                'choices' => $usersEnabled,
-                'choice_label' => 'username',
-                'label' => false,
-                'data' => $userSelected
-            ))
-            ->add('tournament_id', EntityType::class, array(
-                'class' => 'DevlabsSportifyBundle:Tournament',
-                'choices' => $tournamentsJoined,
-                'choice_label' => 'name',
-                'label' => false,
-                'data' => $tournamentSelected
-            ))
-            ->add('date_from', TextType::class, array(
-//                'input' => 'string',
-//                'format' => 'yyyy-MM-dd',
-//                'widget' => 'single_text',
-                'label' => false,
-//                'years' => range(date('Y') -5, date('Y') +5),
-                'data' => $date_from
-            ))
-            ->add('date_to', TextType::class, array(
-//                'input' => 'string',
-//                'format' => 'yyyy-MM-dd',
-//                'widget' => 'single_text',
-                'label' => false,
-//                'years' => range(date('Y') -5, date('Y') +5),
-                'data' => $date_to
-            ))
-            ->add('button', SubmitType::class, array('label' => 'FILTER'))
-            ->getForm();
+        $filterForm = $this->createForm(FilterType::class, $formData, array(
+            'fields'=> array('tournament', 'user', 'date_from', 'date_to'),
+            'data' => $formInputData
+        ));
 
         $filterForm->handleRequest($request);
 
@@ -108,8 +89,8 @@ class HistoryController extends Controller
         if ($filterForm->isSubmitted() && $filterForm->isValid()) {
             $formData = $filterForm->getData();
 
-            $userChoice = $formData['user'];
-            $tournamentChoice = $formData['tournament_id'];
+            $userChoice = $formData['user']->getId()->getId();
+            $tournamentChoice = $formData['tournament']->getId()->getId();
             $dateFromChoice = $formData['date_from'];
             $dateToChoice = $formData['date_to'];
 
@@ -117,8 +98,8 @@ class HistoryController extends Controller
             return $this->redirectToRoute(
                 'history_index',
                 array(
-                    'user_id' => $userChoice->getId(),
-                    'tournament' => $tournamentChoice->getId(),
+                    'user_id' => $userChoice,
+                    'tournament_id' => $tournamentChoice,
                     'date_from' => $dateFromChoice,
                     'date_to' => $dateToChoice
                 )
@@ -127,9 +108,9 @@ class HistoryController extends Controller
 
         // get finished scored matches and the user's predictions for them
         $matches = $em->getRepository('DevlabsSportifyBundle:Match')
-            ->getAlreadyScored($userSelected, $tournament, $date_from, $modifiedDateTo);
+            ->getAlreadyScored($userSelected, $tournament_id, $date_from, $modifiedDateTo);
         $predictions = $em->getRepository('DevlabsSportifyBundle:Prediction')
-            ->getAlreadyScored($userSelected, $tournament, $date_from, $modifiedDateTo);
+            ->getAlreadyScored($userSelected, $tournament_id, $date_from, $modifiedDateTo);
 
         // get the user's tournaments position data
         $userScores = $em->getRepository('DevlabsSportifyBundle:Score')

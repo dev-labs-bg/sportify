@@ -51,6 +51,20 @@ class User extends BaseUser
     }
 
     /**
+     * Set id
+     *
+     * @param string $id
+     *
+     * @return Tournament
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
      * Add score
      *
      * @param \Devlabs\SportifyBundle\Entity\Score $score

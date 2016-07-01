@@ -97,26 +97,26 @@ $(function(){
 });
 
 $(function(){
-    $('#form_tournament_id').chosen({
+    $('#filter_tournament_id').chosen({
         no_results_text: 'No such tournament!'
     });
-    $('#form_user').chosen({
+    $('#filter_user_id').chosen({
         no_results_text: 'No such username!'
     });
     $('#tournament-filter').chosen({
         no_results_text: 'No such tournament!'
     });
-    $('#form_team_id').chosen({
+    $('#champion_select_team_id').chosen({
         no_results_text: 'No such team!'
     });
 });
 
 $(function(){
-    $('#form_date_from').datepicker({
+    $('#filter_date_from').datepicker({
         format : 'yyyy-mm-dd',
         disableTouchKeyboard: true
     });
-    $('#form_date_to').datepicker({
+    $('#filter_date_to').datepicker({
         format : 'yyyy-mm-dd',
         disableTouchKeyboard: true
     });

@@ -5,8 +5,7 @@ namespace Devlabs\SportifyBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Devlabs\SportifyBundle\Form\FilterType;
 
 /**
  * Class StandingsController
@@ -15,58 +14,56 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class StandingsController extends Controller
 {
     /**
-     * @Route("/standings/{tournament}",
+     * @Route("/standings/{tournament_id}",
      *     name="standings_index",
      *     defaults={
-     *      "tournament" = "empty"
+     *      "tournament_id" = "empty"
      *     }
      * )
      */
-    public function indexAction(Request $request, $tournament)
+    public function indexAction(Request $request, $tournament_id)
     {
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
 
         // set default values to route parameters if they are 'empty'
-        if ($tournament === 'empty') {
+        if ($tournament_id === 'empty') {
             $tournamentSelected = $em->getRepository('DevlabsSportifyBundle:Tournament')
                 ->getFirst();
         } else {
             // use the selected tournament as object, based on id URL: {tournament} route parameter
             $tournamentSelected = $em->getRepository('DevlabsSportifyBundle:Tournament')
-                ->findOneById($tournament);
+                ->findOneById($tournament_id);
         }
 
         // get all tournaments
         $tournamentsAll = $em->getRepository('DevlabsSportifyBundle:Tournament')
             ->findAll();
 
+        // set the input form-data
+        $formInputData = array();
+        $formInputData['tournament']['data'] = ($request->request->get('filter')) ? null : $tournamentSelected;
+        $formInputData['tournament']['choices'] = $tournamentsAll;
+
         // creating a form for tournament filter
         $formData = array();
-        $filterForm = $this->createFormBuilder($formData)
-            ->add('tournament_id', EntityType::class, array(
-                'class' => 'DevlabsSportifyBundle:Tournament',
-                'choices' => $tournamentsAll,
-                'choice_label' => 'name',
-                'label' => false,
-                'data' => $tournamentSelected
-            ))
-            ->add('button', SubmitType::class, array('label' => 'Filter'))
-            ->getForm();
+        $filterForm = $this->createForm(FilterType::class, $formData, array(
+            'fields'=> array('tournament'),
+            'data' => $formInputData
+        ));
 
         $filterForm->handleRequest($request);
 
         // if the filter form is submitted, redirect with appropriate url path parameters
         if ($filterForm->isSubmitted() && $filterForm->isValid()) {
             $formData = $filterForm->getData();
-            $tournamentChoice = $formData['tournament_id'];
+
+            $tournamentChoice = $formData['tournament']->getId()->getId();
 
             // reload the page with the chosen filter(s) applied (as url path params)
             return $this->redirectToRoute(
                 'standings_index',
-                array(
-                    'tournament' => $tournamentChoice->getId()
-                )
+                array('tournament_id' => $tournamentChoice)
             );
         }
 
