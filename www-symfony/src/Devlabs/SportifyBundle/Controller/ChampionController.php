@@ -120,7 +120,6 @@ class ChampionController extends Controller
         if ($championForm->isSubmitted() && $championForm->isValid()) {
             // get the team selected via the form
             $formData = $championForm->getData();
-//            var_dump($formData);die;
             $teamChoice = $formData['team']->getId();
 
             // reload the page is form is submitted but deadline has passed

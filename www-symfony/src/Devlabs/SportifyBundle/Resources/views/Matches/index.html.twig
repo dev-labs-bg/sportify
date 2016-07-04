@@ -34,7 +34,7 @@
                 </div>
                 {% for match in matches %}
                     {{ form_start(match_forms[match.id]) }}
-                        {{ form_row(match_forms[match.id].match_id) }}
+                        {{ form_row(match_forms[match.id].matchId) }}
                         {{ form_errors(match_forms[match.id]) }}
                         <div class="match">
                             <div class="row">
@@ -50,15 +50,15 @@
                                                 </div>
                                                 {% if predictions[match.id] is not defined%}
                                                     <div class="bet-form not-filled">
-                                                        {{ form_row(match_forms[match.id].home_goals, {'attr': {'class': 'bet-field', 'placeholder': '?' }, 'disabled': match.disabledAttribute}) }}
+                                                        {{ form_row(match_forms[match.id].homeGoals, {'attr': {'class': 'bet-field', 'placeholder': '?' }, 'disabled': match.disabledAttribute}) }}
                                                         <span>:</span>
-                                                        {{ form_row(match_forms[match.id].away_goals, {'attr': {'class': 'bet-field', 'placeholder': '?' }, 'disabled': match.disabledAttribute }) }}
+                                                        {{ form_row(match_forms[match.id].awayGoals, {'attr': {'class': 'bet-field', 'placeholder': '?' }, 'disabled': match.disabledAttribute }) }}
                                                     </div>
                                                 {% else %}
                                                     <div class="bet-form">
-                                                        {{ form_row(match_forms[match.id].home_goals, {'attr': {'class': 'bet-field' }, 'disabled': match.disabledAttribute }) }}
+                                                        {{ form_row(match_forms[match.id].homeGoals, {'attr': {'class': 'bet-field' }, 'disabled': match.disabledAttribute }) }}
                                                         <span>:</span>
-                                                        {{ form_row(match_forms[match.id].away_goals, {'attr': {'class': 'bet-field' }, 'disabled': match.disabledAttribute }) }}
+                                                        {{ form_row(match_forms[match.id].awayGoals, {'attr': {'class': 'bet-field' }, 'disabled': match.disabledAttribute }) }}
                                                     </div>
                                                 {% endif %}
                                             </div>
