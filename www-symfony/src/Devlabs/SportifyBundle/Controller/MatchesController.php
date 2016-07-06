@@ -99,6 +99,9 @@ class MatchesController extends Controller
             );
         }
 
+        $matchesHelper = $this->container->get('app.matches.helper');
+        $matchesHelper->setEntityManager($em);
+
         // get not finished matches and the user's predictions for them
         $matches = $em->getRepository('DevlabsSportifyBundle:Match')
             ->getNotScored($user, $tournament_id, $date_from, $modifiedDateTo);
@@ -111,31 +114,10 @@ class MatchesController extends Controller
             // creating a form with BET/EDIT button for each match
             foreach ($matches as $match) {
 
-                if (isset($predictions[$match->getId()])) {
-                    // link/merge prediction with EntityManager (set entity as managed by EM)
-                    $prediction = $em->merge($predictions[$match->getId()]);
-
-                    $buttonAction = 'EDIT';
-                } else {
-                    $prediction = new Prediction();
-                    $prediction->setMatchId($match);
-                    $prediction->setUserId($user);
-
-                    $buttonAction = 'BET';
-                }
-
                 //if match has started set disabled to true
                 if ($match->hasStarted()) $match->setDisabledAttribute();
 
-                $form = $this->createForm(PredictionType::class, $prediction, array(
-                    'button_action' => $buttonAction
-                ));
-
-                // handle the request if the current form is submitted
-                if ($request->request->get('prediction')['matchId'] == $match->getId()) {
-                    $form->handleRequest($request);
-                }
-
+                $form = $matchesHelper->createForm($request, $match, $predictions);
                 $matchForms[$match->getId()] = $form;
 
                 if ($form->isSubmitted() && $form->isValid()) {
@@ -144,17 +126,13 @@ class MatchesController extends Controller
                         return $this->redirectToRoute(
                             'matches_index',
                             array(
-                                'tournament' => $tournament_id,
+                                'tournament_id' => $tournament_id,
                                 'date_from' => $date_from,
                                 'date_to' => $date_to
                             )
                         );
 
-                    // prepare the queries
-                    $em->persist($prediction);
-
-                    // execute the queries
-                    $em->flush();
+                    $matchesHelper->actionOnFormSubmit();
 
                     // clear the submitted POST data and reload the page
                     return $this->redirectToRoute(

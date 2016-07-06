@@ -76,6 +76,14 @@ class Match
      * @ORM\Column(type="boolean", name="notification_sent")
      */
     private $notificationSent = 0;
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->predictions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -277,13 +285,6 @@ class Match
     public function setDisabledAttribute()
     {
         $this->disabledAttribute = true;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->predictions = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
