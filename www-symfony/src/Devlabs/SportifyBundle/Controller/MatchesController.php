@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Devlabs\SportifyBundle\Form\FilterType;
+use Devlabs\SportifyBundle\Form\PredictionType;
 
 /**
  * Class MatchesController
@@ -109,72 +110,45 @@ class MatchesController extends Controller
         if ($matches) {
             // creating a form with BET/EDIT button for each match
             foreach ($matches as $match) {
-                $prediction = new Prediction();
-                $prediction->setHomeGoals('');
-                $prediction->setAwayGoals('');
-                $buttonAction = 'BET';
 
                 if (isset($predictions[$match->getId()])) {
-                    $prediction = $predictions[$match->getId()];
+                    // link/merge prediction with EntityManager (set entity as managed by EM)
+                    $prediction = $em->merge($predictions[$match->getId()]);
+
                     $buttonAction = 'EDIT';
+                } else {
+                    $prediction = new Prediction();
+                    $prediction->setMatchId($match);
+                    $prediction->setUserId($user);
+
+                    $buttonAction = 'BET';
                 }
 
                 //if match has started set disabled to true
                 if ($match->hasStarted()) $match->setDisabledAttribute();
 
-                $formData = array();
+                $form = $this->createForm(PredictionType::class, $prediction, array(
+                    'button_action' => $buttonAction
+                ));
 
-                $form = $this->createFormBuilder($formData)
-                    ->add('match_id', HiddenType::class, array('data' => $match->getId()))
-                    ->add('home_goals', TextType::class, array(
-                        'data' => $prediction->getHomeGoals(),
-                        'label' => false
-                    ))
-                    ->add('away_goals', TextType::class, array(
-                        'data' => $prediction->getAwayGoals(),
-                        'label' => false
-                    ))
-                    ->add('action', HiddenType::class, array('data' => $buttonAction))
-                    ->add('button', SubmitType::class, array(
-                        'label' => $buttonAction
-                    ))
-                    ->getForm();
+                // handle the request if the current form is submitted
+                if ($request->request->get('prediction')['matchId'] == $match->getId()) {
+                    $form->handleRequest($request);
+                }
 
-                $form->handleRequest($request);
                 $matchForms[$match->getId()] = $form;
-            }
 
-            // iterate the forms and and if form is submitted, then execute the bed/edit prediction code
-            foreach ($matchForms as $form) {
                 if ($form->isSubmitted() && $form->isValid()) {
-                    $formData = $form->getData();
-                    $match = $em->getRepository('DevlabsSportifyBundle:Match')
-                        ->findOneById($formData['match_id']);
-
                     if ($match->hasStarted())
                         // clear the submitted POST data and reload the page
                         return $this->redirectToRoute(
                             'matches_index',
                             array(
-                                'tournament' => $tournamentt,
+                                'tournament' => $tournament_id,
                                 'date_from' => $date_from,
                                 'date_to' => $date_to
                             )
                         );
-
-                    // prepare the Prediction object (new or modified one) for persisting in DB
-                    if ($formData['action'] === 'BET') {
-                        $prediction = new Prediction();
-                        $prediction->setUserId($user);
-                        $prediction->setMatchId($match);
-                        $prediction->setHomeGoals($formData['home_goals']);
-                        $prediction->setAwayGoals($formData['away_goals']);
-                    } elseif ($formData['action'] === 'EDIT') {
-                        $prediction = $em->getRepository('DevlabsSportifyBundle:Prediction')
-                            ->getOneByUserAndMatch($user, $match);
-                        $prediction->setHomeGoals($formData['home_goals']);
-                        $prediction->setAwayGoals($formData['away_goals']);
-                    }
 
                     // prepare the queries
                     $em->persist($prediction);
@@ -230,9 +204,8 @@ class MatchesController extends Controller
             return $this->redirectToRoute('fos_user_security_login');
         }
 
-        // check if the 'matches' array is present in the POST data
+        // redirect to the matches main page if the 'matches' array is NOT set in the POST data
         if (!$request->request->get('matches')) {
-            // redirect to the matches main page
             return $this->redirectToRoute('matches_index');
         }
 
@@ -246,12 +219,12 @@ class MatchesController extends Controller
 
         foreach ($formsArray as $submittedForm) {
             $match = $em->getRepository('DevlabsSportifyBundle:Match')
-                ->findOneById($submittedForm['match_id']);
+                ->findOneById($submittedForm['matchId']);
 
             // skip to next form if this match has started or data is invalid
             if ($match->hasStarted() ||
-                !(is_numeric($submittedForm['home_goals']) && $submittedForm['home_goals'] >= 0) ||
-                !(is_numeric($submittedForm['away_goals']) && $submittedForm['away_goals'] >= 0))
+                !(is_numeric($submittedForm['homeGoals']) && $submittedForm['homeGoals'] >= 0) ||
+                !(is_numeric($submittedForm['awayGoals']) && $submittedForm['awayGoals'] >= 0))
                 continue;
 
             // prepare the Prediction object (new or modified one) for persisting in DB
@@ -259,13 +232,13 @@ class MatchesController extends Controller
                 $prediction = new Prediction();
                 $prediction->setUserId($user);
                 $prediction->setMatchId($match);
-                $prediction->setHomeGoals($submittedForm['home_goals']);
-                $prediction->setAwayGoals($submittedForm['away_goals']);
+                $prediction->setHomeGoals($submittedForm['homeGoals']);
+                $prediction->setAwayGoals($submittedForm['awayGoals']);
             } elseif ($submittedForm['action'] === 'EDIT') {
                 $prediction = $em->getRepository('DevlabsSportifyBundle:Prediction')
                     ->getOneByUserAndMatch($user, $match);
-                $prediction->setHomeGoals($submittedForm['home_goals']);
-                $prediction->setAwayGoals($submittedForm['away_goals']);
+                $prediction->setHomeGoals($submittedForm['homeGoals']);
+                $prediction->setAwayGoals($submittedForm['awayGoals']);
             }
 
             // prepare the queries
