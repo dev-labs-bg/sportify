@@ -34,7 +34,9 @@
                 </div>
                 {% for match in matches %}
                     {{ form_start(match_forms[match.id]) }}
+                        {{ form_row(match_forms[match.id].id) }}
                         {{ form_row(match_forms[match.id].matchId) }}
+                        {{ form_row(match_forms[match.id].userId) }}
                         {{ form_errors(match_forms[match.id]) }}
                         <div class="match">
                             <div class="row">
@@ -73,7 +75,7 @@
                                     {{ form_row(match_forms[match.id].action) }}
                                     <div class="row">
                                         <div class="col-sm-12 text-center">
-                                            {% if predictions[match.id] is not defined%}
+                                            {% if predictions[match.id] is not defined %}
                                                 {{ form_row(match_forms[match.id].button, {'attr': {'class': 'btn green-btn match-btn' }, 'disabled': match.disabledAttribute }) }}
                                             {% else %}
                                                 {{ form_row(match_forms[match.id].button, {'attr': {'class': 'btn yellow-btn match-btn' }, 'disabled': match.disabledAttribute }) }}

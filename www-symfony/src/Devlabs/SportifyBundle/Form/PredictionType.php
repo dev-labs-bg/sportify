@@ -9,18 +9,13 @@ use Devlabs\SportifyBundle\Form\DataTransformer\UserToIdTransformer;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class PredictionType extends AbstractType
 {
     protected $manager;
-    protected $data;
-    protected $match;
-    protected $prediction;
     protected $buttonAction;
 
     public function __construct(ObjectManager $manager)
@@ -35,8 +30,6 @@ class PredictionType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Devlabs\SportifyBundle\Entity\Prediction',
-//            'match' => null,
-//            'prediction' => null,
             'button_action' => null
         ));
     }
@@ -47,33 +40,12 @@ class PredictionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-//        $this->data = $options['data'];
-//        $this->match = $options['match'];
-//        $this->prediction = $options['prediction'];
         $this->buttonAction = $options['button_action'];
 
-//        $builder
-//            ->add('matchId', HiddenType::class, array(
-//                'data' => $this->match->getId()
-//            ))
-//            ->add('homeGoals', TextType::class, array(
-//                'data' => $this->prediction->getHomeGoals(),
-//                'label' => false
-//            ))
-//            ->add('awayGoals', TextType::class, array(
-//                'data' => $this->prediction->getAwayGoals(),
-//                'label' => false
-//            ))
-//            ->add('action', HiddenType::class, array(
-//                'data' => $this->buttonAction,
-//                'mapped' => false
-//            ))
-//            ->add('button', SubmitType::class, array(
-//                'label' => $this->buttonAction
-//            ))
-//        ;
-
         $builder
+            ->add('id', HiddenType::class, array(
+                'label' => false
+            ))
             ->add('matchId', HiddenType::class, array(
                 'invalid_message' => 'That is not a valid match id',
                 'label' => false,
@@ -101,14 +73,17 @@ class PredictionType extends AbstractType
             ))
         ;
 
+        // data transformations - string <-> object for the 'matchId' field
         $builder->get('matchId')
             ->addModelTransformer(new MatchToIdTransformer($this->manager))
         ;
 
+        // data transformations - string <-> object for the 'userId' field
         $builder->get('userId')
             ->addModelTransformer(new UserToIdTransformer($this->manager))
         ;
 
+        // data transformations - string <-> integer for the 'homeGoals' field
         $builder->get('homeGoals')
             ->addModelTransformer(new CallbackTransformer(
                 function ($number) {
@@ -122,6 +97,7 @@ class PredictionType extends AbstractType
             ))
         ;
 
+        // data transformations - string <-> integer for the 'awayGoals' field
         $builder->get('awayGoals')
             ->addModelTransformer(new CallbackTransformer(
                 function ($number) {

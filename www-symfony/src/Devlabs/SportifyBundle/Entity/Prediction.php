@@ -71,6 +71,20 @@ class Prediction
     }
 
     /**
+     * Set id
+     *
+     * @param string $id
+     *
+     * @return Tournament
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
      * Set homeGoals
      *
      * @param integer $homeGoals

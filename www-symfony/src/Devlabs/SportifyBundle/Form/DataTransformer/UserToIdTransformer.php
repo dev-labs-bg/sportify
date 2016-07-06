@@ -40,7 +40,7 @@ class UserToIdTransformer implements DataTransformerInterface
      */
     public function reverseTransform($userId)
     {
-        // no user id? It's optional, so that's ok
+        // return if no user id
         if (!$userId) {
             return;
         }
@@ -56,7 +56,7 @@ class UserToIdTransformer implements DataTransformerInterface
             // this message is not shown to the user
             // see the invalid_message option
             throw new TransformationFailedException(sprintf(
-                'An user with id "%s" does not exist!',
+                'A user with id "%s" does not exist!',
                 $userId
             ));
         }

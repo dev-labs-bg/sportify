@@ -40,7 +40,7 @@ class MatchToIdTransformer implements DataTransformerInterface
      */
     public function reverseTransform($matchId)
     {
-        // no match id? It's optional, so that's ok
+        // return if no match id
         if (!$matchId) {
             return;
         }
@@ -56,7 +56,7 @@ class MatchToIdTransformer implements DataTransformerInterface
             // this message is not shown to the user
             // see the invalid_message option
             throw new TransformationFailedException(sprintf(
-                'An match with id "%s" does not exist!',
+                'A match with id "%s" does not exist!',
                 $matchId
             ));
         }
