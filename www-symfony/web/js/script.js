@@ -154,7 +154,7 @@ $( "#btn-bet-all" ).click(function () {
 function getMatchFormData( form ) {
     return $( form ).serializeArray().reduce( function( obj, item ) {
         var name = item.name;
-        name = name.replace("form", "").replace("[", "").replace("]","");
+        name = name.replace("form", "").replace("[", "").replace("]","").replace("prediction","");
         obj[ name ] = item.value;
         return obj;
     }, {});
