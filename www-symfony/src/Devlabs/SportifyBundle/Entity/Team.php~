@@ -42,6 +42,11 @@ class Team
     private $predictionsChampion;
 
     /**
+     * @ORM\OneToMany(targetEntity="Tournament" , mappedBy="championTeamId" , cascade={"all"})
+     */
+    private $tournamentsChampion;
+
+    /**
      * @ORM\OneToMany(targetEntity="Match" , mappedBy="homeTeamId" , cascade={"all"})
      */
     private $matchesHomeTeam;
@@ -69,6 +74,20 @@ class Team
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set id
+     *
+     * @param string $id
+     *
+     * @return Tournament
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     /**

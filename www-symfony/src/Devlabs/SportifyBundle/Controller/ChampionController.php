@@ -153,6 +153,9 @@ class ChampionController extends Controller
             );
         }
 
+        $championPredictions = $em->getRepository('DevlabsSportifyBundle:PredictionChampion')
+            ->findByTournamentId($tournamentSelected);
+
         // get the user's tournaments position data
         $userScores = $em->getRepository('DevlabsSportifyBundle:Score')
             ->getByUser($user);
@@ -166,6 +169,7 @@ class ChampionController extends Controller
                 'filter_form' => $filterForm->createView(),
                 'champion_form' => $championForm->createView(),
                 'prediction_champion' => $predictionChampion,
+                'user_predictions' => $championPredictions,
                 'deadline' => $deadline,
                 'disabled_attribute' => $disabledAttribute,
                 'button_action' => $buttonAction

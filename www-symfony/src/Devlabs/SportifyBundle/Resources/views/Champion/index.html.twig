@@ -47,6 +47,18 @@
                 </div>
             </div>
         </div>
+
+        <h2 class="text-center">
+            All users champion predictions:
+        </h2>
+        <div class="standing">
+            {% for user_prediction in user_predictions %}
+                <div class="row text-center">
+                    <div class="col-xs-6 col-sm-6">{{ user_prediction.userId.username }}</div>
+                    <div class="col-xs-6 col-sm-6">{{ user_prediction.teamId.name }} </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 
 {% endblock %}

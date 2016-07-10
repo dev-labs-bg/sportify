@@ -38,6 +38,12 @@ class Tournament
     private $nameShort;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Team", inversedBy="tournamentsChampion")
+     * @ORM\JoinColumn(name="champion_team_id", referencedColumnName="id")
+     */
+    private $championTeamId;
+
+    /**
      * @ORM\OneToMany(targetEntity="Score" , mappedBy="tournamentId" , cascade={"all"})
      */
     private $scores;
@@ -322,5 +328,29 @@ class Tournament
     public function getPredictionsChampion()
     {
         return $this->predictionsChampion;
+    }
+
+    /**
+     * Set championTeamId
+     *
+     * @param \Devlabs\SportifyBundle\Entity\Team $championTeamId
+     *
+     * @return Tournament
+     */
+    public function setChampionTeamId(\Devlabs\SportifyBundle\Entity\Team $championTeamId = null)
+    {
+        $this->championTeamId = $championTeamId;
+
+        return $this;
+    }
+
+    /**
+     * Get championTeamId
+     *
+     * @return \Devlabs\SportifyBundle\Entity\Team
+     */
+    public function getChampionTeamId()
+    {
+        return $this->championTeamId;
     }
 }
