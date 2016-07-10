@@ -177,4 +177,19 @@ class PredictionChampion
     {
         return $this->teamId;
     }
+
+    /**
+     * Calculate the points from the prediction
+     *
+     * @param Match $match
+     * @return int
+     */
+    public function calculatePoints()
+    {
+        if ($this->teamId === $this->tournamentId->getChampionTeamId()) {
+            return 5;
+        }
+
+        return 0;
+    }
 }

@@ -125,6 +125,9 @@ class ScoresUpdateController extends Controller
         // execute the exact percentage update queries
         $em->flush();
 
+        // calculate points for predicted champion
+        $this->scoreChampionPredictions($em, $tournamentsModified);
+
         // recalculation of the user positions in each of the modified tournaments
         foreach ($tournamentsModified as $tournament) {
             $scores = $em->getRepository('DevlabsSportifyBundle:Score')
@@ -148,5 +151,57 @@ class ScoresUpdateController extends Controller
 
         // redirect to the Home page
         return $this->redirectToRoute('home');
+    }
+
+    private function scoreChampionPredictions($em, &$tournamentsModified)
+    {
+        // get all tournaments
+        $tournamentsAll = $em->getRepository('DevlabsSportifyBundle:Tournament')
+            ->findAll();
+
+        foreach ($tournamentsAll as $tournament) {
+            if ($tournament->getChampionTeamId() == null) continue;
+
+            $championPredictions = $em->getRepository('DevlabsSportifyBundle:PredictionChampion')
+                ->findByTournamentId($tournament);
+
+            foreach ($championPredictions as $champPrediction) {
+                // get the points from the prediction
+                $predictionPoints = $champPrediction->calculatePoints();
+
+                /**
+                 * Update the prediction in the DB
+                 * by setting the points gained and the score_added flag to 1
+                 */
+                $champPrediction->setPoints($predictionPoints);
+                $champPrediction->setScoreAdded('1');
+
+                // prepare the queries
+                $em->persist($champPrediction);
+
+                /**
+                 * If the predictions's gained points are more than 0 (zero)
+                 * then update the user score for the prediction's tournament
+                 */
+                if ($predictionPoints > 0) {
+                    $userScore = $em->getRepository('DevlabsSportifyBundle:Score')
+                        ->findOneBy(array(
+                            'userId' => $champPrediction->getUserId(),
+                            'tournamentId' => $champPrediction->getTournamentId(),
+                        ));
+                    $userScore->updatePoints($predictionPoints);
+
+                    if (!in_array($tournament, $tournamentsModified)) {
+                        $tournamentsModified[] = $tournament;
+                    }
+
+                    // prepare the queries
+                    $em->persist($userScore);
+                }
+            }
+        }
+
+        // execute the points update queries
+        $em->flush();
     }
 }
