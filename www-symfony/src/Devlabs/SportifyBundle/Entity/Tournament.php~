@@ -38,6 +38,12 @@ class Tournament
     private $nameShort;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Team", inversedBy="tournamentsChampion")
+     * @ORM\JoinColumn(name="champion_team_id", referencedColumnName="id")
+     */
+    private $championTeamId;
+
+    /**
      * @ORM\OneToMany(targetEntity="Score" , mappedBy="tournamentId" , cascade={"all"})
      */
     private $scores;
@@ -76,6 +82,20 @@ class Tournament
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set id
+     *
+     * @param string $id
+     *
+     * @return Tournament
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     /**
