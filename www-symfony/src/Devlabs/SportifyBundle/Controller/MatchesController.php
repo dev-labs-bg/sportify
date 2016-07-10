@@ -6,13 +6,7 @@ use Devlabs\SportifyBundle\Entity\Prediction;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Devlabs\SportifyBundle\Form\FilterType;
-use Devlabs\SportifyBundle\Form\PredictionType;
 
 /**
  * Class MatchesController
@@ -45,10 +39,13 @@ class MatchesController extends Controller
         // Load the data for the current user into an object
         $user = $this->getUser();
 
+        $matchesHelper = $this->container->get('app.matches.helper');
+
         // set default values to route parameters if they are 'empty'
-        if ($tournament_id === 'empty') $tournament_id = 'all';
-        if ($date_from === 'empty') $date_from = date("Y-m-d");
-        if ($date_to === 'empty') $date_to = date("Y-m-d", time() + 1209600);
+        $urlParams = $matchesHelper->initUrlParams($tournament_id, $date_from, $date_to);
+        $tournament_id = $urlParams['tournament_id'];
+        $date_from = $urlParams['date_from'];
+        $date_to = $urlParams['date_to'];
 
         $modifiedDateTo = date("Y-m-d", strtotime($date_to) + 86500);
 
@@ -99,6 +96,8 @@ class MatchesController extends Controller
             );
         }
 
+        $matchesHelper->setEntityManager($em);
+
         // get not finished matches and the user's predictions for them
         $matches = $em->getRepository('DevlabsSportifyBundle:Match')
             ->getNotScored($user, $tournament_id, $date_from, $modifiedDateTo);
@@ -108,70 +107,7 @@ class MatchesController extends Controller
         $matchForms = array();
 
         if ($matches) {
-            // creating a form with BET/EDIT button for each match
-            foreach ($matches as $match) {
-
-                if (isset($predictions[$match->getId()])) {
-                    // link/merge prediction with EntityManager (set entity as managed by EM)
-                    $prediction = $em->merge($predictions[$match->getId()]);
-
-                    $buttonAction = 'EDIT';
-                } else {
-                    $prediction = new Prediction();
-                    $prediction->setMatchId($match);
-                    $prediction->setUserId($user);
-
-                    $buttonAction = 'BET';
-                }
-
-                //if match has started set disabled to true
-                if ($match->hasStarted()) $match->setDisabledAttribute();
-
-                $form = $this->createForm(PredictionType::class, $prediction, array(
-                    'button_action' => $buttonAction
-                ));
-
-                // handle the request if the current form is submitted
-                if ($request->request->get('prediction')['matchId'] == $match->getId()) {
-                    $form->handleRequest($request);
-                }
-
-                $matchForms[$match->getId()] = $form;
-
-                if ($form->isSubmitted() && $form->isValid()) {
-                    if ($match->hasStarted())
-                        // clear the submitted POST data and reload the page
-                        return $this->redirectToRoute(
-                            'matches_index',
-                            array(
-                                'tournament' => $tournament_id,
-                                'date_from' => $date_from,
-                                'date_to' => $date_to
-                            )
-                        );
-
-                    // prepare the queries
-                    $em->persist($prediction);
-
-                    // execute the queries
-                    $em->flush();
-
-                    // clear the submitted POST data and reload the page
-                    return $this->redirectToRoute(
-                        'matches_index',
-                        array(
-                            'tournament_id' => $tournament_id,
-                            'date_from' => $date_from,
-                            'date_to' => $date_to
-                        )
-                    );
-                }
-            }
-
-            // create view for each form
-            foreach ($matchForms as &$form) {
-                $form = $form->createView();
-            }
+            $matchForms = $this->createMatchForms($request, $urlParams, $matchesHelper, $user, $matches, $predictions);
         }
 
         // get the user's tournaments position data
@@ -190,6 +126,78 @@ class MatchesController extends Controller
                 'match_forms' => $matchForms
             )
         );
+    }
+
+    /**
+     * @Route("/matches/{action}/{tournament_id}/{date_from}/{date_to}",
+     *     name="matches_bet",
+     *     defaults={
+     *      "action" = "bet",
+     *      "tournament_id" = "empty",
+     *      "date_from" = "empty",
+     *      "date_to" = "empty"
+     *     },
+     *     requirements={
+     *      "action" : "bet"
+     *     }
+     * )
+     */
+    public function betAction(Request $request, $tournament_id, $date_from, $date_to)
+    {
+        // if user is not logged in, redirect to login page
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+
+        // redirect to the matches main page if the 'prediction' parameter is NOT set in the POST data
+        if (!$request->request->get('prediction')) {
+            return $this->redirectToRoute('matches_index');
+        }
+
+        // Load the data for the current user into an object
+        $user = $this->getUser();
+
+        $matchesHelper = $this->container->get('app.matches.helper');
+
+        // set default values to route parameters if they are 'empty'
+        $urlParams = $matchesHelper->initUrlParams($tournament_id, $date_from, $date_to);
+
+        // Get an instance of the Entity Manager
+        $em = $this->getDoctrine()->getManager();
+        $matchesHelper->setEntityManager($em);
+
+        // get the submitted form's match object
+        $match = $em->getRepository('DevlabsSportifyBundle:Match')
+            ->findOneById($request->request->get('prediction')['matchId']);
+
+        if ($request->request->get('prediction')['id']) {
+            $prediction = $em->getRepository('DevlabsSportifyBundle:Prediction')
+                ->findOneById($request->request->get('prediction')['id']);
+            $prediction->setHomeGoals($request->request->get('prediction')['homeGoals']);
+            $prediction->setAwayGoals($request->request->get('prediction')['awayGoals']);
+        } else {
+            $prediction = new Prediction();
+            $prediction->setMatchId($match);
+            $prediction->setUserId($user);
+            $prediction->setHomeGoals($request->request->get('prediction')['homeGoals']);
+            $prediction->setAwayGoals($request->request->get('prediction')['awayGoals']);
+        }
+
+        $buttonAction = $request->request->get('prediction')['action'];
+
+        $form = $matchesHelper->createForm($request, $urlParams, $match, $prediction, $buttonAction);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // if the submitted form's match has started, clear the submitted POST data and reload the page
+            if ($match->hasStarted())
+                return $this->redirectToRoute('matches_index', $urlParams);
+
+            $matchesHelper->actionOnFormSubmit($form);
+        }
+
+        // clear the submitted POST data and reload the page
+        return $this->redirectToRoute('matches_index', $urlParams);
     }
 
     /**
@@ -250,5 +258,28 @@ class MatchesController extends Controller
 
         // redirect to the matches main page
         return $this->redirectToRoute('matches_index');
+    }
+
+    private function createMatchForms($request, $urlParams, $matchesHelper, $user, $matches, $predictions)
+    {
+        $matchForms = array();
+
+        // creating a form with BET/EDIT button for each match
+        foreach ($matches as $match) {
+
+            //if match has started set disabled to true
+            if ($match->hasStarted()) $match->setDisabledAttribute();
+
+            $prediction = $matchesHelper->getPrediction($user, $match, $predictions);
+            $buttonAction = $matchesHelper->getPredictionButton($prediction);
+
+            $form = $matchesHelper->createForm($request, $urlParams, $match, $prediction, $buttonAction);
+
+            // create view for each form
+            $form = $form->createView();
+            $matchForms[$match->getId()] = $form;
+        }
+
+        return $matchForms;
     }
 }
