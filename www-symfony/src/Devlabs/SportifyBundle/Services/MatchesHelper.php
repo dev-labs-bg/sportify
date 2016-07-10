@@ -6,6 +6,7 @@ use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Devlabs\SportifyBundle\Form\PredictionType;
+use Devlabs\SportifyBundle\Entity\Prediction;
 
 /**
  * Class MatchesHelper
@@ -16,9 +17,9 @@ class MatchesHelper
     use ContainerAwareTrait;
 
     private $em;
-    private $form;
 
-    public function __construct(ContainerInterface $container) {
+    public function __construct(ContainerInterface $container)
+    {
         $this->container = $container;
     }
 
@@ -29,50 +30,62 @@ class MatchesHelper
         return $this;
     }
 
-    public function getMatches()
+    public function initUrlParams($tournament_id, $date_from, $date_to)
     {
+        if ($tournament_id === 'empty') $tournament_id = 'all';
+        if ($date_from === 'empty') $date_from = date("Y-m-d");
+        if ($date_to === 'empty') $date_to = date("Y-m-d", time() + 1209600);
 
+        return array(
+            'tournament_id' => $tournament_id,
+            'date_from' => $date_from,
+            'date_to' => $date_to
+        );
     }
 
-    public function preparePredictionData()
-    {
-
-    }
-
-    public function createForm($request, $match, $predictions)
+    public function getPrediction($user, $match, $predictions)
     {
         if (isset($predictions[$match->getId()])) {
             // link/merge prediction with EntityManager (set entity as managed by EM)
             $prediction = $this->em->merge($predictions[$match->getId()]);
-
-            $buttonAction = 'EDIT';
         } else {
             $prediction = new Prediction();
             $prediction->setMatchId($match);
             $prediction->setUserId($user);
-
-            $buttonAction = 'BET';
         }
 
-        $this->form = $this->container->get('form.factory')->create(PredictionType::class, $prediction, array(
+        return $prediction;
+    }
+
+    public function getPredictionButton($prediction)
+    {
+        return ($prediction->getId())
+            ? 'EDIT'
+            : 'BET';
+    }
+
+    public function createForm($request, $urlParams, $match, $prediction, $buttonAction)
+    {
+        $form = $this->container->get('form.factory')->create(PredictionType::class, $prediction, array(
+            'action' => $this->container->get('router')->generate('matches_bet', $urlParams),
             'button_action' => $buttonAction
         ));
 
-        $this->formHandleRequest($request, $match);
+        $this->formHandleRequest($request, $form, $match);
 
-        return $this->form;
+        return $form;
     }
 
-    public function formHandleRequest($request, $match)
+    public function formHandleRequest($request, $form, $match)
     {
         if ($request->request->get('prediction')['matchId'] == $match->getId()) {
-            $this->form->handleRequest($request);
+            $form->handleRequest($request);
         }
     }
 
-    public function actionOnFormSubmit()
+    public function actionOnFormSubmit($form)
     {
-        $prediction = $this->form->getData();
+        $prediction = $form->getData();
 
         // prepare the queries
         $this->em->persist($prediction);
