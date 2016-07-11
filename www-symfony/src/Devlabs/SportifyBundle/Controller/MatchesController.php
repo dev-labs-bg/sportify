@@ -39,6 +39,7 @@ class MatchesController extends Controller
         // Load the data for the current user into an object
         $user = $this->getUser();
 
+        // get the matches helper service
         $matchesHelper = $this->container->get('app.matches.helper');
 
         // set default values to route parameters if they are 'empty'
@@ -158,6 +159,7 @@ class MatchesController extends Controller
         // Load the data for the current user into an object
         $user = $this->getUser();
 
+        // get the matches helper service
         $matchesHelper = $this->container->get('app.matches.helper');
 
         // set default values to route parameters if they are 'empty'
@@ -171,6 +173,7 @@ class MatchesController extends Controller
         $match = $em->getRepository('DevlabsSportifyBundle:Match')
             ->findOneById($request->request->get('prediction')['matchId']);
 
+        // set the prediction object based on whether it's new or existing one
         if ($request->request->get('prediction')['id']) {
             $prediction = $em->getRepository('DevlabsSportifyBundle:Prediction')
                 ->findOneById($request->request->get('prediction')['id']);
@@ -260,6 +263,17 @@ class MatchesController extends Controller
         return $this->redirectToRoute('matches_index');
     }
 
+    /**
+     * Method for creating prediction forms for a given set matches
+     *
+     * @param $request
+     * @param $urlParams
+     * @param $matchesHelper
+     * @param $user
+     * @param $matches
+     * @param $predictions
+     * @return array
+     */
     private function createMatchForms($request, $urlParams, $matchesHelper, $user, $matches, $predictions)
     {
         $matchForms = array();
