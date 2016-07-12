@@ -159,8 +159,7 @@ class ChampionController extends Controller
         // get the user's tournaments position data
         $userScores = $em->getRepository('DevlabsSportifyBundle:Score')
             ->getByUser($user);
-        $twig = $this->container->get('twig');
-        $twig->addGlobal('user_scores', $userScores);
+        $this->container->get('twig')->addGlobal('user_scores', $userScores);
 
         // rendering the view and returning the response
         return $this->render(

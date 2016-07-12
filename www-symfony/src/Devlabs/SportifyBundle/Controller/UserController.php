@@ -44,8 +44,7 @@ class UserController extends Controller
 		$em = $this->getDoctrine()->getManager();
 		$userScores = $em->getRepository('DevlabsSportifyBundle:Score')
 			->getByUser($user);
-		$twig = $this->container->get('twig');
-		$twig->addGlobal('user_scores', $userScores);
+		$this->container->get('twig')->addGlobal('user_scores', $userScores);
 
 		return $this->render(
 			'DevlabsSportifyBundle:User:profile.html.twig',

@@ -63,9 +63,6 @@ class StandingsController extends Controller
         $allScores = $em->getRepository('DevlabsSportifyBundle:Score')
             ->getByTournamentOrderByPosNew($formSourceData['tournament_selected']);
 
-        // get the user's tournaments position data
-        $userScores = array();
-
         // if user is logged in, get his standings
         $securityContext = $this->container->get('security.authorization_checker');
         if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
@@ -75,10 +72,9 @@ class StandingsController extends Controller
             // get scores standings for the current user
             $userScores = $em->getRepository('DevlabsSportifyBundle:Score')
                 ->getByUser($user);
+            $this->container->get('twig')->addGlobal('user_scores', $userScores);
         }
 
-        $twig = $this->container->get('twig');
-        $twig->addGlobal('user_scores', $userScores);
 
         // rendering the view and returning the response
         return $this->render(

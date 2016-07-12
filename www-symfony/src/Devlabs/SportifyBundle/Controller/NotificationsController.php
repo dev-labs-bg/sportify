@@ -7,7 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use GuzzleHttp\Client;
 
 /**
- * Class ScoresUpdateController
+ * Class NotificationsController
  * @package Devlabs\SportifyBundle\Controller
  */
 class NotificationsController extends Controller
