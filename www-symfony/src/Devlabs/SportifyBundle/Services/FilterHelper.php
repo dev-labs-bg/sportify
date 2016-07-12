@@ -37,7 +37,7 @@ class FilterHelper
     }
 
     /**
-     * Method for getting the input data for the filter form
+     * Method for getting the source data used for the input fields of the filter form
      *
      * @param $request
      * @param $user

@@ -23,53 +23,45 @@ class StandingsController extends Controller
      */
     public function indexAction(Request $request, $tournament_id)
     {
+        $urlParams['tournament_id'] = $tournament_id;
+
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
 
-        // set default values to route parameters if they are 'empty'
-        if ($tournament_id === 'empty') {
-            $tournamentSelected = $em->getRepository('DevlabsSportifyBundle:Tournament')
-                ->getFirst();
-        } else {
-            // use the selected tournament as object, based on id URL: {tournament} route parameter
-            $tournamentSelected = $em->getRepository('DevlabsSportifyBundle:Tournament')
-                ->findOneById($tournament_id);
-        }
+        /**
+         * Set first tournament as selected if URL param is 'empty'
+         * or get the tournament by the URL tournament_id value
+         */
+        $formSourceData['tournament_selected'] = ($tournament_id === 'empty')
+            ? $em->getRepository('DevlabsSportifyBundle:Tournament')->getFirst()
+            : $em->getRepository('DevlabsSportifyBundle:Tournament')->findOneById($tournament_id);
 
-        // get all tournaments
-        $tournamentsAll = $em->getRepository('DevlabsSportifyBundle:Tournament')
+        // get all tournaments as source data for form choices
+        $formSourceData['tournament_choices'] = $em->getRepository('DevlabsSportifyBundle:Tournament')
             ->findAll();
 
-        // set the input form-data
-        $formInputData = array();
-        $formInputData['tournament']['data'] = ($request->request->get('filter')) ? null : $tournamentSelected;
-        $formInputData['tournament']['choices'] = $tournamentsAll;
+        // get the filter helper service
+        $filterHelper = $this->container->get('app.filter.helper');
+        $filterHelper->setEntityManager($em);
 
-        // creating a form for tournament filter
-        $formData = array();
-        $filterForm = $this->createForm(FilterType::class, $formData, array(
-            'fields'=> array('tournament'),
-            'data' => $formInputData
-        ));
+        // set the fields for the filter form
+        $fields = array('tournament');
 
+        // set the input data for the filter form and create it
+        $formInputData = $filterHelper->getFormInputData($request, $urlParams, $fields, $formSourceData);
+        $filterForm = $filterHelper->createForm($fields, $formInputData);
         $filterForm->handleRequest($request);
 
         // if the filter form is submitted, redirect with appropriate url path parameters
         if ($filterForm->isSubmitted() && $filterForm->isValid()) {
-            $formData = $filterForm->getData();
+            $submittedParams = $filterHelper->actionOnFormSubmit($filterForm, $fields);
 
-            $tournamentChoice = $formData['tournament']->getId()->getId();
-
-            // reload the page with the chosen filter(s) applied (as url path params)
-            return $this->redirectToRoute(
-                'standings_index',
-                array('tournament_id' => $tournamentChoice)
-            );
+            return $this->redirectToRoute('standings_index', $submittedParams);
         }
 
         // get scores standings for a given tournament
         $allScores = $em->getRepository('DevlabsSportifyBundle:Score')
-            ->getByTournamentOrderByPosNew($tournamentSelected);
+            ->getByTournamentOrderByPosNew($formSourceData['tournament_selected']);
 
         // get the user's tournaments position data
         $userScores = array();

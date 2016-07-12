@@ -46,6 +46,7 @@ class HistoryController extends Controller
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
 
+        // get the filter helper service
         $filterHelper = $this->container->get('app.filter.helper');
         $filterHelper->setEntityManager($em);
 
