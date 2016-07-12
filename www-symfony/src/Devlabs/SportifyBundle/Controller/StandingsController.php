@@ -75,7 +75,6 @@ class StandingsController extends Controller
             $this->container->get('twig')->addGlobal('user_scores', $userScores);
         }
 
-
         // rendering the view and returning the response
         return $this->render(
             'DevlabsSportifyBundle:Standings:index.html.twig',
