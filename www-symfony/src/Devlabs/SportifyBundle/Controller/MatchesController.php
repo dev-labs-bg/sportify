@@ -6,7 +6,6 @@ use Devlabs\SportifyBundle\Entity\Prediction;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Devlabs\SportifyBundle\Form\FilterType;
 
 /**
  * Class MatchesController
@@ -44,66 +43,37 @@ class MatchesController extends Controller
 
         // set default values to route parameters if they are 'empty'
         $urlParams = $matchesHelper->initUrlParams($tournament_id, $date_from, $date_to);
-        $tournament_id = $urlParams['tournament_id'];
-        $date_from = $urlParams['date_from'];
-        $date_to = $urlParams['date_to'];
 
-        $modifiedDateTo = date("Y-m-d", strtotime($date_to) + 86500);
+        $modifiedDateTo = date("Y-m-d", strtotime($urlParams['date_to']) + 86500);
 
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
 
-        // use the selected tournament as object, based on id URL: {tournament} route parameter
-        $tournamentSelected = ($tournament_id === 'all')
-            ? null
-            : $em->getRepository('DevlabsSportifyBundle:Tournament')->findOneById($tournament_id);
+        $filterHelper = $this->container->get('app.filter.helper');
+        $filterHelper->setEntityManager($em);
 
-        // get joined tournaments
-        $tournamentsJoined = $em->getRepository('DevlabsSportifyBundle:Tournament')
-            ->getJoined($user);
+        // set the fields for the filter form
+        $fields = array('tournament', 'date_from', 'date_to');
 
-        // set the input form-data
-        $formInputData = array();
-        $formInputData['date_from'] = $date_from;
-        $formInputData['date_to'] = $date_to;
-        $formInputData['tournament']['data'] = ($request->request->get('filter')) ? null : $tournamentSelected;
-        $formInputData['tournament']['choices'] = $tournamentsJoined;
-
-        // creating a form for the tournament and date filter
-        $formData = array();
-        $filterForm = $this->createForm(FilterType::class, $formData, array(
-            'fields'=> array('tournament', 'date_from', 'date_to'),
-            'data' => $formInputData
-        ));
-
+        // set the input data for the filter form and create it
+        $formInputData = $filterHelper->getFormInputData($request, $user, $urlParams, $fields);
+        $filterForm = $filterHelper->createForm($fields, $formInputData);
         $filterForm->handleRequest($request);
 
         // if the filter form is submitted, redirect with appropriate url path parameters
         if ($filterForm->isSubmitted() && $filterForm->isValid()) {
-            $formData = $filterForm->getData();
+            $submittedParams = $filterHelper->actionOnFormSubmit($filterForm, $fields);
 
-            $tournamentChoice = $formData['tournament']->getId()->getId();
-            $dateFromChoice = $formData['date_from'];
-            $dateToChoice = $formData['date_to'];
-
-            // reload the page with the chosen filter(s) applied (as url path params)
-            return $this->redirectToRoute(
-                'matches_index',
-                array(
-                    'tournament_id' => $tournamentChoice,
-                    'date_from' => $dateFromChoice,
-                    'date_to' => $dateToChoice
-                )
-            );
+            return $this->redirectToRoute('matches_index', $submittedParams);
         }
 
         $matchesHelper->setEntityManager($em);
 
         // get not finished matches and the user's predictions for them
         $matches = $em->getRepository('DevlabsSportifyBundle:Match')
-            ->getNotScored($user, $tournament_id, $date_from, $modifiedDateTo);
+            ->getNotScored($user, $urlParams['tournament_id'], $urlParams['date_from'], $modifiedDateTo);
         $predictions = $em->getRepository('DevlabsSportifyBundle:Prediction')
-            ->getNotScored($user, $tournament_id, $date_from, $modifiedDateTo);
+            ->getNotScored($user, $urlParams['tournament_id'], $urlParams['date_from'], $modifiedDateTo);
 
         $matchForms = array();
 

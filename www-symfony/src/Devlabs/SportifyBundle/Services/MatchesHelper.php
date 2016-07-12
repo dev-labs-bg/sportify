@@ -24,8 +24,7 @@ class MatchesHelper
     }
 
     /**
-     * Method for setting passing in an ObjectManager object
-     * for retrieving data from the database
+     * Method for setting EntityManager
      *
      * @param ObjectManager $em
      * @return $this
