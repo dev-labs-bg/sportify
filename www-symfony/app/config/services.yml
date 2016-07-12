@@ -22,6 +22,14 @@ services:
     app.slack:
         class: Devlabs\SportifyBundle\Services\Slack
 
+    app.filter.helper:
+        class: Devlabs\SportifyBundle\Services\FilterHelper
+        arguments: ['@service_container']
+
     app.matches.helper:
         class: Devlabs\SportifyBundle\Services\MatchesHelper
+        arguments: ['@service_container']
+
+    app.history.helper:
+        class: Devlabs\SportifyBundle\Services\HistoryHelper
         arguments: ['@service_container']
