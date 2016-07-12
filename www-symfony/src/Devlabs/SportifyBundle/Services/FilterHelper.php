@@ -45,35 +45,55 @@ class FilterHelper
      * @param $fields
      * @return array
      */
-    public function getFormInputData($request, $user, $urlParams, $fields)
+    public function getFormSourceData($user, $urlParams, $fields)
     {
-        $formInputData = array();
+        $formSourceData = array();
 
         if (in_array('tournament', $fields)) {
             // use the selected tournament as object, based on id URL: {tournament} route parameter
-            $tournamentSelected = ($urlParams['tournament_id'] === 'all')
+            $formSourceData['tournament_selected'] = ($urlParams['tournament_id'] === 'all')
                 ? null
                 : $this->em->getRepository('DevlabsSportifyBundle:Tournament')->findOneById($urlParams['tournament_id']);
 
             // get user's joined tournaments
-            $tournamentsJoined = $this->em->getRepository('DevlabsSportifyBundle:Tournament')
+            $formSourceData['tournament_choices'] = $this->em->getRepository('DevlabsSportifyBundle:Tournament')
                 ->getJoined($user);
-
-            $formInputData['tournament']['data'] = ($request->request->get('filter')) ? null : $tournamentSelected;
-            $formInputData['tournament']['choices'] = $tournamentsJoined;
         }
 
         if (in_array('user', $fields)) {
             // use the selected user as object, based on id URL: {user_id} route parameter
-            $userSelected = $this->em->getRepository('DevlabsSportifyBundle:User')
+            $formSourceData['user_selected'] = $this->em->getRepository('DevlabsSportifyBundle:User')
                 ->findOneById($urlParams['user_id']);
 
             // get list of enabled users
-            $usersEnabled = $this->em->getRepository('DevlabsSportifyBundle:User')
+            $formSourceData['user_choices'] = $this->em->getRepository('DevlabsSportifyBundle:User')
                 ->getAllEnabled();
+        }
 
-            $formInputData['user']['data'] = ($request->request->get('filter')) ? null : $userSelected;
-            $formInputData['user']['choices'] = $usersEnabled;
+        return $formSourceData;
+    }
+
+    /**
+     * Method for getting the input data for the filter form
+     *
+     * @param $request
+     * @param $user
+     * @param $urlParams
+     * @param $fields
+     * @return array
+     */
+    public function getFormInputData($request, $urlParams, $fields, $formSourceData)
+    {
+        $formInputData = array();
+
+        if (in_array('tournament', $fields)) {
+            $formInputData['tournament']['data'] = ($request->request->get('filter')) ? null : $formSourceData['tournament_selected'];
+            $formInputData['tournament']['choices'] = $formSourceData['tournament_choices'];
+        }
+
+        if (in_array('user', $fields)) {
+            $formInputData['user']['data'] = ($request->request->get('filter')) ? null : $formSourceData['user_selected'];
+            $formInputData['user']['choices'] = $formSourceData['user_choices'];
         }
 
         if (in_array('date_from', $fields)) {

@@ -56,7 +56,8 @@ class MatchesController extends Controller
         $fields = array('tournament', 'date_from', 'date_to');
 
         // set the input data for the filter form and create it
-        $formInputData = $filterHelper->getFormInputData($request, $user, $urlParams, $fields);
+        $formSourceData = $filterHelper->getFormSourceData($user, $urlParams, $fields);
+        $formInputData = $filterHelper->getFormInputData($request, $urlParams, $fields, $formSourceData);
         $filterForm = $filterHelper->createForm($fields, $formInputData);
         $filterForm->handleRequest($request);
 

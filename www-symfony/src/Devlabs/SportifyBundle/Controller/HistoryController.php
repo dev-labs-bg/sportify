@@ -53,7 +53,8 @@ class HistoryController extends Controller
         $fields = array('tournament', 'user', 'date_from', 'date_to');
 
         // set the input data for the filter form and create it
-        $formInputData = $filterHelper->getFormInputData($request, $user, $urlParams, $fields);
+        $formSourceData = $filterHelper->getFormSourceData($user, $urlParams, $fields);
+        $formInputData = $filterHelper->getFormInputData($request, $urlParams, $fields, $formSourceData);
         $filterForm = $filterHelper->createForm($fields, $formInputData);
         $filterForm->handleRequest($request);
 
@@ -64,13 +65,11 @@ class HistoryController extends Controller
             return $this->redirectToRoute('history_index', $submittedParams);
         }
 
-        $userSelected = $formInputData['user']['data'];
-
         // get finished scored matches and the user's predictions for them
         $matches = $em->getRepository('DevlabsSportifyBundle:Match')
-            ->getAlreadyScored($userSelected, $urlParams['tournament_id'], $urlParams['date_from'], $modifiedDateTo);
+            ->getAlreadyScored($formSourceData['user_selected'], $urlParams['tournament_id'], $urlParams['date_from'], $modifiedDateTo);
         $predictions = $em->getRepository('DevlabsSportifyBundle:Prediction')
-            ->getAlreadyScored($userSelected, $urlParams['tournament_id'], $urlParams['date_from'], $modifiedDateTo);
+            ->getAlreadyScored($formSourceData['user_selected'], $urlParams['tournament_id'], $urlParams['date_from'], $modifiedDateTo);
 
         // get the user's tournaments position data
         $userScores = $em->getRepository('DevlabsSportifyBundle:Score')
