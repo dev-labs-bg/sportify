@@ -78,12 +78,11 @@ class ChampionController extends Controller
         $predictionChampion = $em->getRepository('DevlabsSportifyBundle:PredictionChampion')
             ->getByUserAndTournament($user, $formSourceData['tournament_selected']);
 
-        $buttonAction = 'BET';
-
         // determine if the user has already set a champion prediction
         if ($predictionChampion === null) {
             $teamSelected = $em->getRepository('DevlabsSportifyBundle:Team')
                 ->getFirstByTournament($formSourceData['tournament_selected']);
+            $buttonAction = 'BET';
         } else {
             $teamSelected = $predictionChampion->getTeamId();
             $buttonAction = 'EDIT';
@@ -93,7 +92,7 @@ class ChampionController extends Controller
         $deadline = '2016-06-16 16:00';
         $disabledAttribute = false;
 
-        //if bet champion deadline is met, set disabled attribute to true
+        //if bet champion deadline has passed, set disabled attribute to true
         if ((time() >= strtotime($deadline))) $disabledAttribute = true;
 
         // set the input form-data for the champion form
@@ -120,10 +119,7 @@ class ChampionController extends Controller
             // reload the page is form is submitted but deadline has passed
             if ($disabledAttribute)
                 // clear the submitted POST data and reload the page
-                return $this->redirectToRoute(
-                    'champion_index',
-                    array('tournament_id' => $formSourceData['tournament_selected']->getId())
-                );
+                return $this->redirectToRoute('champion_index', $urlParams);
 
             // prepare the PredictionChampion object (new or modified one) for persisting in DB
             if ($formData['action'] === 'BET') {
@@ -142,10 +138,7 @@ class ChampionController extends Controller
             $em->flush();
 
             // reload the page with the chosen filter(s) applied (as url path params)
-            return $this->redirectToRoute(
-                'champion_index',
-                array('tournament_id' => $formSourceData['tournament_selected']->getId())
-            );
+            return $this->redirectToRoute('champion_index', $urlParams);
         }
 
         $championPredictions = $em->getRepository('DevlabsSportifyBundle:PredictionChampion')
