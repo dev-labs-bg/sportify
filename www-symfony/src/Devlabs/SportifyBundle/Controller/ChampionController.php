@@ -70,77 +70,39 @@ class ChampionController extends Controller
             return $this->redirectToRoute('champion_index', $submittedParams);
         }
 
-        // get a list of teams for the selected tournament
-        $teams = $em->getRepository('DevlabsSportifyBundle:Team')
-            ->findByTournamentId($formSourceData['tournament_selected']);
-
-        // get user's champion prediction
-        $predictionChampion = $em->getRepository('DevlabsSportifyBundle:PredictionChampion')
-            ->getByUserAndTournament($user, $formSourceData['tournament_selected']);
-
-        // determine if the user has already set a champion prediction
-        if ($predictionChampion === null) {
-            $teamSelected = $em->getRepository('DevlabsSportifyBundle:Team')
-                ->getFirstByTournament($formSourceData['tournament_selected']);
-            $buttonAction = 'BET';
-        } else {
-            $teamSelected = $predictionChampion->getTeamId();
-            $buttonAction = 'EDIT';
-        }
-
         // set the deadline for champion prediction
-        $deadline = '2016-06-16 16:00';
-        $disabledAttribute = false;
+        $deadline = '2016-08-16 16:00';
 
-        //if bet champion deadline has passed, set disabled attribute to true
-        if ((time() >= strtotime($deadline))) $disabledAttribute = true;
+        //if bet champion deadline has passed, set disabled attribute to true, else - false
+        $disabledAttribute = (time() >= strtotime($deadline)) ? true : false;
 
-        // set the input form-data for the champion form
-        $formInputData = array();
-        $formInputData['team']['data'] = $teamSelected;
-        $formInputData['team']['choices'] = $teams;
+        // get the champion helper service
+        $championHelper = $this->container->get('app.champion.helper');
+        $championHelper->setEntityManager($em);
 
-        $formData = array();
+        // get user's champion prediction or null if there's none
+        $predictionChampion = $championHelper->getPredictionChampion($user, $formSourceData['tournament_selected']);
 
-        // creating the form for selecting the champion team
-        $championForm = $this->createForm(ChampionSelectType::class, $formData, array(
-            'data' => $formInputData,
-            'button_action' => $buttonAction
-        ));
+        $formInputData = $championHelper->getFormInputData($predictionChampion, $formSourceData['tournament_selected']);
+        $buttonAction = $formInputData['button_action'];
+        $championForm = $championHelper->createForm($formInputData);
 
         $championForm->handleRequest($request);
 
         // if the filter form is submitted, redirect with appropriate url path parameters
         if ($championForm->isSubmitted() && $championForm->isValid()) {
-            // get the team selected via the form
-            $formData = $championForm->getData();
-            $teamChoice = $formData['team']->getId();
-
             // reload the page is form is submitted but deadline has passed
             if ($disabledAttribute)
                 // clear the submitted POST data and reload the page
                 return $this->redirectToRoute('champion_index', $urlParams);
 
-            // prepare the PredictionChampion object (new or modified one) for persisting in DB
-            if ($formData['action'] === 'BET') {
-                $predictionChampion = new PredictionChampion();
-                $predictionChampion->setUserId($user);
-                $predictionChampion->setTournamentId($formSourceData['tournament_selected']);
-                $predictionChampion->setTeamId($teamChoice);
-            } elseif ($formData['action'] === 'EDIT') {
-                $predictionChampion->setTeamId($teamChoice);
-            }
-
-            // prepare the queries
-            $em->persist($predictionChampion);
-
-            // execute the queries
-            $em->flush();
+            $championHelper->actionOnFormSubmit($championForm, $user, $predictionChampion, $formSourceData['tournament_selected']);
 
             // reload the page with the chosen filter(s) applied (as url path params)
             return $this->redirectToRoute('champion_index', $urlParams);
         }
 
+        // get a list of all users Champion predictions for the selected tournament
         $championPredictions = $em->getRepository('DevlabsSportifyBundle:PredictionChampion')
             ->findByTournamentId($formSourceData['tournament_selected']);
 

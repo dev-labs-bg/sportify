@@ -13,7 +13,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class ChampionSelectType extends AbstractType
 {
     protected $data;
-    protected $buttonAction;
 
     /**
      * @param OptionsResolver $resolver
@@ -21,8 +20,7 @@ class ChampionSelectType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => null,
-            'button_action' => null
+            'data_class' => null
         ));
     }
 
@@ -33,7 +31,6 @@ class ChampionSelectType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $this->data = $options['data'];
-        $this->buttonAction = $options['button_action'];
 
         $builder
             ->add('team', TeamChoiceType::class, array(
@@ -44,10 +41,10 @@ class ChampionSelectType extends AbstractType
 
         $builder
             ->add('action', HiddenType::class, array(
-                'data' => $this->buttonAction
+                'data' => $this->data['button_action']
             ))
             ->add('button', SubmitType::class, array(
-                'label' => $this->buttonAction
+                'label' => $this->data['button_action']
             ))
         ;
     }

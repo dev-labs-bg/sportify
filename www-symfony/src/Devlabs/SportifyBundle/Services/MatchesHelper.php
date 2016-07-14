@@ -6,7 +6,11 @@ use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Devlabs\SportifyBundle\Form\PredictionType;
+use Symfony\Component\HttpFoundation\Request;
+use Devlabs\SportifyBundle\Entity\User;
+use Devlabs\SportifyBundle\Entity\Match;
 use Devlabs\SportifyBundle\Entity\Prediction;
+use Symfony\Component\Form\Form;
 
 /**
  * Class MatchesHelper
@@ -66,7 +70,7 @@ class MatchesHelper
      * @param $predictions
      * @return Prediction
      */
-    public function getPrediction(\Devlabs\SportifyBundle\Entity\User $user, \Devlabs\SportifyBundle\Entity\Match $match, Array $predictions)
+    public function getPrediction(User $user, Match $match, array $predictions)
     {
         if (isset($predictions[$match->getId()])) {
             // link/merge prediction with EntityManager (set entity as managed by EM)
@@ -86,7 +90,7 @@ class MatchesHelper
      * @param $prediction
      * @return string
      */
-    public function getPredictionButton(\Devlabs\SportifyBundle\Entity\Prediction $prediction)
+    public function getPredictionButton(Prediction $prediction)
     {
         return ($prediction->getId())
             ? 'EDIT'
@@ -103,7 +107,7 @@ class MatchesHelper
      * @param $buttonAction
      * @return mixed
      */
-    public function createForm($request, $urlParams, $match, $prediction, $buttonAction)
+    public function createForm(Request $request, array $urlParams, Match $match, Prediction $prediction, $buttonAction)
     {
         $form = $this->container->get('form.factory')->create(PredictionType::class, $prediction, array(
             'action' => $this->container->get('router')->generate('matches_bet', $urlParams),
@@ -122,7 +126,7 @@ class MatchesHelper
      * @param $form
      * @param $match
      */
-    public function formHandleRequest($request, $form, $match)
+    public function formHandleRequest(Request $request, Form $form, Match $match)
     {
         if ($request->request->get('prediction')['matchId'] == $match->getId()) {
             $form->handleRequest($request);
@@ -134,7 +138,7 @@ class MatchesHelper
      *
      * @param $form
      */
-    public function actionOnFormSubmit($form)
+    public function actionOnFormSubmit(Form $form)
     {
         $prediction = $form->getData();
 
