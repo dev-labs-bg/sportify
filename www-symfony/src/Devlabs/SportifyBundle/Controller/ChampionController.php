@@ -71,7 +71,8 @@ class ChampionController extends Controller
         }
 
         // set the deadline for champion prediction
-        $deadline = '2016-08-16 16:00';
+        $tournamentStartTime = $formSourceData['tournament_selected']->getStartDate();
+        $deadline = date_format($tournamentStartTime,"Y-m-d H:i");
 
         //if bet champion deadline has passed, set disabled attribute to true, else - false
         $disabledAttribute = (time() >= strtotime($deadline)) ? true : false;
