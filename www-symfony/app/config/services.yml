@@ -33,3 +33,7 @@ services:
     app.history.helper:
         class: Devlabs\SportifyBundle\Services\HistoryHelper
         arguments: ['@service_container']
+
+    app.champion.helper:
+        class: Devlabs\SportifyBundle\Services\ChampionHelper
+        arguments: ['@service_container']

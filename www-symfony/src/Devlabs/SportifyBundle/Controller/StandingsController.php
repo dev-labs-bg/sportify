@@ -63,7 +63,7 @@ class StandingsController extends Controller
         $allScores = $em->getRepository('DevlabsSportifyBundle:Score')
             ->getByTournamentOrderByPosNew($formSourceData['tournament_selected']);
 
-        // if user is logged in, get his standings
+        // if user is logged in, get their standings
         $securityContext = $this->container->get('security.authorization_checker');
         if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             // Load the data for the current user into an object

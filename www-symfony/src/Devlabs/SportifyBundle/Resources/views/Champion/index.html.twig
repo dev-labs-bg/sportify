@@ -14,7 +14,7 @@
             </h2>
             <h2 class="text-center">
                 Your Champion prediction is:
-                {% if prediction_champion == null %}
+                {% if not prediction_champion.id %}
                     N/A
                 {% else %}
                      <span class="text-green">{{ prediction_champion.teamId.name }}</span>
@@ -23,28 +23,29 @@
             <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
                     <div class="row">
                         {{ form_start(filter_form) }}
-                        <div class="col-sm-8">
-                            <label>Tournament</label>
-                            {{ form_row(filter_form.tournament.id, {'attr': {'class': 'form-control' } }) }}
-                        </div>
-                        <div class="col-sm-4 text-center">
-                            {{ form_row(filter_form.button, {'attr': {'class': 'btn green-btn history-filter' } }) }}
-                        </div>
+                            <div class="col-sm-8">
+                                <label>Tournament</label>
+                                {{ form_row(filter_form.tournament.id, {'attr': {'class': 'form-control' } }) }}
+                            </div>
+                            <div class="col-sm-4 text-center">
+                                {{ form_row(filter_form.button, {'attr': {'class': 'btn green-btn history-filter' } }) }}
+                            </div>
                         {{ form_end(filter_form) }}
-                    {{ form_start(champion_form) }}
-                    <div class="col-sm-8">
-                        <label>Champion Team</label>
-                        {{ form_row(champion_form.team.id, {'attr': {'class': 'form-control' }, 'disabled': disabled_attribute}) }}
+
+                        {{ form_start(champion_form) }}
+                            <div class="col-sm-8">
+                                <label>Champion Team</label>
+                                {{ form_row(champion_form.team.id, {'attr': {'class': 'form-control' }, 'disabled': disabled_attribute}) }}
+                            </div>
+                            <div class="col-sm-4 text-center">
+                                {% if button_action == 'BET' %}
+                                    {{ form_row(champion_form.button, {'attr': {'class': 'btn green-btn history-filter' }, 'disabled': disabled_attribute }) }}
+                                {% else %}
+                                    {{ form_row(champion_form.button, {'attr': {'class': 'btn yellow-btn history-filter' }, 'disabled': disabled_attribute }) }}
+                                {% endif %}
+                            </div>
+                        {{ form_end(champion_form) }}
                     </div>
-                    <div class="col-sm-4 text-center">
-                        {% if button_action == 'BET' %}
-                            {{ form_row(champion_form.button, {'attr': {'class': 'btn green-btn history-filter' }, 'disabled': disabled_attribute }) }}
-                        {% else %}
-                            {{ form_row(champion_form.button, {'attr': {'class': 'btn yellow-btn history-filter' }, 'disabled': disabled_attribute }) }}
-                        {% endif %}
-                    </div>
-                    {{ form_end(champion_form) }}
-                </div>
             </div>
         </div>
 
