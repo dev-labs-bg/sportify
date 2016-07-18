@@ -1,5 +1,5 @@
 body {
-    font-family: 'Exo';
+    font-family: 'Exo 2';
     color: #fff;
     position: relative;
     overflow-x: hidden;
@@ -847,6 +847,11 @@ h2 {
             border-radius: 100%;
             border: 3px solid #fff;
         }
+    }
+    .user-name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }
 .text- {
