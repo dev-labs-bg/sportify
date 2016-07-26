@@ -47,7 +47,7 @@ class UserController extends Controller
 		$this->container->get('twig')->addGlobal('user_scores', $userScores);
 
 		return $this->render(
-			'DevlabsSportifyBundle:User:profile.html.twig',
+			'User/profile.html.twig',
 			array(
 				'form' => $form->createView()
 			)
