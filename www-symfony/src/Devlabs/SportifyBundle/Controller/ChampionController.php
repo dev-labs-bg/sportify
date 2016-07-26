@@ -114,7 +114,7 @@ class ChampionController extends Controller
 
         // rendering the view and returning the response
         return $this->render(
-            'DevlabsSportifyBundle:Champion:index.html.twig',
+            'Champion/index.html.twig',
             array(
                 'filter_form' => $filterForm->createView(),
                 'champion_form' => $championForm->createView(),
