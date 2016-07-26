@@ -90,7 +90,7 @@ class MatchesController extends Controller
 
         // rendering the view and returning the response
         return $this->render(
-            'DevlabsSportifyBundle:Matches:index.html.twig',
+            'Matches/index.html.twig',
             array(
                 'matches' => $matches,
                 'predictions' => $predictions,

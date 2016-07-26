@@ -79,7 +79,7 @@ class HistoryController extends Controller
 
         // rendering the view and returning the response
         return $this->render(
-            'DevlabsSportifyBundle:History:index.html.twig',
+            'History/index.html.twig',
             array(
                 'matches' => $matches,
                 'predictions' => $predictions,

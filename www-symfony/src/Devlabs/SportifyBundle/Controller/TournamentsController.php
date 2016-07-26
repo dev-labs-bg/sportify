@@ -99,7 +99,7 @@ class TournamentsController extends Controller
 
         // rendering the view and returning the response
         return $this->render(
-            'DevlabsSportifyBundle:Tournaments:index.html.twig',
+            'Tournaments/index.html.twig',
             array(
                 'tournaments' => $tournaments,
                 'forms' => $forms

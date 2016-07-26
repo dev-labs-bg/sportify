@@ -77,7 +77,7 @@ class StandingsController extends Controller
 
         // rendering the view and returning the response
         return $this->render(
-            'DevlabsSportifyBundle:Standings:index.html.twig',
+            'Standings/index.html.twig',
             array(
                 'all_scores' => $allScores,
                 'filter_form' => $filterForm->createView()

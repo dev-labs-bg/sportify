@@ -28,6 +28,6 @@ class RulesController extends Controller
         }
 
         // rendering the view and returning the response
-        return $this->render('DevlabsSportifyBundle:Rules:index.html.twig');
+        return $this->render('Rules/index.html.twig');
     }
 }

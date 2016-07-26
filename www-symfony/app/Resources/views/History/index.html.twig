@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block nav_top %}
+    <h1 class="text-center">History</h1>
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid content">
+        <div class="matches-filters row">
+            <div class="col-lg-10 col-lg-offset-1">
+                    {{ form_start(filter_form) }}
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label>Tournament</label>
+                            {{ form_row(filter_form.tournament.id, {'attr': {'class': 'form-control' } }) }}
+                        </div>
+                        <div class="col-sm-3">
+                            <label>Username</label>
+                            {{ form_row(filter_form.user.id, {'attr': {'class': 'form-control' } }) }}
+                        </div>
+                        <div class="col-sm-2">
+                            <label>Date From</label>
+                            {{ form_row(filter_form.date_from, {'attr': {'class': 'form-control' } }) }}
+                        </div>
+                        <div class="col-sm-2">
+                            <label>Date To</label>
+                            {{ form_row(filter_form.date_to, {'attr': {'class': 'form-control' } }) }}
+                        </div>
+                        <div class="col-sm-2 text-center">
+                            {{ form_row(filter_form.button, {'attr': {'class': 'btn green-btn history-filter' } }) }}
+                        </div>
+                    </div>
+                    {{ form_end(filter_form) }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 col-lg-offset-3 col-md-10 col-md-offset-1 col-sm-12">
+                {% for match in matches %}
+                    <div class="match">
+                        <div class="row">
+                            <div class="match-date text-center">{{ match.datetime|date('Y-m-d H:i') }}</div>
+                            <div class="match-title text-center">{{ match.tournamentId.name }}</div>
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-xs-6 text-left">
+                                        <div class="team-title">Home team</div>
+                                    </div>
+                                    <div class="col-xs-6 text-right">
+                                        <div class="team-title">Away team</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="match-item">
+                                    <div class="row">
+                                        <div class="col-sm-4 match-item-mobile"><span class="pull-left flag flag-icon flag-icon-{{ match.homeTeamId.nameShort|lower }}"></span>{{ match.homeTeam }}</div>
+                                        <div class="col-sm-4 bettings">
+                                            <div class="bet-rectangle">
+                                                {% include 'img/result-rectangle.svg' %}
+                                            </div>
+                                            <div class="bet-results">
+                                                <div class="bet-field">{{ match.homeGoals }}</div>
+                                                <span>:</span>
+                                                <div class="bet-field">{{ match.awayGoals }}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 match-item-mobile">{{ match.awayTeam }}<span class="pull-right flag flag-icon flag-icon-{{ match.awayTeamId.nameShort|lower }}"></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% if predictions[match.id] is defined %}
+                                {% if predictions[match.id].points == 3 %}
+                                    {% set points_class = 'text-green' %}
+                                {% elseif predictions[match.id].points == 1 %}
+                                    {% set points_class = 'text-yellow' %}
+                                {% elseif predictions[match.id].points == 0 %}
+                                    {% set points_class = 'text-red' %}
+                                {% endif %}
+
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-xs-6 text-left">
+                                            <div class="prediction-title">
+                                                Prediction: <span class="predictions {{ points_class }}">{{ predictions[match.id].homeGoals }}:{{ predictions[match.id].awayGoals }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 text-right">
+                                            <div class="points-title">Points gained: <span class="points-gained {{ points_class }}">{{ predictions[match.id].points }} pt</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% else %}
+                                {% set points_class = 'text-red' %}
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-xs-6 text-left">
+                                            <div class="prediction-title">
+                                                Prediction: <span class="predictions {{ points_class }}">N/A</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 text-right">
+                                            <div class="points-title">Points gained: <span class="points-gained {{ points_class }}">0 pt</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+                {% if matches|length == 0 %}
+                    <div class="text-center">
+                        No matches to display.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

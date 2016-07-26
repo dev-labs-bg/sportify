@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block nav_top %}
+    <h1 class="text-center">Tournaments</h1>
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid content">
+    <div class="row">
+    <div class="col-lg-10 col-lg-offset-1 col-md-12">
+    <h2 class="text-center">Choose Tournaments</h2>
+    <div class="tournaments-header">
+        <div class="row">
+            <div class="col-lg-5 col-md-5">Tournaments</div>
+            <div class="col-lg-2 col-md-2">Starts</div>
+            <div class="col-lg-2 col-md-2">Ends</div>
+            <div class="col-lg-3 col-md-3">Options</div>
+        </div>
+    </div>
+    {% for tournament in tournaments %}
+        <div class="tournament">
+            <div class="row">
+                <div class="col-lg-5 col-md-5 tournament-item">
+                    <div class="row">
+                        <div class="col-lg-12 mobile-heading">Tournament</div>
+                        <div class="col-lg-12">{{ tournament.name }}</div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-xs-6 tournament-item">
+                    <div class="row">
+                        <div class="col-lg-12 mobile-heading">Starts</div>
+                        <div class="col-lg-12">{{ tournament.startDate|date('Y-m-d') }}</div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-xs-6 tournament-item">
+                    <div class="row">
+                        <div class="col-lg-12 mobile-heading">Ends</div>
+                        <div class="col-lg-12">{{ tournament.endDate|date('Y-m-d') }}</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                    {{ form_start(forms[tournament.id]) }}
+                        {{ form_row(forms[tournament.id].id) }}
+                        {{ form_row(forms[tournament.id].action) }}
+                        {% if (forms[tournament.id].action.vars.value == 'JOIN') %}
+                            {{ form_row(forms[tournament.id].button, {'attr': {'class': 'btn green-btn tournament-btn' } }) }}
+                        {% else %}
+                            {{ form_row(forms[tournament.id].button, {'attr': {'class': 'btn yellow-btn tournament-btn' } }) }}
+                        {% endif %}
+                    {{ form_end(forms[tournament.id]) }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

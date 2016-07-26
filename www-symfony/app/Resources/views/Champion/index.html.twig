@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block nav_top %}
+    <h1 class="text-center">Champion Prediction</h1>
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid content champion-page">
+        <div class="row">
+            <h2 class="text-center">
+                {% if disabled_attribute == false %}
+                    Open until: <span class="text-green">{{ deadline }}</span>
+                {% else %}
+                    Open until: <span class="text-red">{{ deadline }}</span>
+                    <p>(form locked now!)</p>
+                {% endif %}
+            </h2>
+            <h2 class="text-center">
+                Your Champion prediction is:
+                {% if not prediction_champion.id %}
+                    N/A
+                {% else %}
+                     <span class="text-green">{{ prediction_champion.teamId.name }}</span>
+                {% endif %}
+            </h2>
+            <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
+                    <div class="row">
+                        {{ form_start(filter_form) }}
+                            <div class="col-sm-8">
+                                <label>Tournament</label>
+                                {{ form_row(filter_form.tournament.id, {'attr': {'class': 'form-control' } }) }}
+                            </div>
+                            <div class="col-sm-4 text-center">
+                                {{ form_row(filter_form.button, {'attr': {'class': 'btn green-btn history-filter' } }) }}
+                            </div>
+                        {{ form_end(filter_form) }}
+
+                        {{ form_start(champion_form) }}
+                            <div class="col-sm-8">
+                                <label>Champion Team</label>
+                                {{ form_row(champion_form.team.id, {'attr': {'class': 'form-control' }, 'disabled': disabled_attribute}) }}
+                            </div>
+                            <div class="col-sm-4 text-center">
+                                {% if button_action == 'BET' %}
+                                    {{ form_row(champion_form.button, {'attr': {'class': 'btn green-btn history-filter' }, 'disabled': disabled_attribute }) }}
+                                {% else %}
+                                    {{ form_row(champion_form.button, {'attr': {'class': 'btn yellow-btn history-filter' }, 'disabled': disabled_attribute }) }}
+                                {% endif %}
+                            </div>
+                        {{ form_end(champion_form) }}
+                    </div>
+            </div>
+        </div>
+
+        <h2 class="text-center">
+            All users champion predictions:
+        </h2>
+        <div class="standing">
+            {% for user_prediction in user_predictions %}
+                <div class="row text-center">
+                    <div class="col-xs-6 col-sm-6">{{ user_prediction.userId.username }}</div>
+                    <div class="col-xs-6 col-sm-6">{{ user_prediction.teamId.name }} </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
