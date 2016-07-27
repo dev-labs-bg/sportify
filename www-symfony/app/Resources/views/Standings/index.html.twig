@@ -9,20 +9,13 @@
     <div class="container-fluid content">
         <div class="matches-filters row">
             <div class="col-lg-10 col-lg-offset-1">
-                {{ form_start(filter_form) }}
-                    <div class="row">
-                        <div class="col-sm-4 col-sm-offset-3">
-                            <label>Filter by Tournament</label>
-                            {{ form_row(filter_form.tournament.id, {'attr': {'class': 'form-control' } }) }}
-                        </div>
-                        <div class="col-sm-2 text-center">
-                            {{ form_row(filter_form.button, {'attr': {'class': 'btn green-btn history-filter' } }) }}
-                        </div>
-                    </div>
-                {{ form_end(filter_form) }}
+                {{ include('forms/filter.html.twig', {
+                    'form': filter_form,
+                    'tournament_class': 'col-sm-4 col-sm-offset-3',
+                    'button_class': 'col-sm-2 text-center'
+                }) }}
             </div>
         </div>
-
 
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-12">
