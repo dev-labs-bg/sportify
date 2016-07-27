@@ -1,0 +1,33 @@
+<div class="row">
+    {{ form_start(form) }}
+        {% if tournament_class is defined %}
+        <div class="{{ tournament_class }}">
+            <label>Tournament</label>
+            {{ form_row(form.tournament.id, {'attr': {'class': 'form-control' } }) }}
+        </div>
+        {% endif %}
+        {% if username_class is defined %}
+        <div class="{{ username_class }}">
+            <label>Username</label>
+            {{ form_row(form.user.id, {'attr': {'class': 'form-control' } }) }}
+        </div>
+        {% endif %}
+        {% if date_from_class is defined %}
+        <div class="{{ date_from_class }}">
+            <label>Date From</label>
+            {{ form_row(form.date_from, {'attr': {'class': 'form-control' } }) }}
+        </div>
+        {% endif %}
+        {% if date_to_class is defined %}
+        <div class="{{ date_to_class }}">
+            <label>Date To</label>
+            {{ form_row(form.date_to, {'attr': {'class': 'form-control' } }) }}
+        </div>
+        {% endif %}
+        {% if button_class is defined %}
+        <div class="{{ button_class }}">
+            {{ form_row(form.button, {'attr': {'class': 'btn green-btn history-filter' } }) }}
+        </div>
+        {% endif %}
+    {{ form_end(form) }}
+</div>
