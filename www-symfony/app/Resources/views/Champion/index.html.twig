@@ -26,15 +26,11 @@
             </h2>
             <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
                     <div class="row">
-                        {{ form_start(filter_form) }}
-                            <div class="col-sm-8">
-                                <label>Tournament</label>
-                                {{ form_row(filter_form.tournament.id, {'attr': {'class': 'form-control' } }) }}
-                            </div>
-                            <div class="col-sm-4 text-center">
-                                {{ form_row(filter_form.button, {'attr': {'class': 'btn green-btn history-filter' } }) }}
-                            </div>
-                        {{ form_end(filter_form) }}
+                        {{ include('forms/filter.html.twig', {
+                            'form': filter_form,
+                            'tournament_class': 'col-sm-8',
+                            'button_class': 'col-sm-4 text-center'
+                        }) }}
 
                         {{ form_start(champion_form) }}
                             <div class="col-sm-8">
