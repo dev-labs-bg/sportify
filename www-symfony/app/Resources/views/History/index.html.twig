@@ -56,11 +56,13 @@
                                 </div>
                             </div>
                             {% if predictions[match.id] is defined %}
-                                {% if predictions[match.id].points == 3 %}
+                                {% set prediction = predictions[match.id] %}
+
+                                {% if prediction.points == constant('POINTS_EXACT', prediction) %}
                                     {% set points_class = 'text-green' %}
-                                {% elseif predictions[match.id].points == 1 %}
+                                {% elseif prediction.points == constant('POINTS_OUTCOME', prediction) %}
                                     {% set points_class = 'text-yellow' %}
-                                {% elseif predictions[match.id].points == 0 %}
+                                {% elseif prediction.points == 0 %}
                                     {% set points_class = 'text-red' %}
                                 {% endif %}
 
@@ -68,11 +70,11 @@
                                     <div class="row">
                                         <div class="col-xs-6 text-left">
                                             <div class="prediction-title">
-                                                Prediction: <span class="predictions {{ points_class }}">{{ predictions[match.id].homeGoals }}:{{ predictions[match.id].awayGoals }}</span>
+                                                Prediction: <span class="predictions {{ points_class }}">{{ prediction.homeGoals }}:{{ prediction.awayGoals }}</span>
                                             </div>
                                         </div>
                                         <div class="col-xs-6 text-right">
-                                            <div class="points-title">Points gained: <span class="points-gained {{ points_class }}">{{ predictions[match.id].points }} pt</span></div>
+                                            <div class="points-title">Points gained: <span class="points-gained {{ points_class }}">{{ prediction.points }} pt</span></div>
                                         </div>
                                     </div>
                                 </div>
