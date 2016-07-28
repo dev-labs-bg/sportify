@@ -1,0 +1,78 @@
+<div class="match">
+    <div class="row">
+        <div class="match-date text-center">{{ match.datetime|date('Y-m-d H:i') }}</div>
+        <div class="match-title text-center">{{ match.tournamentId.name }}</div>
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-xs-6 text-left">
+                    <div class="team-title">Home team</div>
+                </div>
+                <div class="col-xs-6 text-right">
+                    <div class="team-title">Away team</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="match-item">
+                <div class="row">
+                    <div class="col-sm-4 match-item-mobile">
+                        <span class="pull-left flag flag-icon flag-icon-{{ match.homeTeamId.nameShort|lower }}"></span>
+                        {{ match.homeTeam }}
+                    </div>
+                    <div class="col-sm-4 bettings">
+                        <div class="bet-rectangle">
+                            {% include 'img/result-rectangle.svg' %}
+                        </div>
+                        <div class="bet-results">
+                            <div class="bet-field">{{ match.homeGoals }}</div>
+                            <span>:</span>
+                            <div class="bet-field">{{ match.awayGoals }}</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 match-item-mobile">
+                        {{ match.awayTeam }}
+                        <span class="pull-right flag flag-icon flag-icon-{{ match.awayTeamId.nameShort|lower }}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if predictions[match.id] is defined %}
+            {% set prediction = predictions[match.id] %}
+
+            {% if prediction.points == constant('POINTS_EXACT', prediction) %}
+                {% set points_class = 'text-green' %}
+            {% elseif prediction.points == constant('POINTS_OUTCOME', prediction) %}
+                {% set points_class = 'text-yellow' %}
+            {% elseif prediction.points == 0 %}
+                {% set points_class = 'text-red' %}
+            {% endif %}
+
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-xs-6 text-left">
+                        <div class="prediction-title">
+                            Prediction: <span class="predictions {{ points_class }}">{{ prediction.homeGoals }}:{{ prediction.awayGoals }}</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <div class="points-title">Points gained: <span class="points-gained {{ points_class }}">{{ prediction.points }} pt</span></div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            {% set points_class = 'text-red' %}
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-xs-6 text-left">
+                        <div class="prediction-title">
+                            Prediction: <span class="predictions {{ points_class }}">N/A</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <div class="points-title">Points gained: <span class="points-gained {{ points_class }}">0 pt</span></div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
