@@ -18,66 +18,20 @@
                 }) }}
             </div>
         </div>
+
         <div id="matches" class="row">
             <div class="col-lg-6 col-lg-offset-3 col-md-10 col-md-offset-1 col-sm-12">
                 <div class="row text-center">
                     <button type="submit" id="btn-bet-all" class="btn green-btn match-btn">BET / UPDATE ALL</button>
                 </div>
                 {% for match in matches %}
-                    {{ form_start(match_forms[match.id]) }}
-                        {{ form_row(match_forms[match.id].id) }}
-                        {{ form_row(match_forms[match.id].matchId) }}
-                        {{ form_row(match_forms[match.id].userId) }}
-                        {{ form_errors(match_forms[match.id]) }}
-                        <div class="match">
-                            <div class="row">
-                                <div class="match-date text-center">{{ match.datetime|date('Y-m-d H:i') }}</div>
-                                <div class="match-title text-center">{{ match.tournamentId.name }}</div>
-                                <div class="col-lg-12">
-                                    <div class="match-item">
-                                        <div class="row">
-                                            <div class="col-sm-4 match-item-mobile"><span class="pull-left flag flag-icon flag-icon-{{ match.homeTeamId.nameShort|lower }}"></span>{{ match.homeTeam }}</div>
-                                            <div class="col-sm-4 bettings">
-                                                <div class="bet-rectangle">
-                                                    {% include 'img/result-rectangle.svg' %}
-                                                </div>
-                                                {% if predictions[match.id] is not defined%}
-                                                    <div class="bet-form not-filled">
-                                                        {{ form_row(match_forms[match.id].homeGoals, {'attr': {'class': 'bet-field', 'placeholder': '?' }, 'disabled': match.disabledAttribute}) }}
-                                                        <span>:</span>
-                                                        {{ form_row(match_forms[match.id].awayGoals, {'attr': {'class': 'bet-field', 'placeholder': '?' }, 'disabled': match.disabledAttribute }) }}
-                                                    </div>
-                                                {% else %}
-                                                    <div class="bet-form">
-                                                        {{ form_row(match_forms[match.id].homeGoals, {'attr': {'class': 'bet-field' }, 'disabled': match.disabledAttribute }) }}
-                                                        <span>:</span>
-                                                        {{ form_row(match_forms[match.id].awayGoals, {'attr': {'class': 'bet-field' }, 'disabled': match.disabledAttribute }) }}
-                                                    </div>
-                                                {% endif %}
-                                            </div>
-                                            <div class="col-sm-4 match-item-mobile">{{ match.awayTeam }}<span class="pull-right flag flag-icon flag-icon-{{ match.awayTeamId.nameShort|lower }}"></span></div>
-                                        </div>
-                                    </div>
-                                    {% if match.disabledAttribute == true %}
-                                    <div class="row">
-                                        <div class="match-date text-center">Match locked. Already started</div>
-                                    </div>
-                                    {% endif %}
-                                    {{ form_row(match_forms[match.id].action) }}
-                                    <div class="row">
-                                        <div class="col-sm-12 text-center">
-                                            {% if predictions[match.id] is not defined %}
-                                                {{ form_row(match_forms[match.id].button, {'attr': {'class': 'btn green-btn match-btn' }, 'disabled': match.disabledAttribute }) }}
-                                            {% else %}
-                                                {{ form_row(match_forms[match.id].button, {'attr': {'class': 'btn yellow-btn match-btn' }, 'disabled': match.disabledAttribute }) }}
-                                            {% endif %}
-                                        </div>
-                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    {{ form_end(match_forms[match.id]) }}
+                    {{ include('forms/match_prediction.html.twig', {
+                        'form': match_forms[match.id],
+                        'match': match,
+                        'predictions': predictions
+                    }) }}
                 {% endfor %}
+
                 {% if matches|length == 0 %}
                     <div class="text-center">
                         No matches to display.
