@@ -41,7 +41,7 @@ class HistoryController extends Controller
         // set default values to route parameters if they are 'empty'
         $urlParams = $historyHelper->initUrlParams($user_id, $tournament_id, $date_from, $date_to);
 
-        $modifiedDateTo = date("Y-m-d", strtotime($date_to) + 86500);
+        $modifiedDateTo = date("Y-m-d", strtotime($urlParams['date_to']) + 86500);
 
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
