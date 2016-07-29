@@ -70,9 +70,10 @@ class TournamentsHelper
     }
 
     /**
-     * Method for executing actions after a form is submitted
+     * Method for executing actions after form is submitted
      *
-     * @param $form
+     * @param Form $form
+     * @param User $user
      */
     public function actionOnFormSubmit(Form $form, User $user)
     {
@@ -82,16 +83,41 @@ class TournamentsHelper
 
         // prepare the queries for tournament join/leave (add/delete row in `scores` table)
         if ($formData['action'] === 'JOIN') {
-            $score = new Score();
-            $score->setUserId($user);
-            $score->setTournamentId($tournament);
-
-            $this->em->persist($score);
+            $this->joinTournament($user, $tournament);
         } elseif ($formData['action'] === 'LEAVE') {
-            $score = $this->em->getRepository('DevlabsSportifyBundle:Score')
-                ->getByUserAndTournament($user, $tournament);
-            $this->em->remove($score);
+            $this->leaveTournament($user, $tournament);
         }
+    }
+
+    /**
+     * Method for user to join a tournament
+     *
+     * @param User $user
+     * @param Tournament $tournament
+     */
+    public function joinTournament(User $user, Tournament $tournament)
+    {
+        $score = new Score();
+        $score->setUserId($user);
+        $score->setTournamentId($tournament);
+
+        $this->em->persist($score);
+
+        // execute the queries
+        $this->em->flush();
+    }
+
+    /**
+     * Method for user to leave a tournament
+     *
+     * @param $user
+     * @param $tournament
+     */
+    public function leaveTournament(User $user, Tournament $tournament)
+    {
+        $score = $this->em->getRepository('DevlabsSportifyBundle:Score')
+            ->getByUserAndTournament($user, $tournament);
+        $this->em->remove($score);
 
         // execute the queries
         $this->em->flush();
