@@ -127,8 +127,8 @@ class TournamentsHelper
     /**
      * Method for user to leave a tournament
      *
-     * @param $user
-     * @param $tournament
+     * @param User $user
+     * @param Tournament $tournament
      */
     public function leaveTournament(User $user, Tournament $tournament)
     {
