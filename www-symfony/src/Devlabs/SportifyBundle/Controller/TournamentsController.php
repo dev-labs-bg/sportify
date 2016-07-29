@@ -32,6 +32,10 @@ class TournamentsController extends Controller
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
 
+        // get the tournaments helper service
+        $tournamentsHelper = $this->container->get('app.tournaments.helper');
+        $tournamentsHelper->setEntityManager($em);
+
         // get all and joined tournaments lists
         $tournaments = $em->getRepository('DevlabsSportifyBundle:Tournament')
             ->findAll();
@@ -43,17 +47,24 @@ class TournamentsController extends Controller
         if ($tournaments) {
             // creating a form with JOIN/LEAVE button for each tournament
             foreach ($tournaments as $tournament) {
+                $formInputData = array();
+
+                // set tournament id
+                $formInputData['tournament_id'] = $tournament->getId();
+
                 // determine the button action, depending on if the tournament is joined
-                $buttonAction = in_array($tournament, $tournamentsJoined)
+                $formInputData['button_action'] = in_array($tournament, $tournamentsJoined)
                     ? 'LEAVE'
                     : 'JOIN';
 
-                $formData = array();
-                $form = $this->createFormBuilder($formData)
-                    ->add('id', HiddenType::class, array('data' => $tournament->getId()))
-                    ->add('action', HiddenType::class, array('data' => $buttonAction))
-                    ->add('button', SubmitType::class, array('label' => $buttonAction))
-                    ->getForm();
+//                $formData = array();
+//                $form = $this->createFormBuilder($formData)
+//                    ->add('id', HiddenType::class, array('data' => $tournament->getId()))
+//                    ->add('action', HiddenType::class, array('data' => $buttonAction))
+//                    ->add('button', SubmitType::class, array('label' => $buttonAction))
+//                    ->getForm();
+
+                $form = $tournamentsHelper->createForm($formInputData);
 
                 $form->handleRequest($request);
                 $forms[$tournament->getId()] = $form;

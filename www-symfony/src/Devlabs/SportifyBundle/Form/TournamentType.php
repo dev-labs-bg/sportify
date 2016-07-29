@@ -19,21 +19,20 @@ class TournamentType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => null,
-            'button_action' => null
+            'data_class' => null
         ));
     }
 
     /**
-     * Building the filter form based on the list of fields passed in by the 'fields' option
+     * Build the tournament form
      *
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $this->data = $options['data'];
-        $this->buttonAction = $options['button_action'];
+        $this->data = $options['data']['tournament_id'];
+        $this->buttonAction = $options['data']['button_action'];
 
         $builder
             ->add('id', HiddenType::class, array(

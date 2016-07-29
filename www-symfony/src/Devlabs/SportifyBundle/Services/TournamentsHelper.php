@@ -5,12 +5,7 @@ namespace Devlabs\SportifyBundle\Services;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Devlabs\SportifyBundle\Form\PredictionType;
-use Symfony\Component\HttpFoundation\Request;
-use Devlabs\SportifyBundle\Entity\User;
-use Devlabs\SportifyBundle\Entity\Match;
-use Devlabs\SportifyBundle\Entity\Prediction;
-use Symfony\Component\Form\Form;
+use Devlabs\SportifyBundle\Form\TournamentType;
 
 /**
  * Class TournamentsHelper
@@ -38,5 +33,22 @@ class TournamentsHelper
         $this->em = $em;
 
         return $this;
+    }
+
+    /**
+     * Method for creating a Tournament form
+     *
+     * @param $formInputData
+     * @return mixed
+     */
+    public function createForm($formInputData)
+    {
+        $formData = array();
+
+        $form = $this->container->get('form.factory')->create(TournamentType::class, $formData, array(
+            'data' => $formInputData
+        ));
+
+        return $form;
     }
 }
