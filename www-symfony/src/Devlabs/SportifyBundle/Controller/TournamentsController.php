@@ -52,54 +52,24 @@ class TournamentsController extends Controller
                 // set tournament id
                 $formInputData['tournament_id'] = $tournament->getId();
 
-                // determine the button action, depending on if the tournament is joined
-                $formInputData['button_action'] = in_array($tournament, $tournamentsJoined)
-                    ? 'LEAVE'
-                    : 'JOIN';
+                // determine the button action
+                $formInputData['button_action'] = $tournamentsHelper->getButtonAction($tournament, $tournamentsJoined);
 
-//                $formData = array();
-//                $form = $this->createFormBuilder($formData)
-//                    ->add('id', HiddenType::class, array('data' => $tournament->getId()))
-//                    ->add('action', HiddenType::class, array('data' => $buttonAction))
-//                    ->add('button', SubmitType::class, array('label' => $buttonAction))
-//                    ->getForm();
-
+                // create the tournament form
                 $form = $tournamentsHelper->createForm($formInputData);
 
                 $form->handleRequest($request);
-                $forms[$tournament->getId()] = $form;
-            }
 
-            // iterate the forms and and if form is submitted, then execute the join/leave tournament code
-            foreach ($forms as $form) {
+                // iterate the forms and and if form is submitted, then execute the join/leave tournament code
                 if ($form->isSubmitted() && $form->isValid()) {
-                    $formData = $form->getData();
-                    $tournament = $em->getRepository('DevlabsSportifyBundle:Tournament')
-                        ->findOneById($formData['id']);
-
-                    // prepare the queries for tournament join/leave (add/delete row in `scores` table)
-                    if ($formData['action'] === 'JOIN') {
-                        $score = new Score();
-                        $score->setUserId($user);
-                        $score->setTournamentId($tournament);
-                        $em->persist($score);
-                    } elseif ($formData['action'] === 'LEAVE') {
-                        $score = $em->getRepository('DevlabsSportifyBundle:Score')
-                            ->getByUserAndTournament($user, $tournament);
-                        $em->remove($score);
-                    }
-
-                    // execute the queries
-                    $em->flush();
+                    $tournamentsHelper->actionOnFormSubmit($form, $user);
 
                     // clear the submitted POST data and reload the page
                     return $this->redirectToRoute('tournaments_index');
                 }
-            }
 
-            // create view for each tournament's form
-            foreach ($tournaments as $tournament) {
-                $forms[$tournament->getId()] = $forms[$tournament->getId()]->createView();
+                // create view for each tournament's form
+                $forms[$tournament->getId()] = $form->createView();
             }
         }
 
