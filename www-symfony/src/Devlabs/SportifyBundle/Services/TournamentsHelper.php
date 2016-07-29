@@ -53,6 +53,23 @@ class TournamentsHelper
     }
 
     /**
+     * Method for getting the input data for the filter form
+     *
+     * @param Tournament $tournament
+     * @param array $tournamentsJoined
+     * @return array
+     */
+    public function getFormInputData(Tournament $tournament, array $tournamentsJoined)
+    {
+        $formInputData = array();
+
+        $formInputData['tournament_id'] = $tournament->getId();
+        $formInputData['button_action'] = $this->getButtonAction($tournament, $tournamentsJoined);
+
+        return $formInputData;
+    }
+
+    /**
      * Method for creating a Tournament form
      *
      * @param $formInputData

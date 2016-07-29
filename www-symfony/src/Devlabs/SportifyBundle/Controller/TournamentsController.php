@@ -47,17 +47,11 @@ class TournamentsController extends Controller
         if ($tournaments) {
             // creating a form with JOIN/LEAVE button for each tournament
             foreach ($tournaments as $tournament) {
-                $formInputData = array();
+                // get the input data for building the tournament form
+                $formInputData = $tournamentsHelper->getFormInputData($tournament, $tournamentsJoined);
 
-                // set tournament id
-                $formInputData['tournament_id'] = $tournament->getId();
-
-                // determine the button action
-                $formInputData['button_action'] = $tournamentsHelper->getButtonAction($tournament, $tournamentsJoined);
-
-                // create the tournament form
+                // create the tournament form and handle it
                 $form = $tournamentsHelper->createForm($formInputData);
-
                 $form->handleRequest($request);
 
                 // iterate the forms and and if form is submitted, then execute the join/leave tournament code
