@@ -19,7 +19,7 @@
         </div>
     </div>
     {% for tournament in tournaments %}
-        {{ include('forms/tournament.html.twig', {
+        {{ include('templates/forms/tournament.html.twig', {
             'form': forms[tournament.id],
             'tournament': tournament
         }) }}

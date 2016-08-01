@@ -9,7 +9,7 @@
     <div class="container-fluid content">
         <div class="matches-filters row">
             <div class="col-lg-10 col-lg-offset-1">
-                {{ include('forms/filter.html.twig', {
+                {{ include('templates/forms/filter.html.twig', {
                     'form': filter_form,
                     'tournament_class': 'col-sm-4 col-sm-offset-3',
                     'button_class': 'col-sm-2 text-center'
@@ -46,7 +46,8 @@
                                         </div>
                                     </div>
                                     <div class="name">
-                                <span class="position-{{ pos_change }}"></span>{{ score.posNew }}. {{ score.userId.username }}</div>
+                                        <span class="position-{{ pos_change }}"></span>{{ score.posNew }}. {{ score.userId.username }}
+                                    </div>
                                 </div>
                             {% endif %}
                             {% if score.posNew == 2 %}
@@ -62,7 +63,8 @@
                                         </div>
                                     </div>
                                     <div class="name">
-                                <span class="position-{{ pos_change }}"></span>{{ score.posNew }}. {{ score.userId.username }}</div>
+                                        <span class="position-{{ pos_change }}"></span>{{ score.posNew }}. {{ score.userId.username }}
+                                    </div>
                                 </div>
                             {% endif %}
                             {% if score.posNew == 3 %}
@@ -78,7 +80,8 @@
                                         </div>
                                     </div>
                                     <div class="name">
-                                <span class="position-{{ pos_change }}"></span>{{ score.posNew }}. {{ score.userId.username }}</div>
+                                        <span class="position-{{ pos_change }}"></span>{{ score.posNew }}. {{ score.userId.username }}
+                                    </div>
                                 </div>
                     </div>
                 </div>

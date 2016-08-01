@@ -9,7 +9,7 @@
     <div class="container-fluid content">
         <div class="matches-filters row">
             <div class="col-lg-10 col-lg-offset-1">
-                {{ include('forms/filter.html.twig', {
+                {{ include('templates/forms/filter.html.twig', {
                     'form': filter_form,
                     'tournament_class': 'col-sm-3',
                     'username_class': 'col-sm-3',
@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-lg-6 col-lg-offset-3 col-md-10 col-md-offset-1 col-sm-12">
                 {% for match in matches %}
-                    {{ include('forms/match_history.html.twig', {
+                    {{ include('templates/match_history.html.twig', {
                         'match': match,
                         'predictions': predictions
                     }) }}

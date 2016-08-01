@@ -9,7 +9,7 @@
     <div class="container-fluid content">
         <div class="matches-filters row">
             <div class="col-lg-10 col-lg-offset-1">
-                {{ include('forms/filter.html.twig', {
+                {{ include('templates/forms/filter.html.twig', {
                     'form': filter_form,
                     'tournament_class': 'col-sm-4',
                     'date_from_class': 'col-sm-3',
@@ -25,7 +25,7 @@
                     <button type="submit" id="btn-bet-all" class="btn green-btn match-btn">BET / UPDATE ALL</button>
                 </div>
                 {% for match in matches %}
-                    {{ include('forms/match_prediction.html.twig', {
+                    {{ include('templates/forms/match_prediction.html.twig', {
                         'form': match_forms[match.id],
                         'match': match,
                         'predictions': predictions
