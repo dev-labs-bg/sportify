@@ -37,3 +37,7 @@ services:
     app.champion.helper:
         class: Devlabs\SportifyBundle\Services\ChampionHelper
         arguments: ['@service_container']
+
+    app.tournaments.helper:
+        class: Devlabs\SportifyBundle\Services\TournamentsHelper
+        arguments: ['@service_container']
