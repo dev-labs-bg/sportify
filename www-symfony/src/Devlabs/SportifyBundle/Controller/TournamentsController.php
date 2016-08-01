@@ -54,7 +54,7 @@ class TournamentsController extends Controller
                 $form = $tournamentsHelper->createForm($formInputData);
                 $form->handleRequest($request);
 
-                // iterate the forms and and if form is submitted, then execute the join/leave tournament code
+                // iterate the forms and and if form is submitted, then execute code for the join/leave tournament
                 if ($form->isSubmitted() && $form->isValid()) {
                     $tournamentsHelper->actionOnFormSubmit($form, $user);
 

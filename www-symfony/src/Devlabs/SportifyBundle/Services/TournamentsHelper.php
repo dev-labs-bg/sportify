@@ -53,7 +53,7 @@ class TournamentsHelper
     }
 
     /**
-     * Method for getting the input data for the filter form
+     * Method for getting the input data for the tournament form
      *
      * @param Tournament $tournament
      * @param array $tournamentsJoined
