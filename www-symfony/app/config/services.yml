@@ -22,6 +22,9 @@ services:
     app.slack:
         class: Devlabs\SportifyBundle\Services\Slack
 
+    app.football_data.api:
+        class: Devlabs\SportifyBundle\Services\FootballData
+
     app.filter.helper:
         class: Devlabs\SportifyBundle\Services\FilterHelper
         arguments: ['@service_container']
