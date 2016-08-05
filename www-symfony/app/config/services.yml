@@ -22,8 +22,8 @@ services:
     app.slack:
         class: Devlabs\SportifyBundle\Services\Slack
 
-    app.football_data.api:
-        class: Devlabs\SportifyBundle\Services\FootballData
+    app.data_updates.fetchers.football_data:
+        class: Devlabs\SportifyBundle\Services\DataUpdates\Fetchers\FootballData
 
     app.filter.helper:
         class: Devlabs\SportifyBundle\Services\FilterHelper
