@@ -46,6 +46,7 @@ services:
         class: Devlabs\SportifyBundle\Services\DataUpdates\Manager
         arguments: ['@service_container']
 
-    app.data_updates.fetchers.football_data:
-        class: Devlabs\SportifyBundle\Services\DataUpdates\Fetchers\FootballData
+    app.data_updates.fetchers.football_data_org:
+        class: Devlabs\SportifyBundle\Services\DataUpdates\Fetchers\FootballDataOrg
+
 

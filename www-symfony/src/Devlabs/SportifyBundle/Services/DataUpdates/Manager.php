@@ -36,15 +36,23 @@ class Manager
 
     public function updateFixtures()
     {
-        $dataFetcher = $this->container->get('app.data_updates.fetchers.football_data');
+        $footballApiName = 'football_data_org';
+        $fetcherServiceName = 'app.data_updates.fetchers.'.$footballApiName;
+        $dataFetcher = $this->container->get($fetcherServiceName);
         $dataFetcher->setApiToken('896fa7a2adc1473ba474c6eb4e66cb4c');
 
         // get all tournaments
         $tournaments = $this->em->getRepository('DevlabsSportifyBundle:Tournament')->findAll();
 
+        // set dateFrom and dateTo to respectively today's date and 2 weeks on
+        $dateFrom = date("Y-m-d");
+        $dateTo = date("Y-m-d", time() + 1209600);
+
         // iterate the following actions for each tournament
         foreach ($tournaments as $tournament) {
-            $dataFetched = $dataFetcher->fetchFixturesByTournamentAndDateRange($tournament->getId(), $dateFrom, $dateTo);
+            // $apiTournamentId = $this->em->getRepository('DevlabsSportifyBundle:ApiMapping')
+            //              ->getByEntityAndApiProvider('Tournament', $tournament->getId(), $footballApi);
+            $dataFetched = $dataFetcher->fetchFixturesByTournamentAndDateRange($apiTournamentId, $dateFrom, $dateTo);
 
             // invoke the parser service
             // parse the fetched data

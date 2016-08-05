@@ -5,10 +5,10 @@ namespace Devlabs\SportifyBundle\Services\DataUpdates\Fetchers;
 use GuzzleHttp\Client;
 
 /**
- * Class FootballData
+ * Class FootballDataOrg
  * @package Devlabs\SportifyBundle\Services\DataUpdates\Fetchers
  */
-class FootballData
+class FootballDataOrg
 {
     private $httpClient;
     private $options;
