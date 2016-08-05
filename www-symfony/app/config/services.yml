@@ -22,9 +22,6 @@ services:
     app.slack:
         class: Devlabs\SportifyBundle\Services\Slack
 
-    app.data_updates.fetchers.football_data:
-        class: Devlabs\SportifyBundle\Services\DataUpdates\Fetchers\FootballData
-
     app.filter.helper:
         class: Devlabs\SportifyBundle\Services\FilterHelper
         arguments: ['@service_container']
@@ -44,3 +41,11 @@ services:
     app.tournaments.helper:
         class: Devlabs\SportifyBundle\Services\TournamentsHelper
         arguments: ['@service_container']
+
+    app.data_updates.manager:
+        class: Devlabs\SportifyBundle\Services\DataUpdates\Manager
+        arguments: ['@service_container']
+
+    app.data_updates.fetchers.football_data:
+        class: Devlabs\SportifyBundle\Services\DataUpdates\Fetchers\FootballData
+

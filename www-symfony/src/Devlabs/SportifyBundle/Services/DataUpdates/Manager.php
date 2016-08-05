@@ -39,17 +39,19 @@ class Manager
         $dataFetcher = $this->container->get('app.data_updates.fetchers.football_data');
         $dataFetcher->setApiToken('896fa7a2adc1473ba474c6eb4e66cb4c');
 
-        // get all tournaments from DB
+        // get all tournaments
+        $tournaments = $this->em->getRepository('DevlabsSportifyBundle:Tournament')->findAll();
 
-        // iterate the following actions for each tournament:
+        // iterate the following actions for each tournament
+        foreach ($tournaments as $tournament) {
+            $dataFetched = $dataFetcher->fetchFixturesByTournamentAndDateRange($tournament->getId(), $dateFrom, $dateTo);
 
-        $dataFetched = $dataFetcher->fetchFixturesByTournamentAndDateRange($tournamentId, $dateFrom, $dateTo);
+            // invoke the parser service
+            // parse the fetched data
 
-        // invoke the parser service
-        // parse the fetched data
-
-        // invoke the importer service
-        // import the parsed data
+            // invoke the importer service
+            // import the parsed data
+        }
     }
 
     public function updateMatchScores()
