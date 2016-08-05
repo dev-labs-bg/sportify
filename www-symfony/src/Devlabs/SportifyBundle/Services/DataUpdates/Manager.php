@@ -4,6 +4,7 @@ namespace Devlabs\SportifyBundle\Services\DataUpdates;
 
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 
 /**
  * Class Manager
@@ -13,9 +14,24 @@ class Manager
 {
     use ContainerAwareTrait;
 
+    private $em;
+
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
+    }
+
+    /**
+     * Method for setting EntityManager
+     *
+     * @param ObjectManager $em
+     * @return $this
+     */
+    public function setEntityManager(ObjectManager $em)
+    {
+        $this->em = $em;
+
+        return $this;
     }
 
     public function updateFixtures()
