@@ -51,7 +51,7 @@ class Manager
         // iterate the following actions for each tournament
         foreach ($tournaments as $tournament) {
             // $apiTournamentId = $this->em->getRepository('DevlabsSportifyBundle:ApiMapping')
-            //              ->getByEntityAndApiProvider('Tournament', $tournament->getId(), $footballApi);
+            //              ->getByEntityAndApiProvider('Tournament', $tournament, $footballApi);
             $dataFetched = $dataFetcher->fetchFixturesByTournamentAndDateRange($apiTournamentId, $dateFrom, $dateTo);
 
             // invoke the parser service
