@@ -47,12 +47,18 @@ class FootballDataOrg
         return json_decode($response->getBody());
     }
 
-    public function fetchFixturesByTournamentAndMatchDay($tournamentId, $matchDay)
+    public function fetchFixturesByTournamentAndMatchDay($apiTournamentId, $matchDay)
     {
-        $uri = $this->baseUri.'/competitions/'.$tournamentId.'/fixtures/?matchday='.$matchDay;
+        $uri = $this->baseUri.'/competitions/'.$apiTournamentId.'/fixtures/?matchday='.$matchDay;
 
         return $this->getResponse($uri)->fixtures;
-//        return json_decode($response->getBody())->fixtures[8]->_links->awayTeam;
+    }
+
+    public function fetchFixturesByTournamentAndTimeRange($apiTournamentId, $dateFrom, $dateTo)
+    {
+        $uri = $this->baseUri.'/competitions/'.$apiTournamentId.'/fixtures/?timeFrameStart='.$dateFrom.'&timeFrameEnd='.$dateTo;
+
+        return $this->getResponse($uri)->fixtures;
     }
 
     public function fetchTeamsByTournament($tournamentId)

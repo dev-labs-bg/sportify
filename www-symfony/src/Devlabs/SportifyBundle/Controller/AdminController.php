@@ -27,11 +27,12 @@ class AdminController extends Controller
         $dataUpdatesManager = $this->get('app.data_updates.manager');
         $dataUpdatesManager->setEntityManager($em);
 
+        $dataUpdatesManager->updateFixtures();
 
         // test stuff
-        $footballAPI = $this->get('app.data_updates.fetchers.football_data_org');
-        $footballAPI->setApiToken('896fa7a2adc1473ba474c6eb4e66cb4c');
-        $data = $footballAPI->fetchFixturesByTournamentAndMatchDay(426,1);
+//        $footballAPI = $this->get('app.data_updates.fetchers.football_data_org');
+//        $footballAPI->setApiToken('896fa7a2adc1473ba474c6eb4e66cb4c');
+//        $data = $footballAPI->fetchFixturesByTournamentAndMatchDay(426,1);
 //        $data = $footballAPI->fetchTeamsByTournament(426)->teams[17];
         var_dump($data);
     }

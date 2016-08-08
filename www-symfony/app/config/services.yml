@@ -49,4 +49,5 @@ services:
     app.data_updates.fetchers.football_data_org:
         class: Devlabs\SportifyBundle\Services\DataUpdates\Fetchers\FootballDataOrg
 
-
+    app.data_updates.parsers.football_data_org:
+        class: Devlabs\SportifyBundle\Services\DataUpdates\Parsers\FootballDataOrg
