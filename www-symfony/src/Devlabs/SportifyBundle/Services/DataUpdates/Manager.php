@@ -50,7 +50,9 @@ class Manager
         $dataFetcher = $this->container->get($fetcherService);
         $dataFetcher->setApiToken('896fa7a2adc1473ba474c6eb4e66cb4c');
 
-        // set dateFrom and dateTo to respectively today's date and 2 weeks on
+        $dataParser = $this->container->get($parserService);
+
+        // set dateFrom and dateTo to respectively today's date and 1 week on
         $dateFrom = date("Y-m-d");
         $dateTo = date("Y-m-d", time() + 604800);
 
@@ -61,10 +63,10 @@ class Manager
             $apiTournamentId = $this->em->getRepository('DevlabsSportifyBundle:ApiMapping')
                 ->getByEntityAndApiProvider($tournament, 'Tournament', $footballApi)
                 ->getApiObjectId();
-            $dataFetched = $dataFetcher->fetchFixturesByTournamentAndTimeRange($apiTournamentId, $dateFrom, $dateTo);
+            $fetchedFixtures = $dataFetcher->fetchFixturesByTournamentAndTimeRange($apiTournamentId, $dateFrom, $dateTo);
 
-            var_dump($dataFetched[0]->_links->homeTeam);
-            $dataParsed = $parserService->parseFixtures($dataFetched);
+            $parsedFixtures = $dataParser->parseFixtures($fetchedFixtures);
+            var_dump($parsedFixtures);
 
             // invoke the parser service
             // parse the fetched data
