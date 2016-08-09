@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-sm-4 match-item-mobile">
                             <span class="pull-left flag flag-icon flag-icon-{{ match.homeTeamId.nameShort|lower }}"></span>
-                            {{ match.homeTeam }}
+                            {{ match.homeTeamId.name }}
                         </div>
                         <div class="col-sm-4 bettings">
                             <div class="bet-rectangle">
@@ -34,7 +34,7 @@
                             {% endif %}
                         </div>
                         <div class="col-sm-4 match-item-mobile">
-                            {{ match.awayTeam }}
+                            {{ match.awayTeamId.name }}
                             <span class="pull-right flag flag-icon flag-icon-{{ match.awayTeamId.nameShort|lower }}"></span>
                         </div>
                     </div>

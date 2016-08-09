@@ -23,16 +23,6 @@ class Match
     private $datetime;
 
     /**
-     * @ORM\Column(type="string", length=50, name="home_team")
-     */
-    private $homeTeam;
-
-    /**
-     * @ORM\Column(type="string", length=50, name="away_team")
-     */
-    private $awayTeam;
-
-    /**
      * @ORM\ManyToOne(targetEntity="Team", inversedBy="matchesHomeTeam")
      * @ORM\JoinColumn(name="home_team_id", referencedColumnName="id")
      */
@@ -117,54 +107,6 @@ class Match
     public function getDatetime()
     {
         return $this->datetime;
-    }
-
-    /**
-     * Set homeTeam
-     *
-     * @param string $homeTeam
-     *
-     * @return Match
-     */
-    public function setHomeTeam($homeTeam)
-    {
-        $this->homeTeam = $homeTeam;
-
-        return $this;
-    }
-
-    /**
-     * Get homeTeam
-     *
-     * @return string
-     */
-    public function getHomeTeam()
-    {
-        return $this->homeTeam;
-    }
-
-    /**
-     * Set awayTeam
-     *
-     * @param string $awayTeam
-     *
-     * @return Match
-     */
-    public function setAwayTeam($awayTeam)
-    {
-        $this->awayTeam = $awayTeam;
-
-        return $this;
-    }
-
-    /**
-     * Get awayTeam
-     *
-     * @return string
-     */
-    public function getAwayTeam()
-    {
-        return $this->awayTeam;
     }
 
     /**

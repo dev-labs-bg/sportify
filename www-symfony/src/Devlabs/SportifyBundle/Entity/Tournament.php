@@ -54,7 +54,7 @@ class Tournament
     private $matches;
 
     /**
-     * @ORM\OneToMany(targetEntity="Team" , mappedBy="tournamentId" , cascade={"all"})
+     * @ORM\ManyToMany(targetEntity="Team", mappedBy="tournaments")
      */
     private $teams;
 
@@ -263,40 +263,6 @@ class Tournament
     }
 
     /**
-     * Add team
-     *
-     * @param \Devlabs\SportifyBundle\Entity\Team $team
-     *
-     * @return Tournament
-     */
-    public function addTeam(\Devlabs\SportifyBundle\Entity\Team $team)
-    {
-        $this->teams[] = $team;
-
-        return $this;
-    }
-
-    /**
-     * Remove team
-     *
-     * @param \Devlabs\SportifyBundle\Entity\Team $team
-     */
-    public function removeTeam(\Devlabs\SportifyBundle\Entity\Team $team)
-    {
-        $this->teams->removeElement($team);
-    }
-
-    /**
-     * Get teams
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getTeams()
-    {
-        return $this->teams;
-    }
-
-    /**
      * Add predictionsChampion
      *
      * @param \Devlabs\SportifyBundle\Entity\PredictionChampion $predictionsChampion
@@ -352,5 +318,39 @@ class Tournament
     public function getChampionTeamId()
     {
         return $this->championTeamId;
+    }
+
+    /**
+     * Add team
+     *
+     * @param \Devlabs\SportifyBundle\Entity\Team $team
+     *
+     * @return Tournament
+     */
+    public function addTeam(\Devlabs\SportifyBundle\Entity\Team $team)
+    {
+        $this->teams[] = $team;
+
+        return $this;
+    }
+
+    /**
+     * Remove team
+     *
+     * @param \Devlabs\SportifyBundle\Entity\Team $team
+     */
+    public function removeTeam(\Devlabs\SportifyBundle\Entity\Team $team)
+    {
+        $this->teams->removeElement($team);
+    }
+
+    /**
+     * Get teams
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTeams()
+    {
+        return $this->teams;
     }
 }
