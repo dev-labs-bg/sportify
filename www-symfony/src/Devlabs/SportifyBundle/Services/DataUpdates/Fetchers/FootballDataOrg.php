@@ -47,6 +47,13 @@ class FootballDataOrg
         return json_decode($response->getBody());
     }
 
+    /**
+     * Method for fetching fixtures by API tournament ID and MatchDay
+     *
+     * @param $apiTournamentId
+     * @param $matchDay
+     * @return mixed
+     */
     public function fetchFixturesByTournamentAndMatchDay($apiTournamentId, $matchDay)
     {
         $uri = $this->baseUri.'/competitions/'.$apiTournamentId.'/fixtures/?matchday='.$matchDay;
@@ -54,6 +61,14 @@ class FootballDataOrg
         return $this->getResponse($uri)->fixtures;
     }
 
+    /**
+     * Method for fetching fixtures by API tournament ID and date/time range
+     *
+     * @param $apiTournamentId
+     * @param $dateFrom
+     * @param $dateTo
+     * @return mixed
+     */
     public function fetchFixturesByTournamentAndTimeRange($apiTournamentId, $dateFrom, $dateTo)
     {
         $uri = $this->baseUri.'/competitions/'.$apiTournamentId.'/fixtures/?timeFrameStart='.$dateFrom.'&timeFrameEnd='.$dateTo;
@@ -61,6 +76,12 @@ class FootballDataOrg
         return $this->getResponse($uri)->fixtures;
     }
 
+    /**
+     * Method for fetching teams by API tournament ID
+     *
+     * @param $apiTournamentId
+     * @return mixed
+     */
     public function fetchTeamsByTournament($apiTournamentId)
     {
         $uri = $this->baseUri.'/competitions/'.$apiTournamentId.'/teams';

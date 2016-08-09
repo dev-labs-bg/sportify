@@ -47,21 +47,30 @@ class Manager
         return $this;
     }
 
-    // get teams from API
+    /**
+     * Method for updating teams via API Fetch, Parse and Import services
+     *
+     * @param Tournament $tournament
+     */
     public function updateTeamsByTournament(Tournament $tournament)
     {
-        $apiTournamentId = $this->em->getRepository('DevlabsSportifyBundle:ApiMapping')
-            ->getByEntityAndApiProvider($tournament, 'Tournament', $this->footballApi)
-            ->getApiObjectId();
-        $fetchedTeams = $this->dataFetcher->fetchTeamsByTournament($apiTournamentId);
-        $parsedTeams = $this->dataParser->parseTeams($fetchedTeams);
-//        var_dump($parsedTeams);
+        $apiMapping = $this->em->getRepository('DevlabsSportifyBundle:ApiMapping')
+            ->getByEntityAndApiProvider($tournament, 'Tournament', $this->footballApi);
+        $apiTournamentId = $apiMapping->getApiObjectId();
 
+        $fetchedTeams = $this->dataFetcher->fetchTeamsByTournament($apiTournamentId);
+
+        // parse the fetched data
+        $parsedTeams = $this->dataParser->parseTeams($fetchedTeams);
+
+        // invoke Importer service and import parsed data
         $this->dataImporter->setEntityManager($this->em);
         $this->dataImporter->importTeams($parsedTeams, $tournament, $this->footballApi);
     }
 
-    // get fixtures from API and update them in DB
+    /**
+     * Method for updating fixtures via API Fetch, Parse and Import services
+     */
     public function updateFixtures()
     {
         // get all tournaments
@@ -79,9 +88,10 @@ class Manager
         foreach ($tournaments as $tournament) {
             if ($tournament->getChampionTeamId() !== null) continue;
 
-            $apiTournamentId = $this->em->getRepository('DevlabsSportifyBundle:ApiMapping')
-                ->getByEntityAndApiProvider($tournament, 'Tournament', $this->footballApi)
-                ->getApiObjectId();
+            $apiMapping = $this->em->getRepository('DevlabsSportifyBundle:ApiMapping')
+                ->getByEntityAndApiProvider($tournament, 'Tournament', $this->footballApi);
+            $apiTournamentId = $apiMapping->getApiObjectId();
+
             $fetchedFixtures = $this->dataFetcher->fetchFixturesByTournamentAndTimeRange($apiTournamentId, $dateFrom, $dateTo);
 
             $parsedFixtures = $this->dataParser->parseFixtures($fetchedFixtures);

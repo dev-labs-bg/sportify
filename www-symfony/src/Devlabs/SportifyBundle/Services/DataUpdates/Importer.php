@@ -37,6 +37,14 @@ class Importer
         return $this;
     }
 
+    /**
+     * Method for importing teams for a tournament
+     * by using parsed data
+     *
+     * @param array $teams
+     * @param Tournament $tournament
+     * @param $footballApi
+     */
     public function importTeams(array $teams, Tournament $tournament, $footballApi)
     {
         foreach ($teams as $teamData) {

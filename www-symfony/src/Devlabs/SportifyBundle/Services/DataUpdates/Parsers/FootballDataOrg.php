@@ -8,6 +8,12 @@ namespace Devlabs\SportifyBundle\Services\DataUpdates\Parsers;
  */
 class FootballDataOrg
 {
+    /**
+     * Method for parsing fetched Teams data
+     *
+     * @param array $teams
+     * @return array
+     */
     public function parseTeams(array $teams)
     {
         foreach ($teams as &$team) {
@@ -23,6 +29,12 @@ class FootballDataOrg
         return $teams;
     }
 
+    /**
+     * Method for parsing fetched Fixtures data
+     *
+     * @param array $fixtures
+     * @return array
+     */
     public function parseFixtures(array $fixtures)
     {
         foreach ($fixtures as &$fixture) {
@@ -40,9 +52,16 @@ class FootballDataOrg
         return $fixtures;
     }
 
-    private function getNumberAtEndOfString($subject)
+    /**
+     * Method for extracting a number at end of a string
+     *
+     * @param $subject
+     * @return mixed
+     */
+    private function getNumberAtEndOfString($string)
     {
-        preg_match('/\d+$/', $subject, $matches);
+        preg_match('/\d+$/', $string, $matches);
+
         return $matches[0];
     }
 }
