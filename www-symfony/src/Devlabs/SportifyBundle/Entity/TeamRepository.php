@@ -21,14 +21,35 @@ class TeamRepository extends \Doctrine\ORM\EntityRepository
     public function getFirstByTournament(Tournament $tournament)
     {
         return $this->getEntityManager()->createQueryBuilder()
-            ->select('t')
-            ->from('DevlabsSportifyBundle:Team', 't')
-            ->where('t.tournamentId = :tournament_id')
+            ->select('tm')
+            ->from('DevlabsSportifyBundle:Team', 'tm')
+            ->join('tm.tournaments', 'tr')
+            ->where('tr.id = :tournament_id')
             ->setParameters(array(
                 'tournament_id' => $tournament->getId()
             ))
             ->setMaxResults(1)
             ->getQuery()
             ->getSingleResult();
+    }
+
+    /**
+     * Get all teams for given tournament
+     *
+     * @param Tournament $tournament
+     * @return array
+     */
+    public function getAllByTournament(Tournament $tournament)
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('tm')
+            ->from('DevlabsSportifyBundle:Team', 'tm')
+            ->join('tm.tournaments', 'tr')
+            ->where('tr.id = :tournament_id')
+            ->setParameters(array(
+                'tournament_id' => $tournament->getId()
+            ))
+            ->getQuery()
+            ->getResult();
     }
 }
