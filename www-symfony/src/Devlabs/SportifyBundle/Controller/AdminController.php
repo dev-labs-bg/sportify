@@ -22,11 +22,10 @@ class AdminController extends Controller
         // Load the data for the current user into an object
         $user = $this->getUser();
 
-        var_dump($user->getEmail());die;
         // continue only if user has Admin access, else redirect to Home
-        if ($user->getEmail() !== 'ceco@devlabs.bg') {
-            return $this->redirectToRoute('home');
-        }
+//        if ($user->getEmail() !== 'ceco@devlabs.bg') {
+//            return $this->redirectToRoute('home');
+//        }
 
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
