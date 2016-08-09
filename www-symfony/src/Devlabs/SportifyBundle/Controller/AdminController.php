@@ -22,6 +22,11 @@ class AdminController extends Controller
         // Load the data for the current user into an object
         $user = $this->getUser();
 
+
+        if (!($user->getEmail() !== 'ceco@devlabs.bg')) {
+            return $this->redirectToRoute('home');
+        }
+
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
 
@@ -32,6 +37,8 @@ class AdminController extends Controller
         $dataUpdatesManager->setEntityManager($em);
 
         $dataUpdatesManager->updateTeamsByTournament($tournament);
-        $dataUpdatesManager->updateFixtures();
+//        $dataUpdatesManager->updateFixtures();
+
+        return $this->redirectToRoute('home');
     }
 }

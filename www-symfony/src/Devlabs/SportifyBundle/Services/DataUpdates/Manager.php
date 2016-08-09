@@ -19,19 +19,19 @@ class Manager
     private $footballApi;
     private $dataFetcher;
     private $dataParser;
+    private $dataImporter;
 
     public function __construct(ContainerInterface $container, $footballApi = 'football_data_org')
     {
         $this->container = $container;
         $this->footballApi = $footballApi;
 
-        $fetcherService = 'app.data_updates.fetchers.'.$footballApi;
-        $parserService = 'app.data_updates.parsers.'.$footballApi;
-
-        $this->dataFetcher = $this->container->get($fetcherService);
+        $this->dataFetcher = $this->container->get('app.data_updates.fetchers.'.$footballApi);
         $this->dataFetcher->setApiToken('896fa7a2adc1473ba474c6eb4e66cb4c');
 
-        $this->dataParser = $this->container->get($parserService);
+        $this->dataParser = $this->container->get('app.data_updates.parsers.'.$footballApi);
+
+        $this->dataImporter = $this->container->get('app.data_updates.importer');
     }
 
     /**
@@ -47,6 +47,7 @@ class Manager
         return $this;
     }
 
+    // get teams from API
     public function updateTeamsByTournament(Tournament $tournament)
     {
         $apiTournamentId = $this->em->getRepository('DevlabsSportifyBundle:ApiMapping')
@@ -54,7 +55,10 @@ class Manager
             ->getApiObjectId();
         $fetchedTeams = $this->dataFetcher->fetchTeamsByTournament($apiTournamentId);
         $parsedTeams = $this->dataParser->parseTeams($fetchedTeams);
-        var_dump($parsedTeams);
+//        var_dump($parsedTeams);
+
+        $this->dataImporter->setEntityManager($this->em);
+        $this->dataImporter->importTeams($parsedTeams, $tournament, $this->footballApi);
     }
 
     // get fixtures from API and update them in DB
