@@ -43,6 +43,7 @@ class ChampionController extends Controller
         $formSourceData['tournament_choices'] = $em->getRepository('DevlabsSportifyBundle:Tournament')
             ->getJoined($user);
 
+        // get informational message if user has not joined any tournaments
         if (!$formSourceData['tournament_choices']) {
             // get the user's tournaments position data
             $userScores = $em->getRepository('DevlabsSportifyBundle:Score')
