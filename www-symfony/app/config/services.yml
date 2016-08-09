@@ -41,3 +41,17 @@ services:
     app.tournaments.helper:
         class: Devlabs\SportifyBundle\Services\TournamentsHelper
         arguments: ['@service_container']
+
+    app.data_updates.manager:
+        class: Devlabs\SportifyBundle\Services\DataUpdates\Manager
+        arguments: ['@service_container']
+
+    app.data_updates.importer:
+        class: Devlabs\SportifyBundle\Services\DataUpdates\Importer
+        arguments: ['@service_container']
+
+    app.data_updates.fetchers.football_data_org:
+        class: Devlabs\SportifyBundle\Services\DataUpdates\Fetchers\FootballDataOrg
+
+    app.data_updates.parsers.football_data_org:
+        class: Devlabs\SportifyBundle\Services\DataUpdates\Parsers\FootballDataOrg
