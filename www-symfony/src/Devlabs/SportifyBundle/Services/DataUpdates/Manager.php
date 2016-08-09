@@ -5,6 +5,7 @@ namespace Devlabs\SportifyBundle\Services\DataUpdates;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Devlabs\SportifyBundle\Entity\Tournament;
 
 /**
  * Class Manager
@@ -15,10 +16,22 @@ class Manager
     use ContainerAwareTrait;
 
     private $em;
+    private $footballApi;
+    private $dataFetcher;
+    private $dataParser;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, $footballApi = 'football_data_org')
     {
         $this->container = $container;
+        $this->footballApi = $footballApi;
+
+        $fetcherService = 'app.data_updates.fetchers.'.$footballApi;
+        $parserService = 'app.data_updates.parsers.'.$footballApi;
+
+        $this->dataFetcher = $this->container->get($fetcherService);
+        $this->dataFetcher->setApiToken('896fa7a2adc1473ba474c6eb4e66cb4c');
+
+        $this->dataParser = $this->container->get($parserService);
     }
 
     /**
@@ -34,6 +47,17 @@ class Manager
         return $this;
     }
 
+    public function updateTeamsByTournament(Tournament $tournament)
+    {
+        $apiTournamentId = $this->em->getRepository('DevlabsSportifyBundle:ApiMapping')
+            ->getByEntityAndApiProvider($tournament, 'Tournament', $this->footballApi)
+            ->getApiObjectId();
+        $fetchedTeams = $this->dataFetcher->fetchTeamsByTournament($apiTournamentId);
+        $parsedTeams = $this->dataParser->parseTeams($fetchedTeams);
+        var_dump($parsedTeams);
+    }
+
+    // get fixtures from API and update them in DB
     public function updateFixtures()
     {
         // get all tournaments
@@ -42,15 +66,6 @@ class Manager
         if (!$tournaments) {
            return;
         }
-
-        $footballApi = 'football_data_org';
-        $fetcherService = 'app.data_updates.fetchers.'.$footballApi;
-        $parserService = 'app.data_updates.parsers.'.$footballApi;
-
-        $dataFetcher = $this->container->get($fetcherService);
-        $dataFetcher->setApiToken('896fa7a2adc1473ba474c6eb4e66cb4c');
-
-        $dataParser = $this->container->get($parserService);
 
         // set dateFrom and dateTo to respectively today's date and 1 week on
         $dateFrom = date("Y-m-d");
@@ -61,11 +76,11 @@ class Manager
             if ($tournament->getChampionTeamId() !== null) continue;
 
             $apiTournamentId = $this->em->getRepository('DevlabsSportifyBundle:ApiMapping')
-                ->getByEntityAndApiProvider($tournament, 'Tournament', $footballApi)
+                ->getByEntityAndApiProvider($tournament, 'Tournament', $this->footballApi)
                 ->getApiObjectId();
-            $fetchedFixtures = $dataFetcher->fetchFixturesByTournamentAndTimeRange($apiTournamentId, $dateFrom, $dateTo);
+            $fetchedFixtures = $this->dataFetcher->fetchFixturesByTournamentAndTimeRange($apiTournamentId, $dateFrom, $dateTo);
 
-            $parsedFixtures = $dataParser->parseFixtures($fetchedFixtures);
+            $parsedFixtures = $this->dataParser->parseFixtures($fetchedFixtures);
             var_dump($parsedFixtures);
 
             // invoke the parser service

@@ -35,7 +35,7 @@ class FootballDataOrg
     }
 
     /**
-     * Get response for GET request to given URI
+     * Get response for GET request to given URI and JSON-decode it
      *
      * @param $uri
      * @return mixed
@@ -61,10 +61,10 @@ class FootballDataOrg
         return $this->getResponse($uri)->fixtures;
     }
 
-    public function fetchTeamsByTournament($tournamentId)
+    public function fetchTeamsByTournament($apiTournamentId)
     {
-        $uri = $this->baseUri.'/competitions/'.$tournamentId.'/teams';
+        $uri = $this->baseUri.'/competitions/'.$apiTournamentId.'/teams';
 
-        return $this->getResponse($uri);
+        return $this->getResponse($uri)->teams;
     }
 }
