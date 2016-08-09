@@ -22,6 +22,7 @@ class MatchRepository extends \Doctrine\ORM\EntityRepository
         $query = $this->getEntityManager()->createQueryBuilder()
             ->select('m')
             ->from('DevlabsSportifyBundle:Match', 'm')
+            ->join('m.homeTeamId', 'tm')
             ->join('m.tournamentId', 't')
             ->join('t.scores', 's', 'WITH', 's.userId = :user_id')
             ->leftJoin('m.predictions', 'p', 'WITH', 'p.userId = :user_id')
@@ -30,7 +31,7 @@ class MatchRepository extends \Doctrine\ORM\EntityRepository
             ->andWhere('m.datetime >= :date_from AND m.datetime <= :date_to')
             ->orderBy('m.tournamentId')
             ->addOrderBy('m.datetime')
-            ->addOrderBy('m.homeTeam')
+            ->addOrderBy('tm.name')
             ->setParameters(array(
                 'user_id' => $user->getId(),
                 'date_from' => $dateFrom,
@@ -60,6 +61,7 @@ class MatchRepository extends \Doctrine\ORM\EntityRepository
         $query = $this->getEntityManager()->createQueryBuilder()
             ->select('m')
             ->from('DevlabsSportifyBundle:Match', 'm')
+            ->join('m.homeTeamId', 'tm')
             ->join('m.tournamentId', 't')
             ->join('t.scores', 's', 'WITH', 's.userId = :user_id')
             ->leftJoin('m.predictions', 'p', 'WITH', 'p.userId = :user_id')
@@ -68,7 +70,7 @@ class MatchRepository extends \Doctrine\ORM\EntityRepository
             ->andWhere('m.datetime >= :date_from AND m.datetime <= :date_to')
             ->orderBy('m.tournamentId')
             ->addOrderBy('m.datetime', 'DESC')
-            ->addOrderBy('m.homeTeam')
+            ->addOrderBy('tm.name')
             ->setParameters(array(
                 'user_id' => $user->getId(),
                 'date_from' => $dateFrom,
@@ -146,10 +148,11 @@ class MatchRepository extends \Doctrine\ORM\EntityRepository
         return $this->getEntityManager()->createQueryBuilder()
             ->select('m')
             ->from('DevlabsSportifyBundle:Match', 'm')
+            ->join('m.homeTeamId', 'tm')
             ->where('m.notificationSent = 0')
             ->andWhere('m.datetime >= :date_from AND m.datetime <= :date_to')
             ->orderBy('m.datetime')
-            ->addOrderBy('m.homeTeam')
+            ->addOrderBy('tm.name')
             ->setParameters(array(
                 'date_from' => $dateFrom,
                 'date_to' => $dateTo

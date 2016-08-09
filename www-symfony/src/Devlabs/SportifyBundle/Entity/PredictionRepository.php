@@ -20,6 +20,7 @@ class PredictionRepository extends \Doctrine\ORM\EntityRepository
             ->select('p')
             ->from('DevlabsSportifyBundle:Prediction', 'p')
             ->join('p.matchId', 'm')
+            ->join('m.homeTeamId', 'tm')
             ->join('m.tournamentId', 't')
             ->join('t.scores', 's', 'WITH', 's.userId = :user_id')
             ->where('p.userId = :user_id')
@@ -28,7 +29,7 @@ class PredictionRepository extends \Doctrine\ORM\EntityRepository
             ->andWhere('m.datetime >= :date_from AND m.datetime <= :date_to')
             ->orderBy('m.tournamentId')
             ->addOrderBy('m.datetime')
-            ->addOrderBy('m.homeTeam')
+            ->addOrderBy('tm.name')
             ->setParameters(array(
                 'user_id' => $user->getId(),
                 'date_from' => $dateFrom,
@@ -71,6 +72,7 @@ class PredictionRepository extends \Doctrine\ORM\EntityRepository
             ->select('p')
             ->from('DevlabsSportifyBundle:Prediction', 'p')
             ->join('p.matchId', 'm')
+            ->join('m.homeTeamId', 'tm')
             ->join('m.tournamentId', 't')
             ->join('t.scores', 's', 'WITH', 's.userId = :user_id')
             ->where('p.userId = :user_id')
@@ -79,7 +81,7 @@ class PredictionRepository extends \Doctrine\ORM\EntityRepository
             ->andWhere('m.datetime >= :date_from AND m.datetime <= :date_to')
             ->orderBy('m.tournamentId')
             ->addOrderBy('m.datetime', 'DESC')
-            ->addOrderBy('m.homeTeam')
+            ->addOrderBy('tm.name')
             ->setParameters(array(
                 'user_id' => $user->getId(),
                 'date_from' => $dateFrom,
