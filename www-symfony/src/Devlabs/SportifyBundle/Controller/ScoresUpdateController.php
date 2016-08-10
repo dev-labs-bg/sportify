@@ -55,7 +55,7 @@ class ScoresUpdateController extends Controller
         // Get the ScoreUpdater service and update user positions in tournament
         $scoresUpdater = $this->get('app.score_updater');
         $scoresUpdater->setEntityManager($em);
-        $scoresUpdater->updatePositionsForTournament($tournament_id);
+        $scoresUpdater->updateUserPositionsForTournament($tournament_id);
 
         // redirect to the Home page
         return $this->redirectToRoute('home');

@@ -104,6 +104,11 @@ class TournamentsHelper
         } elseif ($formData['action'] === 'LEAVE') {
             $this->leaveTournament($user, $tournament);
         }
+
+        // Get the ScoreUpdater service and update user positions in tournament
+        $scoresUpdater = $this->container->get('app.score_updater');
+        $scoresUpdater->setEntityManager($this->em);
+        $scoresUpdater->updateUserPositionsForTournament($tournament->getId());
     }
 
     /**

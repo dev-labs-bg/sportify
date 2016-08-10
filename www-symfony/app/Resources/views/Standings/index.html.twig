@@ -27,7 +27,11 @@
                         {% if score.posNew == score.posOld %}
                             {% set pos_change = 'same' %}
                         {% elseif score.posNew > score.posOld %}
-                            {% set pos_change = 'down' %}
+                            {% if score.posOld == 0 %}
+                                {% set pos_change = 'same' %}
+                            {% else %}
+                                {% set pos_change = 'down' %}
+                            {% endif %}
                         {% elseif score.posNew < score.posOld %}
                             {% set pos_change = 'up' %}
                         {% endif %}
