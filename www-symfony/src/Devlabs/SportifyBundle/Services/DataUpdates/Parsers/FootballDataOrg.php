@@ -19,9 +19,9 @@ class FootballDataOrg
         foreach ($teams as &$team) {
             $parsedTeam = array();
 
-            $parsedTeam['api_team_id'] = $this->getNumberAtEndOfString($team->_links->self->href);
+            $parsedTeam['team_id'] = $this->getNumberAtEndOfString($team->_links->self->href);
             $parsedTeam['name'] = $team->name;
-            $parsedTeam['name_short'] = ($team->code) ? $team->code : 'TEAM'.$parsedTeam['api_team_id'];
+            $parsedTeam['name_short'] = ($team->code) ? $team->code : 'TEAM_'.$parsedTeam['api_team_id'];
 
             $team = $parsedTeam;
         }
@@ -40,11 +40,14 @@ class FootballDataOrg
         foreach ($fixtures as &$fixture) {
             $parsedFixture = array();
 
-            $parsedFixture['api_match_id'] = $this->getNumberAtEndOfString($fixture->_links->self->href);
-            $parsedFixture['api_tournament_id'] = $this->getNumberAtEndOfString($fixture->_links->competition->href);
+            $parsedFixture['match_id'] = $this->getNumberAtEndOfString($fixture->_links->self->href);
+            $parsedFixture['tournament_id'] = $this->getNumberAtEndOfString($fixture->_links->competition->href);
             $parsedFixture['home_team_id'] = $this->getNumberAtEndOfString($fixture->_links->homeTeam->href);
             $parsedFixture['away_team_id'] = $this->getNumberAtEndOfString($fixture->_links->awayTeam->href);
-            $parsedFixture['match_datetime'] = $fixture->date;
+            $parsedFixture['match_local_time'] = date('Y-m-d H:i:s', strtotime($fixture->date));
+            $parsedFixture['odds_home_win'] = $fixture->odds->homeWin;
+            $parsedFixture['odds_draw'] = $fixture->odds->draw;
+            $parsedFixture['odds_away_win'] = $fixture->odds->awayWin;
 
             $fixture = $parsedFixture;
         }

@@ -95,13 +95,10 @@ class Manager
             $fetchedFixtures = $this->dataFetcher->fetchFixturesByTournamentAndTimeRange($apiTournamentId, $dateFrom, $dateTo);
 
             $parsedFixtures = $this->dataParser->parseFixtures($fetchedFixtures);
-            var_dump($parsedFixtures);
 
-            // invoke the parser service
-            // parse the fetched data
-
-            // invoke the importer service
-            // import the parsed data
+            // invoke Importer service and import parsed data
+            $this->dataImporter->setEntityManager($this->em);
+            $this->dataImporter->importFixtures($parsedFixtures, $tournament, $this->footballApi);
         }
     }
 

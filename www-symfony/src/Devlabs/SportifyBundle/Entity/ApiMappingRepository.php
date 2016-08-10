@@ -8,6 +8,16 @@ namespace Devlabs\SportifyBundle\Entity;
  */
 class ApiMappingRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * MethodMethod for getting a single ApiMapping object
+     * by passing Entity type, API name and API Object ID
+     *
+     * @param $entityType
+     * @param $apiName
+     * @param $apiObjectId
+     * @return mixed|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function getByEntityTypeAndApiObjectId($entityType, $apiName, $apiObjectId)
     {
         $query =  $this->getEntityManager()->createQueryBuilder()

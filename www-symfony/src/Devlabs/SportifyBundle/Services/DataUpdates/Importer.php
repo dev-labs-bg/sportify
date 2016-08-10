@@ -6,6 +6,7 @@ use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Devlabs\SportifyBundle\Entity\Tournament;
+use Devlabs\SportifyBundle\Entity\Match;
 use Devlabs\SportifyBundle\Entity\Team;
 use Devlabs\SportifyBundle\Entity\ApiMapping;
 
@@ -48,12 +49,13 @@ class Importer
     public function importTeams(array $teams, Tournament $tournament, $footballApi)
     {
         foreach ($teams as $teamData) {
-            $apiObjectId = $teamData['api_team_id'];
+            $apiObjectId = $teamData['team_id'];
 
             $apiMapping = $this->em->getRepository('DevlabsSportifyBundle:ApiMapping')
                 ->getByEntityTypeAndApiObjectId('Team', $footballApi, $apiObjectId);
 
             if (!$apiMapping) {
+                // create new Team object by using the parsed data
                 $team = new Team();
                 $team->setName($teamData['name']);
                 $team->setNameShort($teamData['name_short']);
@@ -63,17 +65,66 @@ class Importer
                 $this->em->persist($team);
                 $this->em->flush();
 
-                // create API mapping for this Team object
-                $apiMapping = new ApiMapping();
-                $apiMapping->setEntityId($team->getId());
-                $apiMapping->setEntityType('Team');
-                $apiMapping->setApiName($footballApi);
-                $apiMapping->setApiObjectId($apiObjectId);
-
-                // prepare and execute queries
-                $this->em->persist($apiMapping);
-                $this->em->flush();
+                // create API mapping for this object
+                $this->createApiMapping($team, 'Team', $footballApi, $apiObjectId);
             }
         }
+    }
+
+    public function importFixtures(array $fixtures, Tournament $tournament, $footballApi)
+    {
+        foreach ($fixtures as $fixtureData) {
+            $apiMatchId = $fixtureData['match_id'];
+
+            $matchApiMapping = $this->em->getRepository('DevlabsSportifyBundle:ApiMapping')
+                ->getByEntityTypeAndApiObjectId('Match', $footballApi, $apiMatchId);
+
+            if (!$matchApiMapping) {
+                $apiHomeTeamId = $fixtureData['home_team_id'];
+                $apiAwayTeamId = $fixtureData['away_team_id'];
+
+                $homeTeamId = $this->em->getRepository('DevlabsSportifyBundle:ApiMapping')
+                    ->getByEntityTypeAndApiObjectId('Team', $footballApi, $apiHomeTeamId)
+                    ->getEntityId();
+                $awayTeamId = $this->em->getRepository('DevlabsSportifyBundle:ApiMapping')
+                    ->getByEntityTypeAndApiObjectId('Team', $footballApi, $apiAwayTeamId)
+                    ->getEntityId();
+
+                $homeTeam = $this->em->getRepository('DevlabsSportifyBundle:Team')
+                    ->findOneById($homeTeamId);
+                $awayTeam = $this->em->getRepository('DevlabsSportifyBundle:Team')
+                    ->findOneById($awayTeamId);
+
+                $datetime = \DateTime::createFromFormat('Y-m-d H:i:s', $fixtureData['match_local_time']);
+
+                // create new Match object by using the parsed data
+                $match = new Match();
+                $match->setTournamentId($tournament);
+                $match->setDatetime($datetime);
+                $match->setHomeTeamId($homeTeam);
+                $match->setAwayTeamId($awayTeam);
+
+                // prepare and execute queries
+                $this->em->persist($match);
+                $this->em->flush();
+
+                // create API mapping for this object
+                $this->createApiMapping($match, 'Match', $footballApi, $apiMatchId);
+            }
+        }
+    }
+
+    // create API mapping for this Team object
+    private function createApiMapping($entityObject, $entityType, $apiName, $apiObjectId)
+    {
+        $apiMapping = new ApiMapping();
+        $apiMapping->setEntityId($entityObject->getId());
+        $apiMapping->setEntityType($entityType);
+        $apiMapping->setApiName($apiName);
+        $apiMapping->setApiObjectId($apiObjectId);
+
+        // prepare and execute queries
+        $this->em->persist($apiMapping);
+        $this->em->flush();
     }
 }

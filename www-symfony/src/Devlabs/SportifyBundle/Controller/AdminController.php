@@ -36,8 +36,8 @@ class AdminController extends Controller
         $dataUpdatesManager = $this->get('app.data_updates.manager');
         $dataUpdatesManager->setEntityManager($em);
 
-        $dataUpdatesManager->updateTeamsByTournament($tournament);
-//        $dataUpdatesManager->updateFixtures();
+//        $dataUpdatesManager->updateTeamsByTournament($tournament);
+        $dataUpdatesManager->updateFixtures();
 
         return $this->redirectToRoute('home');
     }
