@@ -26,25 +26,26 @@ $(document).ready(function () {
 
 $(function(){
     $('.current-results-slider').owlCarousel({
-        items:1,
+        items:2,
         loop:false,
-        autoplay:false,
-        // autoplayTimeout:5000,
-        // autoplayHoverPause:true,
-        // responsive: {
-        //     0: {
-        //         items:1
-        //     },
-        //     560: {
-        //         items: 2
-        //     },
+        center:true,
+        autoplay:true,
+         autoplayTimeout:5000,
+         autoplayHoverPause:true,
+         responsive: {
+             0: {
+                 items:1
+             },
+             560: {
+                 items: 2
+             }
         //     1150: {
         //         items: 3
         //     },
         //     1450: {
         //         items: 4
         //     }
-        // }
+         }
     });
 });
 $(function(){

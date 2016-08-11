@@ -10721,6 +10721,82 @@ h2 {
   background-image: url(../flags/4x3/nn.svg);
 }
 
+.flag-icon-afc {
+  background-image: url(../img/flags/AFC.svg);
+}
+
+.flag-icon-afcb {
+  background-image: url(../img/flags/AFCB.svg);
+}
+
+.flag-icon-bfc {
+  background-image: url(../img/flags/BFC.png);
+}
+
+.flag-icon-cfc {
+  background-image: url(../img/flags/CFC.svg);
+}
+
+.flag-icon-efc {
+  background-image: url(../img/flags/EFC.svg);
+}
+
+.flag-icon-hul {
+  background-image: url(../img/flags/HUL.svg);
+}
+
+.flag-icon-lcfc {
+  background-image: url(../img/flags/LCFC.png);
+}
+
+.flag-icon-lfc {
+  background-image: url(../img/flags/LFC.png);
+}
+
+.flag-icon-mcfc {
+  background-image: url(../img/flags/MCFC.png);
+}
+
+.flag-icon-mfc {
+  background-image: url(../img/flags/MFC.png);
+}
+
+.flag-icon-mufc {
+  background-image: url(../img/flags/MUFC.png);
+}
+
+.flag-icon-scfc {
+  background-image: url(../img/flags/SCFC.svg);
+}
+
+.flag-icon-sfc {
+  background-image: url(../img/flags/SFC.svg);
+}
+
+.flag-icon-sun {
+  background-image: url(../img/flags/SUN.svg);
+}
+
+.flag-icon-swa {
+  background-image: url(../img/flags/SWA.png);
+}
+
+.flag-icon-thfc {
+  background-image: url(../img/flags/THFC.svg);
+}
+
+.flag-icon-wba {
+  background-image: url(../img/flags/WBA.svg);
+}
+
+.flag-icon-wfc {
+  background-image: url(../img/flags/WFC.svg);
+}
+
+.flag-icon-whu {
+  background-image: url(../img/flags/WHU.svg);
+}
+
 @media screen and (max-width: 991px) {
   .page-content-wrapper h2 {
     margin: 30px 0 25px;
