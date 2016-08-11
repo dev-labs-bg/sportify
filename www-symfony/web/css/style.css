@@ -6434,7 +6434,7 @@ button.close {
   }
 }
 /**
- * Owl Carousel v2.1.4
+ * Owl Carousel v2.1.6
  * Copyright 2013-2016 David Deutsch
  * Licensed under MIT (https://github.com/OwlCarousel2/OwlCarousel2/blob/master/LICENSE)
  */
@@ -9729,14 +9729,22 @@ li {
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 100px;
+  height: 70px;
   background-color: #1d2936;
   color: #fff;
   padding-left: 55px;
   margin-right: -255px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   transition: .6s ease;
+}
+
+.current-results-slider .owl-stage-outer {
+  text-align: center;
+}
+
+.current-results-slider .owl-stage-outer .owl-stage {
+  display: inline-block;
 }
 
 .current-results-slider .slider-item {
@@ -9744,20 +9752,20 @@ li {
 }
 
 .current-results-slider .slider-item .logo {
-  width: 80px;
-  height: 80px;
+  width: 55px;
+  height: 55px;
   background: #fff;
   border-radius: 100%;
   text-align: center;
-  line-height: 80px;
+  line-height: 55px;
   float: left;
 }
 
 .current-results-slider .slider-item .logo img {
   display: inline-block;
-  max-width: 55px;
+  max-width: 40px;
   width: auto;
-  max-height: 55px;
+  max-height: 40px;
   height: auto;
 }
 
@@ -9778,7 +9786,7 @@ li {
 }
 
 .current-results-slider .slider-item .result-info .title {
-  padding: 20px 20px 10px;
+  padding: 5px 20px;
 }
 
 .position-up,
@@ -9895,6 +9903,14 @@ li {
   background-color: rgba(0, 0, 0, 0.12);
 }
 
+.sidebar-nav li a.sportify-logo {
+  cursor: pointer;
+}
+
+.sidebar-nav li a.sportify-logo:hover {
+  background: transparent;
+}
+
 .sidebar-nav li.active a,
 .sidebar-nav li.open a {
   color: #fff;
@@ -9970,10 +9986,6 @@ li {
   padding: 10px 0 0;
   font-size: 14px;
   text-transform: uppercase;
-}
-
-.myprofile-form .green-btn {
-  padding: 15px 35px;
 }
 
 .my-profile {
@@ -10177,9 +10189,9 @@ h2 {
 .myprofile-form input[type="password"],
 .myprofile-form input[type="text"] {
   box-sizing: border-box;
-  height: 62px;
-  margin: 50px 0 10px;
-  padding: 15px 35px;
+  height: 48px;
+  margin: 30px 0 10px;
+  padding: 8px 30px;
 }
 
 .login-form ::-webkit-input-placeholder,
@@ -10250,7 +10262,7 @@ h2 {
 .yellow-btn {
   border: none;
   color: #fff;
-  padding: 13px 40px;
+  padding: 8px 40px;
   border-radius: 100px;
   font-size: 16px;
   font-weight: 600;
@@ -10290,7 +10302,7 @@ h2 {
 .history-btn {
   border: 3px solid #fff;
   color: #fff;
-  padding: 15px 25px;
+  padding: 10px 25px;
   border-radius: 65px;
   font-weight: 600;
   text-transform: uppercase;
@@ -10330,7 +10342,7 @@ h2 {
 }
 
 .tournament-btn {
-  padding: 13px 40px;
+  min-width: 126px;
 }
 
 .matches-filters .form-control,
@@ -10357,14 +10369,19 @@ h2 {
 }
 
 .matches-filters .green-btn,
-.champion-page .green-btn {
+.matches-filters .yellow-btn,
+.champion-page .green-btn,
+.champion-page .yellow-btn {
   padding: 6px 40px;
   margin: 0;
 }
 
 .matches-filters .green-btn.history-filter,
-.champion-page .green-btn.history-filter {
-  margin-top: 40px;
+.matches-filters .yellow-btn.history-filter,
+.champion-page .green-btn.history-filter,
+.champion-page .yellow-btn.history-filter {
+  min-width: 130px;
+  margin-top: 45px;
 }
 
 .matches-filters {
@@ -10436,13 +10453,13 @@ h2 {
 .match-item {
   margin: 30px 0;
   text-align: center;
-  padding: 8px;
+  padding: 2px 8px;
   border-radius: 9px;
   background-color: #fff;
   box-shadow: 1px 2px 6px 0 rgba(0, 0, 0, 0.5);
   color: #2c3e50;
   font-weight: 900;
-  font-size: 16px;
+  font-size: 14px;
   text-transform: uppercase;
 }
 
@@ -10461,7 +10478,7 @@ h2 {
   position: absolute;
   width: 100%;
   left: 0;
-  top: -25px;
+  top: -28px;
   z-index: -1;
 }
 
@@ -10499,7 +10516,7 @@ h2 {
 }
 
 .match-btn {
-  padding: 13px 40px;
+  min-width: 120px;
   margin: 5px 0;
 }
 
@@ -10554,6 +10571,7 @@ h2 {
   display: inline-block;
   border-radius: 4px;
   position: absolute;
+  text-align: center;
 }
 
 .first-three-standings .points:after,
@@ -10685,6 +10703,13 @@ h2 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.standing-title {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .text-green {

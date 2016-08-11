@@ -25,13 +25,13 @@
                 {% endif %}
             </h2>
             <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
-                    <div class="row">
+
                         {{ include('templates/forms/filter.html.twig', {
                             'form': filter_form,
                             'tournament_class': 'col-sm-8',
                             'button_class': 'col-sm-4 text-center'
                         }) }}
-
+                        <div class="row">
                         {{ form_start(champion_form) }}
                             <div class="col-sm-8">
                                 <label>Champion Team</label>
@@ -45,20 +45,27 @@
                                 {% endif %}
                             </div>
                         {{ form_end(champion_form) }}
-                    </div>
+                        </div>
             </div>
         </div>
 
         <h2 class="text-center">
             All users champion predictions:
         </h2>
-        <div class="standing">
-            {% for user_prediction in user_predictions %}
-                <div class="row text-center">
-                    <div class="col-xs-6 col-sm-6">{{ user_prediction.userId.username }}</div>
-                    <div class="col-xs-6 col-sm-6">{{ user_prediction.teamId.name }} </div>
+        <div class="row text-center">
+            <div class="col-sm-4 col-sm-offset-4">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 standing-title">Username</div>
+                    <div class="col-xs-6 col-sm-6 standing-title">Prediction</div>
                 </div>
+            {% for user_prediction in user_predictions %}
+                        <div class="row standing">
+                            <div class="col-xs-6 col-sm-6">{{ user_prediction.userId.username }}</div>
+                            <div class="col-xs-6 col-sm-6">{{ user_prediction.teamId.name }} </div>
+                        </div>
             {% endfor %}
+
+            </div>
         </div>
     </div>
 
