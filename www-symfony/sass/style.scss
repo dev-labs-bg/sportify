@@ -651,7 +651,9 @@ h2 {
         text-transform: uppercase;
     }
     &-item {
-        margin: 30px 0;
+        width: 100%;
+        max-width: 785px;
+        margin: 30px auto;
         text-align: center;
         padding: 2px 8px;
         border-radius: 9px;
@@ -662,7 +664,7 @@ h2 {
         font-size: 14px;
         text-transform: uppercase;
         &-mobile {
-            padding: 6px 10px;
+            padding: 6px 5px;
         }
         .bettings {
             text-align: center;
@@ -888,10 +890,17 @@ h2 {
     height: 21px;
     width: 28px;
     box-shadow: 1px 2px 6px 0 rgba(0, 0, 0, 0.5);
-    margin: 0 10px;
     display: inline-block;
     &-icon {
         line-height: 1.4;
+    }
+    &.pull-left {
+        margin: 0;
+        margin-left: 10px;
+    }
+    &.pull-right {
+        margin: 0;
+        margin-right: 10px;
     }
 }
 /**
@@ -965,6 +974,11 @@ h2 {
 }
 .flag-icon-cry {
     background-image: url(../img/flags/CRY.png);
+}
+@media screen and (max-width: 1367px){
+    .match-item {
+        font-size: 13px;
+    }
 }
 @media screen and (max-width: 991px){
     .page-content-wrapper h2 {
@@ -1047,6 +1061,9 @@ h2 {
             }
             .bettings {
                 margin: 25px 0;
+                .bet-rectangle {
+                    top: -24px;
+                }
             }
         }
     }
@@ -1083,6 +1100,7 @@ h2 {
 
     .flag {
         float: left !important;
+        margin-left: 0 !important;
     }
 }
 /**
