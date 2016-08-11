@@ -83,7 +83,7 @@ class ChampionHelper
 
         // get a list of teams for the selected tournament
         $teamChoices = $this->em->getRepository('DevlabsSportifyBundle:Team')
-            ->findByTournamentId($tournament);
+            ->getAllByTournament($tournament);
 
         // set the input form-data for the champion form
         $formInputData['team']['data'] = $teamSelected;

@@ -79,7 +79,7 @@ fos_user:
             type: Devlabs\SportifyBundle\Form\RegistrationFormType
         confirmation:
             enabled: true
-            template: email/registration.email.twig
+            template: templates/emails/registration.email.twig
     from_email:
         address:        sportify@devlabs-projects.com
         sender_name:    Sportify
@@ -89,7 +89,7 @@ fos_user:
         form:
             type: Devlabs\SportifyBundle\Form\ResettingFormType
         email:
-            template: email/password_resetting.email.twig
+            template: templates/emails/password_resetting.email.twig
     change_password:
         form:
             type: Devlabs\SportifyBundle\Form\ChangePasswordFormType

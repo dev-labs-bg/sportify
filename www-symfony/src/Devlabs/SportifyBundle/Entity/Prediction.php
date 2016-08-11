@@ -13,6 +13,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Prediction
 {
+    const POINTS_OUTCOME = 1;
+    const POINTS_EXACT = 3;
+
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -253,9 +256,9 @@ class Prediction
     public function calculatePoints(Match $match)
     {
         if (($this->homeGoals === $match->getHomeGoals()) && ($this->awayGoals === $match->getAwayGoals())) {
-            return 3;
+            return self::POINTS_EXACT;
         } else if ($this->getResultOutcome() === $match->getResultOutcome()) {
-            return 1;
+            return self::POINTS_OUTCOME;
         }
 
         return 0;

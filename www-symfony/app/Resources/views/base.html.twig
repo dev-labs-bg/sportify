@@ -176,7 +176,11 @@
                                     {% if score.posNew == score.posOld %}
                                         {% set pos_change = 'same' %}
                                     {% elseif score.posNew > score.posOld %}
-                                        {% set pos_change = 'down' %}
+                                        {% if score.posOld == 0 %}
+                                            {% set pos_change = 'same' %}
+                                        {% else %}
+                                            {% set pos_change = 'down' %}
+                                        {% endif %}
                                     {% elseif score.posNew < score.posOld %}
                                         {% set pos_change = 'up' %}
                                     {% endif %}
@@ -184,10 +188,10 @@
                                     <div class="slider-item-holder">
                                         <div class="slider-item">
                                             <div class="logo">
-                                                <img src="{{ asset('img/UEFA_Euro_2016_logo.png') }}" alt="UEFA_Euro_2016_logo.png" />
+                                                <img src="{{ asset('img/tournament_logos/'~score.tournamentId.nameShort~'.png') }}" alt="{{ score.tournamentId.nameShort }}.png" />
                                             </div>
                                             <div class="result-info">
-                                                <div class="title">UEFA Euro 2016</div>
+                                                <div class="title">{{ score.tournamentId.name }}</div>
                                                 <div class="points">Position: {{ score.posNew }}<span class="position-{{ pos_change }}"></span></div>
                                             </div>
                                         </div>
