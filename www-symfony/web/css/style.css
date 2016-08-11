@@ -9690,12 +9690,12 @@ body {
 body,
 html {
   height: 100%;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 ul,
 li {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .nav .open a,
@@ -9882,7 +9882,7 @@ li {
   color: #fff;
   text-decoration: none;
   padding: 25px 15px 25px 60px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   text-transform: uppercase;
 }
@@ -10084,7 +10084,7 @@ header .navbar-default {
 }
 
 .mobile-menu li a {
-  font-size: 17px;
+  font-size: 15px;
   padding-left: 60px;
   text-transform: uppercase;
 }
@@ -10238,7 +10238,7 @@ h2 {
 
 .login-screen .forgotten-password a {
   color: inherit;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .login-screen .forgotten-password a:hover,
@@ -10252,7 +10252,7 @@ h2 {
   color: #fff;
   padding: 13px 40px;
   border-radius: 100px;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
   text-transform: uppercase;
   transition: .3s ease-in-out;
@@ -10323,7 +10323,7 @@ h2 {
 }
 
 .tournament-item {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 600;
   padding-top: 30px;
   padding-bottom: 30px;
@@ -10342,7 +10342,7 @@ h2 {
   -webkit-appearance: none;
   line-height: 18px;
   height: auto;
-  padding: 15px 25px;
+  padding: 10px 25px;
   border-radius: 100px;
   background: #fff;
 }
@@ -10358,7 +10358,7 @@ h2 {
 
 .matches-filters .green-btn,
 .champion-page .green-btn {
-  padding: 13px 40px;
+  padding: 6px 40px;
   margin: 0;
 }
 
@@ -10368,8 +10368,8 @@ h2 {
 }
 
 .matches-filters {
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 0;
+  padding-bottom: 20px;
   background: rgba(29, 41, 54, 0.7);
 }
 
@@ -10387,8 +10387,8 @@ h2 {
 }
 
 .chosen-container-single .chosen-single {
-  height: 52px;
-  line-height: 52px;
+  height: 40px;
+  line-height: 40px;
   border-radius: 100px;
   background: #fff url(../img/select-arrow.svg) no-repeat 90% center;
   padding-left: 25px;
@@ -10454,7 +10454,7 @@ h2 {
   text-align: center;
   position: relative;
   z-index: 1;
-  font-size: 22px;
+  font-size: 16px;
 }
 
 .match-item .bettings .bet-rectangle {
@@ -10536,7 +10536,7 @@ h2 {
 }
 
 .first-three-standings .name {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
   line-height: 70px;
 }
@@ -10601,7 +10601,7 @@ h2 {
   height: 70.8px;
   background-color: #fdca33;
   padding: 0 5px;
-  font-size: 25px;
+  font-size: 22px;
 }
 
 .first-three-standings .first-place .points:after {
@@ -10661,7 +10661,7 @@ h2 {
 }
 
 .standing {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
   line-height: 70px;
   padding: 10px 0;
