@@ -28,7 +28,6 @@ $(function(){
     $('.current-results-slider').owlCarousel({
         items:2,
         loop:false,
-        center:true,
         autoplay:true,
          autoplayTimeout:5000,
          autoplayHoverPause:true,

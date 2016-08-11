@@ -95,18 +95,18 @@
                         {% if score.posNew > 3 %}
                         <div class="standing">
                             <div class="row">
-                                <div class="col-xs-2 col-md-1">
+                                <div class="col-xs-4 col-md-1">
                                     <span class="position-{{ pos_change }}"></span>
                                     {{ score.posNew }}.
                                 </div>
-                                <div class="col-xs-10 col-md-4 col-xs-6">
+                                <div class="col-xs-8 col-md-4 col-xs-6">
                                     <div class="row">
-                                        <div class="col-xs-4 text-center">
+                                        <div class="col-xs-5 text-center">
                                             <div class="profile-img">
                                                 <img src="{{ asset('img/devlabs_logo.png') }}" alt="" />
                                             </div>
                                         </div>
-                                        <div class="col-xs-8">{{ score.userId.username }}</div>
+                                        <div class="col-xs-7 user-name">{{ score.userId.username }}</div>
                                     </div>
                                 </div>
                                 <div class="col-xs-3 col-sm-3 col-md-2 text-center" data-toggle="tooltip" data-placement="top" title="Total score">{{ score.points }}pt</div>

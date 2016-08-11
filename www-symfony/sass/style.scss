@@ -1,5 +1,5 @@
 body {
-    font-family: 'Exo';
+    font-family: 'Exo 2';
     color: #fff;
     position: relative;
     overflow-x: hidden;
@@ -11,10 +11,10 @@ body {
 }
 body, html {
     height: 100%;
-    font-size: 18px;
+    font-size: 16px;
 }
 ul, li {
-    font-size: 18px;
+    font-size: 16px;
 }
 .nav .open {
 
@@ -47,32 +47,38 @@ ul, li {
     position: fixed;
     bottom: 0;
     width: 100%;
-    height: 100px;
+    height: 70px;
     background-color: #1d2936;
     color: #fff;
     padding-left: 55px;
     margin-right: -255px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     transition: .6s ease;
 }
 .current-results-slider {
+    .owl-stage-outer {
+        text-align: center;
+        .owl-stage {
+            display: inline-block;
+        }
+    }
     .slider-item {
         display: inline-block;
         .logo {
-            width: 80px;
-            height: 80px;
+            width: 55px;
+            height: 55px;
             background: #fff;
             border-radius: 100%;
             text-align: center;
-            line-height: 80px;
+            line-height: 55px;
             float: left;
 
             img {
                 display: inline-block;
-                max-width: 55px;
+                max-width: 40px;
                 width: auto;
-                max-height: 55px;
+                max-height: 40px;
                 height: auto;
             }
         }
@@ -88,7 +94,7 @@ ul, li {
                 font-weight: 600;
             }
             .title {
-                padding: 20px 20px 10px;
+                padding: 5px 20px;
             }
         }
     }
@@ -192,13 +198,19 @@ ul, li {
             color: #fff;
             text-decoration: none;
             padding: 25px 15px 25px 60px;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
             text-transform: uppercase;
             &:hover, &:active, &:focus {
                 color: #fff;
                 text-decoration: none;
                 background-color: rgba(0,0,0,.12);
+            }
+        }
+        a.sportify-logo {
+            cursor: pointer;
+            &:hover {
+                background: rgba(0,0,0,0);
             }
         }
         &.active, &.open {
@@ -273,9 +285,6 @@ ul, li {
             font-size: 14px;
             text-transform: uppercase;
         }
-    }
-    .green-btn {
-        padding: 15px 35px;
     }
 }
 .my-profile {
@@ -368,7 +377,7 @@ header .navbar-default {
     background: #4caf50;
     color: #fff;
     li a {
-        font-size: 17px;
+        font-size: 15px;
         padding-left: 60px;
         text-transform: uppercase;
     }
@@ -443,9 +452,9 @@ h2 {
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
-        height: 62px; // Increase height as required
-        margin: 50px 0 10px;
-        padding: 15px 35px; // Now only left & right padding
+        height: 48px;
+        margin: 30px 0 10px;
+        padding: 8px 30px;
     }
     ::-webkit-input-placeholder { /* WebKit browsers */
         text-transform: uppercase;
@@ -480,7 +489,7 @@ h2 {
     margin: 10px 0 40px;
     a {
         color: inherit;
-        font-size: 18px;
+        font-size: 16px;
         &:hover, &:focus {
             text-decoration: none;
         }
@@ -489,9 +498,9 @@ h2 {
 .green-btn, .yellow-btn {
     border: none;
     color: #fff;
-    padding: 13px 40px;
+    padding: 8px 40px;
     border-radius: 100px;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
     text-transform: uppercase;
     transition: .3s ease-in-out;
@@ -517,7 +526,7 @@ h2 {
 .history-btn {
     border: 3px solid #fff;
     color: #fff;
-    padding: 15px 25px;
+    padding: 10px 25px;
     border-radius: 65px;
     font-weight: 600;
     text-transform: uppercase;
@@ -545,13 +554,14 @@ h2 {
 }
 .tournament {
     &-item {
-        font-size: 17px;
+        font-size: 16px;
         font-weight: 600;
         padding-top: 30px;
         padding-bottom: 30px;
     }
     &-btn {
-        padding: 13px 40px;
+        min-width: 126px;
+        // padding: 13px 40px;
     }
 }
 .matches-filters, .champion-page {
@@ -561,7 +571,7 @@ h2 {
         -webkit-appearance: none;
         line-height: 18px;
         height: auto;
-        padding: 15px 25px;
+        padding: 10px 25px;
         border-radius: 100px;
         background: #fff;
     }
@@ -572,17 +582,18 @@ h2 {
         text-transform: uppercase;
         padding: 10px 5px 5px;
     }
-    .green-btn {
-        padding: 13px 40px;
+    .green-btn, .yellow-btn {
+        padding: 6px 40px;
         margin: 0;
         &.history-filter {
-            margin-top: 40px;
+            min-width: 130px;
+            margin-top: 45px;
         }
     }
 }
 .matches-filters {
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 0;
+    padding-bottom: 20px;
     background: rgba(29, 41, 54, .7);
     .green-btn {
         float: left;
@@ -599,8 +610,8 @@ h2 {
 
     &-single {
         .chosen-single {
-            height: 52px;
-            line-height: 52px;
+            height: 40px;
+            line-height: 40px;
             border-radius: 100px;
             background: #fff url(../img/select-arrow.svg) no-repeat 90% center;
             padding-left: 25px;
@@ -642,13 +653,13 @@ h2 {
     &-item {
         margin: 30px 0;
         text-align: center;
-        padding: 8px;
+        padding: 2px 8px;
         border-radius: 9px;
         background-color: #fff;
         box-shadow: 1px 2px 6px 0 rgba(0, 0, 0, .5);
         color: #2c3e50;
         font-weight: 900;
-        font-size: 16px;
+        font-size: 14px;
         text-transform: uppercase;
         &-mobile {
             padding: 6px 10px;
@@ -657,12 +668,12 @@ h2 {
             text-align: center;
             position: relative;
             z-index: 1;
-            font-size: 22px;
+            font-size: 16px;
             .bet-rectangle {
                 position: absolute;
                 width: 100%;
                 left: 0;
-                top: -25px;
+                top: -28px;
                 z-index: -1;
             }
             .bet-form {
@@ -698,7 +709,8 @@ h2 {
         }
     }
     &-btn {
-        padding: 13px 40px;
+        min-width: 120px;
+        // padding: 8px 40px;
         margin: 5px 0;
     }
     .team-title, .prediction-title, .points-title {
@@ -726,7 +738,7 @@ h2 {
         border-radius: 100%;
     }
     .name {
-        font-size: 20px;
+        font-size: 16px;
         font-weight: 600;
         line-height: 70px;
     }
@@ -740,6 +752,7 @@ h2 {
         display: inline-block;
         border-radius: 4px;
         position: absolute;
+        text-align: center;
     }
     .points:after, .points:before {
         right: 100%;
@@ -780,7 +793,7 @@ h2 {
             height: 70.8px;
             background-color: #fdca33;
             padding: 0 5px;
-            font-size: 25px;
+            font-size: 22px;
             &:after{
                 border-right-color: #fdca33;
             }
@@ -832,7 +845,7 @@ h2 {
     }
 }
 .standing {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
     line-height: 70px;
     padding: 10px 0;
@@ -847,6 +860,17 @@ h2 {
             border-radius: 100%;
             border: 3px solid #fff;
         }
+    }
+    .user-name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    &-title {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: uppercase;
     }
 }
 .text- {
@@ -938,6 +962,9 @@ h2 {
 }
 .flag-icon-whu {
     background-image: url(../img/flags/WHU.svg);
+}
+.flag-icon-cry {
+    background-image: url(../img/flags/CRY.png);
 }
 @media screen and (max-width: 991px){
     .page-content-wrapper h2 {
