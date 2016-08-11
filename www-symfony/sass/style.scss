@@ -1061,6 +1061,9 @@ h2 {
             }
             .bettings {
                 margin: 25px 0;
+                .bet-rectangle {
+                    top: -24px;
+                }
             }
         }
     }
@@ -1097,6 +1100,7 @@ h2 {
 
     .flag {
         float: left !important;
+        margin-left: 0 !important;
     }
 }
 /**

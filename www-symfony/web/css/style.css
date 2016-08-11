@@ -10952,6 +10952,10 @@ h2 {
     margin: 25px 0;
   }
 
+  .match-item .bettings .bet-rectangle {
+    top: -24px;
+  }
+
   .matches-filters .form-control {
     margin: 10px 0;
   }
@@ -10986,6 +10990,7 @@ h2 {
 
   .flag {
     float: left !important;
+    margin-left: 0 !important;
   }
 }
 
