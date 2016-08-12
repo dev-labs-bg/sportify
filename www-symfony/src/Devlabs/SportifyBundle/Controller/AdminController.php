@@ -30,12 +30,6 @@ class AdminController extends Controller
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
 
-        $match = $em->getRepository('DevlabsSportifyBundle:Match')
-            ->findOneById(82);
-        $usersNotPredicted = $em->getRepository('DevlabsSportifyBundle:User')
-            ->getNotPredictedByMatch($match);
-        var_dump($usersNotPredicted);die;
-
         $tournament = $em->getRepository('DevlabsSportifyBundle:Tournament')
             ->findOneById(12);
 
@@ -43,7 +37,13 @@ class AdminController extends Controller
         $dataUpdatesManager->setEntityManager($em);
 
 //        $dataUpdatesManager->updateTeamsByTournament($tournament);
-        $dataUpdatesManager->updateFixtures();
+
+        // set dateFrom and dateTo to respectively today and 1 week on
+        $dateFrom = date("Y-m-d");
+        $dateTo = date("Y-m-d", time() + 604800);
+
+        $dataUpdatesManager->updateFixtures($dateFrom, $dateTo);
+//        $dataUpdatesManager->updateFixtures('2016-07-09', '2016-07-10');
 
         return $this->redirectToRoute('home');
     }

@@ -110,6 +110,19 @@ class Importer
 
                 // create API mapping for this object
                 $this->createApiMapping($match, 'Match', $footballApi, $apiMatchId);
+
+            } else if ($fixtureData['home_team_goals'] !== null && $fixtureData['away_team_goals'] !== null) {
+                // get match from db
+                $match = $this->em->getRepository('DevlabsSportifyBundle:Match')
+                    ->findOneById($matchApiMapping->getEntityId());
+
+                // update result (home and away goals)
+                $match->setHomeGoals($fixtureData['home_team_goals']);
+                $match->setAwayGoals($fixtureData['away_team_goals']);
+
+                // prepare and execute queries
+                $this->em->persist($match);
+                $this->em->flush();
             }
         }
     }

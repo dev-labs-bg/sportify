@@ -45,9 +45,25 @@ class FootballDataOrg
             $parsedFixture['home_team_id'] = $this->getNumberAtEndOfString($fixture->_links->homeTeam->href);
             $parsedFixture['away_team_id'] = $this->getNumberAtEndOfString($fixture->_links->awayTeam->href);
             $parsedFixture['match_local_time'] = date('Y-m-d H:i:s', strtotime($fixture->date));
-            $parsedFixture['odds_home_win'] = $fixture->odds->homeWin;
-            $parsedFixture['odds_draw'] = $fixture->odds->draw;
-            $parsedFixture['odds_away_win'] = $fixture->odds->awayWin;
+            $parsedFixture['status'] = $fixture->status;
+
+            if ($fixture->status === 'FINISHED') {
+                $parsedFixture['home_team_goals'] = $fixture->result->goalsHomeTeam;
+                $parsedFixture['away_team_goals'] = $fixture->result->goalsAwayTeam;
+            } else {
+                $parsedFixture['home_team_goals'] = null;
+                $parsedFixture['away_team_goals'] = null;
+            }
+
+            if ($fixture->odds && ($fixture->odds !== 'null')) {
+                $parsedFixture['odds_home_win'] = $fixture->odds->homeWin;
+                $parsedFixture['odds_draw'] = $fixture->odds->draw;
+                $parsedFixture['odds_away_win'] = $fixture->odds->awayWin;
+            } else {
+                $parsedFixture['odds_home_win'] = null;
+                $parsedFixture['odds_draw'] = null;
+                $parsedFixture['odds_away_win'] = null;
+            }
 
             $fixture = $parsedFixture;
         }

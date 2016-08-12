@@ -69,40 +69,39 @@ class Manager
     }
 
     /**
-     * Method for updating fixtures via API Fetch, Parse and Import services
+     * Method for updating fixtures data via API Fetch, Parse and Import services
+     * for a given time range (start date and end date)
      */
-    public function updateFixtures()
+    public function updateFixtures($dateFrom, $dateTo)
     {
         // get all tournaments
         $tournaments = $this->em->getRepository('DevlabsSportifyBundle:Tournament')->findAll();
 
+        // return if no tournaments in db
         if (!$tournaments) {
            return;
         }
 
-        // set dateFrom and dateTo to respectively today's date and 1 week on
-        $dateFrom = date("Y-m-d");
-        $dateTo = date("Y-m-d", time() + 604800);
-
         // iterate the following actions for each tournament
         foreach ($tournaments as $tournament) {
-            if ($tournament->getChampionTeamId() !== null) continue;
-
             $apiMapping = $this->em->getRepository('DevlabsSportifyBundle:ApiMapping')
                 ->getByEntityAndApiProvider($tournament, 'Tournament', $this->footballApi);
+
+            // skip tournament if finished or there is no API mapping for it
+            if (($tournament->getChampionTeamId() !== null) || (!$apiMapping)) continue;
+
+            // get the API tournament ID
             $apiTournamentId = $apiMapping->getApiObjectId();
 
+            // fetch fixture data from API for given time range
             $fetchedFixtures = $this->dataFetcher->fetchFixturesByTournamentAndTimeRange($apiTournamentId, $dateFrom, $dateTo);
 
+            // parse the fetched fixture data from API
             $parsedFixtures = $this->dataParser->parseFixtures($fetchedFixtures);
 
             // invoke Importer service and import parsed data
             $this->dataImporter->setEntityManager($this->em);
             $this->dataImporter->importFixtures($parsedFixtures, $tournament, $this->footballApi);
         }
-    }
-
-    public function updateMatchScores()
-    {
     }
 }
