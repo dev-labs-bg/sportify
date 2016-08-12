@@ -57,7 +57,8 @@ class NotifyCommand extends ContainerAwareCommand
 
                 // iterate the matches and create the notification messages for each user
                 foreach ($matches as $match) {
-                    $matchText = $match->getDatetime()->format('Y-m-d H:i')." : ".$match->getHomeTeam()." - ".$match->getAwayTeam();
+                    $matchText = $match->getDatetime()->format('Y-m-d H:i')
+                        ." : ".$match->getHomeTeamId()->getName()." - ".$match->getAwayTeamId()->getName();
                     $logText = $logText . "\n" . "Match: " . $matchText . "\n";
 
                     // get the users which have no prediction for this match
@@ -82,7 +83,12 @@ class NotifyCommand extends ContainerAwareCommand
                     $em->persist($match);
                 }
 
-                // sending the messages to the users
+                /**
+                 * Sending the messages to the users.
+                 *
+                 * This is a separate cycle because we want to send each user only 1 message,
+                 * even if the notification is for more than 1 match
+                 */
                 foreach ($usersNotPredicted as $user) {
                     $slack->setChannel('@'.$user->getSlackUsername());
                     $slack->setText($messages[$user->getId()]);

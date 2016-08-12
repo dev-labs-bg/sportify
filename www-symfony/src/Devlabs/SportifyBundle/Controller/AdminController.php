@@ -30,6 +30,12 @@ class AdminController extends Controller
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
 
+        $match = $em->getRepository('DevlabsSportifyBundle:Match')
+            ->findOneById(82);
+        $usersNotPredicted = $em->getRepository('DevlabsSportifyBundle:User')
+            ->getNotPredictedByMatch($match);
+        var_dump($usersNotPredicted);die;
+
         $tournament = $em->getRepository('DevlabsSportifyBundle:Tournament')
             ->findOneById(12);
 

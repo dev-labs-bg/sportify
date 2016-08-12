@@ -45,13 +45,36 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
             ->getArrayResult();
 
         $qb = $this->getEntityManager()->createQueryBuilder();
-        return $qb
-            ->select('u')
-            ->from('DevlabsSportifyBundle:User', 'u')
-            ->where($qb->expr()->notIn('u.id', ':users_predicted'))
-            ->orderBy('u.id', 'ASC')
-            ->setParameter('users_predicted', $usersWithPredictions)
-            ->getQuery()
-            ->getResult();
+
+        // different query depending on if the previous query returned empty array or not
+        if ($usersWithPredictions) {
+            return $qb
+                ->select('u')
+                ->from('DevlabsSportifyBundle:User', 'u')
+                ->join('u.scores', 's')
+                ->where('u.enabled = 1')
+                ->andWhere('s.tournamentId = :tournament_id')
+                ->andWhere($qb->expr()->notIn('u.id', ':users_predicted'))
+                ->orderBy('u.id', 'ASC')
+                ->setParameters(array(
+                    'users_predicted' => $usersWithPredictions,
+                    'tournament_id' => $match->getTournamentId()
+                ))
+                ->getQuery()
+                ->getResult();
+        } else {
+            return $qb
+                ->select('u')
+                ->from('DevlabsSportifyBundle:User', 'u')
+                ->join('u.scores', 's')
+                ->where('u.enabled = 1')
+                ->andWhere('s.tournamentId = :tournament_id')
+                ->orderBy('u.id', 'ASC')
+                ->setParameters(array(
+                    'tournament_id' => $match->getTournamentId()
+                ))
+                ->getQuery()
+                ->getResult();
+        }
     }
 }
