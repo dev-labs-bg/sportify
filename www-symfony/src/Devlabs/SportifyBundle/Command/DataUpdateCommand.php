@@ -65,6 +65,11 @@ class DataUpdateCommand extends ContainerAwareCommand
                 'Fixtures updated: ' . $tournament['status']['fixtures_updated'] . "\n";
         }
 
+        // get instance of the ScoreUpdater service and update all scores
+        $scoresUpdater = $this->getContainer()->get('app.score_updater');
+        $scoresUpdater->setEntityManager($em);
+        $scoresUpdater->updateAll();
+
         $output->writeln($logText);
     }
 }
