@@ -32,6 +32,13 @@ class ScoresUpdateController extends Controller
         $scoresUpdater->setEntityManager($em);
         $scoresUpdater->updateAll();
 
+        // creating a Slack object for setting and sending messages
+        $slack = $this->get('app.slack');
+        $slack->setUrl('https://hooks.slack.com/services/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');
+        $slack->setChannel('#sportify');
+        $slack->setText('@channel: Match results and standings updated.');
+        $slack->post();
+
         // redirect to the Home page
         return $this->redirectToRoute('home');
     }
