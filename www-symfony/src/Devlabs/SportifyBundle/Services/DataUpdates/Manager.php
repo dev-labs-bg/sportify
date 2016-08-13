@@ -82,8 +82,12 @@ class Manager
            return;
         }
 
+        $status = array();
+
         // iterate the following actions for each tournament
         foreach ($tournaments as $tournament) {
+            $status[$tournament->getId()]['name'] = $tournament->getName();
+
             $apiMapping = $this->em->getRepository('DevlabsSportifyBundle:ApiMapping')
                 ->getByEntityAndApiProvider($tournament, 'Tournament', $this->footballApi);
 
@@ -101,7 +105,10 @@ class Manager
 
             // invoke Importer service and import parsed data
             $this->dataImporter->setEntityManager($this->em);
-            $this->dataImporter->importFixtures($parsedFixtures, $tournament, $this->footballApi);
+
+            $status[$tournament->getId()]['status'] = $this->dataImporter->importFixtures($parsedFixtures, $tournament, $this->footballApi);
         }
+
+        return $status;
     }
 }

@@ -73,6 +73,12 @@ class Importer
 
     public function importFixtures(array $fixtures, Tournament $tournament, $footballApi)
     {
+        $status = array();
+
+        $status['fixtures_fetched'] = count($fixtures);
+        $status['fixtures_added'] = 0;
+        $status['fixtures_updated']= 0;
+
         foreach ($fixtures as $fixtureData) {
             $apiMatchId = $fixtureData['match_id'];
 
@@ -111,6 +117,9 @@ class Importer
                 // create API mapping for this object
                 $this->createApiMapping($match, 'Match', $footballApi, $apiMatchId);
 
+                // increment the numeber of added fixtures
+                $status['fixtures_added']++;
+
             } else if ($fixtureData['home_team_goals'] !== null && $fixtureData['away_team_goals'] !== null) {
                 // get match from db
                 $match = $this->em->getRepository('DevlabsSportifyBundle:Match')
@@ -123,8 +132,13 @@ class Importer
                 // prepare and execute queries
                 $this->em->persist($match);
                 $this->em->flush();
+
+                // increment the numeber of added fixtures
+                $status['fixtures_updated']++;
             }
         }
+
+        return $status;
     }
 
     // create API mapping for this Team object
