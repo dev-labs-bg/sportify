@@ -37,4 +37,22 @@ class PredictionChampionRepository extends \Doctrine\ORM\EntityRepository
             return null;
         }
     }
+
+    /**
+     * Method for getting list of NOT SCORED champion predictions for tournament
+     *
+     * @param Tournament $tournament
+     * @return array
+     */
+    public function getNotScoredByTournament(Tournament $tournament)
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('p')
+            ->from('DevlabsSportifyBundle:PredictionChampion', 'p')
+            ->where('p.scoreAdded IS NULL OR p.scoreAdded = 0')
+            ->andWhere('p.tournamentId = :tournament_id')
+            ->setParameters(array('tournament_id' => $tournament->getId()))
+            ->getQuery()
+            ->getResult();
+    }
 }

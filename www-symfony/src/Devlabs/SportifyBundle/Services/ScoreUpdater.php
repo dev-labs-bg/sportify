@@ -94,7 +94,7 @@ class ScoreUpdater
             if ($tournament->getChampionTeamId() == null) continue;
 
             $championPredictions = $this->em->getRepository('DevlabsSportifyBundle:PredictionChampion')
-                ->findByTournamentId($tournament);
+                ->getNotScoredByTournament($tournament);
 
             foreach ($championPredictions as $champPrediction) {
                 // get the points from the prediction
