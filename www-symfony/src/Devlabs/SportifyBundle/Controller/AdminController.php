@@ -39,8 +39,12 @@ class AdminController extends Controller
 //        $dataUpdatesManager->updateTeamsByTournament($tournament);
 
         // set dateFrom and dateTo to respectively today and 1 week on
-        $dateFrom = date("Y-m-d");
-        $dateTo = date("Y-m-d", time() + 604800);
+//        $dateFrom = date("Y-m-d");
+//        $dateTo = date("Y-m-d", time() + 604800);
+
+        // set dateFrom and dateTo to respectively yesterday and today
+        $dateFrom = date("Y-m-d", time() - 86400);
+        $dateTo = date("Y-m-d");
 
         $dataUpdatesManager->updateFixtures($dateFrom, $dateTo);
 //        $dataUpdatesManager->updateFixtures('2016-07-09', '2016-07-10');
