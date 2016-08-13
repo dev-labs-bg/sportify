@@ -188,7 +188,9 @@
                                     <div class="slider-item-holder">
                                         <div class="slider-item">
                                             <div class="logo">
-                                                <img src="{{ asset('img/tournament_logos/'~score.tournamentId.nameShort~'.png') }}" alt="{{ score.tournamentId.nameShort }}.png" />
+                                                <a href="{{ path('standings_index', {'tournament_id': score.tournamentId.id}) }}">
+                                                    <img src="{{ asset('img/tournament_logos/'~score.tournamentId.nameShort~'.png') }}" alt="{{ score.tournamentId.nameShort }}.png" />
+                                                </a>
                                             </div>
                                             <div class="result-info">
                                                 <div class="title">{{ score.tournamentId.name }}</div>
