@@ -120,10 +120,13 @@ class Importer
                 // increment the numeber of added fixtures
                 $status['fixtures_added']++;
 
-            } else if ($fixtureData['home_team_goals'] !== null && $fixtureData['away_team_goals'] !== null) {
+            } else if (($fixtureData['home_team_goals'] !== null) && ($fixtureData['away_team_goals'] !== null)) {
                 // get match from db
                 $match = $this->em->getRepository('DevlabsSportifyBundle:Match')
                     ->findOneById($matchApiMapping->getEntityId());
+
+                // skip updating Match's home and away goals if they are already set
+                if (($match->getHomeGoals() !== null) && ($match->getAwayGoals() !== null)) continue;
 
                 // update result (home and away goals)
                 $match->setHomeGoals($fixtureData['home_team_goals']);

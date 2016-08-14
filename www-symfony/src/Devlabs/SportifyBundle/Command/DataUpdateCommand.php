@@ -66,9 +66,9 @@ class DataUpdateCommand extends ContainerAwareCommand
         }
 
         // get instance of the ScoreUpdater service and update all scores
-//        $scoresUpdater = $this->getContainer()->get('app.score_updater');
-//        $scoresUpdater->setEntityManager($em);
-//        $scoresUpdater->updateAll();
+        $scoresUpdater = $this->getContainer()->get('app.score_updater');
+        $scoresUpdater->setEntityManager($em);
+        $scoresUpdater->updateAll();
 
         $output->writeln($logText);
     }
