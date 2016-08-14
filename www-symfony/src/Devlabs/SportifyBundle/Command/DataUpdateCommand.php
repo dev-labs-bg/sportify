@@ -59,7 +59,6 @@ class DataUpdateCommand extends ContainerAwareCommand
         $logText = 'Command executed at: ' . date("Y-m-d H:i:s") . "\n";
 
         foreach ($status as $tournament) {
-            var_dump($tournament);
             $logText = $logText. "\n" . $tournament['name']. "\n" .
                 'Fixtures fetched: ' . $tournament['status']['fixtures_fetched'] . "\n" .
                 'Fixtures added: ' . $tournament['status']['fixtures_added'] . "\n" .

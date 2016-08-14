@@ -86,13 +86,13 @@ class Manager
 
         // iterate the following actions for each tournament
         foreach ($tournaments as $tournament) {
-            $status[$tournament->getId()]['name'] = $tournament->getName();
-
             $apiMapping = $this->em->getRepository('DevlabsSportifyBundle:ApiMapping')
                 ->getByEntityAndApiProvider($tournament, 'Tournament', $this->footballApi);
 
             // skip tournament if finished or there is no API mapping for it
             if (($tournament->getChampionTeamId() !== null) || (!$apiMapping)) continue;
+
+            $status[$tournament->getId()]['name'] = $tournament->getName();
 
             // get the API tournament ID
             $apiTournamentId = $apiMapping->getApiObjectId();
