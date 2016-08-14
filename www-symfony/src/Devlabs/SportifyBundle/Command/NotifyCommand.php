@@ -42,7 +42,7 @@ class NotifyCommand extends ContainerAwareCommand
             $matches = $em->getRepository('DevlabsSportifyBundle:Match')
                 ->getUpcoming($dateFrom, $dateTo);
 
-            $logText = '';
+            $logText = 'Command executed at: ' . date("Y-m-d H:i:s") . "\n";
 
             if ($matches) {
                 // creating a Slack object for setting and sending messages
