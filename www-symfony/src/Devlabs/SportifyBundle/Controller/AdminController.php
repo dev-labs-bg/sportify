@@ -60,14 +60,14 @@ class AdminController extends Controller
             // Get instance of the Slack service and send notification
             $slack = $this->get('app.slack');
             $slack->setUrl('https://hooks.slack.com/services/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');
-            $slack->setChannel('@ceco');
+            $slack->setChannel('#sportify');
 
             if ($data['task_type'] === 'fixtures-next7days') {
                 // set dateFrom and dateTo to respectively today and 1 week on
                 $dateFrom = date("Y-m-d");
                 $dateTo = date("Y-m-d", time() + 604800);
 
-                $slackText = '<@ceco>: Match fixtures updated for next 7 days.';
+                $slackText = '<!channel>: Match fixtures updated for next 7 days.';
 
                 $dataUpdatesManager->updateFixtures($dateFrom, $dateTo);
             } else if ($data['task_type'] === 'fixtures-past1day') {
@@ -75,7 +75,7 @@ class AdminController extends Controller
                 $dateFrom = date("Y-m-d", time() - 86400);
                 $dateTo = date("Y-m-d");
 
-                $slackText = '<@ceco>: Match results updated for past 1 day.';
+//                $slackText = '<!channel>: Match results updated for past 1 day.';
 
                 $dataUpdatesManager->updateFixtures($dateFrom, $dateTo);
             } else if ($data['task_type'] === 'scores-update-all') {
@@ -84,7 +84,7 @@ class AdminController extends Controller
                 $scoresUpdater->setEntityManager($em);
                 $scoresUpdater->updateAll();
 
-                $slackText = '<@ceco>: Match results and standings updated.';
+                $slackText = '<!channel>: Match results and standings updated.';
             }
 
             // send slack notification
