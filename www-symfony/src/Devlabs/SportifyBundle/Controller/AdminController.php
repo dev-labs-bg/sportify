@@ -67,7 +67,7 @@ class AdminController extends Controller
                 $dateFrom = date("Y-m-d");
                 $dateTo = date("Y-m-d", time() + 604800);
 
-                $slackText = '<!channel>: Match fixtures updated for next 7 days.';
+                $slackText = '<!channel>: Match fixtures added for next 7 days.';
 
                 $dataUpdatesManager->updateFixtures($dateFrom, $dateTo);
             } else if ($data['task_type'] === 'fixtures-past1day') {
