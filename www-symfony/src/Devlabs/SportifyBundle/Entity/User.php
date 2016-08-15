@@ -19,7 +19,7 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\Column(type="string", length=100, name="slack_username")
+     * @ORM\Column(type="string", length=100, name="slack_username", nullable=true)
      */
     private $slackUsername;
 

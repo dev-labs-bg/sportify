@@ -23,6 +23,11 @@ class RegistrationFormType extends AbstractType
                 'translation_domain' => 'FOSUserBundle',
                 'error_bubbling' => true
             ))
+            ->add('slackUsername', null, array(
+                'label' => 'form.slack_username',
+                'translation_domain' => 'FOSUserBundle',
+                'error_bubbling' => true
+            ))
             ->add('plainPassword', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\RepeatedType'), array(
                 'type' => LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\PasswordType'),
                 'options' => array('translation_domain' => 'FOSUserBundle'),
