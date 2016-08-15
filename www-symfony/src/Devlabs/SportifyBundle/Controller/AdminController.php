@@ -67,9 +67,13 @@ class AdminController extends Controller
                 $dateFrom = date("Y-m-d");
                 $dateTo = date("Y-m-d", time() + 604800);
 
+                $dataUpdatesManager->updateFixtures($dateFrom, $dateTo);
+
                 $slackText = '<!channel>: Match fixtures added for next 7 days.';
 
-                $dataUpdatesManager->updateFixtures($dateFrom, $dateTo);
+                // send slack notification
+                $slack->setText($slackText);
+                $slack->post();
             } else if ($data['task_type'] === 'fixtures-past1day') {
                 // set dateFrom and dateTo to respectively yesterday and today
                 $dateFrom = date("Y-m-d", time() - 86400);
@@ -85,11 +89,11 @@ class AdminController extends Controller
                 $scoresUpdater->updateAll();
 
                 $slackText = '<!channel>: Match results and standings updated.';
-            }
 
-            // send slack notification
-            $slack->setText($slackText);
-            $slack->post();
+                // send slack notification
+                $slack->setText($slackText);
+                $slack->post();
+            }
 
             return $this->redirectToRoute('admin_index');
         }
