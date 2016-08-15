@@ -43,10 +43,11 @@ class AdminController extends Controller
         $formData = array();
 
         $form = $this->createFormBuilder($formData)
-            ->add('sync_type', ChoiceType::class, array(
+            ->add('task_type', ChoiceType::class, array(
                 'choices'  => array(
-                    'Next 7 days' => 'fixtures-next7days',
-                    'Past 1 day' => 'fixtures-past1day'
+                    'Matches update - Next 7 days' => 'fixtures-next7days',
+                    'Matches update - Past 1 day' => 'fixtures-past1day',
+                    'Scores update all' => 'scores-update-all'
                 )))
             ->add('button', SubmitType::class, array('label' => 'Select'))
             ->getForm();
@@ -56,27 +57,38 @@ class AdminController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
-            if ($data['sync_type'] === 'fixtures-next7days') {
-                // set dateFrom and dateTo to respectively today and 1 week on
-                $dateFrom = date("Y-m-d");
-                $dateTo = date("Y-m-d", time() + 604800);
-
-                $slackText = 'Match fixtures updated for next 7 days.';
-            } else if ($data['sync_type'] === 'fixtures-past1day') {
-                // set dateFrom and dateTo to respectively yesterday and today
-                $dateFrom = date("Y-m-d", time() - 86400);
-                $dateTo = date("Y-m-d");
-
-                $slackText = 'Match results updated for past 1 day.';
-            }
-
-            $dataUpdatesManager->updateFixtures($dateFrom, $dateTo);
-
             // Get instance of the Slack service and send notification
             $slack = $this->get('app.slack');
             $slack->setUrl('https://hooks.slack.com/services/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');
             $slack->setChannel('@ceco');
-            $slack->setText('<@ceco>: '.$slackText);
+
+            if ($data['task_type'] === 'fixtures-next7days') {
+                // set dateFrom and dateTo to respectively today and 1 week on
+                $dateFrom = date("Y-m-d");
+                $dateTo = date("Y-m-d", time() + 604800);
+
+                $slackText = '<@ceco>: Match fixtures updated for next 7 days.';
+
+                $dataUpdatesManager->updateFixtures($dateFrom, $dateTo);
+            } else if ($data['task_type'] === 'fixtures-past1day') {
+                // set dateFrom and dateTo to respectively yesterday and today
+                $dateFrom = date("Y-m-d", time() - 86400);
+                $dateTo = date("Y-m-d");
+
+                $slackText = '<@ceco>: Match results updated for past 1 day.';
+
+                $dataUpdatesManager->updateFixtures($dateFrom, $dateTo);
+            } else if ($data['task_type'] === 'scores-update-all') {
+                // Get the ScoreUpdater service and update all scores
+                $scoresUpdater = $this->get('app.score_updater');
+                $scoresUpdater->setEntityManager($em);
+                $scoresUpdater->updateAll();
+
+                $slackText = '<@ceco>: Match results and standings updated.';
+            }
+
+            // send slack notification
+            $slack->setText($slackText);
             $slack->post();
 
             return $this->redirectToRoute('admin_index');
