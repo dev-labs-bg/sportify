@@ -83,6 +83,9 @@ class Manager
         }
 
         $status = array();
+        $status['total_fetched'] = 0;
+        $status['total_added'] = 0;
+        $status['total_updated'] = 0;
 
         // iterate the following actions for each tournament
         foreach ($tournaments as $tournament) {
@@ -107,6 +110,10 @@ class Manager
             $this->dataImporter->setEntityManager($this->em);
 
             $status[$tournament->getId()]['status'] = $this->dataImporter->importFixtures($parsedFixtures, $tournament, $this->footballApi);
+
+            $status['total_fetched'] = $status['total_fetched'] + $status[$tournament->getId()]['status']['fixtures_fetched'];
+            $status['total_added'] = $status['total_added'] + $status[$tournament->getId()]['status']['fixtures_added'];
+            $status['total_updated'] = $status['total_updated'] + $status[$tournament->getId()]['status']['fixtures_updated'];
         }
 
         return $status;

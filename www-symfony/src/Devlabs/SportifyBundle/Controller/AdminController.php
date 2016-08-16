@@ -45,9 +45,8 @@ class AdminController extends Controller
         $form = $this->createFormBuilder($formData)
             ->add('task_type', ChoiceType::class, array(
                 'choices'  => array(
-                    'Matches update - Next 7 days' => 'fixtures-next7days',
-                    'Matches update - Past 1 day' => 'fixtures-past1day',
-                    'Scores update all' => 'scores-update-all'
+                    'Matches update (Next 7 days)' => 'fixtures-next7days',
+                    'Matches update (Past 1 day) and Scores Update' => 'fixtures-past1day-and-score-update'
                 )))
             ->add('button', SubmitType::class, array('label' => 'Select'))
             ->getForm();
@@ -57,40 +56,40 @@ class AdminController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
-            // Get instance of the Slack service and send notification
-            $slack = $this->get('app.slack');
-            $slack->setUrl('https://hooks.slack.com/services/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');
-            $slack->setChannel('#sportify');
+            $slackNotify = false;
 
             if ($data['task_type'] === 'fixtures-next7days') {
                 // set dateFrom and dateTo to respectively today and 1 week on
                 $dateFrom = date("Y-m-d");
                 $dateTo = date("Y-m-d", time() + 604800);
+                $status = $dataUpdatesManager->updateFixtures($dateFrom, $dateTo);
 
-                $dataUpdatesManager->updateFixtures($dateFrom, $dateTo);
-
-                $slackText = '<!channel>: Match fixtures added for next 7 days.';
-
-                // send slack notification
-                $slack->setText($slackText);
-                $slack->post();
-            } else if ($data['task_type'] === 'fixtures-past1day') {
+                if ($status['total_added'] > 0) {
+                    $slackNotify = true;
+                    $slackText = '<!channel>: Match fixtures added for next 7 days.';
+                }
+            } else if ($data['task_type'] === 'fixtures-past1day-and-score-update') {
                 // set dateFrom and dateTo to respectively yesterday and today
                 $dateFrom = date("Y-m-d", time() - 86400);
                 $dateTo = date("Y-m-d");
+                $status = $dataUpdatesManager->updateFixtures($dateFrom, $dateTo);
 
-//                $slackText = '<!channel>: Match results updated for past 1 day.';
+                if ($status['total_updated'] > 0) {
+                    // Get the ScoreUpdater service and update all scores
+                    $scoresUpdater = $this->get('app.score_updater');
+                    $scoresUpdater->setEntityManager($em);
+                    $scoresUpdater->updateAll();
 
-                $dataUpdatesManager->updateFixtures($dateFrom, $dateTo);
-            } else if ($data['task_type'] === 'scores-update-all') {
-                // Get the ScoreUpdater service and update all scores
-                $scoresUpdater = $this->get('app.score_updater');
-                $scoresUpdater->setEntityManager($em);
-                $scoresUpdater->updateAll();
+                    $slackNotify = true;
+                    $slackText = '<!channel>: Match results and standings updated.';
+                }
+            }
 
-                $slackText = '<!channel>: Match results and standings updated.';
-
-                // send slack notification
+            if ($slackNotify) {
+                // Get instance of the Slack service and send notification
+                $slack = $this->get('app.slack');
+                $slack->setUrl('https://hooks.slack.com/services/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');
+                $slack->setChannel('#sportify');
                 $slack->setText($slackText);
                 $slack->post();
             }

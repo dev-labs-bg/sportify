@@ -77,7 +77,7 @@ class Importer
 
         $status['fixtures_fetched'] = count($fixtures);
         $status['fixtures_added'] = 0;
-        $status['fixtures_updated']= 0;
+        $status['fixtures_updated'] = 0;
 
         foreach ($fixtures as $fixtureData) {
             $apiMatchId = $fixtureData['match_id'];
