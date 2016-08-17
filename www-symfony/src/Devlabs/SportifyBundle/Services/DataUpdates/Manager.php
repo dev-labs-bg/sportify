@@ -21,7 +21,7 @@ class Manager
     private $dataParser;
     private $dataImporter;
 
-    public function __construct(ContainerInterface $container, $footballApi = 'football_data_org')
+    public function __construct(ContainerInterface $container, $footballApi)
     {
         $this->container = $container;
         $this->footballApi = $footballApi;

@@ -8,6 +8,9 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    # application parameters
+    football_api.name: football_data_org
+    football_api.base_uri: http://api.football-data.org/v1
 
 framework:
     #esi:             ~

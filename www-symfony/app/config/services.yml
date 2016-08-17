@@ -48,7 +48,7 @@ services:
 
     app.data_updates.manager:
         class: Devlabs\SportifyBundle\Services\DataUpdates\Manager
-        arguments: ['@service_container']
+        arguments: ['@service_container', '%football_api.name%']
 
     app.data_updates.importer:
         class: Devlabs\SportifyBundle\Services\DataUpdates\Importer
