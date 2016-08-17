@@ -27,10 +27,7 @@ class Manager
         $this->footballApi = $footballApi;
 
         $this->dataFetcher = $this->container->get('app.data_updates.fetchers.'.$footballApi);
-        $this->dataFetcher->setApiToken('896fa7a2adc1473ba474c6eb4e66cb4c');
-
         $this->dataParser = $this->container->get('app.data_updates.parsers.'.$footballApi);
-
         $this->dataImporter = $this->container->get('app.data_updates.importer');
     }
 

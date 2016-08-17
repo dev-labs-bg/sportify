@@ -14,24 +14,12 @@ class FootballDataOrg
     private $options;
     private $baseUri;
 
-    public function __construct()
+    public function __construct($baseUri, $apiToken)
     {
         $this->httpClient = new Client();
         $this->options = array();
-        $this->baseUri = 'http://api.football-data.org/v1';
-    }
-
-    /**
-     * Set the API token in the header
-     *
-     * @param $apiToken
-     * @return $this
-     */
-    public function setApiToken($apiToken)
-    {
         $this->options['headers']['X-Auth-Token'] = $apiToken;
-
-        return $this;
+        $this->baseUri = $baseUri;
     }
 
     /**

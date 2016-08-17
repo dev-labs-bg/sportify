@@ -24,8 +24,8 @@ class AdminController extends Controller
         // Load the data for the current user into an object
         $user = $this->getUser();
 
-        // continue only if user has Admin access, else redirect to Home
-        if ($user->getEmail() !== 'ceco@devlabs.bg') {
+        // continue only if user is part of Admin Users list, else redirect to Home
+        if (!in_array($user->getEmail(), $this->container->getParameter('admin.users'))) {
             return $this->redirectToRoute('home');
         }
 
