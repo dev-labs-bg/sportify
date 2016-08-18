@@ -2,12 +2,9 @@
 
 namespace Devlabs\SportifyBundle\Controller;
 
-use Devlabs\SportifyBundle\Entity\PredictionChampion;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Devlabs\SportifyBundle\Form\FilterType;
-use Devlabs\SportifyBundle\Form\ChampionSelectType;
 
 /**
  * Class ChampionController
@@ -63,7 +60,6 @@ class ChampionController extends Controller
 
         // get the filter helper service
         $filterHelper = $this->container->get('app.filter.helper');
-        $filterHelper->setEntityManager($em);
 
         // set the fields for the filter form
         $fields = array('tournament');
@@ -89,7 +85,6 @@ class ChampionController extends Controller
 
         // get the champion helper service
         $championHelper = $this->container->get('app.champion.helper');
-        $championHelper->setEntityManager($em);
 
         // get user's champion prediction or null if there's none
         $predictionChampion = $championHelper->getPredictionChampion($user, $formSourceData['tournament_selected']);

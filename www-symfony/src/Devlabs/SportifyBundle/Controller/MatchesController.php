@@ -51,7 +51,6 @@ class MatchesController extends Controller
 
         // get the filter helper service
         $filterHelper = $this->container->get('app.filter.helper');
-        $filterHelper->setEntityManager($em);
 
         // set the fields for the filter form
         $fields = array('tournament', 'date_from', 'date_to');
@@ -136,7 +135,6 @@ class MatchesController extends Controller
 
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
-//        $matchesHelper->setEntityManager($em);
 
         // get the submitted form's match object
         $match = $em->getRepository('DevlabsSportifyBundle:Match')

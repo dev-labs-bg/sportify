@@ -34,7 +34,6 @@ class TournamentsController extends Controller
 
         // get the tournaments helper service
         $tournamentsHelper = $this->container->get('app.tournaments.helper');
-        $tournamentsHelper->setEntityManager($em);
 
         // get all and joined tournaments lists
         $tournaments = $em->getRepository('DevlabsSportifyBundle:Tournament')

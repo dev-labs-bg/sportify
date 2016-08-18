@@ -42,7 +42,6 @@ class StandingsController extends Controller
 
         // get the filter helper service
         $filterHelper = $this->container->get('app.filter.helper');
-        $filterHelper->setEntityManager($em);
 
         // set the fields for the filter form
         $fields = array('tournament');

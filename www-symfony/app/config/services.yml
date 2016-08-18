@@ -28,7 +28,7 @@ services:
 
     app.filter.helper:
         class: Devlabs\SportifyBundle\Services\FilterHelper
-        arguments: ['@service_container']
+        arguments: ['@service_container', '@doctrine.orm.entity_manager']
 
     app.matches.helper:
         class: Devlabs\SportifyBundle\Services\MatchesHelper

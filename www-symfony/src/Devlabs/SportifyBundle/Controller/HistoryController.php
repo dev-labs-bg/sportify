@@ -48,7 +48,6 @@ class HistoryController extends Controller
 
         // get the filter helper service
         $filterHelper = $this->container->get('app.filter.helper');
-        $filterHelper->setEntityManager($em);
 
         // set the fields for the filter form
         $fields = array('tournament', 'user', 'date_from', 'date_to');
