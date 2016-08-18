@@ -46,12 +46,8 @@ class DataUpdateCommand extends ContainerAwareCommand
             return;
         }
 
-        // get an instance of the Entity Manager
-        $em = $this->getContainer()->get('doctrine')->getManager();
-
         // get an instance of the DataUpdates Manager service
         $dataUpdatesManager = $this->getContainer()->get('app.data_updates.manager');
-        $dataUpdatesManager->setEntityManager($em);
 
         // initiate Fetch, Parse, Import services
         $status = $dataUpdatesManager->updateFixtures($dateFrom, $dateTo);

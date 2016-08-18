@@ -36,7 +36,6 @@ class AdminController extends Controller
             ->findOneById(12);
 
         $dataUpdatesManager = $this->get('app.data_updates.manager');
-        $dataUpdatesManager->setEntityManager($em);
 
 //        $dataUpdatesManager->updateTeamsByTournament($tournament);
 

@@ -40,19 +40,19 @@ services:
 
     app.champion.helper:
         class: Devlabs\SportifyBundle\Services\ChampionHelper
-        arguments: ['@service_container']
+        arguments: ['@service_container', '@doctrine.orm.entity_manager']
 
     app.tournaments.helper:
         class: Devlabs\SportifyBundle\Services\TournamentsHelper
-        arguments: ['@service_container']
+        arguments: ['@service_container', '@doctrine.orm.entity_manager']
 
     app.data_updates.manager:
         class: Devlabs\SportifyBundle\Services\DataUpdates\Manager
-        arguments: ['@service_container', '%football_api.name%']
+        arguments: ['@service_container', '@doctrine.orm.entity_manager', '%football_api.name%']
 
     app.data_updates.importer:
         class: Devlabs\SportifyBundle\Services\DataUpdates\Importer
-        arguments: ['@service_container']
+        arguments: ['@service_container', '@doctrine.orm.entity_manager']
 
     app.data_updates.fetchers.football_data_org:
         class: Devlabs\SportifyBundle\Services\DataUpdates\Fetchers\FootballDataOrg

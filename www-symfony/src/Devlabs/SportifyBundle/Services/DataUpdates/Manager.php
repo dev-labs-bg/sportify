@@ -4,7 +4,7 @@ namespace Devlabs\SportifyBundle\Services\DataUpdates;
 
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManager;
 use Devlabs\SportifyBundle\Entity\Tournament;
 
 /**
@@ -21,27 +21,15 @@ class Manager
     private $dataParser;
     private $dataImporter;
 
-    public function __construct(ContainerInterface $container, $footballApi)
+    public function __construct(ContainerInterface $container, EntityManager $entityManager, $footballApi)
     {
         $this->container = $container;
+        $this->em = $entityManager;
         $this->footballApi = $footballApi;
 
         $this->dataFetcher = $this->container->get('app.data_updates.fetchers.'.$footballApi);
         $this->dataParser = $this->container->get('app.data_updates.parsers.'.$footballApi);
         $this->dataImporter = $this->container->get('app.data_updates.importer');
-    }
-
-    /**
-     * Method for setting EntityManager
-     *
-     * @param ObjectManager $em
-     * @return $this
-     */
-    public function setEntityManager(ObjectManager $em)
-    {
-        $this->em = $em;
-
-        return $this;
     }
 
     /**
@@ -61,7 +49,6 @@ class Manager
         $parsedTeams = $this->dataParser->parseTeams($fetchedTeams);
 
         // invoke Importer service and import parsed data
-        $this->dataImporter->setEntityManager($this->em);
         $this->dataImporter->importTeams($parsedTeams, $tournament, $this->footballApi);
     }
 
@@ -103,9 +90,7 @@ class Manager
             // parse the fetched fixture data from API
             $parsedFixtures = $this->dataParser->parseFixtures($fetchedFixtures);
 
-            // invoke Importer service and import parsed data
-            $this->dataImporter->setEntityManager($this->em);
-
+            // use the Importer service to import parsed data and get status and stats of the operation
             $status[$tournament->getId()]['status'] = $this->dataImporter->importFixtures($parsedFixtures, $tournament, $this->footballApi);
 
             $status['total_fetched'] = $status['total_fetched'] + $status[$tournament->getId()]['status']['fixtures_fetched'];

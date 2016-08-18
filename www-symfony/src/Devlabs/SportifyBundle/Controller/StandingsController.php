@@ -5,7 +5,6 @@ namespace Devlabs\SportifyBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Devlabs\SportifyBundle\Form\FilterType;
 
 /**
  * Class StandingsController

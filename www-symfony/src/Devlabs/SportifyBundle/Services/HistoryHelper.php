@@ -4,7 +4,6 @@ namespace Devlabs\SportifyBundle\Services;
 
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Doctrine\Common\Persistence\ObjectManager;
 use Devlabs\SportifyBundle\Entity\User;
 
 /**
@@ -15,25 +14,11 @@ class HistoryHelper
 {
     use ContainerAwareTrait;
 
-    private $em;
     private $currentUser;
 
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
-    }
-
-    /**
-     * Method for setting EntityManager
-     *
-     * @param ObjectManager $em
-     * @return $this
-     */
-    public function setEntityManager(ObjectManager $em)
-    {
-        $this->em = $em;
-
-        return $this;
     }
 
     /**
