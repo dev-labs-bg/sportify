@@ -24,12 +24,8 @@ class ScoresUpdateController extends Controller
             return $this->redirectToRoute('fos_user_security_login');
         }
 
-        // Get an instance of the Entity Manager
-        $em = $this->getDoctrine()->getManager();
-
         // Get the ScoreUpdater service and update all scores
         $scoresUpdater = $this->get('app.score_updater');
-        $scoresUpdater->setEntityManager($em);
         $scoresUpdater->updateAll();
 
         // Get instance of the Slack service and send notification
@@ -56,12 +52,8 @@ class ScoresUpdateController extends Controller
             return $this->redirectToRoute('fos_user_security_login');
         }
 
-        // Get an instance of the Entity Manager
-        $em = $this->getDoctrine()->getManager();
-
         // Get the ScoreUpdater service and update user positions in tournament
         $scoresUpdater = $this->get('app.score_updater');
-        $scoresUpdater->setEntityManager($em);
         $scoresUpdater->updateUserPositionsForTournament($tournament_id);
 
         // redirect to the Home page

@@ -77,7 +77,6 @@ class AdminController extends Controller
                 if ($status['total_updated'] > 0) {
                     // Get the ScoreUpdater service and update all scores
                     $scoresUpdater = $this->get('app.score_updater');
-                    $scoresUpdater->setEntityManager($em);
                     $scoresUpdater->updateAll();
 
                     $slackNotify = true;

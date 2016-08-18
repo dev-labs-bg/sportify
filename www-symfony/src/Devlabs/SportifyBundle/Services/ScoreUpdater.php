@@ -4,7 +4,7 @@ namespace Devlabs\SportifyBundle\Services;
 
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManager;
 
 /**
  * Class ScoreUpdater
@@ -16,22 +16,10 @@ class ScoreUpdater
 
     private $em;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, EntityManager $entityManager)
     {
         $this->container = $container;
-    }
-
-    /**
-     * Method for setting EntityManager
-     *
-     * @param ObjectManager $em
-     * @return $this
-     */
-    public function setEntityManager(ObjectManager $em)
-    {
-        $this->em = $em;
-
-        return $this;
+        $this->em = $entityManager;
     }
 
 
