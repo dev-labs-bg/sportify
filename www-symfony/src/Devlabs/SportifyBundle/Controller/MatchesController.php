@@ -69,8 +69,6 @@ class MatchesController extends Controller
             return $this->redirectToRoute('matches_index', $submittedParams);
         }
 
-        $matchesHelper->setEntityManager($em);
-
         // get not finished matches and the user's predictions for them
         $matches = $em->getRepository('DevlabsSportifyBundle:Match')
             ->getNotScored($user, $urlParams['tournament_id'], $urlParams['date_from'], $modifiedDateTo);
@@ -138,7 +136,7 @@ class MatchesController extends Controller
 
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
-        $matchesHelper->setEntityManager($em);
+//        $matchesHelper->setEntityManager($em);
 
         // get the submitted form's match object
         $match = $em->getRepository('DevlabsSportifyBundle:Match')

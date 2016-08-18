@@ -32,7 +32,7 @@ services:
 
     app.matches.helper:
         class: Devlabs\SportifyBundle\Services\MatchesHelper
-        arguments: ['@service_container']
+        arguments: ['@service_container', '@doctrine.orm.entity_manager']
 
     app.history.helper:
         class: Devlabs\SportifyBundle\Services\HistoryHelper
