@@ -28,8 +28,9 @@ class ScoresUpdateController extends Controller
         $this->get('app.score_updater')->updateAll();
 
         // Get instance of the Slack service and send notification
-        $slackText = '<@channel>: Match results and standings updated.';
-        $this->get('app.slack')->setText($slackText)->post();
+        $this->get('app.slack')
+            ->setText('<@channel>: Match results and standings updated.')
+            ->post();
 
         // redirect to the Home page
         return $this->redirectToRoute('home');
