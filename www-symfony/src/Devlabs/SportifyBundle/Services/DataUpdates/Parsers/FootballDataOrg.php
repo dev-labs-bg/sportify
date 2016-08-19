@@ -21,7 +21,7 @@ class FootballDataOrg
 
             $parsedTeam['team_id'] = $this->getNumberAtEndOfString($team->_links->self->href);
             $parsedTeam['name'] = $team->name;
-            $parsedTeam['name_short'] = ($team->code) ? $team->code : 'TEAM_'.$parsedTeam['api_team_id'];
+            $parsedTeam['name_short'] = ($team->code) ? $team->code : 'TEAM_'.$parsedTeam['team_id'];
 
             $team = $parsedTeam;
         }
