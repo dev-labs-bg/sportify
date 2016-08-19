@@ -94,9 +94,7 @@ class TournamentsHelper
         }
 
         // Get the ScoreUpdater service and update user positions in tournament
-        $scoresUpdater = $this->container->get('app.score_updater');
-        $scoresUpdater->setEntityManager($this->em);
-        $scoresUpdater->updateUserPositionsForTournament($tournament->getId());
+        $this->container->get('app.score_updater')->updateUserPositionsForTournament($tournament->getId());
     }
 
     /**
