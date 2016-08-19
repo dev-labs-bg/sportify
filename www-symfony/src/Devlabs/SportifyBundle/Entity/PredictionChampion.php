@@ -13,6 +13,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class PredictionChampion
 {
+    const POINTS_WIN = 5;
+
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -187,7 +189,7 @@ class PredictionChampion
     public function calculatePoints()
     {
         if ($this->teamId === $this->tournamentId->getChampionTeamId()) {
-            return 5;
+            return self::POINTS_WIN;
         }
 
         return 0;

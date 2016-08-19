@@ -76,8 +76,7 @@ class AdminController extends Controller
 
                 if ($status['total_updated'] > 0) {
                     // Get the ScoreUpdater service and update all scores
-                    $scoresUpdater = $this->get('app.score_updater');
-                    $scoresUpdater->updateAll();
+                    $this->get('app.score_updater')->updateAll();
 
                     $slackNotify = true;
                     $slackText = '<!channel>: Match results and standings updated.';
