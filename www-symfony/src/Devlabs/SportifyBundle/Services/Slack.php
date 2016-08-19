@@ -15,9 +15,11 @@ class Slack
     private $channel;
     private $text;
 
-    public function __construct()
+    public function __construct($url, $channel)
     {
         $this->httpClient = new Client();
+        $this->url = $url;
+        $this->channel = $channel;
     }
 
     /**

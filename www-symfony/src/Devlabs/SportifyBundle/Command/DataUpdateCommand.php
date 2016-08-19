@@ -46,11 +46,8 @@ class DataUpdateCommand extends ContainerAwareCommand
             return;
         }
 
-        // get an instance of the DataUpdates Manager service
-        $dataUpdatesManager = $this->getContainer()->get('app.data_updates.manager');
-
-        // initiate Fetch, Parse, Import services
-        $status = $dataUpdatesManager->updateFixtures($dateFrom, $dateTo);
+        // get instance of the DataUpdates Manager service and initiate Fetch, Parse, Import services
+        $status = $this->getContainer()->get('app.data_updates.manager')->updateFixtures($dateFrom, $dateTo);
 
         $logText = 'Command executed at: ' . date("Y-m-d H:i:s") . "\n";
 
@@ -62,8 +59,7 @@ class DataUpdateCommand extends ContainerAwareCommand
         }
 
         // get instance of the ScoreUpdater service and update all scores
-        $scoresUpdater = $this->getContainer()->get('app.score_updater');
-        $scoresUpdater->updateAll();
+        $this->getContainer()->get('app.score_updater')->updateAll();
 
         $output->writeln($logText);
     }

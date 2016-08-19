@@ -47,7 +47,6 @@ class NotifyCommand extends ContainerAwareCommand
             if ($matches) {
                 // creating a Slack object for setting and sending messages
                 $slack = $this->getContainer()->get('app.slack');
-                $slack->setUrl('https://hooks.slack.com/services/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');
 
                 // array for holding the user's messages
                 $messages = array();

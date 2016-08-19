@@ -25,15 +25,11 @@ class ScoresUpdateController extends Controller
         }
 
         // Get the ScoreUpdater service and update all scores
-        $scoresUpdater = $this->get('app.score_updater');
-        $scoresUpdater->updateAll();
+        $this->get('app.score_updater')->updateAll();
 
         // Get instance of the Slack service and send notification
-        $slack = $this->get('app.slack');
-        $slack->setUrl('https://hooks.slack.com/services/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');
-        $slack->setChannel('#sportify');
-        $slack->setText('<@channel>: Match results and standings updated.');
-        $slack->post();
+        $slackText = '<@channel>: Match results and standings updated.';
+        $this->get('app.slack')->setText($slackText)->post();
 
         // redirect to the Home page
         return $this->redirectToRoute('home');
@@ -53,8 +49,7 @@ class ScoresUpdateController extends Controller
         }
 
         // Get the ScoreUpdater service and update user positions in tournament
-        $scoresUpdater = $this->get('app.score_updater');
-        $scoresUpdater->updateUserPositionsForTournament($tournament_id);
+        $this->get('app.score_updater')->updateUserPositionsForTournament($tournament_id);
 
         // redirect to the Home page
         return $this->redirectToRoute('home');

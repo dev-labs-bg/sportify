@@ -43,6 +43,7 @@ class Manager
             ->getByEntityAndApiProvider($tournament, 'Tournament', $this->footballApi);
         $apiTournamentId = $apiMapping->getApiObjectId();
 
+        // fetch teams from API for given tournament
         $fetchedTeams = $this->dataFetcher->fetchTeamsByTournament($apiTournamentId);
 
         // parse the fetched data
@@ -58,18 +59,18 @@ class Manager
      */
     public function updateFixtures($dateFrom, $dateTo)
     {
+        $status = array();
+        $status['total_fetched'] = 0;
+        $status['total_added'] = 0;
+        $status['total_updated'] = 0;
+
         // get all tournaments
         $tournaments = $this->em->getRepository('DevlabsSportifyBundle:Tournament')->findAll();
 
         // return if no tournaments in db
         if (!$tournaments) {
-           return;
+           return $status;
         }
-
-        $status = array();
-        $status['total_fetched'] = 0;
-        $status['total_added'] = 0;
-        $status['total_updated'] = 0;
 
         // iterate the following actions for each tournament
         foreach ($tournaments as $tournament) {

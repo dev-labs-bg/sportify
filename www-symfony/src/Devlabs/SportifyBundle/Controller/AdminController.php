@@ -65,7 +65,8 @@ class AdminController extends Controller
 
                 if ($status['total_added'] > 0) {
                     $slackNotify = true;
-                    $slackText = '<!channel>: Match fixtures added for next 7 days.';
+                    $slackText = '<!channel>: Match fixtures added for next 7 days. '
+                        .$status['total_added'].' fixtures added.';
                 }
             } else if ($data['task_type'] === 'fixtures-past1day-and-score-update') {
                 // set dateFrom and dateTo to respectively yesterday and today
@@ -85,11 +86,7 @@ class AdminController extends Controller
 
             if ($slackNotify) {
                 // Get instance of the Slack service and send notification
-                $slack = $this->get('app.slack');
-                $slack->setUrl('https://hooks.slack.com/services/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');
-                $slack->setChannel('#sportify');
-                $slack->setText($slackText);
-                $slack->post();
+                $this->get('app.slack')->setText($slackText)->post();
             }
 
             return $this->redirectToRoute('admin_index');

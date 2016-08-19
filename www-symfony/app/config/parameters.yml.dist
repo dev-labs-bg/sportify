@@ -24,3 +24,5 @@ parameters:
     admin.users: [email1, email2, ...]
     # get football-data.org API token by FREE registration here: http://www.football-data.org/register
     football_api.token: ~
+    slack.url: ~
+    slack.channel: ~
