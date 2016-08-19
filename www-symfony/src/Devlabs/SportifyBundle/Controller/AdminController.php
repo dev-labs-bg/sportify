@@ -37,7 +37,8 @@ class AdminController extends Controller
             ->add('task_type', ChoiceType::class, array(
                 'choices'  => array(
                     'Matches update (Next 7 days)' => 'fixtures-next7days',
-                    'Matches update (Past 1 day) and Scores Update' => 'fixtures-past1day-and-score-update'
+                    'Matches update (Past 1 day) and Scores Update' => 'fixtures-past1day-and-score-update',
+                    'Teams update for PrimeraDivision' => 'teams-update'
                 )))
             ->add('button', SubmitType::class, array('label' => 'Select'))
             ->getForm();
