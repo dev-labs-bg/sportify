@@ -32,15 +32,7 @@ class AdminController extends Controller
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
 
-        $tournament = $em->getRepository('DevlabsSportifyBundle:Tournament')
-            ->findOneById(12);
-
-        $dataUpdatesManager = $this->get('app.data_updates.manager');
-
-//        $dataUpdatesManager->updateTeamsByTournament($tournament);
-
         $formData = array();
-
         $form = $this->createFormBuilder($formData)
             ->add('task_type', ChoiceType::class, array(
                 'choices'  => array(
@@ -55,6 +47,7 @@ class AdminController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
+            $dataUpdatesManager = $this->get('app.data_updates.manager');
             $slackNotify = false;
 
             if ($data['task_type'] === 'fixtures-next7days') {
@@ -81,6 +74,11 @@ class AdminController extends Controller
                     $slackNotify = true;
                     $slackText = '<!channel>: Match results and standings updated.';
                 }
+            } else if ($data['task_type'] === 'teams-update') {
+                $tournament = $em->getRepository('DevlabsSportifyBundle:Tournament')
+                    ->findOneById(13);
+
+                $dataUpdatesManager->updateTeamsByTournament($tournament);
             }
 
             if ($slackNotify) {
