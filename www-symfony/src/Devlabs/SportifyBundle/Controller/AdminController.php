@@ -72,7 +72,7 @@ class AdminController extends Controller
                     // Get the ScoreUpdater service and update all scores
                     $this->get('app.score_updater')->updateAll();
 
-//                    $slackNotify = true;
+                    $slackNotify = true;
                     $slackText = '<!channel>: Match results and standings updated.';
                 }
             } else if ($data['task_type'] === 'teams-update') {
