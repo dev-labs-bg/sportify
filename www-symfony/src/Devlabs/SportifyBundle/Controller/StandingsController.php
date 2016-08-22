@@ -5,6 +5,8 @@ namespace Devlabs\SportifyBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Cookie;
 
 /**
  * Class StandingsController
@@ -28,12 +30,20 @@ class StandingsController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         /**
-         * Set first tournament as selected if URL param is 'empty'
+         * Get selected tournament by last selected (from Cookie) and URL param is 'empty',
+         * or set to first from DB if 'tournament' Cookie is not set and URL param is 'empty',
          * or get the tournament by the URL tournament_id value
          */
-        $formSourceData['tournament_selected'] = ($tournament_id === 'empty')
-            ? $em->getRepository('DevlabsSportifyBundle:Tournament')->getFirst()
-            : $em->getRepository('DevlabsSportifyBundle:Tournament')->findOneById($tournament_id);
+        if ($tournament_id === 'empty') {
+            $formSourceData['tournament_selected'] = ($request->cookies->has('tournament'))
+                ? $em->getRepository('DevlabsSportifyBundle:Tournament')
+                    ->findOneById($request->cookies->get('tournament'))
+                : $em->getRepository('DevlabsSportifyBundle:Tournament')
+                    ->getFirst();
+        } else {
+            $formSourceData['tournament_selected'] = $em->getRepository('DevlabsSportifyBundle:Tournament')
+                ->findOneById($tournament_id);
+        }
 
         // get all tournaments as source data for form choices
         $formSourceData['tournament_choices'] = $em->getRepository('DevlabsSportifyBundle:Tournament')
@@ -73,13 +83,19 @@ class StandingsController extends Controller
             $this->container->get('twig')->addGlobal('user_scores', $userScores);
         }
 
+
+        // create response and set cookie for tournament selected
+        $response = new Response();
+        $response->headers->setCookie(new Cookie('tournament', $formSourceData['tournament_selected']->getId()));
+
         // rendering the view and returning the response
         return $this->render(
             'Standings/index.html.twig',
             array(
                 'all_scores' => $allScores,
                 'filter_form' => $filterForm->createView()
-            )
+            ),
+            $response
         );
     }
 }
