@@ -40,7 +40,7 @@
                             {% if score.posNew == 1 %}
                                 <div class="text-center">
                                     <div class="first-place">
-                                        <a href="{{ path('history_index', {'user_id' : score.userId.id, 'tournament' : score.tournamentId.id}) }}">
+                                        <a href="{{ path('history_index', {'user_id' : score.userId.id, 'tournament_id' : score.tournamentId.id}) }}">
                                             <div class="profile-img">
                                                 <img src="{{ asset('img/devlabs_logo.png') }}" alt="" />
                                             </div>
@@ -57,7 +57,7 @@
                             {% if score.posNew == 2 %}
                                 <div class="text-center">
                                     <div class="second-place">
-                                        <a href="{{ path('history_index', {'user_id' : score.userId.id, 'tournament' : score.tournamentId.id}) }}">
+                                        <a href="{{ path('history_index', {'user_id' : score.userId.id, 'tournament_id' : score.tournamentId.id}) }}">
                                             <div class="profile-img">
                                                 <img src="{{ asset('img/devlabs_logo.png') }}" alt="" />
                                             </div>
@@ -74,7 +74,7 @@
                             {% if score.posNew == 3 %}
                                 <div class="text-center">
                                     <div class="third-place">
-                                        <a href="{{ path('history_index', {'user_id' : score.userId.id, 'tournament' : score.tournamentId.id}) }}">
+                                        <a href="{{ path('history_index', {'user_id' : score.userId.id, 'tournament_id' : score.tournamentId.id}) }}">
                                             <div class="profile-img">
                                                 <img src="{{ asset('img/devlabs_logo.png') }}" alt="" />
                                             </div>
@@ -112,7 +112,7 @@
                                 <div class="col-xs-3 col-sm-3 col-md-2 text-center" data-toggle="tooltip" data-placement="top" title="Total score">{{ score.points }}pt</div>
                                 <div class="col-xs-3 col-sm-3 col-md-2 text-center" data-toggle="tooltip" data-placement="top" title="Exact predictions percentage">{{ score.exactPredictionPercentage }}% </div>
                                 <div class="col-xs-6 col-sm-6 col-md-2 text-center">
-                                    <a class="btn history-btn" href="{{ path('history_index', {'user_id' : score.userId.id, 'tournament' : score.tournamentId.id}) }}">History</a>
+                                    <a class="btn history-btn" href="{{ path('history_index', {'user_id' : score.userId.id, 'tournament_id' : score.tournamentId.id}) }}">History</a>
                                 </div>
                             </div>
                         </div>
