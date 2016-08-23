@@ -32,9 +32,10 @@ class TournamentChoiceType extends AbstractType
             ->add('id', EntityType::class, array(
                 'class' => 'DevlabsSportifyBundle:Tournament',
                 'choices' => $this->choices,
+                'data' => $this->data,
                 'choice_label' => 'name',
                 'label' => false,
-                'data' => $this->data
+                'placeholder' => 'Select tournament'
             ))
         ;
     }
