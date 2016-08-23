@@ -84,9 +84,13 @@ class StandingsController extends Controller
         }
 
 
-        // create response and set cookie for tournament selected
+        // create response and set cookie for tournament selected with 90-day expire period
         $response = new Response();
-        $response->headers->setCookie(new Cookie('tournament', $formSourceData['tournament_selected']->getId()));
+        $response->headers->setCookie(new Cookie(
+            'tournament',
+            $formSourceData['tournament_selected']->getId(),
+            time() + (3600 * 24 * 90)
+        ));
 
         // rendering the view and returning the response
         return $this->render(
