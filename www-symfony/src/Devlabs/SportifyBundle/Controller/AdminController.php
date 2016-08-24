@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 class AdminController extends Controller
 {
     /**
-     * @Route("/administration/index", name="admin_index")
+     * @Route("/admin/index", name="admin_index")
      */
     public function indexAction()
     {
@@ -21,9 +21,9 @@ class AdminController extends Controller
         }
 
         // continue only if user is part of Admin Users list, else redirect to Home
-        if (!in_array($user->getEmail(), $this->container->getParameter('admin.users'))) {
-            return $this->redirectToRoute('home');
-        }
+//        if (!in_array($user->getEmail(), $this->container->getParameter('admin.users'))) {
+//            return $this->redirectToRoute('home');
+//        }
 
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
@@ -38,7 +38,7 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/administration/data_updates", name="admin_data_updates")
+     * @Route("/admin/data_updates", name="admin_data_updates")
      */
     public function dataUpdatesAction(Request $request)
     {
@@ -48,9 +48,9 @@ class AdminController extends Controller
         }
 
         // continue only if user is part of Admin Users list, else redirect to Home
-        if (!in_array($user->getEmail(), $this->container->getParameter('admin.users'))) {
-            return $this->redirectToRoute('home');
-        }
+//        if (!in_array($user->getEmail(), $this->container->getParameter('admin.users'))) {
+//            return $this->redirectToRoute('home');
+//        }
 
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();

@@ -51,9 +51,11 @@
                                 </a>
                                 <p class="user-name">{{ app.user.username }}</p>
                             </li>
-                            <li {% if app.request.attributes.get('_route') == 'admin_index'%}class="active"{% endif %}>
-                                <a href="{{ path('admin_index') }}">ADMIN</a>
-                            </li>
+                            {% if is_granted("ROLE_ADMIN") %}
+                                <li {% if app.request.attributes.get('_route') == 'admin_index'%}class="active"{% endif %}>
+                                    <a href="{{ path('admin_index') }}">ADMIN</a>
+                                </li>
+                            {% endif %}
                             <li {% if app.request.attributes.get('_route') == 'tournaments_index'%}class="active"{% endif %}>
                                 <a class="tournaments" href="{{ path('tournaments_index') }}">Tournaments</a>
                             </li>
