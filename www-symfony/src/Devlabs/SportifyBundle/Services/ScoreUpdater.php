@@ -45,6 +45,8 @@ class ScoreUpdater
 
         // calculate the user positions in the modified tournaments
         $this->calculateUserPositions($tournamentsModified);
+
+        return $tournamentsModified;
     }
 
     /**

@@ -80,10 +80,14 @@ class AdminHelper
 
             if ($status['total_updated'] > 0) {
                 // Get the ScoreUpdater service and update all scores
-                $this->container->get('app.score_updater')->updateAll();
+                $tournamentsModified = $this->container->get('app.score_updater')->updateAll();
 
                 $slackNotify = true;
-                $slackText = 'Match results and standings updated.';
+                $slackText = 'Match results and standings updated for tournament(s):';
+
+                foreach ($tournamentsModified as $tournament) {
+                    $slackText = $slackText . "\n" . $tournament->getName();
+                }
             }
         } else if ($data['update_type'] === 'teams-all-tournaments') {
             $tournaments = $this->em->getRepository('DevlabsSportifyBundle:Tournament')
