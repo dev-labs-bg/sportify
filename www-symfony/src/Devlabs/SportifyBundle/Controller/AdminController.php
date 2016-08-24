@@ -55,65 +55,18 @@ class AdminController extends Controller
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
 
-        $formData = array();
-        $form = $this->createFormBuilder($formData)
-            ->add('task_type', ChoiceType::class, array(
-                'choices'  => array(
-                    'Matches update (Next 7 days)' => 'fixtures-next7days',
-                    'Matches update (Past 1 day) and Scores Update' => 'fixtures-past1day-and-score-update',
-                    'Teams update for PrimeraDivision' => 'teams-update'
-                )))
-            ->add('button', SubmitType::class, array('label' => 'Select'))
-            ->getForm();
+        // get the filter helper service
+        $adminHelper = $this->container->get('app.admin.helper');
 
+        // create form for Data Update type select and handle it
+        $form = $adminHelper->createDataUpdatesForm();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
+            $adminHelper->actionOnDataUpdatesFormSubmit($form);
 
-            $dataUpdatesManager = $this->get('app.data_updates.manager');
-            $slackNotify = false;
-
-            if ($data['task_type'] === 'fixtures-next7days') {
-                // set dateFrom and dateTo to respectively today and 1 week on
-                $dateFrom = date("Y-m-d");
-                $dateTo = date("Y-m-d", time() + 604800);
-                $status = $dataUpdatesManager->updateFixtures($dateFrom, $dateTo);
-
-                if ($status['total_added'] > 0) {
-                    $slackNotify = true;
-                    $slackText = '<!channel>: Match fixtures added for next 7 days. '
-                        .$status['total_added'].' fixtures added.';
-                }
-            } else if ($data['task_type'] === 'fixtures-past1day-and-score-update') {
-                // set dateFrom and dateTo to respectively yesterday and today
-                $dateFrom = date("Y-m-d", time() - 86400);
-                $dateTo = date("Y-m-d");
-                $status = $dataUpdatesManager->updateFixtures($dateFrom, $dateTo);
-
-                if ($status['total_updated'] > 0) {
-                    // Get the ScoreUpdater service and update all scores
-                    $this->get('app.score_updater')->updateAll();
-
-                    $slackNotify = true;
-                    $slackText = '<!channel>: Match results and standings updated.';
-                }
-            } else if ($data['task_type'] === 'teams-update') {
-                $tournament = $em->getRepository('DevlabsSportifyBundle:Tournament')
-                    ->findOneById(13);
-
-                $dataUpdatesManager->updateTeamsByTournament($tournament);
-            }
-
-            if ($slackNotify) {
-                // Get instance of the Slack service and send notification
-                $this->get('app.slack')->setText($slackText)->post();
-            }
-
-            return $this->redirectToRoute('admin_index');
+            return $this->redirectToRoute('admin_data_updates');
         }
-
-        $form = $form->createView();
 
         // get the user's tournaments position data
         $userScores = $em->getRepository('DevlabsSportifyBundle:Score')
@@ -124,7 +77,7 @@ class AdminController extends Controller
         return $this->render(
             'Admin/data_updates.html.twig',
             array(
-                'form' => $form
+                'form' => $form->createView()
             )
         );
     }

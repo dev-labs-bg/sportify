@@ -31,6 +31,10 @@ services:
         class: Devlabs\SportifyBundle\Services\FilterHelper
         arguments: ['@service_container', '@doctrine.orm.entity_manager']
 
+    app.admin.helper:
+        class: Devlabs\SportifyBundle\Services\AdminHelper
+        arguments: ['@service_container', '@doctrine.orm.entity_manager']
+
     app.matches.helper:
         class: Devlabs\SportifyBundle\Services\MatchesHelper
         arguments: ['@service_container', '@doctrine.orm.entity_manager']
