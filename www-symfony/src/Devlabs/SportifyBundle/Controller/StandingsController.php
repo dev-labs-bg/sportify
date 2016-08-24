@@ -83,7 +83,6 @@ class StandingsController extends Controller
             $this->container->get('twig')->addGlobal('user_scores', $userScores);
         }
 
-
         // create response and set cookie for tournament selected with 90-day expire period
         $response = new Response();
         $response->headers->setCookie(new Cookie(
