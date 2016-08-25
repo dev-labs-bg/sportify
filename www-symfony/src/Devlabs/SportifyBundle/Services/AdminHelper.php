@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Devlabs\SportifyBundle\Entity\ApiMapping;
+use Devlabs\SportifyBundle\Entity\Tournament;
 use Devlabs\SportifyBundle\Form\ApiMappingType;
 
 /**
@@ -107,7 +108,21 @@ class AdminHelper
         }
     }
 
-    public function createApiMappingForm(ApiMapping $apiMapping, $buttonAction)
+    public function getApiMapping(Tournament $tournament, $footballApi)
+    {
+        // get user's champion prediction or null if there's none
+        $apiMapping = $this->em->getRepository('DevlabsSportifyBundle:ApiMapping')
+            ->getByEntityAndApiProvider($tournament, 'Tournament', $footballApi);
+
+        // get a new PredictionChampion object if none
+        if ($apiMapping === null) {
+            $apiMapping = new ApiMapping();
+        }
+
+        return $apiMapping;
+    }
+
+    public function createApiMappingForm(ApiMapping $apiMapping, $buttonAction = 'CREATE')
     {
         $form = $this->container->get('form.factory')->create(ApiMappingType::class, $apiMapping, array(
 //            'action' => $this->container->get('router')->generate('matches_bet', $urlParams),

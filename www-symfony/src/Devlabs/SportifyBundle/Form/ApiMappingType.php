@@ -41,19 +41,19 @@ class ApiMappingType extends AbstractType
                 'label' => false
             ))
             ->add('entityId', TextType::class, array(
-                'label' => false,
+//                'label' => false,
                 'error_bubbling' => true
             ))
             ->add('entityType', TextType::class, array(
-                'label' => false,
+//                'label' => false,
                 'error_bubbling' => true
             ))
             ->add('apiName', TextType::class, array(
-                'label' => false,
+//                'label' => false,
                 'error_bubbling' => true
             ))
             ->add('apiObjectId', TextType::class, array(
-                'label' => false,
+//                'label' => false,
                 'error_bubbling' => true
             ))
             ->add('action', HiddenType::class, array(
