@@ -98,6 +98,7 @@ class AdminHelper
             }
         }
 
+        // send Slack notification
         if ($slackNotify) {
             // Get instance of the Slack service and send notification
             $this->container->get('app.slack')->setText($slackText)->post();

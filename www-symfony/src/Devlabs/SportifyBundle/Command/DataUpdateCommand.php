@@ -31,13 +31,13 @@ class DataUpdateCommand extends ContainerAwareCommand
     {
         $updateType = $input->getArgument('data-update-type');
 
-        if ($updateType === 'fixtures-next7days') {
+        if ($updateType === 'matches-next7days') {
             // set dateFrom and dateTo to respectively today and 1 week on
             $dateFrom = date("Y-m-d");
-            $dateTo = date("Y-m-d", time() + 604800);
-        } else if ($updateType === 'fixtures-past1day') {
+            $dateTo = date("Y-m-d", time() + (3600 * 24 * 7));
+        } else if ($updateType === 'matches-past1day') {
             // set dateFrom and dateTo to respectively yesterday and today
-            $dateFrom = date("Y-m-d", time() - 86400);
+            $dateFrom = date("Y-m-d", time() - (3600 * 24 * 1));
             $dateTo = date("Y-m-d");
         }
 
@@ -46,20 +46,45 @@ class DataUpdateCommand extends ContainerAwareCommand
             return;
         }
 
+        $slackNotify = false;
+
         // get instance of the DataUpdates Manager service and initiate Fetch, Parse, Import services
         $status = $this->getContainer()->get('app.data_updates.manager')->updateFixtures($dateFrom, $dateTo);
 
         $logText = 'Command executed at: ' . date("Y-m-d H:i:s") . "\n";
 
-        foreach ($status as $tournament) {
+        foreach ($status['tournaments'] as $tournament) {
             $logText = $logText. "\n" . $tournament['name']. "\n" .
                 'Fixtures fetched: ' . $tournament['status']['fixtures_fetched'] . "\n" .
                 'Fixtures added: ' . $tournament['status']['fixtures_added'] . "\n" .
                 'Fixtures updated: ' . $tournament['status']['fixtures_updated'] . "\n";
         }
 
-        // get instance of the ScoreUpdater service and update all scores
-        $this->getContainer()->get('app.score_updater')->updateAll();
+        // set Slack message text if new fixtures were added
+        if ($status['total_added'] > 0) {
+            $slackNotify = true;
+            $slackText = 'Match fixtures added for next 7 days. '
+                .$status['total_added'].' fixtures added.';
+        }
+
+        // set Slack message text if fixtures were updated
+        if ($status['total_updated'] > 0) {
+            // Get the ScoreUpdater service and update all scores
+            $tournamentsModified = $this->getContainer()->get('app.score_updater')->updateAll();
+
+            $slackNotify = true;
+            $slackText = 'Match results and standings updated for tournament(s):';
+
+            foreach ($tournamentsModified as $tournament) {
+                $slackText = $slackText . "\n" . $tournament->getName();
+            }
+        }
+
+        // send Slack notification
+        if ($slackNotify) {
+            // Get instance of the Slack service and send notification
+            $this->getContainer()->get('app.slack')->setText($slackText)->post();
+        }
 
         $output->writeln($logText);
     }

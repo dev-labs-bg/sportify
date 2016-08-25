@@ -80,7 +80,7 @@ class Manager
             // skip tournament if finished or there is no API mapping for it
             if (($tournament->getChampionTeamId() !== null) || (!$apiMapping)) continue;
 
-            $status[$tournament->getId()]['name'] = $tournament->getName();
+            $status['tournaments'][$tournament->getId()]['name'] = $tournament->getName();
 
             // get the API tournament ID
             $apiTournamentId = $apiMapping->getApiObjectId();
@@ -92,11 +92,11 @@ class Manager
             $parsedFixtures = $this->dataParser->parseFixtures($fetchedFixtures);
 
             // use the Importer service to import parsed data and get status and stats of the operation
-            $status[$tournament->getId()]['status'] = $this->dataImporter->importFixtures($parsedFixtures, $tournament, $this->footballApi);
+            $status['tournaments'][$tournament->getId()]['status'] = $this->dataImporter->importFixtures($parsedFixtures, $tournament, $this->footballApi);
 
-            $status['total_fetched'] = $status['total_fetched'] + $status[$tournament->getId()]['status']['fixtures_fetched'];
-            $status['total_added'] = $status['total_added'] + $status[$tournament->getId()]['status']['fixtures_added'];
-            $status['total_updated'] = $status['total_updated'] + $status[$tournament->getId()]['status']['fixtures_updated'];
+            $status['total_fetched'] = $status['total_fetched'] + $status['tournaments'][$tournament->getId()]['status']['fixtures_fetched'];
+            $status['total_added'] = $status['total_added'] + $status['tournaments'][$tournament->getId()]['status']['fixtures_added'];
+            $status['total_updated'] = $status['total_updated'] + $status['tournaments'][$tournament->getId()]['status']['fixtures_updated'];
         }
 
         return $status;
