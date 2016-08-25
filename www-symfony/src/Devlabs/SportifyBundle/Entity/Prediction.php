@@ -78,7 +78,7 @@ class Prediction
      *
      * @param string $id
      *
-     * @return Tournament
+     * @return Prediction
      */
     public function setId($id)
     {

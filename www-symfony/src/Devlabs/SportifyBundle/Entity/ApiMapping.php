@@ -55,6 +55,20 @@ class ApiMapping
     }
 
     /**
+     * Set id
+     *
+     * @param string $id
+     *
+     * @return ApiMapping
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
      * Set entityId
      *
      * @param integer $entityId

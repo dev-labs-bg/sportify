@@ -130,17 +130,19 @@ class AdminController extends Controller
         // get the filter helper service
         $adminHelper = $this->container->get('app.admin.helper');
 
+        // get the ApiMapping object and buttonAction
         $apiMapping = $adminHelper->getApiMapping(
             $formSourceData['tournament_selected'],
             $this->container->getParameter('football_api.name')
         );
+        $buttonAction = $adminHelper->getApiMappingButtonAction($apiMapping);
 
-        // create form for Data Update type select and handle it
-        $form = $adminHelper->createApiMappingForm($apiMapping);
+        // create form for ApiMapping form and handle it
+        $form = $adminHelper->createApiMappingForm($apiMapping, $buttonAction);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $adminHelper->actionOnDataUpdatesFormSubmit($form);
+            $adminHelper->actionOnApiMappingFormSubmit($form);
 
             return $this->redirectToRoute('admin_api_mappings');
         }

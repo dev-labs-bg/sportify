@@ -108,13 +108,21 @@ class AdminHelper
         }
     }
 
+    /**
+     * Method for getting existin ApiMapping object from DB by Tournament and Football API name,
+     * or returning a new ApiMapping object if none exists
+     *
+     * @param Tournament $tournament
+     * @param $footballApi
+     * @return ApiMapping
+     */
     public function getApiMapping(Tournament $tournament, $footballApi)
     {
-        // get user's champion prediction or null if there's none
+        // get existing ApiMapping or create new if none exists
         $apiMapping = $this->em->getRepository('DevlabsSportifyBundle:ApiMapping')
             ->getByEntityAndApiProvider($tournament, 'Tournament', $footballApi);
 
-        // get a new PredictionChampion object if none
+        // get a new ApiMapping object if none
         if ($apiMapping === null) {
             $apiMapping = new ApiMapping();
         }
@@ -122,13 +130,54 @@ class AdminHelper
         return $apiMapping;
     }
 
-    public function createApiMappingForm(ApiMapping $apiMapping, $buttonAction = 'CREATE')
+    /**
+     * Method for determining the ApiMapping form button's action
+     * 'CREATE' or 'EDIT', depending on where ApiMapping exists already
+     *
+     * @param ApiMapping $apiMapping
+     * @return string
+     */
+    public function getApiMappingButtonAction(ApiMapping $apiMapping)
+    {
+        // determine if the ApiMapping already exists
+        if (!$apiMapping->getId()) {
+            $buttonAction = 'CREATE';
+        } else {
+            $buttonAction = 'EDIT';
+        }
+
+        return $buttonAction;
+    }
+
+    /**
+     * Method for creating ApiMapping form
+     *
+     * @param ApiMapping $apiMapping
+     * @param $buttonAction
+     * @return mixed
+     */
+    public function createApiMappingForm(ApiMapping $apiMapping, $buttonAction)
     {
         $form = $this->container->get('form.factory')->create(ApiMappingType::class, $apiMapping, array(
-//            'action' => $this->container->get('router')->generate('matches_bet', $urlParams),
             'button_action' => $buttonAction
         ));
 
         return $form;
+    }
+
+    /**
+     * Method for executing actions after ApiMapping form is submitted
+     *
+     * @param $form
+     */
+    public function actionOnApiMappingFormSubmit(Form $form)
+    {
+        $apiMapping = $form->getData();
+
+        // prepare the queries
+        $this->em->persist($apiMapping);
+
+        // execute the queries
+        $this->em->flush();
     }
 }

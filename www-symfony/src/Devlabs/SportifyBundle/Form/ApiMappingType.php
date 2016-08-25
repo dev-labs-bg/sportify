@@ -3,10 +3,6 @@
 namespace Devlabs\SportifyBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\CallbackTransformer;
-use Devlabs\SportifyBundle\Form\DataTransformer\MatchToIdTransformer;
-use Devlabs\SportifyBundle\Form\DataTransformer\UserToIdTransformer;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -40,16 +36,17 @@ class ApiMappingType extends AbstractType
             ->add('id', HiddenType::class, array(
                 'label' => false
             ))
-            ->add('entityId', TextType::class, array(
+            ->add('entityId', HiddenType::class, array(
 //                'label' => false,
                 'error_bubbling' => true
             ))
-            ->add('entityType', TextType::class, array(
+            ->add('entityType', HiddenType::class, array(
 //                'label' => false,
                 'error_bubbling' => true
             ))
             ->add('apiName', TextType::class, array(
 //                'label' => false,
+                'disabled' => true,
                 'error_bubbling' => true
             ))
             ->add('apiObjectId', TextType::class, array(
