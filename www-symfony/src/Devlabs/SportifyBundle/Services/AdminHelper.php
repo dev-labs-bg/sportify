@@ -9,6 +9,8 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Devlabs\SportifyBundle\Entity\ApiMapping;
+use Devlabs\SportifyBundle\Form\ApiMappingType;
 
 /**
  * Class AdminHelper
@@ -103,5 +105,15 @@ class AdminHelper
             // Get instance of the Slack service and send notification
             $this->container->get('app.slack')->setText($slackText)->post();
         }
+    }
+
+    public function createApiMappingForm(ApiMapping $apiMapping, $buttonAction)
+    {
+        $form = $this->container->get('form.factory')->create(ApiMappingType::class, $apiMapping, array(
+//            'action' => $this->container->get('router')->generate('matches_bet', $urlParams),
+            'button_action' => $buttonAction
+        ));
+
+        return $form;
     }
 }

@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block nav_top %}
+    <h1 class="text-center">Admin panel</h1>
+    <h2 class="text-center">API mappings</h2>
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid content">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-12">
+                {{ form_start(form) }}
+                <div class="col-sm-4">
+                    {{ form_row(form.update_type, {'attr': {'class': 'form-control' } }) }}
+                </div>
+                <div class="col-sm-2 text-center">
+                    {{ form_row(form.button, {'attr': {'class': 'btn green-btn history-filter' } }) }}
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
