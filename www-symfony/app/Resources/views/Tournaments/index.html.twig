@@ -19,7 +19,7 @@
         </div>
     </div>
     {% for tournament in tournaments %}
-        {{ include('templates/forms/tournament.html.twig', {
+        {{ include('templates/forms/tournament_join_leave.html.twig', {
             'form': forms[tournament.id],
             'tournament': tournament
         }) }}
