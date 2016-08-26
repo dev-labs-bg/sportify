@@ -5,13 +5,13 @@ namespace Devlabs\SportifyBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class AdminController extends Controller
 {
     /**
-     * @Route("/admin/index", name="admin_index")
+     * @Route("/admin/{action}", name="admin_index",
+     *     defaults={"action" = "index"},
+     *     requirements={"action" : "index"})
      */
     public function indexAction()
     {
@@ -92,10 +92,10 @@ class AdminController extends Controller
             return $this->redirectToRoute('fos_user_security_login');
         }
 
-        $urlParams['tournament_id'] = $tournament_id;
-
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
+
+        $urlParams['tournament_id'] = $tournament_id;
 
         // get all tournaments as source data for form choices
         $formSourceData['tournament_choices'] = $em->getRepository('DevlabsSportifyBundle:Tournament')
@@ -160,6 +160,33 @@ class AdminController extends Controller
                 'form' => $form->createView()
             )
         );
+    }
 
+    /**
+     * @Route("/admin/tournaments", name="admin_tournaments")
+     */
+    public function tournamentsAction()
+    {
+        // if user is not logged in, redirect to login page
+        if (!is_object($user = $this->getUser())) {
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+
+        // Get an instance of the Entity Manager
+        $em = $this->getDoctrine()->getManager();
+
+        // get the user's tournaments position data
+        $userScores = $em->getRepository('DevlabsSportifyBundle:Score')
+            ->getByUser($user);
+        $this->container->get('twig')->addGlobal('user_scores', $userScores);
+
+        // rendering the view and returning the response
+        return $this->render(
+            'Admin/tournaments.html.twig',
+            array(
+                'filter_form' => $filterForm->createView(),
+                'form' => $form->createView()
+            )
+        );
     }
 }
