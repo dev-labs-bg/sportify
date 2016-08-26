@@ -9690,10 +9690,60 @@ li {
   font-size: 16px;
 }
 
+.group {
+  display: block;
+  clear: both;
+}
+
+.group:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
 .nav .open a,
 .nav .open a:hover,
 .nav .open a:focus {
   background-color: transparent;
+}
+
+.single-match-record {
+  position: relative;
+}
+
+.team-image {
+  position: absolute;
+  top: -30px;
+  background: #fff;
+  border-radius: 50px;
+  width: 100px;
+  height: 100px;
+}
+
+.team-image.left-sided {
+  left: -70px;
+}
+
+.team-image.right-sided {
+  right: -70px;
+}
+
+body .match-item-mobile {
+  padding: 0;
+  line-height: 40px;
+}
+
+body .match-item-mobile.left-sided {
+  float: left;
+  margin-left: 55px;
+}
+
+body .match-item-mobile.right-sided {
+  float: right;
+  margin-right: 55px;
 }
 
 .page-content-wrapper {
@@ -10462,22 +10512,26 @@ h2 {
 }
 
 .match-item .bettings {
-  text-align: center;
-  position: relative;
   z-index: 1;
   font-size: 16px;
-}
-
-.match-item .bettings .bet-rectangle {
   position: absolute;
-  width: 100%;
-  left: 0;
-  top: -28px;
-  z-index: -1;
+  left: 50%;
+  width: 158px;
+  height: 87px;
+  margin-left: -79px;
+  top: -17px;
 }
 
 .match-item .bettings .bet-form {
-  z-index: 1;
+  position: absolute;
+  top: 23px;
+  left: 35px;
+}
+
+.match-item .bettings .bet-form.not-filled .bet-field {
+  background-color: #2c3e50;
+  box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.5);
+  color: #fff;
 }
 
 .match-item .bettings .bet-form div {
@@ -10491,12 +10545,6 @@ h2 {
   text-align: center;
   padding: 3px;
   box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.5);
-}
-
-.match-item .bettings .bet-form.not-filled .bet-field {
-  background-color: #2c3e50;
-  box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.5);
-  color: #fff;
 }
 
 .match-item .bettings .bet-results {
@@ -10718,6 +10766,10 @@ h2 {
   color: #fb1717 !important;
 }
 
+.bet-rectangle {
+  position: relative;
+}
+
 .flag {
   height: 21px;
   width: 28px;
@@ -10837,8 +10889,9 @@ h2 {
 .match-item img {
   width: auto;
   height: auto;
-  max-width: 50px;
-  max-height: 50px;
+  max-width: 70px;
+  max-height: 70px;
+  margin-top: 15px;
 }
 
 @media screen and (max-width: 1367px) {
@@ -10948,10 +11001,6 @@ h2 {
 
   .match-item .bettings {
     margin: 25px 0;
-  }
-
-  .match-item .bettings .bet-rectangle {
-    top: -24px;
   }
 
   .matches-filters .form-control {
