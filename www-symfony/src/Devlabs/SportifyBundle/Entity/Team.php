@@ -4,6 +4,7 @@ namespace Devlabs\SportifyBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Routing\RequestContext;
 
 /**
  * @ORM\Entity(repositoryClass="Devlabs\SportifyBundle\Entity\TeamRepository")
@@ -55,6 +56,11 @@ class Team
      * @ORM\OneToMany(targetEntity="Match" , mappedBy="awayTeamId" , cascade={"all"})
      */
     private $matchesAwayTeam;
+
+    /**
+     * Team logo
+     */
+    private $teamLogo;
 
     /**
      * Constructor
@@ -308,5 +314,53 @@ class Team
     public function getTournaments()
     {
         return $this->tournaments;
+    }
+
+    /**
+     * Check if the team already has a logo
+     *
+     * @return bool $has_logo
+     */
+    public function hasTeamLogo()
+    {
+        $jpg_file = WEB_DIRECTORY . '/img/team_logos/team_logo_'.$this->id.'.jpg';
+        $svg_file = WEB_DIRECTORY . '/img/team_logos/team_logo_'.$this->id.'.svg';
+
+        return ( (file_exists($jpg_file) && is_file($jpg_file)) ||
+                 (file_exists($svg_file) && is_file($svg_file)) );
+    }
+
+    /**
+     * Get Team Logo
+     *
+     * @return string $path_to_logo
+     */
+    public function getTeamLogo()
+    {
+        $file = WEB_DIRECTORY . '/img/team_logos/team_logo_'.$this->id.'.jpg';
+
+        // check if jpg file exists
+        if (file_exists($file) && is_file($file))
+            return BASE_URL . '/img/team_logos/team_logo_'.$this->id.'.jpg';
+
+        // check if svg file exists
+        $file = WEB_DIRECTORY . '/img/team_logos/team_logo_'.$this->id.'.svg';
+
+        if (file_exists($file) && is_file($file))
+            return BASE_URL . '/img/team_logos/team_logo_'.$this->id.'.svg';
+
+        return BASE_URL . '/img/team_logos/default.png';
+    }
+
+    /**
+     * Set Team Logo
+     *
+     * @return string $path_to_logo
+     */
+    public function setTeamLogo($image_path)
+    {
+        $this->teamLogo = $image_path;
+
+        return $this;
     }
 }

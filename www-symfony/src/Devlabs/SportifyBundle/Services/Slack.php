@@ -3,6 +3,8 @@
 namespace Devlabs\SportifyBundle\Services;
 
 use GuzzleHttp\Client;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class Slack
@@ -10,16 +12,19 @@ use GuzzleHttp\Client;
  */
 class Slack
 {
+    use ContainerAwareTrait;
+
     private $httpClient;
     private $url;
     private $channel;
     private $text;
 
-    public function __construct($url, $channel)
+    public function __construct(ContainerInterface $container, $url, $channel)
     {
         $this->httpClient = new Client();
         $this->url = $url;
         $this->channel = $channel;
+        $this->container = $container;
     }
 
     /**
@@ -84,18 +89,23 @@ class Slack
      */
     public function post()
     {
-        $this->httpClient->post(
-            $this->url,
-            [
-                'body' => json_encode(
-                    [
-                        'channel' => $this->channel,
-                        'text' => $this->text
-                    ]
-                ),
-                'allow_redirects' => false,
-                'timeout'         => 5
-            ]
-        );
+        $env = $this->container->get('kernel')->getEnvironment();
+
+        if ($env == 'prod')
+        {
+            $this->httpClient->post(
+                $this->url,
+                [
+                    'body' => json_encode(
+                        [
+                            'channel' => $this->channel,
+                            'text' => $this->text
+                        ]
+                    ),
+                    'allow_redirects' => false,
+                    'timeout'         => 5
+                ]
+            );
+        }
     }
 }
