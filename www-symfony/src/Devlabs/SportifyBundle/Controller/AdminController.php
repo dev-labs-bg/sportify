@@ -5,6 +5,7 @@ namespace Devlabs\SportifyBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Devlabs\SportifyBundle\Entity\Tournament;
 
 class AdminController extends Controller
 {
@@ -165,7 +166,7 @@ class AdminController extends Controller
     /**
      * @Route("/admin/tournaments", name="admin_tournaments")
      */
-    public function tournamentsAction()
+    public function tournamentsAction(Request $request)
     {
         // if user is not logged in, redirect to login page
         if (!is_object($user = $this->getUser())) {
@@ -174,6 +175,23 @@ class AdminController extends Controller
 
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
+
+        // get the filter helper service
+        $adminHelper = $this->container->get('app.admin.helper');
+
+        // get Tournament object and buttonAction
+        $tournament = new Tournament();
+        $buttonAction = 'CREATE';
+
+        // create form for ApiMapping form and handle it
+        $form = $adminHelper->createTournamentForm($tournament, $buttonAction);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $adminHelper->actionOnTournamentFormSubmit($form);
+
+            return $this->redirectToRoute('admin_tournaments');
+        }
 
         // get the user's tournaments position data
         $userScores = $em->getRepository('DevlabsSportifyBundle:Score')
@@ -184,7 +202,6 @@ class AdminController extends Controller
         return $this->render(
             'Admin/tournaments.html.twig',
             array(
-                'filter_form' => $filterForm->createView(),
                 'form' => $form->createView()
             )
         );

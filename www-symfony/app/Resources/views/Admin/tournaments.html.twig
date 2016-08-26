@@ -9,16 +9,23 @@
     <div class="container-fluid content">
         <div class="row">
             <div class="col-lg-2 col-lg-offset-2 col-md-12">
+                <h2 class="text-center">Create new tournament</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2 col-lg-offset-2 col-md-12">
                 {{ form_start(form) }}
-                {{ form_row(form.id) }}
-                {{ form_row(form.action) }}
-                {{ form_row(form.entityId, {'attr': {'class': 'form-control' } }) }}
-                {{ form_row(form.entityType, {'attr': {'class': 'form-control' } }) }}
-                {{ form_row(form.apiName, {'attr': {'class': 'form-control' } }) }}
-                {{ form_row(form.apiObjectId, {'attr': {'class': 'form-control' } }) }}
-                <div class="col-sm-2 text-center">
-                    {{ form_row(form.button, {'attr': {'class': 'btn green-btn history-filter' } }) }}
-                </div>
+                    {{ form_errors(form) }}
+                    {{ form_row(form.id) }}
+                    {{ form_row(form.action) }}
+                    {{ form_row(form.name, {'attr': {'class': 'form-control' } }) }}
+                    {{ form_row(form.startDate, {'attr': {'class': 'form-control' } }) }}
+                    {{ form_row(form.endDate, {'attr': {'class': 'form-control' } }) }}
+                    {{ form_row(form.nameShort, {'attr': {'class': 'form-control' } }) }}
+                    {{ form_row(form.championTeamId, {'attr': {'class': 'form-control' } }) }}
+                    <div class="col-sm-2 text-center">
+                        {{ form_row(form.button, {'attr': {'class': 'btn green-btn history-filter' } }) }}
+                    </div>
                 {{ form_end(form) }}
             </div>
         </div>

@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Devlabs\SportifyBundle\Entity\ApiMapping;
 use Devlabs\SportifyBundle\Entity\Tournament;
 use Devlabs\SportifyBundle\Form\ApiMappingType;
+use Devlabs\SportifyBundle\Form\TournamentEntityType;
 
 /**
  * Class AdminHelper
@@ -176,6 +177,38 @@ class AdminHelper
 
         // prepare the queries
         $this->em->persist($apiMapping);
+
+        // execute the queries
+        $this->em->flush();
+    }
+
+    /**
+     * Method for creating Tournament Entity form
+     *
+     * @param Tournament $tournament
+     * @param $buttonAction
+     * @return mixed
+     */
+    public function createTournamentForm(Tournament $tournament, $buttonAction)
+    {
+        $form = $this->container->get('form.factory')->create(TournamentEntityType::class, $tournament, array(
+            'button_action' => $buttonAction
+        ));
+
+        return $form;
+    }
+
+    /**
+     * Method for executing actions after Tournament Entity form is submitted
+     *
+     * @param Form $form
+     */
+    public function actionOnTournamentFormSubmit(Form $form)
+    {
+        $tournament = $form->getData();
+
+        // prepare the queries
+        $this->em->persist($tournament);
 
         // execute the queries
         $this->em->flush();
