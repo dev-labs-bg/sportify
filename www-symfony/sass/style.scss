@@ -45,11 +45,39 @@ ul, li {
     width: 100px;
     height: 100px;
 
+    @media screen and (max-width: 1000px) {
+        width: 85px;
+        height: 85px;
+        top: -24px;
+    }
+
     &.left-sided {
         left: -70px;
+
+        @media screen and (max-width: 1000px) {
+            left: -30px;
+        }
     }
     &.right-sided {
         right: -70px;
+
+        @media screen and (max-width: 1000px) {
+            right: -30px;
+        }
+    }
+
+    img {
+        width: auto;
+        height: auto;
+        max-width: 70px;
+        max-height: 70px;
+        margin-top: 15px;
+
+        @media screen and (max-width: 1000px) {
+            max-width: 62px;
+            max-height: 62px;
+            margin-top: 10px;
+        }
     }
 }
 body .match-item-mobile {
@@ -1027,17 +1055,6 @@ h2 {
 .flag-icon-cry {
     background-image: url(../img/flags/CRY.png);
 }
-.match-item {
-
-    img {
-        width: auto;
-        height: auto;
-        max-width: 70px;
-        max-height: 70px;
-        margin-top: 15px;
-    }
-}
-
 
 @media screen and (max-width: 1367px){
     .match-item {
@@ -1065,7 +1082,7 @@ h2 {
         }
     }
 }
-@media screen and (max-width: 767px){
+@media screen and (max-width: 820px){
     .sportify-logo-mobile {
         display: block;
         margin: 0 auto;
