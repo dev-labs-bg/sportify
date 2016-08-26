@@ -975,6 +975,17 @@ h2 {
 .flag-icon-cry {
     background-image: url(../img/flags/CRY.png);
 }
+.match-item {
+
+    img {
+        width: auto;
+        height: auto;
+        max-width: 50px;
+        max-height: 50px;
+    }
+}
+
+
 @media screen and (max-width: 1367px){
     .match-item {
         font-size: 13px;

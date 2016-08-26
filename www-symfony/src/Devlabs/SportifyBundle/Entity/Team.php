@@ -5,6 +5,7 @@ namespace Devlabs\SportifyBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Routing\RequestContext;
+use Intervention\Image\ImageManager;
 
 /**
  * @ORM\Entity(repositoryClass="Devlabs\SportifyBundle\Entity\TeamRepository")
@@ -337,11 +338,11 @@ class Team
      */
     public function getTeamLogo()
     {
-        $file = WEB_DIRECTORY . '/img/team_logos/team_logo_'.$this->id.'.jpg';
+        $file = WEB_DIRECTORY . '/img/team_logos/team_logo_'.$this->id.'.png';
 
-        // check if jpg file exists
+        // check if png file exists
         if (file_exists($file) && is_file($file))
-            return BASE_URL . '/img/team_logos/team_logo_'.$this->id.'.jpg';
+            return BASE_URL . '/img/team_logos/team_logo_'.$this->id.'.png';
 
         // check if svg file exists
         $file = WEB_DIRECTORY . '/img/team_logos/team_logo_'.$this->id.'.svg';
@@ -349,7 +350,7 @@ class Team
         if (file_exists($file) && is_file($file))
             return BASE_URL . '/img/team_logos/team_logo_'.$this->id.'.svg';
 
-        return BASE_URL . '/img/team_logos/default.png';
+        return BASE_URL . '/img/default.png';
     }
 
     /**
@@ -359,7 +360,31 @@ class Team
      */
     public function setTeamLogo($image_path)
     {
-        $this->teamLogo = $image_path;
+        $file = file_get_contents($image_path);
+
+        if (strpos($file, 'svg') !== FALSE)
+        {
+            file_put_contents(WEB_DIRECTORY . '/img/team_logos/team_logo_' . $this->id . '.svg', $file);
+        }
+        else
+        {
+            // create an image manager instance with favored driver
+            $manager = new ImageManager();
+            $image = $manager->make($file);
+            $width = $image->width();
+            $height = $image->height();
+
+            if ($width >= $height)
+                $image->resize(300, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+            else
+                $image->resize(null, 300, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+
+            $image->save(WEB_DIRECTORY . '/img/team_logos/team_logo_' . $this->id . '.png');
+        }
 
         return $this;
     }
