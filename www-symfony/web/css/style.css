@@ -10549,6 +10549,9 @@ h2 {
 
 .match-item .bettings .bet-results {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 27px;
+  left: 43px;
 }
 
 .match-item .bettings .bet-results .bet-field {
