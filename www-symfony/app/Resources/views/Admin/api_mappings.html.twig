@@ -19,7 +19,6 @@
 
         <div class="row">
             <div class="col-lg-2 col-lg-offset-2 col-md-12">
-
                 {{ form_start(form) }}
                     {{ form_row(form.id) }}
                     {{ form_row(form.action) }}
@@ -27,9 +26,11 @@
                     {{ form_row(form.entityType, {'attr': {'class': 'form-control' } }) }}
                     {{ form_row(form.apiName, {'attr': {'class': 'form-control' } }) }}
                     {{ form_row(form.apiObjectId, {'attr': {'class': 'form-control' } }) }}
-                    <div class="col-sm-2 text-center">
-                        {{ form_row(form.button, {'attr': {'class': 'btn green-btn history-filter' } }) }}
-                    </div>
+                    {% if (form.action.vars.value == 'CREATE') %}
+                        {{ form_row(form.button, {'attr': {'class': 'btn green-btn tournament-btn' } }) }}
+                    {% else %}
+                        {{ form_row(form.button, {'attr': {'class': 'btn yellow-btn tournament-btn' } }) }}
+                    {% endif %}
                 {{ form_end(form) }}
             </div>
         </div>

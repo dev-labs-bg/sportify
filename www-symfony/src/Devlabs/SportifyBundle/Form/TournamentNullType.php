@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class TournamentType extends AbstractType
+class TournamentNullType extends AbstractType
 {
     protected $data;
     protected $buttonAction;
