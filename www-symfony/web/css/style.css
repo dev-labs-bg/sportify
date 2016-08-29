@@ -10494,6 +10494,17 @@ h2 {
   background: #fff;
 }
 
+@media screen and (max-width: 820px) {
+  .matches-filters .form-control,
+  .matches-filters input[type="date"].form-control,
+  .champion-page .form-control,
+  .champion-page input[type="date"].form-control {
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 .matches-filters label,
 .champion-page label {
   color: rgba(255, 255, 255, 0.3);
@@ -10519,6 +10530,12 @@ h2 {
   margin-top: 45px;
 }
 
+@media screen and (max-width: 820px) {
+  .filter-form-container {
+    text-align: center;
+  }
+}
+
 .matches-filters {
   padding-top: 0;
   padding-bottom: 20px;
@@ -10527,6 +10544,18 @@ h2 {
 
 .matches-filters .green-btn {
   float: left;
+}
+
+@media screen and (max-width: 820px) {
+  .matches-filters .chosen-container {
+    max-width: 300px;
+  }
+}
+
+@media screen and (max-width: 340px) {
+  .matches-filters .chosen-container {
+    max-width: 100%;
+  }
 }
 
 .champion-page .col-sm-8 {
@@ -11187,7 +11216,7 @@ h2 {
   }
 
   .matches-filters .form-control {
-    margin: 10px 0;
+    margin: 10px auto;
   }
 
   .matches-filters .green-btn {

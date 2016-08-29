@@ -672,6 +672,7 @@ h2 {
     }
 }
 .matches-filters, .champion-page {
+
     .form-control, input[type="date"].form-control {
         appearance: none;
         -moz-appearance: none;
@@ -681,6 +682,12 @@ h2 {
         padding: 10px 25px;
         border-radius: 100px;
         background: #fff;
+
+        @media screen and (max-width: 820px) {
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
     }
     label {
         color: rgba(255, 255, 255, .3);
@@ -692,18 +699,35 @@ h2 {
     .green-btn, .yellow-btn {
         padding: 6px 40px;
         margin: 0;
+
         &.history-filter {
             min-width: 130px;
             margin-top: 45px;
         }
     }
 }
+.filter-form-container {
+
+    @media screen and (max-width: 820px) {
+        text-align: center;
+    }
+}
 .matches-filters {
     padding-top: 0;
     padding-bottom: 20px;
     background: rgba(29, 41, 54, .7);
+
     .green-btn {
         float: left;
+    }
+    .chosen-container {
+
+        @media screen and (max-width: 820px) {
+            max-width: 300px;
+        }
+        @media screen and (max-width: 340px) {
+            max-width: 100%;
+        }
     }
 }
 .champion-page {
@@ -1202,6 +1226,7 @@ h2 {
     }
 }
 @media screen and (max-width: 820px){
+
     .sportify-logo-mobile {
         display: block;
         margin: 0 auto;
@@ -1214,11 +1239,13 @@ h2 {
     }
     .wrapper.toggled {
         padding-left: 0;
+
         .page-content-wrapper {
             position: relative;
             margin-right: 0;
             padding-left: 0;
             margin-left: 0;
+
             .navbar-default {
                 padding-left: 0;
             }
@@ -1248,9 +1275,11 @@ h2 {
         background: #388e3c;
     }
     .match {
+
         &-item {
             background: none;
             box-shadow: none;
+
             &-mobile {
                 text-align: center;
                 padding: 10px;
@@ -1262,8 +1291,9 @@ h2 {
         }
     }
     .matches-filters {
+
         .form-control {
-            margin: 10px 0;
+            margin: 10px auto;
         }
         .green-btn {
             float: none;
@@ -1274,7 +1304,9 @@ h2 {
     }
     .results-slider {
         height: 60px;
+
         .current-results-slider .slider-item {
+
             .result-info .title {
                 padding: 0;
             }
@@ -1283,13 +1315,13 @@ h2 {
                 height: 40px;
                 line-height: 40px;
                 margin: 0 10px;
+
                 img {
                     max-width: 30px;
                     max-height: 30px;
                 }
             }
         }
-
     }
 
     .flag {
