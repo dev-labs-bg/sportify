@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Request;
 $loader = require __DIR__.'/../app/autoload.php';
 include_once __DIR__.'/../var/bootstrap.php.cache';
 
-define('BASE_URL', 'http://sportify.devlabs-projects.com');
 define('WEB_DIRECTORY', __DIR__);
 
 $kernel = new AppKernel('prod', false);

@@ -15,7 +15,7 @@
                             {{ match.homeTeamId.name }}
                         </div>
                         <div class="team-image left-sided">
-                            <img src="{{ match.homeTeamId.teamLogo }}" width="30" height="30" alt="{{ match.homeTeamId.name }}" />
+                            <img src="{{ asset(match.homeTeamId.teamLogo) }}" width="30" height="30" alt="{{ match.homeTeamId.name }}" />
                         </div>
                         <div class="bettings">
                             <div class="bet-rectangle">
@@ -39,7 +39,7 @@
                             {{ match.awayTeamId.name }}
                         </div>
                         <div class="team-image right-sided">
-                            <img src="{{ match.awayTeamId.teamLogo }}" width="30" height="30" alt="{{ match.awayTeamId.name }}" />
+                            <img src="{{ asset(match.awayTeamId.teamLogo) }}" width="30" height="30" alt="{{ match.awayTeamId.name }}" />
                         </div>
                     </div>
                 </div>

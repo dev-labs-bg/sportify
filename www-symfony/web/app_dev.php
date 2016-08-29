@@ -25,7 +25,6 @@ if (isset($_SERVER['HTTP_CLIENT_IP'])
 $loader = require __DIR__.'/../app/autoload.php';
 Debug::enable();
 
-define('BASE_URL', 'http://sportify.dev');
 define('WEB_DIRECTORY', __DIR__);
 
 $kernel = new AppKernel('dev', true);
