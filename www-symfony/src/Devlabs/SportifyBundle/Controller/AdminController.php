@@ -148,6 +148,8 @@ class AdminController extends Controller
             return $this->redirectToRoute('admin_api_mappings');
         }
 
+        $apiTournaments = $this->container->get('app.data_updates.manager')->getTournaments();
+
         // get the user's tournaments position data
         $userScores = $em->getRepository('DevlabsSportifyBundle:Score')
             ->getByUser($user);
@@ -158,7 +160,8 @@ class AdminController extends Controller
             'Admin/api_mappings.html.twig',
             array(
                 'filter_form' => $filterForm->createView(),
-                'form' => $form->createView()
+                'form' => $form->createView(),
+                'api_tournaments' => $apiTournaments
             )
         );
     }

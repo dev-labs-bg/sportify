@@ -126,6 +126,9 @@ class AdminHelper
         // get a new ApiMapping object if none
         if ($apiMapping === null) {
             $apiMapping = new ApiMapping();
+            $apiMapping->setEntityId($tournament->getId());
+            $apiMapping->setEntityType('Tournament');
+            $apiMapping->setApiName($footballApi);
         }
 
         return $apiMapping;

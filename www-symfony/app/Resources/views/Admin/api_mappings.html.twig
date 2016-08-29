@@ -34,6 +34,25 @@
                 {{ form_end(form) }}
             </div>
         </div>
+
+        <h2 class="text-center">
+            Available Tournaments via API:
+        </h2>
+        <div class="row text-center">
+            <div class="col-sm-4 col-sm-offset-4">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 standing-title">ID</div>
+                    <div class="col-xs-6 col-sm-6 standing-title">Name</div>
+                </div>
+                {% for tournament in api_tournaments %}
+                    <div class="row standing">
+                        <div class="col-xs-6 col-sm-6">{{ tournament.id }}</div>
+                        <div class="col-xs-6 col-sm-6">{{ tournament.name }} </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
     </div>
 
 {% endblock %}
