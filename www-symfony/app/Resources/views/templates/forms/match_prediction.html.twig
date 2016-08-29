@@ -8,14 +8,16 @@
             {{ form_errors(form) }}
             <div class="match-date text-center">{{ match.datetime|date('Y-m-d H:i') }}</div>
             <div class="match-title text-center">{{ match.tournamentId.name }}</div>
-            <div class="col-lg-12">
+            <div class="col-lg-12 mobile-match-column">
                 <div class="match-item">
                     <div class="single-match-record group">
-                        <div class="match-item-mobile left-sided">
-                            {{ match.homeTeamId.name }}
-                        </div>
-                        <div class="team-image left-sided">
-                            <img src="{{ match.homeTeamId.teamLogo }}" width="30" height="30" alt="{{ match.homeTeamId.name }}" />
+                        <div class="single-team-info">
+                            <div class="match-item-mobile left-sided">
+                                {{ match.homeTeamId.name }}
+                            </div>
+                            <div class="team-image left-sided">
+                                <img src="{{ match.homeTeamId.teamLogo }}" width="30" height="30" alt="{{ match.homeTeamId.name }}" />
+                            </div>
                         </div>
                         <div class="bettings">
                             <div class="bet-rectangle">
@@ -35,11 +37,13 @@
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="match-item-mobile right-sided">
-                            {{ match.awayTeamId.name }}
-                        </div>
-                        <div class="team-image right-sided">
-                            <img src="{{ match.awayTeamId.teamLogo }}" width="30" height="30" alt="{{ match.awayTeamId.name }}" />
+                        <div class="single-team-info">
+                            <div class="match-item-mobile right-sided">
+                                {{ match.awayTeamId.name }}
+                            </div>
+                            <div class="team-image right-sided">
+                                <img src="{{ match.awayTeamId.teamLogo }}" width="30" height="30" alt="{{ match.awayTeamId.name }}" />
+                            </div>
                         </div>
                     </div>
                 </div>

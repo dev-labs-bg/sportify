@@ -9714,6 +9714,18 @@ li {
   position: relative;
 }
 
+@media screen and (max-width: 820px) {
+  .single-match-record {
+    background: #fff;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .single-match-record {
+    padding: 20px 0;
+  }
+}
+
 .team-image {
   position: absolute;
   top: -30px;
@@ -9728,6 +9740,19 @@ li {
     width: 85px;
     height: 85px;
     top: -24px;
+  }
+}
+
+@media screen and (max-width: 820px) {
+  .team-image {
+    position: static;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .team-image {
+    width: 100%;
   }
 }
 
@@ -9767,9 +9792,27 @@ li {
   }
 }
 
+@media screen and (max-width: 820px) {
+  .team-image img {
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0;
+  }
+}
+
 body .match-item-mobile {
   padding: 0;
   line-height: 40px;
+}
+
+@media screen and (max-width: 820px) {
+  body .match-item-mobile {
+    box-shadow: none;
+    line-height: 25px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 body .match-item-mobile.left-sided {
@@ -9777,9 +9820,23 @@ body .match-item-mobile.left-sided {
   margin-left: 55px;
 }
 
+@media screen and (max-width: 820px) {
+  body .match-item-mobile.left-sided {
+    float: none;
+    margin-left: 0;
+  }
+}
+
 body .match-item-mobile.right-sided {
   float: right;
   margin-right: 55px;
+}
+
+@media screen and (max-width: 820px) {
+  body .match-item-mobile.right-sided {
+    float: none;
+    margin-right: 0;
+  }
 }
 
 .page-content-wrapper {
@@ -10558,6 +10615,23 @@ h2 {
   top: -17px;
 }
 
+@media screen and (max-width: 820px) {
+  .match-item .bettings {
+    display: inline-block;
+    vertical-align: middle;
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 25px 0;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .match-item .bettings {
+    width: 32%;
+  }
+}
+
 .match-item .bettings .bet-form {
   position: absolute;
   top: 23px;
@@ -10588,6 +10662,13 @@ h2 {
   position: absolute;
   top: 27px;
   left: 43px;
+}
+
+@media screen and (max-width: 450px) {
+  .match-item .bettings .bet-results {
+    position: static;
+    margin-top: -45px;
+  }
 }
 
 .match-item .bettings .bet-results .bet-field {
@@ -10805,8 +10886,83 @@ h2 {
   color: #fb1717 !important;
 }
 
+@media screen and (max-width: 820px) {
+  .mobile-match-column {
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 820px) {
+  .mobile-match-column .match-item {
+    padding: 0;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
 .bet-rectangle {
   position: relative;
+}
+
+@media screen and (max-width: 820px) {
+  .bet-rectangle svg use {
+    fill: #202c35;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .bet-rectangle svg {
+    width: 100%;
+    height: auto;
+    max-height: 55px;
+  }
+}
+
+@media screen and (max-width: 820px) {
+  .bet-rectangle .bet-field,
+  .bet-rectangle span {
+    color: #cda404;
+  }
+}
+
+.single-team-info {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+@media screen and (max-width: 820px) {
+  .single-team-info {
+    padding: 0 10px;
+    max-width: 150px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .single-team-info {
+    width: 32%;
+  }
+}
+
+.single-team-info:first-child {
+  float: left;
+}
+
+@media screen and (max-width: 820px) {
+  .single-team-info:first-child {
+    float: none;
+  }
+}
+
+.single-team-info:last-child {
+  float: right;
+}
+
+@media screen and (max-width: 820px) {
+  .single-team-info:last-child {
+    float: none;
+  }
 }
 
 .flag {
@@ -11028,10 +11184,6 @@ h2 {
     background-color: #fff;
     box-shadow: 1px 2px 6px 0 rgba(0, 0, 0, 0.5);
     color: #2c3e50;
-  }
-
-  .match-item .bettings {
-    margin: 25px 0;
   }
 
   .matches-filters .form-control {
