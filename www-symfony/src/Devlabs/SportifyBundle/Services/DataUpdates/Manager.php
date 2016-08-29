@@ -41,6 +41,11 @@ class Manager
     {
         $apiMapping = $this->em->getRepository('DevlabsSportifyBundle:ApiMapping')
             ->getByEntityAndApiProvider($tournament, 'Tournament', $this->footballApi);
+
+        if (!$apiMapping) {
+            return;
+        }
+
         $apiTournamentId = $apiMapping->getApiObjectId();
 
         // fetch teams from API for given tournament

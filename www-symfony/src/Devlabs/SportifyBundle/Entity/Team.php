@@ -324,11 +324,11 @@ class Team
      */
     public function hasTeamLogo()
     {
-        $jpg_file = WEB_DIRECTORY . '/img/team_logos/team_logo_'.$this->id.'.jpg';
-        $svg_file = WEB_DIRECTORY . '/img/team_logos/team_logo_'.$this->id.'.svg';
+        $jpgFile = WEB_DIRECTORY . '/img/team_logos/team_logo_'.$this->id.'.jpg';
+        $svgFile = WEB_DIRECTORY . '/img/team_logos/team_logo_'.$this->id.'.svg';
 
-        return ( (file_exists($jpg_file) && is_file($jpg_file)) ||
-                 (file_exists($svg_file) && is_file($svg_file)) );
+        return ( (file_exists($jpgFile) && is_file($jpgFile)) ||
+                 (file_exists($svgFile) && is_file($svgFile)) );
     }
 
     /**
@@ -342,15 +342,15 @@ class Team
 
         // check if png file exists
         if (file_exists($file) && is_file($file))
-            return BASE_URL . '/img/team_logos/team_logo_'.$this->id.'.png';
+            return 'img/team_logos/team_logo_'.$this->id.'.png';
 
         // check if svg file exists
         $file = WEB_DIRECTORY . '/img/team_logos/team_logo_'.$this->id.'.svg';
 
         if (file_exists($file) && is_file($file))
-            return BASE_URL . '/img/team_logos/team_logo_'.$this->id.'.svg';
+            return 'img/team_logos/team_logo_'.$this->id.'.svg';
 
-        return BASE_URL . '/img/default.png';
+        return 'img/default.png';
     }
 
     /**
@@ -358,30 +358,28 @@ class Team
      *
      * @return string $path_to_logo
      */
-    public function setTeamLogo($image_path)
+    public function setTeamLogo($imagePath)
     {
-        $file = file_get_contents($image_path);
+        $file = file_get_contents($imagePath);
 
-        if (strpos($file, 'svg') !== FALSE)
-        {
+        if (strpos($file, 'svg') !== FALSE) {
             file_put_contents(WEB_DIRECTORY . '/img/team_logos/team_logo_' . $this->id . '.svg', $file);
-        }
-        else
-        {
+        } else {
             // create an image manager instance with favored driver
             $manager = new ImageManager();
             $image = $manager->make($file);
             $width = $image->width();
             $height = $image->height();
 
-            if ($width >= $height)
+            if ($width >= $height) {
                 $image->resize(300, null, function ($constraint) {
                     $constraint->aspectRatio();
                 });
-            else
+            } else {
                 $image->resize(null, 300, function ($constraint) {
                     $constraint->aspectRatio();
                 });
+            }
 
             $image->save(WEB_DIRECTORY . '/img/team_logos/team_logo_' . $this->id . '.png');
         }
