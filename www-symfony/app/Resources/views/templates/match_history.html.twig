@@ -17,7 +17,7 @@
                 <div class="single-match-record group">
                     <div class="single-team-info">
                         <div class="team-image left-sided">
-                            <img src="{{ match.homeTeamId.teamLogo }}" width="30" height="30" alt="{{ match.homeTeamId.name }}" />
+                            <img src="{{ asset(match.homeTeamId.teamLogo) }}" width="30" height="30" alt="{{ match.homeTeamId.name }}" />
                         </div>
                         <div class="match-item-mobile left-sided">
                             {{ match.homeTeamId.name }}
@@ -35,7 +35,7 @@
                     </div>
                     <div class="single-team-info">
                         <div class="team-image right-sided">
-                            <img src="{{ match.awayTeamId.teamLogo }}" width="30" height="30" alt="{{ match.awayTeamId.name }}" />
+                            <img src="{{ asset(match.awayTeamId.teamLogo) }}" width="30" height="30" alt="{{ match.awayTeamId.name }}" />
                         </div>
                         <div class="match-item-mobile right-sided">
                             {{ match.awayTeamId.name }}
