@@ -1,0 +1,22 @@
+<div class="row">
+    {{ form_start(form) }}
+        {{ form_row(form.id) }}
+        {{ form_row(form.action) }}
+        {{ form_row(form.entityId) }}
+        {{ form_row(form.entityType) }}
+        <div class="{{ api_name_class }}">
+            {{ form_row(form.apiName, {'attr': {'class': 'form-control' } }) }}
+        </div>
+        <div class="{{ api_object_id_class }}">
+            {{ form_row(form.apiObjectId, {'attr': {'class': 'form-control' } }) }}
+        </div>
+        <div class="{{ button_class }}">
+            {% if (form.action.vars.value == 'CREATE') %}
+                {{ form_row(form.button, {'attr': {'class': 'btn green-btn tournament-btn' } }) }}
+            {% else %}
+                {{ form_row(form.button, {'attr': {'class': 'btn yellow-btn tournament-btn' } }) }}
+            {% endif %}
+            {{ form_row(form.apiObjectId, {'attr': {'class': 'form-control' } }) }}
+        </div>
+    {{ form_end(form) }}
+</div>
