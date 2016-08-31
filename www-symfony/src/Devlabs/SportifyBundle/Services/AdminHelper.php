@@ -186,6 +186,19 @@ class AdminHelper
     }
 
     /**
+     * Method for getting the value for the prediction form's button
+     *
+     * @param $prediction
+     * @return string
+     */
+    public function getTournamentButton(Tournament $tournament)
+    {
+        return ($tournament->getId())
+            ? 'EDIT'
+            : 'CREATE';
+    }
+
+    /**
      * Method for creating Tournament Entity form
      *
      * @param Tournament $tournament
@@ -195,6 +208,7 @@ class AdminHelper
     public function createTournamentForm(Tournament $tournament, $buttonAction)
     {
         $form = $this->container->get('form.factory')->create(TournamentEntityType::class, $tournament, array(
+            'action' => $this->container->get('router')->generate('admin_tournaments_modify'),
             'button_action' => $buttonAction
         ));
 
@@ -202,16 +216,47 @@ class AdminHelper
     }
 
     /**
-     * Method for executing actions after Tournament Entity form is submitted
+     * Method for making a decision what action to execute after Tournament Entity form is submitted,
+     * based on which button is clicked
      *
      * @param Form $form
      */
     public function actionOnTournamentFormSubmit(Form $form)
     {
+        if ($form->get('button1') && $form->get('button1')->isClicked()) {
+            $this->actionOnTournamentFormSubmitButton1($form);
+        } elseif ($form->get('button2') && $form->get('button2')->isClicked()) {
+            $this->actionOnTournamentFormSubmitButton2($form);
+        }
+    }
+
+    /**
+     * Method for executing actions after Tournament Entity form is submitted via Button1 (CREATE or EDIT)
+     *
+     * @param Form $form
+     */
+    public function actionOnTournamentFormSubmitButton1(Form $form)
+    {
         $tournament = $form->getData();
 
         // prepare the queries
         $this->em->persist($tournament);
+
+        // execute the queries
+        $this->em->flush();
+    }
+
+    /**
+     * Method for executing actions after Tournament Entity form is submitted via Button2 (DELETE)
+     *
+     * @param Form $form
+     */
+    public function actionOnTournamentFormSubmitButton2(Form $form)
+    {
+        $tournament = $form->getData();
+
+        // prepare the queries
+        $this->em->remove($tournament);
 
         // execute the queries
         $this->em->flush();

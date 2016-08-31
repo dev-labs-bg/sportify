@@ -182,18 +182,25 @@ class AdminController extends Controller
         // get the filter helper service
         $adminHelper = $this->container->get('app.admin.helper');
 
-        // get Tournament object and buttonAction
-        $tournament = new Tournament();
-        $buttonAction = 'CREATE';
+        // get all tournaments
+        $tournaments = $em->getRepository('DevlabsSportifyBundle:Tournament')
+            ->findAll();
 
-        // create form for ApiMapping form and handle it
-        $form = $adminHelper->createTournamentForm($tournament, $buttonAction);
-        $form->handleRequest($request);
+        // add an 'empty' placeholder for a new tournament to be created
+        $tournaments['new'] = new Tournament();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $adminHelper->actionOnTournamentFormSubmit($form);
+        $forms = array();
 
-            return $this->redirectToRoute('admin_tournaments');
+        // creating a form for each tournament
+        foreach ($tournaments as $tournament) {
+            // get buttonAction
+            $buttonAction = $adminHelper->getTournamentButton($tournament);
+
+            // create form for ApiMapping form and handle it
+            $form = $adminHelper->createTournamentForm($tournament, $buttonAction);
+
+            // create view for each tournament's form
+            $forms[] = $form->createView();
         }
 
         // get the user's tournaments position data
@@ -205,8 +212,60 @@ class AdminController extends Controller
         return $this->render(
             'Admin/tournaments.html.twig',
             array(
-                'form' => $form->createView()
+                'tournaments' => $tournaments,
+                'forms' => $forms
             )
         );
+    }
+
+    /**
+     * @Route("/admin/tournaments/modify", name="admin_tournaments_modify")
+     */
+    public function tournamentModifyAction(Request $request)
+    {
+        // if user is not logged in, redirect to login page
+        if (!is_object($user = $this->getUser())) {
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+
+        // redirect to admin/tournaments page if the 'tournament_entity' parameter is NOT set in the POST data
+        if (!$request->request->get('tournament_entity')) {
+            return $this->redirectToRoute('admin_tournaments');
+        }
+
+        // get the admin helper service
+        $adminHelper = $this->container->get('app.admin.helper');
+
+        // Get an instance of the Entity Manager
+        $em = $this->getDoctrine()->getManager();
+
+        // set the tournament object based on whether it's new or existing one
+        if ($request->request->get('tournament_entity')['id']) {
+            $tournament = $em->getRepository('DevlabsSportifyBundle:Tournament')
+                ->findOneById($request->request->get('tournament_entity')['id']);
+        } else {
+            $tournament = new Tournament();
+        }
+
+        // create DateTime object from the datetime string in the POST request
+        $startDate = \DateTime::createFromFormat('Y-m-d', $request->request->get('tournament_entity')['startDate']);
+        $endDate = \DateTime::createFromFormat('Y-m-d', $request->request->get('tournament_entity')['endDate']);
+
+        $tournament->setName($request->request->get('tournament_entity')['name']);
+        $tournament->setStartDate($startDate);
+        $tournament->setEndDate($endDate);
+        $tournament->setNameShort($request->request->get('tournament_entity')['nameShort']);
+
+        $buttonAction = $request->request->get('tournament_entity')['action'];
+
+        $form = $adminHelper->createTournamentForm($tournament, $buttonAction);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $adminHelper->actionOnTournamentFormSubmit($form);
+        }
+
+        // clear the submitted POST data and reload the page
+        return $this->redirectToRoute('admin_tournaments');
     }
 }

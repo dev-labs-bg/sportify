@@ -58,9 +58,16 @@ class TournamentEntityType extends AbstractType
                 'data' => $this->buttonAction,
                 'mapped' => false
             ))
-            ->add('button', SubmitType::class, array(
+            ->add('button1', SubmitType::class, array(
                 'label' => $this->buttonAction
             ))
         ;
+
+        if ($this->buttonAction === 'EDIT') {
+            $builder
+                ->add('button2', SubmitType::class, array(
+                    'label' => 'DELETE'
+                ));
+        }
     }
 }
