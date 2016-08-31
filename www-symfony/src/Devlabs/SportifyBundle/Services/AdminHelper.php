@@ -9,6 +9,7 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Devlabs\SportifyBundle\Entity\ApiMapping;
 use Devlabs\SportifyBundle\Entity\Tournament;
 use Devlabs\SportifyBundle\Form\ApiMappingType;
@@ -37,20 +38,24 @@ class AdminHelper
      * @param array $options
      * @return mixed
      */
-    public function createDataUpdatesForm(array $formData = array(), array $options = array())
+    public function createDataUpdatesForm($updateType, array $choices = array(), array $options = array())
     {
+        $formData = array();
+
         // creating for select Data Update type
         $form = $this->container->get('form.factory')->createBuilder(FormType::class, $formData, $options)
-            ->add('update_type', ChoiceType::class, array(
-                'choices'  => array(
-                    'Matches (Next 7 days)' => 'matches-next7days',
-                    'Matches (Past 1 day) and Scores Update' => 'matches-past1day-and-user-scores',
-                    'Teams for all tournaments' => 'teams-all-tournaments'
-                )))
-            ->add('button', SubmitType::class, array('label' => 'Select'))
-            ->getForm();
+            ->add('update_type', HiddenType::class, array(
+                'label' => false,
+                'data' => $updateType
+            ));
 
-        return $form;
+        if ($choices) {
+            $form->add('days', ChoiceType::class, array('choices' => $choices));
+        }
+
+        $form->add('button', SubmitType::class, array('label' => 'Update'));
+
+        return $form->getForm();
     }
 
     /**
@@ -65,20 +70,20 @@ class AdminHelper
         $dataUpdatesManager = $this->container->get('app.data_updates.manager');
         $slackNotify = false;
 
-        if ($data['update_type'] === 'matches-next7days') {
-            // set dateFrom and dateTo to respectively today and 1 week on
+        if ($data['update_type'] === 'matches-fixtures') {
+            // set dateFrom and dateTo to respectively today and 'number of days' on
             $dateFrom = date("Y-m-d");
-            $dateTo = date("Y-m-d", time() + (3600 * 24 * 7));
+            $dateTo = date("Y-m-d", time() + (3600 * 24 * $data['days']));
             $status = $dataUpdatesManager->updateFixtures($dateFrom, $dateTo);
 
             if ($status['total_added'] > 0) {
                 $slackNotify = true;
-                $slackText = 'Match fixtures added for next 7 days. '
+                $slackText = 'Match fixtures added for next '.$data['days'].' days. '
                     .$status['total_added'].' fixtures added.';
             }
-        } else if ($data['update_type'] === 'matches-past1day-and-user-scores') {
-            // set dateFrom and dateTo to respectively yesterday and today
-            $dateFrom = date("Y-m-d", time() - (3600 * 24 * 1));
+        } else if ($data['update_type'] === 'matches-results') {
+            // set dateFrom and dateTo to respectively 'number of days' before and today
+            $dateFrom = date("Y-m-d", time() - (3600 * 24 * $data['days']));
             $dateTo = date("Y-m-d");
             $status = $dataUpdatesManager->updateFixtures($dateFrom, $dateTo);
 

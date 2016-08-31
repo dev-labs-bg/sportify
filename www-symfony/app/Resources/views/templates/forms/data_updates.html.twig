@@ -1,0 +1,13 @@
+{{ form_start(form) }}
+    {{ form_row(form.update_type) }}
+
+    {% if days_class is defined %}
+        <div class="{{ days_class }}">
+            {{ form_row(form.days, {'attr': {'class': 'form-control' } }) }}
+        </div>
+    {% endif %}
+
+    <div class="col-sm-2 text-center">
+        {{ form_row(form.button, {'attr': {'class': 'btn green-btn history-filter' } }) }}
+    </div>
+{{ form_end(form) }}

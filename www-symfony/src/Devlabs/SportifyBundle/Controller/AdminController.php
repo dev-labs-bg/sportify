@@ -51,11 +51,85 @@ class AdminController extends Controller
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
 
+        // get the user's tournaments position data
+        $userScores = $em->getRepository('DevlabsSportifyBundle:Score')
+            ->getByUser($user);
+        $this->container->get('twig')->addGlobal('user_scores', $userScores);
+
+        // rendering the view and returning the response
+        return $this->render('Admin/data_updates_index.html.twig');
+    }
+
+    /**
+     * @Route("/admin/data_updates/match_fixtures", name="admin_data_updates_match_fixtures")
+     */
+    public function matchFixturesUpdateAction(Request $request)
+    {
+        $updateType = 'matches-fixtures';
+        $choices = array(
+            'Next 3 days' => 3,
+            'Next 5 days' => 5,
+            'Next 7 days' => 7,
+            'Next 2 weeks' => 14
+        );
+        $viewTemplate = 'Admin/data_updates_match_fixtures.html.twig';
+
+        return $this->dataUpdatesTemplate($request, $updateType, $choices, $viewTemplate);
+    }
+
+    /**
+     * @Route("/admin/data_updates/match_results", name="admin_data_updates_match_results")
+     */
+    public function matchResultsUpdateAction(Request $request)
+    {
+        $updateType = 'matches-results';
+        $choices = array(
+            'Past 1 day' => 1,
+            'Past 3 days' => 3,
+            'Past 7 days' => 7,
+            'Past 2 weeks' => 14
+        );
+        $viewTemplate = 'Admin/data_updates_match_results.html.twig';
+
+        return $this->dataUpdatesTemplate($request, $updateType, $choices, $viewTemplate);
+    }
+
+    /**
+     * @Route("/admin/data_updates/teams", name="admin_data_updates_teams")
+     */
+    public function teamsUpdateAction(Request $request)
+    {
+        $updateType = 'teams-all-tournaments';
+        $choices = array();
+        $viewTemplate = 'Admin/data_updates_teams.html.twig';
+
+        return $this->dataUpdatesTemplate($request, $updateType, $choices, $viewTemplate);
+    }
+
+    /**
+     * Template method for DataUpdates action methods
+     *
+     * @param Request $request
+     * @param $updateType
+     * @param $choices
+     * @param $viewTemplate
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    private function dataUpdatesTemplate(Request $request, $updateType, $choices, $viewTemplate)
+    {
+        // if user is not logged in, redirect to login page
+        if (!is_object($user = $this->getUser())) {
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+
+        // Get an instance of the Entity Manager
+        $em = $this->getDoctrine()->getManager();
+
         // get the filter helper service
         $adminHelper = $this->container->get('app.admin.helper');
 
         // create form for Data Update type select and handle it
-        $form = $adminHelper->createDataUpdatesForm();
+        $form = $adminHelper->createDataUpdatesForm($updateType, $choices);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -71,7 +145,7 @@ class AdminController extends Controller
 
         // rendering the view and returning the response
         return $this->render(
-            'Admin/data_updates.html.twig',
+            $viewTemplate,
             array(
                 'form' => $form->createView()
             )
