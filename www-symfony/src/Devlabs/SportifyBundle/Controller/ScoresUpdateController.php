@@ -25,12 +25,18 @@ class ScoresUpdateController extends Controller
         }
 
         // Get the ScoreUpdater service and update all scores
-        $this->get('app.score_updater')->updateAll();
+        $tournamentsModified = $this->get('app.score_updater')->updateAll();
 
-        // Get instance of the Slack service and send notification
-        $this->get('app.slack')
-            ->setText('<@channel>: Match results and standings updated.')
-            ->post();
+        if (count($tournamentsModified) > 0) {
+            $slackText = 'Match results and standings updated for tournament(s):';
+
+            foreach ($tournamentsModified as $tournament) {
+                $slackText = $slackText . "\n" . $tournament->getName();
+            }
+
+            // Get instance of the Slack service and send notification
+            $this->get('app.slack')->setText($slackText)->post();
+        }
 
         // redirect to the Home page
         return $this->redirectToRoute('home');

@@ -101,4 +101,20 @@ class Manager
 
         return $status;
     }
+
+    /**
+     * Method for getting a list of all tournaments from API
+     *
+     * @return mixed
+     */
+    public function getTournaments()
+    {
+        // fetch tournaments from API
+        $fetchedTournaments = $this->dataFetcher->fetchAllTournaments();
+
+        // parse the fetched data
+        $parsedTournaments = $this->dataParser->parseTournaments($fetchedTournaments);
+
+        return $parsedTournaments;
+    }
 }

@@ -7,9 +7,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class ApiMappingType extends AbstractType
+class TournamentEntityType extends AbstractType
 {
     protected $buttonAction;
 
@@ -19,7 +20,7 @@ class ApiMappingType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Devlabs\SportifyBundle\Entity\ApiMapping',
+            'data_class' => 'Devlabs\SportifyBundle\Entity\Tournament',
             'button_action' => null
         ));
     }
@@ -36,16 +37,21 @@ class ApiMappingType extends AbstractType
             ->add('id', HiddenType::class, array(
                 'label' => false
             ))
-            ->add('entityId', HiddenType::class, array(
+            ->add('name', TextType::class, array(
                 'error_bubbling' => true
             ))
-            ->add('entityType', HiddenType::class, array(
+            ->add('startDate', DateType::class, array(
+                'widget' => 'single_text',
                 'error_bubbling' => true
             ))
-            ->add('apiName', TextType::class, array(
+            ->add('endDate', DateType::class, array(
+                'widget' => 'single_text',
                 'error_bubbling' => true
             ))
-            ->add('apiObjectId', TextType::class, array(
+            ->add('nameShort', TextType::class, array(
+                'error_bubbling' => true
+            ))
+            ->add('championTeamId', HiddenType::class, array(
                 'error_bubbling' => true
             ))
             ->add('action', HiddenType::class, array(

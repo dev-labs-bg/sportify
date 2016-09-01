@@ -1,0 +1,54 @@
+<div class="tournament">
+    <div class="row">
+        {{ form_start(form) }}
+            {{ form_errors(form) }}
+            {{ form_row(form.id) }}
+            {{ form_row(form.action) }}
+            {{ form_row(form.championTeamId, {'attr': {'class': 'form-control' } }) }}
+            <div class="col-lg-2 col-md-2 tournament-item">
+                <div class="row">
+                    <div class="col-lg-12 mobile-heading">Name</div>
+                    <div class="col-lg-12">{{ form_row(form.name, {'attr': {'class': 'form-control' } }) }}</div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-xs-6 tournament-item">
+                <div class="row">
+                    <div class="col-lg-12 mobile-heading">Starts</div>
+                    <div class="col-lg-12">{{ form_row(form.startDate, {'attr': {'class': 'form-control' } }) }}</div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-xs-6 tournament-item">
+                <div class="row">
+                    <div class="col-lg-12 mobile-heading">Ends</div>
+                    <div class="col-lg-12">{{ form_row(form.endDate, {'attr': {'class': 'form-control' } }) }}</div>
+                </div>
+            </div>
+            <div class="col-lg-1 col-md-1 tournament-item">
+                <div class="row">
+                    <div class="col-lg-12 mobile-heading">Short name</div>
+                    <div class="col-lg-12">{{ form_row(form.nameShort, {'attr': {'class': 'form-control' } }) }}</div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 tournament-item">
+                <div class="row">
+                    <div class="col-lg-12">
+                    {% if (form.action.vars.value == 'CREATE') %}
+                        {{ form_row(form.button1, {'attr': {'class': 'btn green-btn tournament-btn' } }) }}
+                    {% else %}
+                        {{ form_row(form.button1, {'attr': {'class': 'btn yellow-btn tournament-btn' } }) }}
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 tournament-item">
+                <div class="row">
+                    <div class="col-lg-12">
+                    {% if (form.action.vars.value == 'EDIT') %}
+                        {{ form_row(form.button2, {'attr': {'class': 'btn yellow-btn tournament-btn' } }) }}
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+        {{ form_end(form) }}
+    </div>
+</div>
