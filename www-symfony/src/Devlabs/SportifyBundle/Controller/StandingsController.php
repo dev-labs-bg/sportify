@@ -45,6 +45,15 @@ class StandingsController extends Controller
                 ->findOneById($tournament_id);
         }
 
+        /**
+         * If expected data for 'tournament_selected' is not valid, get the first tournament.
+         * (usually happens when invalid 'tournament id' is passed)
+         */
+        if (!$formSourceData['tournament_selected']) {
+            $formSourceData['tournament_selected'] = $em->getRepository('DevlabsSportifyBundle:Tournament')
+                ->getFirst();
+        }
+
         // get all tournaments as source data for form choices
         $formSourceData['tournament_choices'] = $em->getRepository('DevlabsSportifyBundle:Tournament')
             ->findAll();
