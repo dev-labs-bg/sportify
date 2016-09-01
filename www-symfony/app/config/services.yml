@@ -21,7 +21,7 @@ services:
             - { name: form.type, alias: app_user_changepassword }
     app.slack:
         class: Devlabs\SportifyBundle\Services\Slack
-        arguments: ['%slack.url%', '%slack.channel%']
+        arguments: ['@service_container', '%slack.url%', '%slack.channel%']
 
     app.score_updater:
         class: Devlabs\SportifyBundle\Services\ScoreUpdater

@@ -8469,15 +8469,6 @@ h2 {
     box-shadow: none;
   }
 
-  .match-item-mobile {
-    text-align: center;
-    padding: 10px;
-    border-radius: 9px;
-    background-color: #fff;
-    box-shadow: 1px 2px 6px 0 rgba(0, 0, 0, 0.5);
-    color: #2c3e50;
-  }
-
   .match-item .bettings {
     margin: 25px 0;
   }

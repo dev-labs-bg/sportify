@@ -59,11 +59,18 @@
                             <li {% if app.request.attributes.get('_route') == 'tournaments_index'%}class="active"{% endif %}>
                                 <a class="tournaments" href="{{ path('tournaments_index') }}">Tournaments</a>
                             </li>
-                            <li {% if app.request.attributes.get('_route') == 'champion_index'%}class="active"{% endif %}>
-                                <a class="champion" href="{{ path('champion_index') }}">Champion</a>
-                            </li>
-                            <li {% if app.request.attributes.get('_route') == 'matches_index'%}class="active"{% endif %}>
-                                <a class="matches" href="{{ path('matches_index') }}">Matches</a>
+                            <li class="has-submenu {% if (app.request.attributes.get('_route') == 'champion_index' or app.request.attributes.get('_route') == 'matches_index') %}active{% endif %}">
+                                <a class="matches" href="javascript:;">Predictions</a>
+                                <nav class="sub-menu">
+                                    <ul>
+                                        <li {% if app.request.attributes.get('_route') == 'champion_index'%}class="active"{% endif %}>
+                                            <a class="champion" href="{{ path('champion_index') }}">Champion</a>
+                                        </li>
+                                        <li {% if app.request.attributes.get('_route') == 'matches_index'%}class="active"{% endif %}>
+                                            <a class="matches" href="{{ path('matches_index') }}">Matches</a>
+                                        </li>       
+                                    </ul>
+                                </nav>
                             </li>
                             <li {% if app.request.attributes.get('_route') == 'standings_index'%}class="active"{% endif %}>
                                 <a class="standings" href="{{ path('standings_index') }}">Standings</a>
@@ -121,11 +128,18 @@
                                         <li {% if app.request.attributes.get('_route') == 'tournaments_index'%}class="active"{% endif %}>
                                             <a class="tournaments" href="{{ path('tournaments_index') }}">Tournaments</a>
                                         </li>
-                                        <li {% if app.request.attributes.get('_route') == 'champion_index'%}class="active"{% endif %}>
-                                            <a class="champion" href="{{ path('champion_index') }}">Champion</a>
-                                        </li>
-                                        <li {% if app.request.attributes.get('_route') == 'matches_index'%}class="active"{% endif %}>
-                                            <a class="matches" href="{{ path('matches_index') }}">Matches</a>
+                                        <li class="has-submenu {% if (app.request.attributes.get('_route') == 'champion_index' or app.request.attributes.get('_route') == 'matches_index') %}active{% endif %}">
+                                            <a href="javascript:;">Predictions</a>
+                                            <nav class="sub-menu">
+                                                <ul>
+                                                    <li {% if app.request.attributes.get('_route') == 'champion_index'%}class="active"{% endif %}>
+                                                        <a class="champion" href="{{ path('champion_index') }}">Champion</a>
+                                                    </li>
+                                                    <li {% if app.request.attributes.get('_route') == 'matches_index'%}class="active"{% endif %}>
+                                                        <a class="matches" href="{{ path('matches_index') }}">Matches</a>
+                                                    </li>       
+                                                </ul>
+                                            </nav>
                                         </li>
                                         <li {% if app.request.attributes.get('_route') == 'standings_index'%}class="active"{% endif %}>
                                             <a class="standings" href="{{ path('standings_index') }}">Standings</a>

@@ -4,6 +4,8 @@ namespace Devlabs\SportifyBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Routing\RequestContext;
+use Intervention\Image\ImageManager;
 
 /**
  * @ORM\Entity(repositoryClass="Devlabs\SportifyBundle\Entity\TeamRepository")
@@ -55,6 +57,11 @@ class Team
      * @ORM\OneToMany(targetEntity="Match" , mappedBy="awayTeamId" , cascade={"all"})
      */
     private $matchesAwayTeam;
+
+    /**
+     * Team logo
+     */
+    private $teamLogo;
 
     /**
      * Constructor
@@ -308,5 +315,75 @@ class Team
     public function getTournaments()
     {
         return $this->tournaments;
+    }
+
+    /**
+     * Check if the team already has a logo
+     *
+     * @return bool $has_logo
+     */
+    public function hasTeamLogo()
+    {
+        $jpgFile = WEB_DIRECTORY . '/img/team_logos/team_logo_'.$this->id.'.jpg';
+        $svgFile = WEB_DIRECTORY . '/img/team_logos/team_logo_'.$this->id.'.svg';
+
+        return ( (file_exists($jpgFile) && is_file($jpgFile)) ||
+                 (file_exists($svgFile) && is_file($svgFile)) );
+    }
+
+    /**
+     * Get Team Logo
+     *
+     * @return string $path_to_logo
+     */
+    public function getTeamLogo()
+    {
+        $file = WEB_DIRECTORY . '/img/team_logos/team_logo_'.$this->id.'.png';
+
+        // check if png file exists
+        if (file_exists($file) && is_file($file))
+            return 'img/team_logos/team_logo_'.$this->id.'.png';
+
+        // check if svg file exists
+        $file = WEB_DIRECTORY . '/img/team_logos/team_logo_'.$this->id.'.svg';
+
+        if (file_exists($file) && is_file($file))
+            return 'img/team_logos/team_logo_'.$this->id.'.svg';
+
+        return 'img/default.png';
+    }
+
+    /**
+     * Set Team Logo
+     *
+     * @return string $path_to_logo
+     */
+    public function setTeamLogo($imagePath)
+    {
+        $file = file_get_contents($imagePath);
+
+        if (strpos($file, 'svg') !== FALSE) {
+            file_put_contents(WEB_DIRECTORY . '/img/team_logos/team_logo_' . $this->id . '.svg', $file);
+        } else {
+            // create an image manager instance with favored driver
+            $manager = new ImageManager();
+            $image = $manager->make($file);
+            $width = $image->width();
+            $height = $image->height();
+
+            if ($width >= $height) {
+                $image->resize(300, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+            } else {
+                $image->resize(null, 300, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+            }
+
+            $image->save(WEB_DIRECTORY . '/img/team_logos/team_logo_' . $this->id . '.png');
+        }
+
+        return $this;
     }
 }

@@ -53,9 +53,18 @@ class Importer
                 $this->em->persist($team);
                 $this->em->flush();
 
+                $team->setTeamLogo($teamData['team_logo']);
+
                 // create API mapping for this object
                 $this->createApiMapping($team, 'Team', $footballApi, $apiObjectId);
+            } else {
+                $team = $this->em->getRepository('DevlabsSportifyBundle:Team')
+                    ->find($apiMapping->getEntityId());
+
+                if (!$team->hasTeamLogo())
+                    $team->setTeamLogo($teamData['team_logo']);
             }
+
         }
     }
 

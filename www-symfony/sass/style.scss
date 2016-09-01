@@ -16,13 +16,123 @@ body, html {
 ul, li {
     font-size: 16px;
 }
+.group {
+    display: block;
+    clear: both;
+}
+.group:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both; 
+    height: 0;
+}
 .nav .open {
 
     a, a:hover, a:focus {
         background-color: transparent;
     }
 }
+.single-match-record {
+    position: relative;
 
+    @media screen and (max-width: 820px) {
+        background: #fff;
+    }
+    @media screen and (max-width: 470px) {
+        padding: 20px 0;
+    }
+}
+.team-image {
+    position: absolute;
+    top: -30px;
+    background: #fff;
+    border-radius: 50px;
+    width: 100px;
+    height: 100px;
+
+    @media screen and (max-width: 1040px) {
+        width: 85px;
+        height: 85px;
+        top: -24px;
+    }
+    @media screen and (max-width: 820px) {
+        position: static;
+        margin: 0 auto;
+    }
+    @media screen and (max-width: 470px) {
+        width: 100%;
+    }
+
+    &.left-sided {
+        left: -70px;
+
+        @media screen and (max-width: 1040px) {
+            left: -30px;
+        }
+    }
+    &.right-sided {
+        right: -70px;
+
+        @media screen and (max-width: 1040px) {
+            right: -30px;
+        }
+    }
+
+    img {
+        width: auto;
+        height: auto;
+        max-width: 70px;
+        max-height: 70px;
+        margin-top: 15px;
+
+        @media screen and (max-width: 1040px) {
+            max-width: 62px;
+            max-height: 62px;
+            margin-top: 10px;
+        }
+        @media screen and (max-width: 820px) {
+            max-width: 100%;
+            max-height: 100%;
+            margin: 0;
+        }
+    }
+}
+body .match-item-mobile {
+    padding: 0;
+    line-height: 40px;
+
+    @media screen and (max-width: 820px) {
+        box-shadow: none;
+        line-height: 25px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    @media screen and (max-width: 400px) {
+        font-size: 10px;
+    }
+
+    &.left-sided {
+        float: left;
+        margin-left: 55px;
+
+        @media screen and (max-width: 820px) {
+            float: none;
+            margin-left: 0;
+        }
+    }
+    &.right-sided {
+        float: right;
+        margin-right: 55px;
+
+        @media screen and (max-width: 820px) {
+            float: none;
+            margin-right: 0;
+        }
+    }
+}
 .page-content-wrapper {
     position: relative;
     width: 100%;
@@ -188,11 +298,22 @@ ul, li {
     margin: 0;
     padding: 0;
     list-style: none;
+
     li {
         position: relative;
         line-height: 20px;
         display: inline-block;
         width: 100%;
+
+        &.active, &.open {
+
+            > a {
+                color: #fff;
+                text-decoration: none;
+                background-color: rgba(0,0,0,.12);
+            }
+        }
+
         a {
             display: block;
             color: #fff;
@@ -201,23 +322,18 @@ ul, li {
             font-size: 16px;
             font-weight: 700;
             text-transform: uppercase;
+
             &:hover, &:active, &:focus {
                 color: #fff;
                 text-decoration: none;
                 background-color: rgba(0,0,0,.12);
             }
-        }
-        a.sportify-logo {
-            cursor: pointer;
-            &:hover {
-                background: rgba(0,0,0,0);
-            }
-        }
-        &.active, &.open {
-            a {
-                color: #fff;
-                text-decoration: none;
-                background-color: rgba(0,0,0,.12);
+            &.sportify-logo {
+                cursor: pointer;
+
+                &:hover {
+                    background: rgba(0,0,0,0);
+                }
             }
         }
     }
@@ -317,6 +433,58 @@ ul, li {
 .signup {
     background: url(../img/signup.svg) no-repeat 15px center;
 }
+body ul li.has-submenu {
+
+    > a {
+        background: none;
+
+        &:after {
+            background: url(../img/arrow.svg) no-repeat 0 0;
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 13px;
+            width: 30px;
+            height: 30px;
+            -webkit-transform: rotate(90deg);
+            -moz-transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+            -o-transform: rotate(90deg);
+            transform: rotate(90deg);
+        }
+    }
+
+    @media screen and (max-width: 820px) {
+
+        > a {
+            display: none;
+        }
+    }
+
+    &:hover {
+
+        .sub-menu {
+            max-height: 300px;
+        }
+    }
+}
+.sub-menu {
+    transition: all 0.4s linear;
+    max-height: 0;
+    overflow: hidden;
+
+    @media screen and (max-width: 820px) {
+        max-height: 300px;
+    }
+
+    ul {
+        padding-left: 15px;
+
+        @media screen and (max-width: 820px) {
+            padding: 0;
+        }
+    }
+}
 .hamburger {
     margin: 1px 9px;
     background: none;
@@ -356,6 +524,7 @@ header .navbar-default {
     }
 }
 .navbar-default .navbar-nav {
+
     li {
         a {
             color: #fff;
@@ -363,9 +532,11 @@ header .navbar-default {
         a:focus, a:hover {
             color: #fff;
             background-color: rgba(0,0,0,.2);
+            text-decoration: none;
         }
         &.active {
-            a,a:focus, a:hover {
+
+            > a, a:focus, a:hover {
                 color: #fff;
                 background-color: rgba(0,0,0,.2);
             }
@@ -376,10 +547,14 @@ header .navbar-default {
 .mobile-menu {
     background: #4caf50;
     color: #fff;
+
     li a {
         font-size: 15px;
         padding-left: 60px;
         text-transform: uppercase;
+        display: block;
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
 }
 .navbar h1, h1 {
@@ -565,6 +740,7 @@ h2 {
     }
 }
 .matches-filters, .champion-page {
+
     .form-control, input[type="date"].form-control {
         appearance: none;
         -moz-appearance: none;
@@ -574,6 +750,12 @@ h2 {
         padding: 10px 25px;
         border-radius: 100px;
         background: #fff;
+
+        @media screen and (max-width: 820px) {
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
     }
     label {
         color: rgba(255, 255, 255, .3);
@@ -585,18 +767,35 @@ h2 {
     .green-btn, .yellow-btn {
         padding: 6px 40px;
         margin: 0;
+
         &.history-filter {
             min-width: 130px;
             margin-top: 45px;
         }
     }
 }
+.filter-form-container {
+
+    @media screen and (max-width: 820px) {
+        text-align: center;
+    }
+}
 .matches-filters {
     padding-top: 0;
     padding-bottom: 20px;
     background: rgba(29, 41, 54, .7);
+
     .green-btn {
         float: left;
+    }
+    .chosen-container {
+
+        @media screen and (max-width: 820px) {
+            max-width: 300px;
+        }
+        @media screen and (max-width: 340px) {
+            max-width: 100%;
+        }
     }
 }
 .champion-page {
@@ -663,26 +862,50 @@ h2 {
         font-weight: 900;
         font-size: 14px;
         text-transform: uppercase;
+
         &-mobile {
             padding: 6px 5px;
         }
+
         .bettings {
-            text-align: center;
-            position: relative;
             z-index: 1;
             font-size: 16px;
-            .bet-rectangle {
-                position: absolute;
-                width: 100%;
-                left: 0;
-                top: -28px;
-                z-index: -1;
+            position: absolute;
+            left: 50%;
+            width: 158px;
+            height: 87px;
+            margin-left: -79px;
+            top: -22px;
+
+            @media screen and (max-width: 820px) {
+                display: inline-block;
+                vertical-align: middle;
+                position: static;
+                width: auto;
+                height: auto;
+                margin: 25px 0;
             }
+            @media screen and (max-width: 470px) {
+                width: 32%;
+            }
+
             .bet-form {
+                position: absolute;
+                top: 23px;
+                left: 35px;
+
+                &.not-filled {
+
+                    .bet-field {
+                        background-color: #2c3e50;
+                        box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, .5);
+                        color: #fff;
+                    }
+                }
+                
                 div {
                     display: inline-block;
                 }
-                z-index: 1;
                 .bet-field {
                     width: 40px;
                     height: 35px;
@@ -690,17 +913,24 @@ h2 {
                     text-align: center;
                     padding: 3px;
                     box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, .5);
-                }
-                &.not-filled {
-                    .bet-field {
-                        background-color: #2c3e50;
-                        box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, .5);
-                        color: #fff;
+                    color: #2c3e50;
+
+                    @media screen and (max-width: 340px) {
+                        width: 30px;
+                        height: 30px;
                     }
                 }
             }
             .bet-results {
                 text-shadow: 0 1px 3px rgba(0, 0, 0, .2);
+                position: absolute;
+                top: 27px;
+                left: 43px;
+
+                @media screen and (max-width: 470px) {
+                    position: static;
+                    margin-top: -45px;
+                }
 
                 .bet-field {
                     width: 30px;
@@ -886,11 +1116,103 @@ h2 {
         color: #fb1717 !important;
     }
 }
+.mobile-match-column {
+
+    @media screen and (max-width: 820px) {
+        padding: 0;
+    }
+
+    .match-item {
+
+        @media screen and (max-width: 820px) {
+            padding: 0;
+            margin-left: 0;
+            margin-right: 0;
+            width: 100%;
+            max-width: 100%;
+        }
+    }
+}
+.predictions {
+
+    .bet-rectangle {
+
+        svg {
+
+            @media screen and (max-width: 470px) {
+                display: none;
+            }
+        }
+        .bet-form {
+
+            @media screen and (max-width: 470px) {
+                position: static;
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+    }
+}
+.bet-rectangle {
+    position: relative;
+
+    svg {
+
+        @media screen and (max-width: 820px) {
+            
+            use {
+                fill: #202c35;
+            }
+        }
+        @media screen and (max-width: 470px) {
+            width: 100%;
+            height: auto;
+            max-height: 55px;
+        }
+    }
+    .bet-field, span {
+
+        @media screen and (max-width: 820px) {
+            color: #cda404;
+        }
+    }
+}
+.single-team-info {
+    display: inline-block;
+    vertical-align: middle;
+
+    @media screen and (max-width: 820px) {
+        padding: 0 10px;
+        width: 150px;
+    }
+    @media screen and (max-width: 500px) {
+        max-width: 150px;
+        width: auto;
+    }
+    @media screen and (max-width: 470px) {
+        width: 32%;
+    }
+
+    &:first-child {
+        float: left;
+
+        @media screen and (max-width: 820px) {
+            float: none;
+        }
+    }
+    &:last-child {
+        float: right;
+
+        @media screen and (max-width: 820px) {
+            float: none;
+        }
+    }
+}
 .flag {
     height: 21px;
     width: 28px;
-    //box-shadow: 1px 2px 6px 0 rgba(0, 0, 0, 0.5);
     display: inline-block;
+
     &-icon {
         line-height: 1.4;
     }
@@ -975,6 +1297,7 @@ h2 {
 .flag-icon-cry {
     background-image: url(../img/flags/CRY.png);
 }
+
 @media screen and (max-width: 1367px){
     .match-item {
         font-size: 13px;
@@ -1001,7 +1324,8 @@ h2 {
         }
     }
 }
-@media screen and (max-width: 767px){
+@media screen and (max-width: 820px){
+
     .sportify-logo-mobile {
         display: block;
         margin: 0 auto;
@@ -1014,11 +1338,13 @@ h2 {
     }
     .wrapper.toggled {
         padding-left: 0;
+
         .page-content-wrapper {
             position: relative;
             margin-right: 0;
             padding-left: 0;
             margin-left: 0;
+
             .navbar-default {
                 padding-left: 0;
             }
@@ -1048,9 +1374,11 @@ h2 {
         background: #388e3c;
     }
     .match {
+
         &-item {
             background: none;
             box-shadow: none;
+
             &-mobile {
                 text-align: center;
                 padding: 10px;
@@ -1059,17 +1387,12 @@ h2 {
                 box-shadow: 1px 2px 6px 0 rgba(0, 0, 0, .5);
                 color: #2c3e50;
             }
-            .bettings {
-                margin: 25px 0;
-                .bet-rectangle {
-                    top: -24px;
-                }
-            }
         }
     }
     .matches-filters {
+
         .form-control {
-            margin: 10px 0;
+            margin: 10px auto;
         }
         .green-btn {
             float: none;
@@ -1080,7 +1403,9 @@ h2 {
     }
     .results-slider {
         height: 60px;
+
         .current-results-slider .slider-item {
+
             .result-info .title {
                 padding: 0;
             }
@@ -1089,13 +1414,13 @@ h2 {
                 height: 40px;
                 line-height: 40px;
                 margin: 0 10px;
+
                 img {
                     max-width: 30px;
                     max-height: 30px;
                 }
             }
         }
-
     }
 
     .flag {

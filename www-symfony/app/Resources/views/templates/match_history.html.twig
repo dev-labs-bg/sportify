@@ -12,26 +12,34 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-12">
+        <div class="col-lg-12 mobile-match-column">
             <div class="match-item">
-                <div class="row">
-                    <div class="col-sm-4 match-item-mobile">
-                        <span class="pull-left flag flag-icon flag-icon-{{ match.homeTeamId.nameShort|lower }}"></span>
-                        {{ match.homeTeamId.name }}
+                <div class="single-match-record group">
+                    <div class="single-team-info">
+                        <div class="team-image left-sided">
+                            <img src="{{ asset(match.homeTeamId.teamLogo) }}" width="30" height="30" alt="{{ match.homeTeamId.name }}" />
+                        </div>
+                        <div class="match-item-mobile left-sided">
+                            {{ match.homeTeamId.name }}
+                        </div>
                     </div>
-                    <div class="col-sm-4 bettings">
+                    <div class="bettings">
                         <div class="bet-rectangle">
                             {% include 'img/result-rectangle.svg' %}
-                        </div>
-                        <div class="bet-results">
-                            <div class="bet-field">{{ match.homeGoals }}</div>
-                            <span>:</span>
-                            <div class="bet-field">{{ match.awayGoals }}</div>
+                            <div class="bet-results">
+                                <div class="bet-field">{{ match.homeGoals }}</div>
+                                <span>:</span>
+                                <div class="bet-field">{{ match.awayGoals }}</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-4 match-item-mobile">
-                        {{ match.awayTeamId.name }}
-                        <span class="pull-right flag flag-icon flag-icon-{{ match.awayTeamId.nameShort|lower }}"></span>
+                    <div class="single-team-info">
+                        <div class="team-image right-sided">
+                            <img src="{{ asset(match.awayTeamId.teamLogo) }}" width="30" height="30" alt="{{ match.awayTeamId.name }}" />
+                        </div>
+                        <div class="match-item-mobile right-sided">
+                            {{ match.awayTeamId.name }}
+                        </div>
                     </div>
                 </div>
             </div>

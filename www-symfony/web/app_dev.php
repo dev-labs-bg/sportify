@@ -18,11 +18,14 @@ if (isset($_SERVER['HTTP_CLIENT_IP'])
     exit('You are not allowed to access this file. Check '.basename(__FILE__).' for more information.');
 }
 
+
 /**
  * @var Composer\Autoload\ClassLoader $loader
  */
 $loader = require __DIR__.'/../app/autoload.php';
 Debug::enable();
+
+define('WEB_DIRECTORY', __DIR__);
 
 $kernel = new AppKernel('dev', true);
 $kernel->loadClassCache();
