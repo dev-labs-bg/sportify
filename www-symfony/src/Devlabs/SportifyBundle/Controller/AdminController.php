@@ -2,6 +2,7 @@
 
 namespace Devlabs\SportifyBundle\Controller;
 
+use Devlabs\SportifyBundle\Entity\ApiMapping;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -74,7 +75,7 @@ class AdminController extends Controller
         );
         $viewTemplate = 'Admin/data_updates_match_fixtures.html.twig';
 
-        return $this->dataUpdatesTemplate($request, $updateType, $choices, $viewTemplate);
+        return $this->dataUpdatesActionTemplate($request, $updateType, $choices, $viewTemplate);
     }
 
     /**
@@ -91,7 +92,7 @@ class AdminController extends Controller
         );
         $viewTemplate = 'Admin/data_updates_match_results.html.twig';
 
-        return $this->dataUpdatesTemplate($request, $updateType, $choices, $viewTemplate);
+        return $this->dataUpdatesActionTemplate($request, $updateType, $choices, $viewTemplate);
     }
 
     /**
@@ -103,7 +104,7 @@ class AdminController extends Controller
         $choices = array();
         $viewTemplate = 'Admin/data_updates_teams.html.twig';
 
-        return $this->dataUpdatesTemplate($request, $updateType, $choices, $viewTemplate);
+        return $this->dataUpdatesActionTemplate($request, $updateType, $choices, $viewTemplate);
     }
 
     /**
@@ -115,7 +116,7 @@ class AdminController extends Controller
      * @param $viewTemplate
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    private function dataUpdatesTemplate(Request $request, $updateType, $choices, $viewTemplate)
+    private function dataUpdatesActionTemplate(Request $request, $updateType, $choices, $viewTemplate)
     {
         // if user is not logged in, redirect to login page
         if (!is_object($user = $this->getUser())) {
@@ -153,14 +154,9 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/api_mappings/{tournament_id}",
-     *     name="admin_api_mappings",
-     *     defaults={
-     *      "tournament_id" = "empty"
-     *     }
-     * )
+     * @Route("/admin/api_mappings", name="admin_api_mappings")
      */
-    public function apiMappingAction(Request $request, $tournament_id)
+    public function apiMappingAction()
     {
         // if user is not logged in, redirect to login page
         if (!is_object($user = $this->getUser())) {
@@ -170,56 +166,30 @@ class AdminController extends Controller
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
 
-        $urlParams['tournament_id'] = $tournament_id;
-
-        // get all tournaments as source data for form choices
-        $formSourceData['tournament_choices'] = $em->getRepository('DevlabsSportifyBundle:Tournament')
-            ->findAll();
-
-        /**
-         * Set first joined tournament as selected if URL param is 'empty'
-         * or get the tournament by the URL tournament_id value
-         */
-        $formSourceData['tournament_selected'] = ($tournament_id === 'empty')
-            ? $formSourceData['tournament_choices'][0]
-            : $em->getRepository('DevlabsSportifyBundle:Tournament')->findOneById($tournament_id);
-
-        // get the filter helper service
-        $filterHelper = $this->container->get('app.filter.helper');
-
-        // set the fields for the filter form
-        $fields = array('tournament');
-
-        // set the input data for the filter form and create it
-        $formInputData = $filterHelper->getFormInputData($request, $urlParams, $fields, $formSourceData);
-        $filterForm = $filterHelper->createForm($fields, $formInputData);
-        $filterForm->handleRequest($request);
-
-        // if the filter form is submitted, redirect with appropriate url path parameters
-        if ($filterForm->isSubmitted() && $filterForm->isValid()) {
-            $submittedParams = $filterHelper->actionOnFormSubmit($filterForm, $fields);
-
-            return $this->redirectToRoute('admin_api_mappings', $submittedParams);
-        }
-
         // get the filter helper service
         $adminHelper = $this->container->get('app.admin.helper');
 
-        // get the ApiMapping object and buttonAction
-        $apiMapping = $adminHelper->getApiMapping(
-            $formSourceData['tournament_selected'],
-            $this->container->getParameter('football_api.name')
-        );
-        $buttonAction = $adminHelper->getApiMappingButtonAction($apiMapping);
+        // get all tournaments
+        $tournaments = $em->getRepository('DevlabsSportifyBundle:Tournament')
+            ->findAll();
 
-        // create form for ApiMapping form and handle it
-        $form = $adminHelper->createApiMappingForm($apiMapping, $buttonAction);
-        $form->handleRequest($request);
+        $forms = array();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $adminHelper->actionOnApiMappingFormSubmit($form);
+        // creating a form for each tournament
+        foreach ($tournaments as $tournament) {
+            // get the ApiMapping object and buttonAction
+            $apiMapping = $adminHelper->getApiMapping(
+                $tournament,
+                $this->container->getParameter('football_api.name')
+            );
 
-            return $this->redirectToRoute('admin_api_mappings');
+            $buttonAction = $adminHelper->getApiMappingButtonAction($apiMapping);
+
+            // create form for ApiMapping form and handle it
+            $form = $adminHelper->createApiMappingForm($apiMapping, $buttonAction);
+
+            // create view for each tournament's form
+            $forms[$tournament->getId()] = $form->createView();
         }
 
         $apiTournaments = $this->container->get('app.data_updates.manager')->getTournaments();
@@ -233,17 +203,64 @@ class AdminController extends Controller
         return $this->render(
             'Admin/api_mappings.html.twig',
             array(
-                'filter_form' => $filterForm->createView(),
-                'form' => $form->createView(),
+                'tournaments' => $tournaments,
+                'forms' => $forms,
                 'api_tournaments' => $apiTournaments
             )
         );
     }
 
     /**
+     * @Route("/admin/api_mappings/modify", name="admin_api_mappings_modify")
+     */
+    public function apiMappingModifyAction(Request $request)
+    {
+        // if user is not logged in, redirect to login page
+        if (!is_object($user = $this->getUser())) {
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+
+        // redirect to admin/api_mappings page if the 'api_mapping' parameter is NOT set in the POST data
+        if (!$request->request->get('api_mapping')) {
+            return $this->redirectToRoute('admin_api_mappings');
+        }
+
+        // get the admin helper service
+        $adminHelper = $this->container->get('app.admin.helper');
+
+        // Get an instance of the Entity Manager
+        $em = $this->getDoctrine()->getManager();
+
+        // set the ApiMapping object based on whether it's new or existing one
+        if ($request->request->get('api_mapping')['id']) {
+            $apiMapping = $em->getRepository('DevlabsSportifyBundle:ApiMapping')
+                ->findOneById($request->request->get('api_mapping')['id']);
+        } else {
+            $apiMapping = new ApiMapping();
+            $apiMapping->setEntityId($request->request->get('api_mapping')['entityId']);
+            $apiMapping->setEntityType($request->request->get('api_mapping')['entityType']);
+            $apiMapping->setApiName($request->request->get('api_mapping')['apiName']);
+        }
+
+        $apiMapping->setApiObjectId($request->request->get('api_mapping')['apiObjectId']);
+
+        $buttonAction = $request->request->get('api_mapping')['action'];
+
+        $form = $adminHelper->createApiMappingForm($apiMapping, $buttonAction);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $adminHelper->actionOnEntityFormSubmit($form);
+        }
+
+        // clear the submitted POST data and reload the page
+        return $this->redirectToRoute('admin_api_mappings');
+    }
+
+    /**
      * @Route("/admin/tournaments", name="admin_tournaments")
      */
-    public function tournamentsAction(Request $request)
+    public function tournamentsAction()
     {
         // if user is not logged in, redirect to login page
         if (!is_object($user = $this->getUser())) {
@@ -336,7 +353,7 @@ class AdminController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $adminHelper->actionOnTournamentFormSubmit($form);
+            $adminHelper->actionOnEntityFormSubmit($form);
         }
 
         // clear the submitted POST data and reload the page

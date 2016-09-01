@@ -43,7 +43,6 @@ class ApiMappingType extends AbstractType
                 'error_bubbling' => true
             ))
             ->add('apiName', TextType::class, array(
-                'disabled' => true,
                 'error_bubbling' => true
             ))
             ->add('apiObjectId', TextType::class, array(
@@ -53,9 +52,16 @@ class ApiMappingType extends AbstractType
                 'data' => $this->buttonAction,
                 'mapped' => false
             ))
-            ->add('button', SubmitType::class, array(
+            ->add('button1', SubmitType::class, array(
                 'label' => $this->buttonAction
             ))
         ;
+
+        if ($this->buttonAction === 'EDIT') {
+            $builder
+                ->add('button2', SubmitType::class, array(
+                    'label' => 'DELETE'
+                ));
+        }
     }
 }

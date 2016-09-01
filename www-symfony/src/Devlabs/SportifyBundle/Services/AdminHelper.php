@@ -168,6 +168,7 @@ class AdminHelper
     public function createApiMappingForm(ApiMapping $apiMapping, $buttonAction)
     {
         $form = $this->container->get('form.factory')->create(ApiMappingType::class, $apiMapping, array(
+            'action' => $this->container->get('router')->generate('admin_api_mappings_modify'),
             'button_action' => $buttonAction
         ));
 
@@ -175,16 +176,47 @@ class AdminHelper
     }
 
     /**
-     * Method for executing actions after ApiMapping form is submitted
+     * Method for making a decision what action to execute after Entity form is submitted,
+     * based on which button is clicked
      *
-     * @param $form
+     * @param Form $form
      */
-    public function actionOnApiMappingFormSubmit(Form $form)
+    public function actionOnEntityFormSubmit(Form $form)
     {
-        $apiMapping = $form->getData();
+        if ($form->get('button1') && $form->get('button1')->isClicked()) {
+            $this->actionOnEntityFormSubmitButton1($form);
+        } elseif ($form->get('button2') && $form->get('button2')->isClicked()) {
+            $this->actionOnEntityFormSubmitButton2($form);
+        }
+    }
+
+    /**
+     * Method for executing actions after Entity form is submitted via Button1 (CREATE or EDIT)
+     *
+     * @param Form $form
+     */
+    public function actionOnEntityFormSubmitButton1(Form $form)
+    {
+        $object = $form->getData();
 
         // prepare the queries
-        $this->em->persist($apiMapping);
+        $this->em->persist($object);
+
+        // execute the queries
+        $this->em->flush();
+    }
+
+    /**
+     * Method for executing actions after Entity form is submitted via Button2 (DELETE)
+     *
+     * @param Form $form
+     */
+    public function actionOnEntityFormSubmitButton2(Form $form)
+    {
+        $object = $form->getData();
+
+        // prepare the queries
+        $this->em->remove($object);
 
         // execute the queries
         $this->em->flush();
@@ -218,52 +250,5 @@ class AdminHelper
         ));
 
         return $form;
-    }
-
-    /**
-     * Method for making a decision what action to execute after Tournament Entity form is submitted,
-     * based on which button is clicked
-     *
-     * @param Form $form
-     */
-    public function actionOnTournamentFormSubmit(Form $form)
-    {
-        if ($form->get('button1') && $form->get('button1')->isClicked()) {
-            $this->actionOnTournamentFormSubmitButton1($form);
-        } elseif ($form->get('button2') && $form->get('button2')->isClicked()) {
-            $this->actionOnTournamentFormSubmitButton2($form);
-        }
-    }
-
-    /**
-     * Method for executing actions after Tournament Entity form is submitted via Button1 (CREATE or EDIT)
-     *
-     * @param Form $form
-     */
-    public function actionOnTournamentFormSubmitButton1(Form $form)
-    {
-        $tournament = $form->getData();
-
-        // prepare the queries
-        $this->em->persist($tournament);
-
-        // execute the queries
-        $this->em->flush();
-    }
-
-    /**
-     * Method for executing actions after Tournament Entity form is submitted via Button2 (DELETE)
-     *
-     * @param Form $form
-     */
-    public function actionOnTournamentFormSubmitButton2(Form $form)
-    {
-        $tournament = $form->getData();
-
-        // prepare the queries
-        $this->em->remove($tournament);
-
-        // execute the queries
-        $this->em->flush();
     }
 }
