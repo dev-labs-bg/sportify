@@ -9815,6 +9815,12 @@ body .match-item-mobile {
   }
 }
 
+@media screen and (max-width: 400px) {
+  body .match-item-mobile {
+    font-size: 10px;
+  }
+}
+
 body .match-item-mobile.left-sided {
   float: left;
   margin-left: 55px;
