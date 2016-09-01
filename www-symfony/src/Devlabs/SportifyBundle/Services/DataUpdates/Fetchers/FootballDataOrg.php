@@ -76,4 +76,16 @@ class FootballDataOrg
 
         return $this->getResponse($uri)->teams;
     }
+
+    /**
+     * Method for fetching all tournaments/competitions from the API
+     *
+     * @return mixed
+     */
+    public function fetchAllTournaments()
+    {
+        $uri = $this->baseUri.'/competitions';
+
+        return $this->getResponse($uri);
+    }
 }

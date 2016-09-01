@@ -27,8 +27,8 @@ class PredictionRepository extends \Doctrine\ORM\EntityRepository
             ->andWhere('p.scoreAdded IS NULL OR p.scoreAdded = 0')
             ->andWhere('m.homeGoals IS NULL OR m.awayGoals IS NULL')
             ->andWhere('m.datetime >= :date_from AND m.datetime <= :date_to')
-            ->orderBy('m.tournamentId')
-            ->addOrderBy('m.datetime')
+            ->orderBy('m.datetime')
+            ->addOrderBy('m.tournamentId')
             ->addOrderBy('tm.name')
             ->setParameters(array(
                 'user_id' => $user->getId(),
@@ -79,8 +79,8 @@ class PredictionRepository extends \Doctrine\ORM\EntityRepository
             ->andWhere('p.scoreAdded = 1')
             ->andWhere('m.homeGoals IS NOT NULL AND m.awayGoals IS NOT NULL')
             ->andWhere('m.datetime >= :date_from AND m.datetime <= :date_to')
-            ->orderBy('m.tournamentId')
-            ->addOrderBy('m.datetime', 'DESC')
+            ->orderBy('m.datetime', 'DESC')
+            ->addOrderBy('m.tournamentId')
             ->addOrderBy('tm.name')
             ->setParameters(array(
                 'user_id' => $user->getId(),

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block nav_top %}
+    <h1 class="text-center">Admin panel</h1>
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid content">
+        <div class="row">
+            <h2 class="text-center">Update Match Results</h2>
+            <div class="col-lg-8 col-lg-offset-1 col-md-12">
+                {{ include('templates/forms/data_updates.html.twig', {
+                    'form': form,
+                    'days_class': 'col-sm-4',
+                    'button_class': 'col-sm-2 text-center'
+                }) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

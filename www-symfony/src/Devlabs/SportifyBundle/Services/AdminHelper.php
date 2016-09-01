@@ -9,9 +9,11 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Devlabs\SportifyBundle\Entity\ApiMapping;
 use Devlabs\SportifyBundle\Entity\Tournament;
 use Devlabs\SportifyBundle\Form\ApiMappingType;
+use Devlabs\SportifyBundle\Form\TournamentEntityType;
 
 /**
  * Class AdminHelper
@@ -36,20 +38,24 @@ class AdminHelper
      * @param array $options
      * @return mixed
      */
-    public function createDataUpdatesForm(array $formData = array(), array $options = array())
+    public function createDataUpdatesForm($updateType, array $choices = array(), array $options = array())
     {
+        $formData = array();
+
         // creating for select Data Update type
         $form = $this->container->get('form.factory')->createBuilder(FormType::class, $formData, $options)
-            ->add('update_type', ChoiceType::class, array(
-                'choices'  => array(
-                    'Matches (Next 7 days)' => 'matches-next7days',
-                    'Matches (Past 1 day) and Scores Update' => 'matches-past1day-and-user-scores',
-                    'Teams for all tournaments' => 'teams-all-tournaments'
-                )))
-            ->add('button', SubmitType::class, array('label' => 'Select'))
-            ->getForm();
+            ->add('update_type', HiddenType::class, array(
+                'label' => false,
+                'data' => $updateType
+            ));
 
-        return $form;
+        if ($choices) {
+            $form->add('days', ChoiceType::class, array('choices' => $choices));
+        }
+
+        $form->add('button', SubmitType::class, array('label' => 'Update'));
+
+        return $form->getForm();
     }
 
     /**
@@ -64,20 +70,20 @@ class AdminHelper
         $dataUpdatesManager = $this->container->get('app.data_updates.manager');
         $slackNotify = false;
 
-        if ($data['update_type'] === 'matches-next7days') {
-            // set dateFrom and dateTo to respectively today and 1 week on
+        if ($data['update_type'] === 'matches-fixtures') {
+            // set dateFrom and dateTo to respectively today and 'number of days' on
             $dateFrom = date("Y-m-d");
-            $dateTo = date("Y-m-d", time() + (3600 * 24 * 7));
+            $dateTo = date("Y-m-d", time() + (3600 * 24 * $data['days']));
             $status = $dataUpdatesManager->updateFixtures($dateFrom, $dateTo);
 
             if ($status['total_added'] > 0) {
                 $slackNotify = true;
-                $slackText = 'Match fixtures added for next 7 days. '
+                $slackText = 'Match fixtures added for next '.$data['days'].' days. '
                     .$status['total_added'].' fixtures added.';
             }
-        } else if ($data['update_type'] === 'matches-past1day-and-user-scores') {
-            // set dateFrom and dateTo to respectively yesterday and today
-            $dateFrom = date("Y-m-d", time() - (3600 * 24 * 1));
+        } else if ($data['update_type'] === 'matches-results') {
+            // set dateFrom and dateTo to respectively 'number of days' before and today
+            $dateFrom = date("Y-m-d", time() - (3600 * 24 * $data['days']));
             $dateTo = date("Y-m-d");
             $status = $dataUpdatesManager->updateFixtures($dateFrom, $dateTo);
 
@@ -125,6 +131,9 @@ class AdminHelper
         // get a new ApiMapping object if none
         if ($apiMapping === null) {
             $apiMapping = new ApiMapping();
+            $apiMapping->setEntityId($tournament->getId());
+            $apiMapping->setEntityType('Tournament');
+            $apiMapping->setApiName($footballApi);
         }
 
         return $apiMapping;
@@ -159,6 +168,7 @@ class AdminHelper
     public function createApiMappingForm(ApiMapping $apiMapping, $buttonAction)
     {
         $form = $this->container->get('form.factory')->create(ApiMappingType::class, $apiMapping, array(
+            'action' => $this->container->get('router')->generate('admin_api_mappings_modify'),
             'button_action' => $buttonAction
         ));
 
@@ -166,18 +176,79 @@ class AdminHelper
     }
 
     /**
-     * Method for executing actions after ApiMapping form is submitted
+     * Method for making a decision what action to execute after Entity form is submitted,
+     * based on which button is clicked
      *
-     * @param $form
+     * @param Form $form
      */
-    public function actionOnApiMappingFormSubmit(Form $form)
+    public function actionOnEntityFormSubmit(Form $form)
     {
-        $apiMapping = $form->getData();
+        if ($form->get('button1') && $form->get('button1')->isClicked()) {
+            $this->actionOnEntityFormSubmitButton1($form);
+        } elseif ($form->get('button2') && $form->get('button2')->isClicked()) {
+            $this->actionOnEntityFormSubmitButton2($form);
+        }
+    }
+
+    /**
+     * Method for executing actions after Entity form is submitted via Button1 (CREATE or EDIT)
+     *
+     * @param Form $form
+     */
+    public function actionOnEntityFormSubmitButton1(Form $form)
+    {
+        $object = $form->getData();
 
         // prepare the queries
-        $this->em->persist($apiMapping);
+        $this->em->persist($object);
 
         // execute the queries
         $this->em->flush();
+    }
+
+    /**
+     * Method for executing actions after Entity form is submitted via Button2 (DELETE)
+     *
+     * @param Form $form
+     */
+    public function actionOnEntityFormSubmitButton2(Form $form)
+    {
+        $object = $form->getData();
+
+        // prepare the queries
+        $this->em->remove($object);
+
+        // execute the queries
+        $this->em->flush();
+    }
+
+    /**
+     * Method for getting the value for the prediction form's button
+     *
+     * @param $prediction
+     * @return string
+     */
+    public function getTournamentButton(Tournament $tournament)
+    {
+        return ($tournament->getId())
+            ? 'EDIT'
+            : 'CREATE';
+    }
+
+    /**
+     * Method for creating Tournament Entity form
+     *
+     * @param Tournament $tournament
+     * @param $buttonAction
+     * @return mixed
+     */
+    public function createTournamentForm(Tournament $tournament, $buttonAction)
+    {
+        $form = $this->container->get('form.factory')->create(TournamentEntityType::class, $tournament, array(
+            'action' => $this->container->get('router')->generate('admin_tournaments_modify'),
+            'button_action' => $buttonAction
+        ));
+
+        return $form;
     }
 }

@@ -73,6 +73,26 @@ class FootballDataOrg
     }
 
     /**
+     * Method for parsing fetched tournaments data
+     *
+     * @param array $tournaments
+     * @return array
+     */
+    public function parseTournaments(array $tournaments)
+    {
+        foreach ($tournaments as &$tournament) {
+            $parsedTournament = array();
+
+            $parsedTournament['id'] = $tournament->id;
+            $parsedTournament['name'] = $tournament->caption;
+
+            $tournament = $parsedTournament;
+        }
+
+        return $tournaments;
+    }
+
+    /**
      * Method for extracting a number at end of a string
      *
      * @param $subject

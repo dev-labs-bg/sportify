@@ -5,7 +5,7 @@ namespace Devlabs\SportifyBundle\Services;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\EntityManager;
-use Devlabs\SportifyBundle\Form\TournamentType;
+use Devlabs\SportifyBundle\Form\TournamentNullType;
 use Devlabs\SportifyBundle\Entity\Tournament;
 use Devlabs\SportifyBundle\Entity\User;
 use Devlabs\SportifyBundle\Entity\Score;
@@ -67,7 +67,7 @@ class TournamentsHelper
     {
         $formData = array();
 
-        $form = $this->container->get('form.factory')->create(TournamentType::class, $formData, array(
+        $form = $this->container->get('form.factory')->create(TournamentNullType::class, $formData, array(
             'data' => $formInputData
         ));
 

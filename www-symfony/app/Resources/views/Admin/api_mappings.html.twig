@@ -8,29 +8,38 @@
 
     <div class="container-fluid content">
         <div class="row">
-            <div class="col-lg-3 col-lg-offset-2 col-md-12">
-                {{ include('templates/forms/filter.html.twig', {
-                    'form': filter_form,
-                    'tournament_class': 'col-sm-8',
-                    'button_class': 'col-sm-4 text-center'
-                }) }}
+            <div class="col-lg-12 col-lg-offset-1 col-md-12">
+                <h2 class="text-center">Create/Edit/Delete Tournament-to-API mapping</h2>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-lg-2 col-lg-offset-2 col-md-12">
+            <div class="col-lg-12 col-lg-offset-1 col-md-12">
+                {% for tournament in tournaments %}
+                    {{ include('templates/forms/apimapping_create_edit.html.twig', {
+                        'form': forms[tournament.id],
+                        'tournament': tournament
+                    }) }}
+                {% endfor %}
+            </div>
+        </div>
 
-                {{ form_start(form) }}
-                    {{ form_row(form.id) }}
-                    {{ form_row(form.action) }}
-                    {{ form_row(form.entityId, {'attr': {'class': 'form-control' } }) }}
-                    {{ form_row(form.entityType, {'attr': {'class': 'form-control' } }) }}
-                    {{ form_row(form.apiName, {'attr': {'class': 'form-control' } }) }}
-                    {{ form_row(form.apiObjectId, {'attr': {'class': 'form-control' } }) }}
-                    <div class="col-sm-2 text-center">
-                        {{ form_row(form.button, {'attr': {'class': 'btn green-btn history-filter' } }) }}
+        <h2 class="text-center">
+            Available Tournaments via API:
+        </h2>
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-4">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 standing-title">ID</div>
+                    <div class="col-xs-6 col-sm-6 standing-title">Name</div>
+                </div>
+                {% for api_tournament in api_tournaments %}
+                    <div class="row standing">
+                        <div class="col-xs-6 col-sm-6">{{ api_tournament.id }}</div>
+                        <div class="col-xs-6 col-sm-6">{{ api_tournament.name }} </div>
                     </div>
-                {{ form_end(form) }}
+                {% endfor %}
+
             </div>
         </div>
     </div>
