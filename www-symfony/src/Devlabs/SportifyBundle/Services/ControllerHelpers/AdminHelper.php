@@ -1,6 +1,6 @@
 <?php
 
-namespace Devlabs\SportifyBundle\Services;
+namespace Devlabs\SportifyBundle\Services\ControllerHelpers;
 
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
