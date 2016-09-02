@@ -32,23 +32,23 @@ services:
         arguments: ['@service_container', '@doctrine.orm.entity_manager']
 
     app.admin.helper:
-        class: Devlabs\SportifyBundle\Services\AdminHelper
+        class: Devlabs\SportifyBundle\Services\ControllerHelpers\AdminHelper
         arguments: ['@service_container', '@doctrine.orm.entity_manager']
 
     app.matches.helper:
-        class: Devlabs\SportifyBundle\Services\MatchesHelper
+        class: Devlabs\SportifyBundle\Services\ControllerHelpers\MatchesHelper
         arguments: ['@service_container', '@doctrine.orm.entity_manager']
 
     app.history.helper:
-        class: Devlabs\SportifyBundle\Services\HistoryHelper
+        class: Devlabs\SportifyBundle\Services\ControllerHelpers\HistoryHelper
         arguments: ['@service_container']
 
     app.champion.helper:
-        class: Devlabs\SportifyBundle\Services\ChampionHelper
+        class: Devlabs\SportifyBundle\Services\ControllerHelpers\ChampionHelper
         arguments: ['@service_container', '@doctrine.orm.entity_manager']
 
     app.tournaments.helper:
-        class: Devlabs\SportifyBundle\Services\TournamentsHelper
+        class: Devlabs\SportifyBundle\Services\ControllerHelpers\TournamentsHelper
         arguments: ['@service_container', '@doctrine.orm.entity_manager']
 
     app.data_updates.manager:
