@@ -51,6 +51,7 @@ ul, li {
     border-radius: 50px;
     width: 100px;
     height: 100px;
+    display: flex;
 
     @media screen and (max-width: 1040px) {
         width: 85px;
@@ -61,7 +62,7 @@ ul, li {
         position: static;
         margin: 0 auto;
         width: 125px;
-        display: table-cell;
+        display: flex;
         vertical-align: middle;
         text-align: center;
     }
@@ -85,20 +86,19 @@ ul, li {
     }
 
     img {
+        max-width: 70px;
+        max-height: 70px;
         width: auto;
         height: auto;
-        max-height: 70px;
-        margin-top: 15px;
+        margin: 0 auto;
+        align-self: center;
 
         @media screen and (max-width: 1040px) {
-            max-height: 62px;
-            margin-top: 10px;
+            max-width: 60px;
+            max-height: 60px;
         }
         @media screen and (max-width: 820px) {
             max-height: 100%;
-            margin: 0;
-        }
-        @media screen and (max-width: 450px) {
             max-width: 100%;
         }
     }
@@ -890,7 +890,7 @@ h2 {
                 margin: 25px 0;
             }
             @media screen and (max-width: 500px) {
-                width: 32%;
+                width: 30%;
             }
 
             .bet-form {

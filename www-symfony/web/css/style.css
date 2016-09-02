@@ -9741,6 +9741,8 @@ li {
   border-radius: 50px;
   width: 100px;
   height: 100px;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 @media screen and (max-width: 1040px) {
@@ -9756,7 +9758,8 @@ li {
     position: static;
     margin: 0 auto;
     width: 125px;
-    display: table-cell;
+    display: -ms-flexbox;
+    display: flex;
     vertical-align: middle;
     text-align: center;
   }
@@ -9789,28 +9792,25 @@ li {
 }
 
 .team-image img {
+  max-width: 70px;
+  max-height: 70px;
   width: auto;
   height: auto;
-  max-height: 70px;
-  margin-top: 15px;
+  margin: 0 auto;
+  -ms-flex-item-align: center;
+  align-self: center;
 }
 
 @media screen and (max-width: 1040px) {
   .team-image img {
-    max-height: 62px;
-    margin-top: 10px;
+    max-width: 60px;
+    max-height: 60px;
   }
 }
 
 @media screen and (max-width: 820px) {
   .team-image img {
     max-height: 100%;
-    margin: 0;
-  }
-}
-
-@media screen and (max-width: 450px) {
-  .team-image img {
     max-width: 100%;
   }
 }
@@ -10729,7 +10729,7 @@ h2 {
 
 @media screen and (max-width: 500px) {
   .match-item .bettings {
-    width: 32%;
+    width: 30%;
   }
 }
 
