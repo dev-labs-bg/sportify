@@ -9720,7 +9720,7 @@ li {
   }
 }
 
-@media screen and (max-width: 470px) {
+@media screen and (max-width: 500px) {
   .single-match-record {
     padding: 20px 0;
   }
@@ -9747,10 +9747,14 @@ li {
   .team-image {
     position: static;
     margin: 0 auto;
+    width: 125px;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
   }
 }
 
-@media screen and (max-width: 470px) {
+@media screen and (max-width: 500px) {
   .team-image {
     width: 100%;
   }
@@ -9779,14 +9783,12 @@ li {
 .team-image img {
   width: auto;
   height: auto;
-  max-width: 70px;
   max-height: 70px;
   margin-top: 15px;
 }
 
 @media screen and (max-width: 1040px) {
   .team-image img {
-    max-width: 62px;
     max-height: 62px;
     margin-top: 10px;
   }
@@ -9794,9 +9796,14 @@ li {
 
 @media screen and (max-width: 820px) {
   .team-image img {
-    max-width: 100%;
     max-height: 100%;
     margin: 0;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .team-image img {
+    max-width: 100%;
   }
 }
 
@@ -10712,7 +10719,7 @@ h2 {
   }
 }
 
-@media screen and (max-width: 470px) {
+@media screen and (max-width: 500px) {
   .match-item .bettings {
     width: 32%;
   }
@@ -10758,7 +10765,7 @@ h2 {
   left: 43px;
 }
 
-@media screen and (max-width: 470px) {
+@media screen and (max-width: 500px) {
   .match-item .bettings .bet-results {
     position: static;
     margin-top: -45px;
@@ -10986,6 +10993,12 @@ h2 {
   }
 }
 
+@media screen and (max-width: 1150px) {
+  .mobile-match-column .match-item {
+    padding: 2px 20px;
+  }
+}
+
 @media screen and (max-width: 820px) {
   .mobile-match-column .match-item {
     padding: 0;
@@ -10996,13 +11009,13 @@ h2 {
   }
 }
 
-@media screen and (max-width: 470px) {
+@media screen and (max-width: 500px) {
   .predictions .bet-rectangle svg {
     display: none;
   }
 }
 
-@media screen and (max-width: 470px) {
+@media screen and (max-width: 500px) {
   .predictions .bet-rectangle .bet-form {
     position: static;
     display: inline-block;
@@ -11020,7 +11033,7 @@ h2 {
   }
 }
 
-@media screen and (max-width: 470px) {
+@media screen and (max-width: 500px) {
   .bet-rectangle svg {
     width: 100%;
     height: auto;
@@ -11054,7 +11067,7 @@ h2 {
   }
 }
 
-@media screen and (max-width: 470px) {
+@media screen and (max-width: 500px) {
   .single-team-info {
     width: 32%;
   }

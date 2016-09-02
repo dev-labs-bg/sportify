@@ -40,7 +40,7 @@ ul, li {
     @media screen and (max-width: 820px) {
         background: #fff;
     }
-    @media screen and (max-width: 470px) {
+    @media screen and (max-width: 500px) {
         padding: 20px 0;
     }
 }
@@ -60,8 +60,12 @@ ul, li {
     @media screen and (max-width: 820px) {
         position: static;
         margin: 0 auto;
+        width: 125px;
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
     }
-    @media screen and (max-width: 470px) {
+    @media screen and (max-width: 500px) {
         width: 100%;
     }
 
@@ -83,19 +87,19 @@ ul, li {
     img {
         width: auto;
         height: auto;
-        max-width: 70px;
         max-height: 70px;
         margin-top: 15px;
 
         @media screen and (max-width: 1040px) {
-            max-width: 62px;
             max-height: 62px;
             margin-top: 10px;
         }
         @media screen and (max-width: 820px) {
-            max-width: 100%;
             max-height: 100%;
             margin: 0;
+        }
+        @media screen and (max-width: 450px) {
+            max-width: 100%;
         }
     }
 }
@@ -885,7 +889,7 @@ h2 {
                 height: auto;
                 margin: 25px 0;
             }
-            @media screen and (max-width: 470px) {
+            @media screen and (max-width: 500px) {
                 width: 32%;
             }
 
@@ -927,7 +931,7 @@ h2 {
                 top: 27px;
                 left: 43px;
 
-                @media screen and (max-width: 470px) {
+                @media screen and (max-width: 500px) {
                     position: static;
                     margin-top: -45px;
                 }
@@ -1124,6 +1128,9 @@ h2 {
 
     .match-item {
 
+        @media screen and (max-width: 1150px) {
+            padding: 2px 20px;
+        }
         @media screen and (max-width: 820px) {
             padding: 0;
             margin-left: 0;
@@ -1139,13 +1146,13 @@ h2 {
 
         svg {
 
-            @media screen and (max-width: 470px) {
+            @media screen and (max-width: 500px) {
                 display: none;
             }
         }
         .bet-form {
 
-            @media screen and (max-width: 470px) {
+            @media screen and (max-width: 500px) {
                 position: static;
                 display: inline-block;
                 vertical-align: middle;
@@ -1164,7 +1171,7 @@ h2 {
                 fill: #202c35;
             }
         }
-        @media screen and (max-width: 470px) {
+        @media screen and (max-width: 500px) {
             width: 100%;
             height: auto;
             max-height: 55px;
@@ -1189,7 +1196,7 @@ h2 {
         max-width: 150px;
         width: auto;
     }
-    @media screen and (max-width: 470px) {
+    @media screen and (max-width: 500px) {
         width: 32%;
     }
 
@@ -1299,6 +1306,7 @@ h2 {
 }
 
 @media screen and (max-width: 1367px){
+
     .match-item {
         font-size: 13px;
     }
