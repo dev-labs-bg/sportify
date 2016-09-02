@@ -86,7 +86,7 @@ ul, li {
     }
 
     img {
-        max-width: 80px;
+        max-width: 70px;
         max-height: 70px;
         width: auto;
         height: auto;
@@ -94,8 +94,8 @@ ul, li {
         align-self: center;
 
         @media screen and (max-width: 1040px) {
-            max-width: 62px;
-            max-height: 62px;
+            max-width: 60px;
+            max-height: 60px;
         }
         @media screen and (max-width: 820px) {
             max-height: 100%;
