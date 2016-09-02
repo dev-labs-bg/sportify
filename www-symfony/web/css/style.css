@@ -9748,7 +9748,8 @@ li {
     position: static;
     margin: 0 auto;
     width: 125px;
-    display: table-cell;
+    display: -ms-flexbox;
+    display: flex;
     vertical-align: middle;
     text-align: center;
   }
@@ -9797,7 +9798,7 @@ li {
 @media screen and (max-width: 820px) {
   .team-image img {
     max-height: 100%;
-    margin: 0;
+    margin: 0 auto;
   }
 }
 
@@ -10721,7 +10722,7 @@ h2 {
 
 @media screen and (max-width: 500px) {
   .match-item .bettings {
-    width: 32%;
+    width: 30%;
   }
 }
 
