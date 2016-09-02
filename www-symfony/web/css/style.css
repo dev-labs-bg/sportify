@@ -9733,6 +9733,8 @@ li {
   border-radius: 50px;
   width: 100px;
   height: 100px;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 @media screen and (max-width: 1040px) {
@@ -9782,28 +9784,25 @@ li {
 }
 
 .team-image img {
+  max-width: 80px;
+  max-height: 70px;
   width: auto;
   height: auto;
-  max-height: 70px;
-  margin-top: 15px;
+  margin: 0 auto;
+  -ms-flex-item-align: center;
+  align-self: center;
 }
 
 @media screen and (max-width: 1040px) {
   .team-image img {
+    max-width: 62px;
     max-height: 62px;
-    margin-top: 10px;
   }
 }
 
 @media screen and (max-width: 820px) {
   .team-image img {
     max-height: 100%;
-    margin: 0 auto;
-  }
-}
-
-@media screen and (max-width: 450px) {
-  .team-image img {
     max-width: 100%;
   }
 }
