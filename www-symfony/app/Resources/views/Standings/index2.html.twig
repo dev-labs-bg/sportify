@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+
+{% block nav_top %}
+    <h1 class="text-center">Standings</h1>
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid content">
+        <div class="matches-filters row">
+            <div class="col-lg-10 col-lg-offset-1">
+                {{ include('templates/forms/filter.html.twig', {
+                    'form': filter_form,
+                    'tournament_class': 'col-sm-4 col-sm-offset-3',
+                    'button_class': 'col-sm-2 text-center'
+                }) }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-12">
+
+                <div class="first-three-standings">
+                    <div class="row standings-slider owl-carousel">
+
+                    {% for score in all_scores %}
+                        {% if score.posNew == score.posOld %}
+                            {% set pos_change = 'same' %}
+                        {% elseif score.posNew > score.posOld %}
+                            {% if score.posOld == 0 %}
+                                {% set pos_change = 'same' %}
+                            {% else %}
+                                {% set pos_change = 'down' %}
+                            {% endif %}
+                        {% elseif score.posNew < score.posOld %}
+                            {% set pos_change = 'up' %}
+                        {% endif %}
+
+                        {% if score.posNew <= 3 %}
+                            {% if score.posNew == 1 %}
+                                <div class="text-center">
+                                    <div class="first-place">
+                                        <a href="{{ path('history_index', {'user_id' : score.userId.id, 'tournament_id' : score.tournamentId.id}) }}">
+                                            <div class="profile-img">
+                                                <img src="{{ asset('img/devlabs_logo.png') }}" alt="" />
+                                            </div>
+                                        </a>
+                                        <div class="points">{{ score.points }}pt<br/>
+                                                            {{ score.exactPredictionPercentage }} %
+                                        </div>
+                                    </div>
+                                    <div class="name">
+                                        <span class="position-{{ pos_change }}"></span>{{ score.posNew }}. {{ score.userId.username }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if score.posNew == 2 %}
+                                <div class="text-center">
+                                    <div class="second-place">
+                                        <a href="{{ path('history_index', {'user_id' : score.userId.id, 'tournament_id' : score.tournamentId.id}) }}">
+                                            <div class="profile-img">
+                                                <img src="{{ asset('img/devlabs_logo.png') }}" alt="" />
+                                            </div>
+                                        </a>
+                                        <div class="points">{{ score.points }}pt<br/>
+                                                            {{ score.exactPredictionPercentage }} %
+                                        </div>
+                                    </div>
+                                    <div class="name">
+                                        <span class="position-{{ pos_change }}"></span>{{ score.posNew }}. {{ score.userId.username }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if score.posNew == 3 %}
+                                <div class="text-center">
+                                    <div class="third-place">
+                                        <a href="{{ path('history_index', {'user_id' : score.userId.id, 'tournament_id' : score.tournamentId.id}) }}">
+                                            <div class="profile-img">
+                                                <img src="{{ asset('img/devlabs_logo.png') }}" alt="" />
+                                            </div>
+                                        </a>
+                                        <div class="points">{{ score.points }}pt<br/>
+                                                            {{ score.exactPredictionPercentage }} %
+                                        </div>
+                                    </div>
+                                    <div class="name">
+                                        <span class="position-{{ pos_change }}"></span>{{ score.posNew }}. {{ score.userId.username }}
+                                    </div>
+                                </div>
+                    </div>
+                </div>
+                            {% endif %}
+                        {% endif %}
+
+                        {% if score.posNew > 3 %}
+                        <div class="standing">
+                            <div class="row">
+                                <div class="col-xs-4 col-md-1">
+                                    <span class="position-{{ pos_change }}"></span>
+                                    {{ score.posNew }}.
+                                </div>
+                                <div class="col-xs-8 col-md-4 col-xs-6">
+                                    <div class="row">
+                                        <div class="col-xs-5 text-center">
+                                            <div class="profile-img">
+                                                <img src="{{ asset('img/devlabs_logo.png') }}" alt="" />
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-7 user-name">{{ score.userId.username }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-2 text-center" data-toggle="tooltip" data-placement="top" title="Total score">{{ score.points }}pt</div>
+                                <div class="col-xs-3 col-sm-3 col-md-2 text-center" data-toggle="tooltip" data-placement="top" title="Exact predictions percentage">{{ score.exactPredictionPercentage }}% </div>
+                                <div class="col-xs-6 col-sm-6 col-md-2 text-center">
+                                    <a class="btn history-btn" href="{{ path('history_index', {'user_id' : score.userId.id, 'tournament_id' : score.tournamentId.id}) }}">History</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
