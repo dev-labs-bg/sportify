@@ -1,6 +1,6 @@
 <?php
 
-namespace Devlabs\SportifyBundle\Services;
+namespace Devlabs\SportifyBundle\Services\ControllerHelpers;
 
 use Devlabs\SportifyBundle\Entity\Tournament;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
