@@ -46,7 +46,6 @@ class Importer
                 // create new Team object by using the parsed data
                 $team = new Team();
                 $team->setName($teamData['name']);
-                $team->setNameShort($teamData['name_short']);
                 $team->addTournament($tournament);
 
                 // prepare and execute queries

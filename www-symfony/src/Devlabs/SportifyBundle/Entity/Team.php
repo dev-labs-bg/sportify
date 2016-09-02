@@ -11,7 +11,6 @@ use Intervention\Image\ImageManager;
  * @ORM\Entity(repositoryClass="Devlabs\SportifyBundle\Entity\TeamRepository")
  * @ORM\Table(name="teams")
  * @UniqueEntity("name")
- * @UniqueEntity("nameShort")
  */
 class Team
 {
@@ -26,11 +25,6 @@ class Team
      * @ORM\Column(type="string", length=100, unique = true)
      */
     private $name;
-
-    /**
-     * @ORM\Column(type="string", length=10, name="name_short", unique = true)
-     */
-    private $nameShort;
 
     /**
      * @ORM\ManyToMany(targetEntity="Tournament", inversedBy="teams")
@@ -121,30 +115,6 @@ class Team
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set nameShort
-     *
-     * @param string $nameShort
-     *
-     * @return Team
-     */
-    public function setNameShort($nameShort)
-    {
-        $this->nameShort = $nameShort;
-
-        return $this;
-    }
-
-    /**
-     * Get nameShort
-     *
-     * @return string
-     */
-    public function getNameShort()
-    {
-        return $this->nameShort;
     }
 
     /**
