@@ -1079,6 +1079,50 @@ h2 {
             }
         }
     }
+    &.reverse-places {
+        .first-place {
+            .profile-img {
+                height: auto;
+                img {
+                    border: none;
+                }
+            }
+            .points {
+                background-color: #ead051;
+                &:after {
+                    border-right-color: #ead051;
+                }
+            }
+        }
+        .second-place {
+            .profile-img {
+                height: auto;
+                img {
+                    border: none;
+                }
+            }
+            .points {
+                background-color: #c3c3af;
+                &:after{
+                    border-right-color: #c3c3af;
+                }
+            }
+        }
+        .third-place {
+            .profile-img {
+                height: auto;
+                img {
+                    border: none;
+                }
+            }
+            .points {
+                background-color: #df8f3c;
+                &:after{
+                    border-right-color: #df8f3c;
+                }
+            }
+        }
+    }
 }
 .standing {
     font-size: 16px;

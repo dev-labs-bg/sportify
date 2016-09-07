@@ -6434,7 +6434,7 @@ button.close {
   }
 }
 /**
- * Owl Carousel v2.1.4
+ * Owl Carousel v2.1.6
  * Copyright 2013-2016 David Deutsch
  * Licensed under MIT (https://github.com/OwlCarousel2/OwlCarousel2/blob/master/LICENSE)
  */
@@ -10947,6 +10947,54 @@ h2 {
 
 .first-three-standings .third-place .points:after {
   border-right-color: #a7a7a7;
+}
+
+.first-three-standings.reverse-places .first-place .profile-img {
+  height: auto;
+}
+
+.first-three-standings.reverse-places .first-place .profile-img img {
+  border: none;
+}
+
+.first-three-standings.reverse-places .first-place .points {
+  background-color: #ead051;
+}
+
+.first-three-standings.reverse-places .first-place .points:after {
+  border-right-color: #ead051;
+}
+
+.first-three-standings.reverse-places .second-place .profile-img {
+  height: auto;
+}
+
+.first-three-standings.reverse-places .second-place .profile-img img {
+  border: none;
+}
+
+.first-three-standings.reverse-places .second-place .points {
+  background-color: #c3c3af;
+}
+
+.first-three-standings.reverse-places .second-place .points:after {
+  border-right-color: #c3c3af;
+}
+
+.first-three-standings.reverse-places .third-place .profile-img {
+  height: auto;
+}
+
+.first-three-standings.reverse-places .third-place .profile-img img {
+  border: none;
+}
+
+.first-three-standings.reverse-places .third-place .points {
+  background-color: #df8f3c;
+}
+
+.first-three-standings.reverse-places .third-place .points:after {
+  border-right-color: #df8f3c;
 }
 
 .standing {
