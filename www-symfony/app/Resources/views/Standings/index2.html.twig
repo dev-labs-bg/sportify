@@ -15,7 +15,6 @@
     '" type="text/javascript" charset="utf-8"><\/sc'+'ript>')})();
     </script><script>utmx('url','A/B');</script>
     <!-- End of Google Analytics Content Experiment code -->
-
 {% endblock %}
 
 {% block nav_top %}
@@ -38,7 +37,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-12">
 
-                <div class="first-three-standings">
+                <div class="first-three-standings reverse-places">
                     <div class="row standings-slider owl-carousel">
 
                     {% for score in all_scores %}
@@ -60,7 +59,7 @@
                                     <div class="first-place">
                                         <a href="{{ path('history_index', {'user_id' : score.userId.id, 'tournament_id' : score.tournamentId.id}) }}">
                                             <div class="profile-img">
-                                                <img src="{{ asset('img/devlabs_logo.png') }}" alt="" />
+                                                <img src="{{ asset('img/first.png') }}" alt="" />
                                             </div>
                                         </a>
                                         <div class="points">{{ score.points }}pt<br/>
@@ -77,7 +76,7 @@
                                     <div class="second-place">
                                         <a href="{{ path('history_index', {'user_id' : score.userId.id, 'tournament_id' : score.tournamentId.id}) }}">
                                             <div class="profile-img">
-                                                <img src="{{ asset('img/devlabs_logo.png') }}" alt="" />
+                                                <img src="{{ asset('img/second.png') }}" alt="" />
                                             </div>
                                         </a>
                                         <div class="points">{{ score.points }}pt<br/>
@@ -94,7 +93,7 @@
                                     <div class="third-place">
                                         <a href="{{ path('history_index', {'user_id' : score.userId.id, 'tournament_id' : score.tournamentId.id}) }}">
                                             <div class="profile-img">
-                                                <img src="{{ asset('img/devlabs_logo.png') }}" alt="" />
+                                                <img src="{{ asset('img/third.png') }}" alt="" />
                                             </div>
                                         </a>
                                         <div class="points">{{ score.points }}pt<br/>
