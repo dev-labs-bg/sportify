@@ -173,24 +173,8 @@ class AdminController extends Controller
         $tournaments = $em->getRepository('DevlabsSportifyBundle:Tournament')
             ->findAll();
 
-        $forms = array();
-
-        // creating a form for each tournament
-        foreach ($tournaments as $tournament) {
-            // get the ApiMapping object and buttonAction
-            $apiMapping = $adminHelper->getApiMapping(
-                $tournament,
-                $this->container->getParameter('football_api.name')
-            );
-
-            $buttonAction = $adminHelper->getApiMappingButtonAction($apiMapping);
-
-            // create form for ApiMapping form and handle it
-            $form = $adminHelper->createApiMappingForm($apiMapping, $buttonAction);
-
-            // create view for each tournament's form
-            $forms[$tournament->getId()] = $form->createView();
-        }
+        // create Tournament forms
+        $forms = $adminHelper->createApiMappingForms($tournaments);
 
         $apiTournaments = $this->container->get('app.data_updates.manager')->getTournaments();
 
@@ -280,19 +264,8 @@ class AdminController extends Controller
         // add an 'empty' placeholder for a new tournament to be created
         $tournaments['new'] = new Tournament();
 
-        $forms = array();
-
-        // creating a form for each tournament
-        foreach ($tournaments as $tournament) {
-            // get buttonAction
-            $buttonAction = $adminHelper->getTournamentButton($tournament);
-
-            // create form for ApiMapping form and handle it
-            $form = $adminHelper->createTournamentForm($tournament, $buttonAction);
-
-            // create view for each tournament's form
-            $forms[] = $form->createView();
-        }
+        // create Tournament forms
+        $forms = $adminHelper->createTournamentForms($tournaments);
 
         // get the user's tournaments position data
         $userScores = $em->getRepository('DevlabsSportifyBundle:Score')

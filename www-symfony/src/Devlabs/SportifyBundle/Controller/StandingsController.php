@@ -76,9 +76,22 @@ class StandingsController extends Controller
             return $this->redirectToRoute('standings_index', $submittedParams);
         }
 
-        // get scores standings for a given tournament
-        $allScores = $em->getRepository('DevlabsSportifyBundle:Score')
-            ->getByTournamentOrderByPosNew($formSourceData['tournament_selected']);
+        // init allScores and Response
+        $allScores = array();
+        $response = new Response();
+
+        if ($formSourceData['tournament_selected']) {
+            // get scores standings for a given tournament
+            $allScores = $em->getRepository('DevlabsSportifyBundle:Score')
+                ->getByTournamentOrderByPosNew($formSourceData['tournament_selected']);
+
+            // set cookie for tournament selected with 90-day expire period
+            $response->headers->setCookie(new Cookie(
+                'tournament',
+                $formSourceData['tournament_selected']->getId(),
+                time() + (3600 * 24 * 90)
+            ));
+        }
 
         // if user is logged in, get their standings
         $securityContext = $this->container->get('security.authorization_checker');
@@ -91,14 +104,6 @@ class StandingsController extends Controller
                 ->getByUser($user);
             $this->container->get('twig')->addGlobal('user_scores', $userScores);
         }
-
-        // create response and set cookie for tournament selected with 90-day expire period
-        $response = new Response();
-        $response->headers->setCookie(new Cookie(
-            'tournament',
-            $formSourceData['tournament_selected']->getId(),
-            time() + (3600 * 24 * 90)
-        ));
 
         // rendering the view and returning the response
         return $this->render(
@@ -173,9 +178,22 @@ class StandingsController extends Controller
             return $this->redirectToRoute('standings_index', $submittedParams);
         }
 
-        // get scores standings for a given tournament
-        $allScores = $em->getRepository('DevlabsSportifyBundle:Score')
-            ->getByTournamentOrderByPosNew($formSourceData['tournament_selected']);
+        // init allScores and Response
+        $allScores = array();
+        $response = new Response();
+
+        if ($formSourceData['tournament_selected']) {
+            // get scores standings for a given tournament
+            $allScores = $em->getRepository('DevlabsSportifyBundle:Score')
+                ->getByTournamentOrderByPosNew($formSourceData['tournament_selected']);
+
+            // set cookie for tournament selected with 90-day expire period
+            $response->headers->setCookie(new Cookie(
+                'tournament',
+                $formSourceData['tournament_selected']->getId(),
+                time() + (3600 * 24 * 90)
+            ));
+        }
 
         // if user is logged in, get their standings
         $securityContext = $this->container->get('security.authorization_checker');
@@ -188,14 +206,6 @@ class StandingsController extends Controller
                 ->getByUser($user);
             $this->container->get('twig')->addGlobal('user_scores', $userScores);
         }
-
-        // create response and set cookie for tournament selected with 90-day expire period
-        $response = new Response();
-        $response->headers->setCookie(new Cookie(
-            'tournament',
-            $formSourceData['tournament_selected']->getId(),
-            time() + (3600 * 24 * 90)
-        ));
 
         // rendering the view and returning the response
         return $this->render(

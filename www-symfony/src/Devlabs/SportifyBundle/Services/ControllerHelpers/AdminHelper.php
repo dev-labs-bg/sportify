@@ -176,6 +176,36 @@ class AdminHelper
     }
 
     /**
+     * Method for creating array of ApiMapping forms
+     *
+     * @param array $tournaments
+     * @return array
+     */
+    public function createApiMappingForms(array $tournaments)
+    {
+        $forms = array();
+
+        // creating a form for each Api Mapping
+        foreach ($tournaments as $tournament) {
+            // get the ApiMapping object and buttonAction
+            $apiMapping = $this->getApiMapping(
+                $tournament,
+                $this->container->getParameter('football_api.name')
+            );
+
+            $buttonAction = $this->getApiMappingButtonAction($apiMapping);
+
+            // create form for ApiMapping form
+            $form = $this->createApiMappingForm($apiMapping, $buttonAction);
+
+            // create view for each tournament's form
+            $forms[$tournament->getId()] = $form->createView();
+        }
+
+        return $forms;
+    }
+
+    /**
      * Method for making a decision what action to execute after Entity form is submitted,
      * based on which button is clicked
      *
@@ -250,5 +280,30 @@ class AdminHelper
         ));
 
         return $form;
+    }
+
+    /**
+     * Method for creating array of Tournament forms
+     *
+     * @param array $tournaments
+     * @return array
+     */
+    public function createTournamentForms(array $tournaments)
+    {
+        $forms = array();
+
+        // creating a form for each tournament
+        foreach ($tournaments as $tournament) {
+            // get buttonAction
+            $buttonAction = $this->getTournamentButton($tournament);
+
+            // create form
+            $form = $this->createTournamentForm($tournament, $buttonAction);
+
+            // create view for each tournament's form
+            $forms[] = $form->createView();
+        }
+
+        return $forms;
     }
 }

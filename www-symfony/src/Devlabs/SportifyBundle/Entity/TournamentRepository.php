@@ -35,11 +35,16 @@ class TournamentRepository extends \Doctrine\ORM\EntityRepository
      */
     public function getFirst()
     {
-        return $this->getEntityManager()->createQueryBuilder()
+        $query = $this->getEntityManager()->createQueryBuilder()
             ->select('t')
             ->from('DevlabsSportifyBundle:Tournament', 't')
-            ->setMaxResults(1)
-            ->getQuery()
-            ->getSingleResult();
+            ->setMaxResults(1);
+
+        try {
+            return $query->getQuery()->getSingleResult();
+        }
+        catch(\Doctrine\ORM\NoResultException $e) {
+            return null;
+        }
     }
 }
