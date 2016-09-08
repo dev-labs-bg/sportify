@@ -21,6 +21,12 @@
                         'tournament': tournament
                     }) }}
                 {% endfor %}
+
+                {% if tournaments|length == 0 %}
+                    <div class="text-center">
+                        No tournaments found. First, you need to add any from <a href="{{ path('admin_tournaments') }}">here</a>.
+                    </div>
+                {% endif %}
             </div>
         </div>
 

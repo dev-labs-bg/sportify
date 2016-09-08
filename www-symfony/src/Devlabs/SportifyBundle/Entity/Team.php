@@ -330,7 +330,16 @@ class Team
      */
     public function setTeamLogo($imagePath)
     {
-        $file = file_get_contents($imagePath);
+        /**
+         * Skip setting of TeamLogo if image/path is NOT valid,
+         * and PHP would throw an exception
+         */
+        try {
+            $file = file_get_contents($imagePath);
+        }
+        catch(\Symfony\Component\Debug\Exception\ContextErrorException $e) {
+            return $this;
+        }
 
         if (strpos($file, 'svg') !== FALSE) {
             file_put_contents(WEB_DIRECTORY . '/img/team_logos/team_logo_' . $this->id . '.svg', $file);

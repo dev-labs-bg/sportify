@@ -52,18 +52,31 @@ class Importer
                 $this->em->persist($team);
                 $this->em->flush();
 
-                $team->setTeamLogo($teamData['team_logo']);
-
                 // create API mapping for this object
-                $this->createApiMapping($team, 'Team', $footballApi, $apiObjectId);
+                $apiMapping = $this->createApiMapping($team, 'Team', $footballApi, $apiObjectId);
+
+                // prepare queries
+                $this->em->persist($apiMapping);
             } else {
+                // get Team from DB
                 $team = $this->em->getRepository('DevlabsSportifyBundle:Team')
                     ->find($apiMapping->getEntityId());
 
-                if (!$team->hasTeamLogo())
-                    $team->setTeamLogo($teamData['team_logo']);
+                // add Tournament to Team's tournaments list if NOT already present
+                if (!$team->getTournaments()->contains($tournament)) {
+                    $team->addTournament($tournament);
+
+                    // prepare queries
+                    $this->em->persist($team);
+                }
             }
 
+            // execute queries
+            $this->em->flush();
+
+            // set Team logo if none set
+            if (!$team->hasTeamLogo())
+                $team->setTeamLogo($teamData['team_logo']);
         }
     }
 
@@ -111,9 +124,10 @@ class Importer
                 $this->em->flush();
 
                 // create API mapping for this object
-                $this->createApiMapping($match, 'Match', $footballApi, $apiMatchId);
+                $apiMapping = $this->createApiMapping($match, 'Match', $footballApi, $apiMatchId);
+                $this->em->persist($apiMapping);
 
-                // increment the numeber of added fixtures
+                // increment the number of added fixtures
                 $status['fixtures_added']++;
 
             } else if (($fixtureData['home_team_goals'] !== null) && ($fixtureData['away_team_goals'] !== null)) {
@@ -127,14 +141,14 @@ class Importer
                 // update result (home and away goals)
                 $match->setHomeGoals($fixtureData['home_team_goals']);
                 $match->setAwayGoals($fixtureData['away_team_goals']);
-
-                // prepare and execute queries
                 $this->em->persist($match);
-                $this->em->flush();
 
                 // increment the numeber of added fixtures
                 $status['fixtures_updated']++;
             }
+
+            // execute queries
+            $this->em->flush();
         }
 
         return $status;
@@ -149,8 +163,6 @@ class Importer
         $apiMapping->setApiName($apiName);
         $apiMapping->setApiObjectId($apiObjectId);
 
-        // prepare and execute queries
-        $this->em->persist($apiMapping);
-        $this->em->flush();
+        return $apiMapping;
     }
 }
