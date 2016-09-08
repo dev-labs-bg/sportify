@@ -2,11 +2,12 @@
 
 namespace Devlabs\SportifyBundle\Controller;
 
-use Devlabs\SportifyBundle\Entity\ApiMapping;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Devlabs\SportifyBundle\Entity\ApiMapping;
 use Devlabs\SportifyBundle\Entity\Tournament;
+use Devlabs\SportifyBundle\Entity\Team;
 
 class AdminController extends Controller
 {
@@ -331,5 +332,89 @@ class AdminController extends Controller
 
         // clear the submitted POST data and reload the page
         return $this->redirectToRoute('admin_tournaments');
+    }
+
+    /**
+     * @Route("/admin/teams", name="admin_teams")
+     */
+    public function teamsAction()
+    {
+        // if user is not logged in, redirect to login page
+        if (!is_object($user = $this->getUser())) {
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+
+        // Get an instance of the Entity Manager
+        $em = $this->getDoctrine()->getManager();
+
+        // get the filter helper service
+        $adminHelper = $this->container->get('app.admin.helper');
+
+        // get all teams
+        $teams = $em->getRepository('DevlabsSportifyBundle:Team')
+            ->findAll();
+
+        // add an 'empty' placeholder for a new tournament to be created
+        $teams['new'] = new Team();
+
+        // create Team forms
+        $forms = $adminHelper->createTeamForms($teams);
+
+        // get the user's tournaments position data
+        $userScores = $em->getRepository('DevlabsSportifyBundle:Score')
+            ->getByUser($user);
+        $this->container->get('twig')->addGlobal('user_scores', $userScores);
+
+        // rendering the view and returning the response
+        return $this->render(
+            'Admin/teams.html.twig',
+            array(
+                'forms' => $forms
+            )
+        );
+    }
+
+    /**
+     * @Route("/admin/teams/modify", name="admin_teams_modify")
+     */
+    public function teamModifyAction(Request $request)
+    {
+        // if user is not logged in, redirect to login page
+        if (!is_object($user = $this->getUser())) {
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+
+        // redirect to admin/teams page if the 'team_entity' parameter is NOT set in the POST data
+        if (!$request->request->get('team_entity')) {
+            return $this->redirectToRoute('admin_teams');
+        }
+
+        // get the admin helper service
+        $adminHelper = $this->container->get('app.admin.helper');
+
+        // Get an instance of the Entity Manager
+        $em = $this->getDoctrine()->getManager();
+
+        // set the team object based on whether it's new or existing one
+        if ($request->request->get('team_entity')['id']) {
+            $team = $em->getRepository('DevlabsSportifyBundle:Team')
+                ->findOneById($request->request->get('team_entity')['id']);
+        } else {
+            $team = new Team();
+        }
+
+        $team->setName($request->request->get('team_entity')['name']);
+
+        $buttonAction = $request->request->get('team_entity')['action'];
+
+        $form = $adminHelper->createTeamForm($team, $buttonAction);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $adminHelper->actionOnEntityFormSubmit($form);
+        }
+
+        // clear the submitted POST data and reload the page
+        return $this->redirectToRoute('admin_teams');
     }
 }

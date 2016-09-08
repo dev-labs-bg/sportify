@@ -12,8 +12,10 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Devlabs\SportifyBundle\Entity\ApiMapping;
 use Devlabs\SportifyBundle\Entity\Tournament;
+use Devlabs\SportifyBundle\Entity\Team;
 use Devlabs\SportifyBundle\Form\ApiMappingType;
 use Devlabs\SportifyBundle\Form\TournamentEntityType;
+use Devlabs\SportifyBundle\Form\TeamEntityType;
 
 /**
  * Class AdminHelper
@@ -140,22 +142,17 @@ class AdminHelper
     }
 
     /**
-     * Method for determining the ApiMapping form button's action
-     * 'CREATE' or 'EDIT', depending on where ApiMapping exists already
+     * Method for getting the value for the entity form's button action
+     * 'CREATE' or 'EDIT', depending on if object exists or is new
      *
-     * @param ApiMapping $apiMapping
+     * @param $object
      * @return string
      */
-    public function getApiMappingButtonAction(ApiMapping $apiMapping)
+    public function getButtonAction($object)
     {
-        // determine if the ApiMapping already exists
-        if (!$apiMapping->getId()) {
-            $buttonAction = 'CREATE';
-        } else {
-            $buttonAction = 'EDIT';
-        }
-
-        return $buttonAction;
+        return ($object->getId())
+            ? 'EDIT'
+            : 'CREATE';
     }
 
     /**
@@ -193,7 +190,7 @@ class AdminHelper
                 $this->container->getParameter('football_api.name')
             );
 
-            $buttonAction = $this->getApiMappingButtonAction($apiMapping);
+            $buttonAction = $this->getButtonAction($apiMapping);
 
             // create form for ApiMapping form
             $form = $this->createApiMappingForm($apiMapping, $buttonAction);
@@ -253,19 +250,6 @@ class AdminHelper
     }
 
     /**
-     * Method for getting the value for the prediction form's button
-     *
-     * @param $prediction
-     * @return string
-     */
-    public function getTournamentButton(Tournament $tournament)
-    {
-        return ($tournament->getId())
-            ? 'EDIT'
-            : 'CREATE';
-    }
-
-    /**
      * Method for creating Tournament Entity form
      *
      * @param Tournament $tournament
@@ -295,12 +279,54 @@ class AdminHelper
         // creating a form for each tournament
         foreach ($tournaments as $tournament) {
             // get buttonAction
-            $buttonAction = $this->getTournamentButton($tournament);
+            $buttonAction = $this->getButtonAction($tournament);
 
             // create form
             $form = $this->createTournamentForm($tournament, $buttonAction);
 
             // create view for each tournament's form
+            $forms[] = $form->createView();
+        }
+
+        return $forms;
+    }
+
+    /**
+     * Method for creating Team Entity form
+     *
+     * @param Team $team
+     * @param $buttonAction
+     * @return mixed
+     */
+    public function createTeamForm(Team $team, $buttonAction)
+    {
+        $form = $this->container->get('form.factory')->create(TeamEntityType::class, $team, array(
+            'action' => $this->container->get('router')->generate('admin_teams_modify'),
+            'button_action' => $buttonAction
+        ));
+
+        return $form;
+    }
+
+    /**
+     * Method for creating array of Team forms
+     *
+     * @param array $teams
+     * @return array
+     */
+    public function createTeamForms(array $teams)
+    {
+        $forms = array();
+
+        // creating a form for each team
+        foreach ($teams as $team) {
+            // get buttonAction
+            $buttonAction = $this->getButtonAction($team);
+
+            // create form
+            $form = $this->createTeamForm($team, $buttonAction);
+
+            // create view for each form
             $forms[] = $form->createView();
         }
 
