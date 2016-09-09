@@ -334,8 +334,11 @@ class Team
      *
      * @return string $path_to_logo
      */
-    public function setTeamLogo($filePath, $fileExtension = null)
+    public function setTeamLogo($filePath = null, $fileExtension = null)
     {
+        if (!$filePath)
+            return $this;
+
         /**
          * Skip setting of TeamLogo if image/path is NOT valid,
          * and PHP would throw an exception
@@ -348,7 +351,7 @@ class Team
         }
 
         // delete previous TeamLogo file if NOT the default one
-        if ($this->getTeamLogo() !== 'default_team_logo.png') {
+        if ($this->getTeamLogo() !== 'img/default_team_logo.png') {
             unlink($this->getTeamLogo());
         }
 
