@@ -369,6 +369,7 @@ class AdminController extends Controller
         return $this->render(
             'Admin/teams.html.twig',
             array(
+                'teams' => $teams,
                 'forms' => $forms
             )
         );

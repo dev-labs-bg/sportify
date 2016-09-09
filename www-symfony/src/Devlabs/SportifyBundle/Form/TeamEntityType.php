@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class TeamEntityType extends AbstractType
 {
@@ -39,6 +40,10 @@ class TeamEntityType extends AbstractType
             ->add('name', TextType::class, array(
                 'error_bubbling' => true
             ))
+            ->add('uploadFile', FileType::class, array(
+                'label' => 'Upload logo',
+                'required' => false
+            ))
             ->add('action', HiddenType::class, array(
                 'data' => $this->buttonAction,
                 'mapped' => false
@@ -54,5 +59,6 @@ class TeamEntityType extends AbstractType
                     'label' => 'DELETE'
                 ));
         }
+
     }
 }

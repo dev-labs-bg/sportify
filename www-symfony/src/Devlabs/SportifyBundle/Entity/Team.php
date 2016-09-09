@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Routing\RequestContext;
 use Intervention\Image\ImageManager;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass="Devlabs\SportifyBundle\Entity\TeamRepository")
@@ -56,6 +57,11 @@ class Team
      * Team logo
      */
     private $teamLogo;
+
+    /**
+     * Temp placeholder for uploaded files
+     */
+    private $uploadFile;
 
     /**
      * Constructor
@@ -320,7 +326,7 @@ class Team
         if (file_exists($file) && is_file($file))
             return 'img/team_logos/team_logo_'.$this->id.'.svg';
 
-        return 'img/default.png';
+        return 'img/default_team_logo.png';
     }
 
     /**
@@ -328,20 +334,25 @@ class Team
      *
      * @return string $path_to_logo
      */
-    public function setTeamLogo($imagePath)
+    public function setTeamLogo($filePath, $fileExtension = null)
     {
         /**
          * Skip setting of TeamLogo if image/path is NOT valid,
          * and PHP would throw an exception
          */
         try {
-            $file = file_get_contents($imagePath);
+            $file = file_get_contents($filePath);
         }
         catch(\Symfony\Component\Debug\Exception\ContextErrorException $e) {
             return $this;
         }
 
-        if (strpos($file, 'svg') !== FALSE) {
+        // delete previous TeamLogo file if NOT the default one
+        if ($this->getTeamLogo() !== 'default_team_logo.png') {
+            unlink($this->getTeamLogo());
+        }
+
+        if (strpos($file, 'svg') !== FALSE || in_array($fileExtension, ['svg', 'svg+xml'])) {
             file_put_contents(WEB_DIRECTORY . '/img/team_logos/team_logo_' . $this->id . '.svg', $file);
         } else {
             // create an image manager instance with favored driver
@@ -365,6 +376,19 @@ class Team
 
         return $this;
     }
+
+    public function getUploadFile()
+    {
+        return $this->uploadFile;
+    }
+
+    public function setUploadFile($file)
+    {
+        $this->uploadFile = $file;
+
+        return $this;
+    }
+
 
     public function __toString() {
         return $this->name;

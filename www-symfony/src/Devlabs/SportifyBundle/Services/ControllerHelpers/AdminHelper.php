@@ -231,6 +231,15 @@ class AdminHelper
 
         // execute the queries
         $this->em->flush();
+
+        if (get_class($object) === 'Devlabs\SportifyBundle\Entity\Team' && $object->getUploadFile()) {
+            // get the uploaded file's path and extension (file type)
+            $filePath = $object->getUploadFile()->getPathName();
+            $fileExtension = $object->getUploadFile()->guessExtension();
+
+            // write the file to disk as team logo
+            $object->setTeamLogo($filePath, $fileExtension);
+        }
     }
 
     /**
@@ -327,7 +336,7 @@ class AdminHelper
             $form = $this->createTeamForm($team, $buttonAction);
 
             // create view for each form
-            $forms[] = $form->createView();
+            $forms[$team->getId()] = $form->createView();
         }
 
         return $forms;

@@ -14,8 +14,11 @@
         </div>
         <div class="row">
             <div class="col-lg-12 col-lg-offset-1 col-md-12">
-            {% for form in forms %}
-                {{ include('templates/forms/team_create_edit.html.twig', {'form': form }) }}
+            {% for team in teams %}
+                {{ include('templates/forms/team_create_edit.html.twig', {
+                    'team': team,
+                    'form': forms[team.id]
+                }) }}
             {% endfor %}
             </div>
         </div>
