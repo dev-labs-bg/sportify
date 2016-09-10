@@ -23,13 +23,9 @@ class ChampionController extends Controller
     public function indexAction(Request $request, $tournament_id)
     {
         // if user is not logged in, redirect to login page
-        $securityContext = $this->container->get('security.authorization_checker');
-        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        if (!is_object($user = $this->getUser())) {
             return $this->redirectToRoute('fos_user_security_login');
         }
-
-        // Load the data for the current user into an object
-        $user = $this->getUser();
 
         $urlParams['tournament_id'] = $tournament_id;
 

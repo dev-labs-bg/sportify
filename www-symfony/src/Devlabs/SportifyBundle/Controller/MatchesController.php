@@ -30,13 +30,9 @@ class MatchesController extends Controller
     public function indexAction(Request $request, $tournament_id, $date_from, $date_to)
     {
         // if user is not logged in, redirect to login page
-        $securityContext = $this->container->get('security.authorization_checker');
-        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        if (!is_object($user = $this->getUser())) {
             return $this->redirectToRoute('fos_user_security_login');
         }
-
-        // Load the data for the current user into an object
-        $user = $this->getUser();
 
         // get the matches helper service
         $matchesHelper = $this->container->get('app.matches.helper');
@@ -112,8 +108,7 @@ class MatchesController extends Controller
     public function betAction(Request $request, $tournament_id, $date_from, $date_to)
     {
         // if user is not logged in, redirect to login page
-        $securityContext = $this->container->get('security.authorization_checker');
-        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        if (!is_object($user = $this->getUser())) {
             return $this->redirectToRoute('fos_user_security_login');
         }
 
@@ -121,9 +116,6 @@ class MatchesController extends Controller
         if (!$request->request->get('prediction')) {
             return $this->redirectToRoute('matches_index');
         }
-
-        // Load the data for the current user into an object
-        $user = $this->getUser();
 
         // get the matches helper service
         $matchesHelper = $this->container->get('app.matches.helper');
@@ -175,8 +167,7 @@ class MatchesController extends Controller
     public function betAllAction(Request $request)
     {
         // if user is not logged in, redirect to login page
-        $securityContext = $this->container->get('security.authorization_checker');
-        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        if (!is_object($user = $this->getUser())) {
             return $this->redirectToRoute('fos_user_security_login');
         }
 
@@ -184,9 +175,6 @@ class MatchesController extends Controller
         if (!$request->request->get('matches')) {
             return $this->redirectToRoute('matches_index');
         }
-
-        // Load the data for the current user into an object
-        $user = $this->getUser();
 
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
