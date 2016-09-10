@@ -232,6 +232,9 @@ class AdminHelper
         // execute the queries
         $this->em->flush();
 
+        /**
+         * If the object is Team and a file has been uploaded, set it as TeamLogo
+         */
         if (get_class($object) === 'Devlabs\SportifyBundle\Entity\Team' && $object->getUploadFile()) {
             // get the uploaded file's path and extension (file type)
             $filePath = $object->getUploadFile()->getPathName();

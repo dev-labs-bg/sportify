@@ -80,10 +80,8 @@ class MatchesController extends Controller
             $matchForms = $this->createMatchForms($request, $urlParams, $matchesHelper, $user, $matches, $predictions);
         }
 
-        // get the user's tournaments position data
-        $userScores = $em->getRepository('DevlabsSportifyBundle:Score')
-            ->getByUser($user);
-        $this->container->get('twig')->addGlobal('user_scores', $userScores);
+        // get user standings and set them as global Twig var
+        $this->get('app.twig.helper')->setUserScores($user);
 
         // rendering the view and returning the response
         return $this->render(

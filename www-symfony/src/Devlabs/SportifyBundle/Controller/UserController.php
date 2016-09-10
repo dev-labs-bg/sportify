@@ -40,11 +40,8 @@ class UserController extends Controller
 			);
 		}
 
-		// get the user's tournaments position data
-		$em = $this->getDoctrine()->getManager();
-		$userScores = $em->getRepository('DevlabsSportifyBundle:Score')
-			->getByUser($user);
-		$this->container->get('twig')->addGlobal('user_scores', $userScores);
+		// get user standings and set them as global Twig var
+		$this->get('app.twig.helper')->setUserScores($user);
 
 		return $this->render(
 			'User/profile.html.twig',

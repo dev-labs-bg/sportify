@@ -93,16 +93,9 @@ class StandingsController extends Controller
             ));
         }
 
-        // if user is logged in, get their standings
-        $securityContext = $this->container->get('security.authorization_checker');
-        if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            // Load the data for the current user into an object
-            $user = $this->getUser();
-
-            // get scores standings for the current user
-            $userScores = $em->getRepository('DevlabsSportifyBundle:Score')
-                ->getByUser($user);
-            $this->container->get('twig')->addGlobal('user_scores', $userScores);
+        // if user is logged in, get their standings and set them as global Twig var
+        if (is_object($user = $this->getUser())) {
+            $this->get('app.twig.helper')->setUserScores($user);
         }
 
         // rendering the view and returning the response
@@ -195,16 +188,9 @@ class StandingsController extends Controller
             ));
         }
 
-        // if user is logged in, get their standings
-        $securityContext = $this->container->get('security.authorization_checker');
-        if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            // Load the data for the current user into an object
-            $user = $this->getUser();
-
-            // get scores standings for the current user
-            $userScores = $em->getRepository('DevlabsSportifyBundle:Score')
-                ->getByUser($user);
-            $this->container->get('twig')->addGlobal('user_scores', $userScores);
+        // if user is logged in, get their standings and set them as global Twig var
+        if (is_object($user = $this->getUser())) {
+            $this->get('app.twig.helper')->setUserScores($user);
         }
 
         // rendering the view and returning the response

@@ -23,18 +23,8 @@ class AdminController extends Controller
             return $this->redirectToRoute('fos_user_security_login');
         }
 
-        // continue only if user is part of Admin Users list, else redirect to Home
-//        if (!in_array($user->getEmail(), $this->container->getParameter('admin.users'))) {
-//            return $this->redirectToRoute('home');
-//        }
-
-        // Get an instance of the Entity Manager
-        $em = $this->getDoctrine()->getManager();
-
-        // get the user's tournaments position data
-        $userScores = $em->getRepository('DevlabsSportifyBundle:Score')
-            ->getByUser($user);
-        $this->container->get('twig')->addGlobal('user_scores', $userScores);
+        // get user standings and set them as global Twig var
+        $this->get('app.twig.helper')->setUserScores($user);
 
         // rendering the view and returning the response
         return $this->render('Admin/index.html.twig');
@@ -43,20 +33,15 @@ class AdminController extends Controller
     /**
      * @Route("/admin/data_updates", name="admin_data_updates")
      */
-    public function dataUpdatesAction(Request $request)
+    public function dataUpdatesAction()
     {
         // if user is not logged in, redirect to login page
         if (!is_object($user = $this->getUser())) {
             return $this->redirectToRoute('fos_user_security_login');
         }
 
-        // Get an instance of the Entity Manager
-        $em = $this->getDoctrine()->getManager();
-
-        // get the user's tournaments position data
-        $userScores = $em->getRepository('DevlabsSportifyBundle:Score')
-            ->getByUser($user);
-        $this->container->get('twig')->addGlobal('user_scores', $userScores);
+        // get user standings and set them as global Twig var
+        $this->get('app.twig.helper')->setUserScores($user);
 
         // rendering the view and returning the response
         return $this->render('Admin/data_updates_index.html.twig');
@@ -124,9 +109,6 @@ class AdminController extends Controller
             return $this->redirectToRoute('fos_user_security_login');
         }
 
-        // Get an instance of the Entity Manager
-        $em = $this->getDoctrine()->getManager();
-
         // get the filter helper service
         $adminHelper = $this->container->get('app.admin.helper');
 
@@ -140,10 +122,8 @@ class AdminController extends Controller
             return $this->redirectToRoute('admin_data_updates');
         }
 
-        // get the user's tournaments position data
-        $userScores = $em->getRepository('DevlabsSportifyBundle:Score')
-            ->getByUser($user);
-        $this->container->get('twig')->addGlobal('user_scores', $userScores);
+        // get user standings and set them as global Twig var
+        $this->get('app.twig.helper')->setUserScores($user);
 
         // rendering the view and returning the response
         return $this->render(
@@ -177,12 +157,11 @@ class AdminController extends Controller
         // create Tournament forms
         $forms = $adminHelper->createApiMappingForms($tournaments);
 
+        // fetch and list available tournaments from API
         $apiTournaments = $this->container->get('app.data_updates.manager')->getTournaments();
 
-        // get the user's tournaments position data
-        $userScores = $em->getRepository('DevlabsSportifyBundle:Score')
-            ->getByUser($user);
-        $this->container->get('twig')->addGlobal('user_scores', $userScores);
+        // get user standings and set them as global Twig var
+        $this->get('app.twig.helper')->setUserScores($user);
 
         // rendering the view and returning the response
         return $this->render(
@@ -268,10 +247,8 @@ class AdminController extends Controller
         // create Tournament forms
         $forms = $adminHelper->createTournamentForms($tournaments);
 
-        // get the user's tournaments position data
-        $userScores = $em->getRepository('DevlabsSportifyBundle:Score')
-            ->getByUser($user);
-        $this->container->get('twig')->addGlobal('user_scores', $userScores);
+        // get user standings and set them as global Twig var
+        $this->get('app.twig.helper')->setUserScores($user);
 
         // rendering the view and returning the response
         return $this->render(
@@ -360,10 +337,8 @@ class AdminController extends Controller
         // create Team forms
         $forms = $adminHelper->createTeamForms($teams);
 
-        // get the user's tournaments position data
-        $userScores = $em->getRepository('DevlabsSportifyBundle:Score')
-            ->getByUser($user);
-        $this->container->get('twig')->addGlobal('user_scores', $userScores);
+        // get user standings and set them as global Twig var
+        $this->get('app.twig.helper')->setUserScores($user);
 
         // rendering the view and returning the response
         return $this->render(
