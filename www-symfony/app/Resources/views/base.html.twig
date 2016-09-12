@@ -56,7 +56,7 @@
                             </li>
                             {% if is_granted("ROLE_ADMIN") %}
                                 <li {% if app.request.attributes.get('_route') == 'admin_index'%}class="active"{% endif %}>
-                                    <a href="{{ path('admin_index') }}">ADMIN</a>
+                                    <a href="{{ path('admin_index') }}">ADMIN PANEL</a>
                                 </li>
                             {% endif %}
                             <li {% if app.request.attributes.get('_route') == 'tournaments_index'%}class="active"{% endif %}>
@@ -125,6 +125,11 @@
                             <div class="collapse navbar-collapse mobile-menu" id="mobile-menu">
                                 <ul class="nav navbar-nav">
                                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                        {% if is_granted("ROLE_ADMIN") %}
+                                            <li {% if app.request.attributes.get('_route') == 'admin_index' %}class="active"{% endif %}>
+                                                <a href="{{ path('admin_index') }}">ADMIN PANEL</a>
+                                            </li>
+                                        {% endif %}
                                         <li class="my-profile {% if app.request.attributes.get('_route') == 'user_profile'%} active{% endif %}">
                                             <a href="{{ path('user_profile') }}">My Profile</a>
                                         </li>
