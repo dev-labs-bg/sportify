@@ -2,13 +2,14 @@
 
 # Installation and Environment Setup
 * composer
+* npm
 * bower
-
+* gulp
 
 # Application parameters and initial setup
 * parameters (db, mail, slack, football API)
 * create db
-* schema update force
+* db schema update force
 * give ROLE_ADMIN to at least 1 user
 
 # Tournament config
