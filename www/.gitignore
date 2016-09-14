@@ -1,8 +1,0 @@
-config/.env
-deploy.php
-public/deploy.php
-vendor/
-.idea/
-.DS_Store
-lib/
-node_modules/
