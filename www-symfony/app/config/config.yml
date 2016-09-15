@@ -84,7 +84,7 @@ fos_user:
             enabled: true
             template: templates/emails/registration.email.twig
     from_email:
-        address:        sportify@devlabs-projects.com
+        address:        "%mailer_sender_address%"
         sender_name:    Sportify
     service:
         mailer: fos_user.mailer.twig_swift
