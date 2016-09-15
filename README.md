@@ -2,15 +2,15 @@
 This is a football match prediction game.
 The concept is pretty simple, you and your buddies battle it out to see who's best at predicting match final scores.
 Each player gives score predictions to upcoming matches, and then points are awarded as follows:
-    * **3 points** for exact match score prediction, examples:
-        + You predicted 1-0, final score 1-0
-        + You predicted 1-2, final score 1-2
-        + You predicted 3-3, final score 3-3
-    * **1 point** for match outcome predicted, examples:
-        + You predicted 1-0, final score 3-1  (home team win)
-        + You predicted 1-2, final score 0-2  (away team win)
-        + You predicted 2-2, final score 1-1  (draw)
-    * **0 points** for wrong match score/outcome prediction :)
+* **3 points** for exact match score prediction, examples:
+    + You predicted 1-0, final score 1-0
+    + You predicted 1-2, final score 1-2
+    + You predicted 3-3, final score 3-3
+* **1 point** for match outcome predicted, examples:
+    + You predicted 1-0, final score 3-1  (home team win)
+    + You predicted 1-2, final score 0-2  (away team win)
+    + You predicted 2-2, final score 1-1  (draw)
+* **0 points** for wrong match score/outcome prediction :)
 Correct prediction of tournament champion/winner: **5 points**
 The application is fetching real-world football fixtures and scores via a free football API (http://api.football-data.org)
 
