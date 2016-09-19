@@ -57,55 +57,25 @@
 
                         {% if score.posNew <= 3 %}
                             {% if score.posNew == 1 %}
-                                <div class="text-center">
-                                    <div class="first-place">
-                                        <a href="{{ path('history_index', {'user_id' : score.userId.id, 'tournament_id' : score.tournamentId.id}) }}">
-                                            <div class="profile-img">
-                                                <img src="{{ asset('img/devlabs_logo.png') }}" alt="" />
-                                            </div>
-                                        </a>
-                                        <div class="points">{{ score.points }}pt<br/>
-                                                            {{ score.exactPredictionPercentage }} %
-                                        </div>
-                                    </div>
-                                    <div class="name">
-                                        <span class="position-{{ pos_change }}"></span>{{ score.posNew }}. {{ score.userId.username }}
-                                    </div>
-                                </div>
+                                {{ include('templates/standings_pos123.html.twig', {
+                                    'score': score,
+                                    'pos_change': pos_change,
+                                    'position_class': 'first-place'
+                                }) }}
                             {% endif %}
                             {% if score.posNew == 2 %}
-                                <div class="text-center">
-                                    <div class="second-place">
-                                        <a href="{{ path('history_index', {'user_id' : score.userId.id, 'tournament_id' : score.tournamentId.id}) }}">
-                                            <div class="profile-img">
-                                                <img src="{{ asset('img/devlabs_logo.png') }}" alt="" />
-                                            </div>
-                                        </a>
-                                        <div class="points">{{ score.points }}pt<br/>
-                                                            {{ score.exactPredictionPercentage }} %
-                                        </div>
-                                    </div>
-                                    <div class="name">
-                                        <span class="position-{{ pos_change }}"></span>{{ score.posNew }}. {{ score.userId.username }}
-                                    </div>
-                                </div>
+                                {{ include('templates/standings_pos123.html.twig', {
+                                    'score': score,
+                                    'pos_change': pos_change,
+                                    'position_class': 'second-place'
+                                }) }}
                             {% endif %}
                             {% if score.posNew == 3 %}
-                                <div class="text-center">
-                                    <div class="third-place">
-                                        <a href="{{ path('history_index', {'user_id' : score.userId.id, 'tournament_id' : score.tournamentId.id}) }}">
-                                            <div class="profile-img">
-                                                <img src="{{ asset('img/devlabs_logo.png') }}" alt="" />
-                                            </div>
-                                        </a>
-                                        <div class="points">{{ score.points }}pt<br/>
-                                                            {{ score.exactPredictionPercentage }} %
-                                        </div>
-                                    </div>
-                                    <div class="name">
-                                        <span class="position-{{ pos_change }}"></span>{{ score.posNew }}. {{ score.userId.username }}
-                                    </div>
-                                </div>
+                                {{ include('templates/standings_pos123.html.twig', {
+                                    'score': score,
+                                    'pos_change': pos_change,
+                                    'position_class': 'third-place'
+                                }) }}
                     </div>
                 </div>
                             {% endif %}
