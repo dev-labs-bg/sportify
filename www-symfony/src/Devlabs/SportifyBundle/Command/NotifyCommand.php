@@ -82,6 +82,9 @@ class NotifyCommand extends ContainerAwareCommand
                     $em->persist($match);
                 }
 
+                $env = $this->getContainer()->get('kernel')->getEnvironment();
+                var_dump($env);die;
+
                 /**
                  * Sending the messages to the users.
                  *
