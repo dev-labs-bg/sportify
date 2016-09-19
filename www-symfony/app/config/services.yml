@@ -58,7 +58,13 @@ services:
 
     app.data_updates.manager:
         class: Devlabs\SportifyBundle\Services\DataUpdates\Manager
-        arguments: ['@service_container', '@doctrine.orm.entity_manager', '%football_api.name%']
+        arguments:
+          - '@service_container'
+          - '@doctrine.orm.entity_manager'
+          - '%football_api.name%'
+          - '@app.data_updates.fetchers.football_data_org'
+          - '@app.data_updates.parsers.football_data_org'
+          - '@app.data_updates.importer'
 
     app.data_updates.importer:
         class: Devlabs\SportifyBundle\Services\DataUpdates\Importer

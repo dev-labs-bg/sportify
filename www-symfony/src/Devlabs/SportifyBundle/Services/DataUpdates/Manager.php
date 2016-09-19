@@ -21,15 +21,16 @@ class Manager
     private $dataParser;
     private $dataImporter;
 
-    public function __construct(ContainerInterface $container, EntityManager $entityManager, $footballApi)
+    public function __construct(ContainerInterface $container, EntityManager $entityManager, $footballApi,
+                                $dataFetcher, $dataParser, $dataImporter)
     {
         $this->container = $container;
         $this->em = $entityManager;
         $this->footballApi = $footballApi;
 
-        $this->dataFetcher = $this->container->get('app.data_updates.fetchers.'.$footballApi);
-        $this->dataParser = $this->container->get('app.data_updates.parsers.'.$footballApi);
-        $this->dataImporter = $this->container->get('app.data_updates.importer');
+        $this->dataFetcher = $dataFetcher;
+        $this->dataParser = $dataParser;
+        $this->dataImporter = $dataImporter;
     }
 
     /**
