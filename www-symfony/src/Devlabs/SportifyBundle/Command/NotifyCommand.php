@@ -61,11 +61,11 @@ class NotifyCommand extends ContainerAwareCommand
                     $logText = $logText . "\n" . "Match: " . $matchText . "\n";
 
                     // get the users which have no prediction for this match
-                    $usersNotPredicted = $em->getRepository('DevlabsSportifyBundle:User')
+                    $usersNotPredictedByMatch = $em->getRepository('DevlabsSportifyBundle:User')
                         ->getNotPredictedByMatch($match);
 
                     // creating the messages for each user
-                    foreach ($usersNotPredicted as $user) {
+                    foreach ($usersNotPredictedByMatch as $user) {
                         if (!isset($messages[$user->getId()])) {
                             $messages[$user->getId()] = $msgHeading . "\n" . $matchText . "\n";
                         } else {
@@ -88,9 +88,14 @@ class NotifyCommand extends ContainerAwareCommand
                  * This is a separate cycle because we want to send each user only 1 message,
                  * even if the notification is for more than 1 match
                  */
-                foreach ($usersNotPredicted as $user) {
+                foreach ($messages as $id => $message) {
+                    // get the user for the message
+                    $user = $em->getRepository('DevlabsSportifyBundle:User')
+                        ->findOneById($id);
+
+                    // send the notification
                     $slack->setChannel('@'.$user->getSlackUsername())
-                        ->setText($messages[$user->getId()])
+                        ->setText($message)
                         ->post();
                 }
 
