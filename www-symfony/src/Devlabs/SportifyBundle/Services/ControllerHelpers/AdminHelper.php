@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Devlabs\SportifyBundle\Entity\ApiMapping;
 use Devlabs\SportifyBundle\Entity\Tournament;
 use Devlabs\SportifyBundle\Entity\Team;
+use Devlabs\SportifyBundle\Entity\Match;
 use Devlabs\SportifyBundle\Form\ApiMappingType;
 use Devlabs\SportifyBundle\Form\TournamentEntityType;
 use Devlabs\SportifyBundle\Form\TeamEntityType;
@@ -340,6 +341,48 @@ class AdminHelper
 
             // create view for each form
             $forms[$team->getId()] = $form->createView();
+        }
+
+        return $forms;
+    }
+
+    /**
+     * Method for creating Match Entity form
+     *
+     * @param Match $match
+     * @param $buttonAction
+     * @return mixed
+     */
+    public function createMatchForm(Match $match, $buttonAction)
+    {
+        $form = $this->container->get('form.factory')->create(TeamEntityType::class, $match, array(
+            'action' => $this->container->get('router')->generate('admin_matches_modify'),
+            'button_action' => $buttonAction
+        ));
+
+        return $form;
+    }
+
+    /**
+     * Method for creating array of Match forms
+     *
+     * @param array $matches
+     * @return array
+     */
+    public function createMatchForms(array $matches)
+    {
+        $forms = array();
+
+        // creating a form for each team
+        foreach ($matches as $match) {
+            // get buttonAction
+            $buttonAction = $this->getButtonAction($match);
+
+            // create form
+            $form = $this->createMatchForm($match, $buttonAction);
+
+            // create view for each form
+            $forms[$match->getId()] = $form->createView();
         }
 
         return $forms;
