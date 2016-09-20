@@ -396,9 +396,14 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/matches", name="admin_matches")
+     * @Route("/admin/matches/{tournament_id}",
+     *     name="admin_matches",
+     *     defaults={
+     *      "tournament_id" = "empty"
+     *     }
+     * )
      */
-    public function matchesAction()
+    public function matchesAction(Request $request, $tournament_id)
     {
         // if user is not logged in, redirect to login page
         if (!is_object($user = $this->getUser())) {
@@ -408,12 +413,61 @@ class AdminController extends Controller
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
 
+        $urlParams['tournament_id'] = $tournament_id;
+
+        /**
+         * Get selected tournament by last selected (from Cookie) and URL param is 'empty',
+         * or set to first from DB if 'tournament' Cookie is not set and URL param is 'empty',
+         * or get the tournament by the URL tournament_id value
+         */
+        if ($tournament_id === 'empty') {
+            $formSourceData['tournament_selected'] = ($request->cookies->has('tournament'))
+                ? $em->getRepository('DevlabsSportifyBundle:Tournament')
+                    ->findOneById($request->cookies->get('tournament'))
+                : $em->getRepository('DevlabsSportifyBundle:Tournament')
+                    ->getFirst();
+        } else {
+            $formSourceData['tournament_selected'] = $em->getRepository('DevlabsSportifyBundle:Tournament')
+                ->findOneById($tournament_id);
+        }
+
+        /**
+         * If expected data for 'tournament_selected' is not valid, get the first tournament.
+         * (usually happens when invalid 'tournament id' is passed)
+         */
+        if (!$formSourceData['tournament_selected']) {
+            $formSourceData['tournament_selected'] = $em->getRepository('DevlabsSportifyBundle:Tournament')
+                ->getFirst();
+        }
+
+        // get all tournaments as source data for form choices
+        $formSourceData['tournament_choices'] = $em->getRepository('DevlabsSportifyBundle:Tournament')
+            ->findAll();
+
+        // get the filter helper service
+        $filterHelper = $this->container->get('app.filter.helper');
+
+        // set the fields for the filter form
+        $fields = array('tournament');
+
+        // set the input data for the filter form and create it
+        $formInputData = $filterHelper->getFormInputData($request, $urlParams, $fields, $formSourceData);
+        $filterForm = $filterHelper->createForm($fields, $formInputData);
+        $filterForm->handleRequest($request);
+
+        // if the filter form is submitted, redirect with appropriate url path parameters
+        if ($filterForm->isSubmitted() && $filterForm->isValid()) {
+            $submittedParams = $filterHelper->actionOnFormSubmit($filterForm, $fields);
+
+            return $this->redirectToRoute('admin_matches', $submittedParams);
+        }
+
         // get the filter helper service
         $adminHelper = $this->container->get('app.admin.helper');
 
-        // get matches
+        // get matches for selected tournament
         $matches = $em->getRepository('DevlabsSportifyBundle:Match')
-            ->findAll();
+            ->getAllByTournament($formSourceData['tournament_selected']);
 
         // add an 'empty' placeholder for a new match to be created
         $matches['new'] = new Match();

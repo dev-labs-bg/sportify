@@ -160,4 +160,23 @@ class MatchRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * Method for getting a list all matches for a tournament
+     *
+     * @param Tournament $tournament
+     * @return array
+     */
+    public function getAllByTournament(Tournament $tournament)
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('DISTINCT m')
+            ->from('DevlabsSportifyBundle:Match', 'm')
+            ->where('m.tournamentId = :tournament_id')
+            ->setParameter('tournament_id', $tournament->getId())
+            ->orderBy('m.datetime')
+            ->addOrderBy('tm.name')
+            ->getQuery()
+            ->getResult();
+    }
 }
