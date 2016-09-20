@@ -7,11 +7,12 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class MatchEntityType extends AbstractType
 {
+    protected $data;
     protected $buttonAction;
 
     /**
@@ -31,27 +32,33 @@ class MatchEntityType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $this->data = $options['data'];
         $this->buttonAction = $options['button_action'];
 
         $builder
             ->add('id', HiddenType::class, array(
                 'label' => false
             ))
-            ->add('name', TextType::class, array(
+            ->add('tournamentId', HiddenType::class, array(
+                'label' => false,
                 'error_bubbling' => true
             ))
-            ->add('startDate', DateType::class, array(
+            ->add('$datetime', DateTimeType::class, array(
                 'widget' => 'single_text',
                 'error_bubbling' => true
             ))
-            ->add('endDate', DateType::class, array(
-                'widget' => 'single_text',
+            ->add('homeTeamId', TeamChoiceType::class, array(
+                'choices' => $this->data['team']['choices'],
+                'data' => $this->data['team']['data']
+            ))
+            ->add('awayTeamId', TeamChoiceType::class, array(
+                'choices' => $this->data['team']['choices'],
+                'data' => $this->data['team']['data']
+            ))
+            ->add('homeGoals', TextType::class, array(
                 'error_bubbling' => true
             ))
-            ->add('nameShort', TextType::class, array(
-                'error_bubbling' => true
-            ))
-            ->add('championTeamId', HiddenType::class, array(
+            ->add('awayGoals', TextType::class, array(
                 'error_bubbling' => true
             ))
             ->add('action', HiddenType::class, array(

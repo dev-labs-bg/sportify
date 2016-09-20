@@ -353,11 +353,12 @@ class AdminHelper
      * @param $buttonAction
      * @return mixed
      */
-    public function createMatchForm(Match $match, $buttonAction)
+    public function createMatchForm(Match $match, $buttonAction, $formInputData)
     {
         $form = $this->container->get('form.factory')->create(TeamEntityType::class, $match, array(
             'action' => $this->container->get('router')->generate('admin_matches_modify'),
-            'button_action' => $buttonAction
+            'button_action' => $buttonAction,
+            'data' => $formInputData
         ));
 
         return $form;
@@ -369,8 +370,21 @@ class AdminHelper
      * @param array $matches
      * @return array
      */
-    public function createMatchForms(array $matches)
+    public function createMatchForms(Tournament $tournament, array $matches)
     {
+        $formInputData = array();
+
+        // get a default selected team
+        $teamSelected = $this->em->getRepository('DevlabsSportifyBundle:Team')
+            ->getFirstByTournament($tournament);
+        // get a list of teams for the selected tournament
+        $teamChoices = $this->em->getRepository('DevlabsSportifyBundle:Team')
+            ->getAllByTournament($tournament);
+
+        // set the input form-data for the match form
+        $formInputData['team']['data'] = $teamSelected;
+        $formInputData['team']['choices'] = $teamChoices;
+
         $forms = array();
 
         // creating a form for each team
@@ -379,7 +393,7 @@ class AdminHelper
             $buttonAction = $this->getButtonAction($match);
 
             // create form
-            $form = $this->createMatchForm($match, $buttonAction);
+            $form = $this->createMatchForm($match, $buttonAction, $formInputData);
 
             // create view for each form
             $forms[$match->getId()] = $form->createView();

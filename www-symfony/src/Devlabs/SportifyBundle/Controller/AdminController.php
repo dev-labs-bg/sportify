@@ -473,7 +473,7 @@ class AdminController extends Controller
         $matches['new'] = new Match();
 
         // create Match forms
-        $forms = $adminHelper->createMatchForms($matches);
+        $forms = $adminHelper->createMatchForms($formSourceData['tournament_selected'], $matches);
 
         // get user standings and set them as global Twig var
         $this->get('app.twig.helper')->setUserScores($user);
