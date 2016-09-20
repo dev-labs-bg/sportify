@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Devlabs\SportifyBundle\Entity\ApiMapping;
 use Devlabs\SportifyBundle\Entity\Tournament;
 use Devlabs\SportifyBundle\Entity\Team;
+use Devlabs\SportifyBundle\Entity\Match;
 
 class AdminController extends Controller
 {
@@ -331,7 +332,7 @@ class AdminController extends Controller
         $teams = $em->getRepository('DevlabsSportifyBundle:Team')
             ->findAll();
 
-        // add an 'empty' placeholder for a new tournament to be created
+        // add an 'empty' placeholder for a new team to be created
         $teams['new'] = new Team();
 
         // create Team forms
@@ -392,5 +393,44 @@ class AdminController extends Controller
 
         // clear the submitted POST data and reload the page
         return $this->redirectToRoute('admin_teams');
+    }
+
+    /**
+     * @Route("/admin/matches", name="admin_matches")
+     */
+    public function matchesAction()
+    {
+        // if user is not logged in, redirect to login page
+        if (!is_object($user = $this->getUser())) {
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+
+        // Get an instance of the Entity Manager
+        $em = $this->getDoctrine()->getManager();
+
+        // get the filter helper service
+        $adminHelper = $this->container->get('app.admin.helper');
+
+        // get matches
+        $matches = $em->getRepository('DevlabsSportifyBundle:Match')
+            ->findAll();
+
+        // add an 'empty' placeholder for a new match to be created
+        $matches['new'] = new Match();
+
+        // create Match forms
+        $forms = $adminHelper->createMatchForms($matches);
+
+        // get user standings and set them as global Twig var
+        $this->get('app.twig.helper')->setUserScores($user);
+
+        // rendering the view and returning the response
+        return $this->render(
+            'Admin/matches.html.twig',
+            array(
+                'matches' => $matches,
+                'forms' => $forms
+            )
+        );
     }
 }
