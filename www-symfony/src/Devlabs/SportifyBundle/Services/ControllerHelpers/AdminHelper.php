@@ -17,6 +17,7 @@ use Devlabs\SportifyBundle\Entity\Match;
 use Devlabs\SportifyBundle\Form\ApiMappingType;
 use Devlabs\SportifyBundle\Form\TournamentEntityType;
 use Devlabs\SportifyBundle\Form\TeamEntityType;
+use Devlabs\SportifyBundle\Form\MatchEntityType;
 
 /**
  * Class AdminHelper
@@ -347,30 +348,12 @@ class AdminHelper
     }
 
     /**
-     * Method for creating Match Entity form
+     * Get the input data for the Match form
      *
-     * @param Match $match
-     * @param $buttonAction
-     * @return mixed
-     */
-    public function createMatchForm(Match $match, $buttonAction, $formInputData)
-    {
-        $form = $this->container->get('form.factory')->create(TeamEntityType::class, $match, array(
-            'action' => $this->container->get('router')->generate('admin_matches_modify'),
-            'button_action' => $buttonAction,
-            'data' => $formInputData
-        ));
-
-        return $form;
-    }
-
-    /**
-     * Method for creating array of Match forms
-     *
-     * @param array $matches
+     * @param Tournament $tournament
      * @return array
      */
-    public function createMatchForms(Tournament $tournament, array $matches)
+    public function getMatchFormInputData(Tournament $tournament)
     {
         $formInputData = array();
 
@@ -385,6 +368,37 @@ class AdminHelper
         $formInputData['team']['data'] = $teamSelected;
         $formInputData['team']['choices'] = $teamChoices;
 
+        return $formInputData;
+    }
+
+    /**
+     * Method for creating Match Entity form
+     *
+     * @param Match $match
+     * @param $buttonAction
+     * @return mixed
+     */
+    public function createMatchForm(array $urlParams, Match $match, $buttonAction, $formInputData)
+    {
+        $form = $this->container->get('form.factory')->create(MatchEntityType::class, $match, array(
+            'action' => $this->container->get('router')->generate('admin_matches_modify', $urlParams),
+            'button_action' => $buttonAction,
+            'other_data' => $formInputData
+        ));
+
+        return $form;
+    }
+
+    /**
+     * Method for creating array of Match forms
+     *
+     * @param array $matches
+     * @return array
+     */
+    public function createMatchForms(array $urlParams, Tournament $tournament, array $matches)
+    {
+        $formInputData = $this->getMatchFormInputData($tournament);
+
         $forms = array();
 
         // creating a form for each team
@@ -393,7 +407,7 @@ class AdminHelper
             $buttonAction = $this->getButtonAction($match);
 
             // create form
-            $form = $this->createMatchForm($match, $buttonAction, $formInputData);
+            $form = $this->createMatchForm($urlParams, $match, $buttonAction, $formInputData);
 
             // create view for each form
             $forms[$match->getId()] = $form->createView();

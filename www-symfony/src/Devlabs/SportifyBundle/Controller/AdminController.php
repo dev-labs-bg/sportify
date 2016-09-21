@@ -473,7 +473,7 @@ class AdminController extends Controller
         $matches['new'] = new Match();
 
         // create Match forms
-        $forms = $adminHelper->createMatchForms($formSourceData['tournament_selected'], $matches);
+        $forms = $adminHelper->createMatchForms($urlParams, $formSourceData['tournament_selected'], $matches);
 
         // get user standings and set them as global Twig var
         $this->get('app.twig.helper')->setUserScores($user);
@@ -482,9 +482,78 @@ class AdminController extends Controller
         return $this->render(
             'Admin/matches.html.twig',
             array(
+                'filter_form' => $filterForm->createView(),
                 'matches' => $matches,
                 'forms' => $forms
             )
         );
+    }
+
+    /**
+     * @Route("/admin/matches_modify/{tournament_id}", name="admin_matches_modify")
+     */
+    public function matchModifyAction(Request $request, $tournament_id)
+    {
+        // if user is not logged in, redirect to login page
+        if (!is_object($user = $this->getUser())) {
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+
+        // redirect to admin/matches page if the 'match_entity' parameter is NOT set in the POST data
+        if (!$request->request->get('match_entity')) {
+            return $this->redirectToRoute('admin_matches');
+        }
+
+        // get the admin helper service
+        $adminHelper = $this->container->get('app.admin.helper');
+
+        // Get an instance of the Entity Manager
+        $em = $this->getDoctrine()->getManager();
+
+        $urlParams['tournament_id'] = $tournament_id;
+
+        $tournament = $em->getRepository('DevlabsSportifyBundle:Tournament')
+            ->findOneById($tournament_id);
+
+        // set the match object based on whether it's new or existing one
+        if ($request->request->get('match_entity')['id']) {
+            $match = $em->getRepository('DevlabsSportifyBundle:Match')
+                ->findOneById($request->request->get('match_entity')['id']);
+        } else {
+            $match = new Match();
+            $match->setTournamentId($tournament);
+        }
+
+        // TODO !!!!!!!!!!!!!!!!!!!!!!
+//        $homeTeam = $this->em->getRepository('DevlabsSportifyBundle:Team')
+//            ->findOneById($request->request->get('match_entity')['homeTeamId']);
+//        $awayTeam = $this->em->getRepository('DevlabsSportifyBundle:Team')
+//            ->findOneById($request->request->get('match_entity')['awayTeamId']);
+//
+//        $datetime = \DateTime::createFromFormat('Y-m-d H:i:s', $fixtureData['match_local_time']);
+        $match->setDatetime($request->request->get('match_entity')['datetime']);
+
+        $match->setHomeTeamId($request->request->get('match_entity')['homeTeamId']);
+        $match->setAwayTeamId($request->request->get('match_entity')['awayTeamId']);
+        $match->setNotificationSent($request->request->get('match_entity')['notificationSent']);
+
+        if (($request->request->get('match_entity')['homeGoals'] !== null) &&
+            ($request->request->get('match_entity')['awayGoals'] !== null)) {
+            $match->setHomeGoals($request->request->get('match_entity')['homeGoals']);
+            $match->setAwayGoals($request->request->get('match_entity')['awayGoals']);
+        }
+
+        $buttonAction = $request->request->get('match_entity')['action'];
+        $formInputData = $adminHelper->getMatchFormInputData($tournament);
+
+        $form = $adminHelper->createMatchForm($urlParams, $match, $buttonAction, $formInputData);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $adminHelper->actionOnEntityFormSubmit($form);
+        }
+
+        // clear the submitted POST data and reload the page
+        return $this->redirectToRoute('admin_teams');
     }
 }

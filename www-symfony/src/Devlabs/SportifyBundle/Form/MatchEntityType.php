@@ -3,17 +3,28 @@
 namespace Devlabs\SportifyBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Form\CallbackTransformer;
+use Devlabs\SportifyBundle\Form\DataTransformer\TournamentToIdTransformer;
+use Devlabs\SportifyBundle\Form\DataTransformer\TeamToIdTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class MatchEntityType extends AbstractType
 {
-    protected $data;
+    protected $manager;
+    protected $otherData;
     protected $buttonAction;
+
+    public function __construct(ObjectManager $manager)
+    {
+        $this->manager = $manager;
+    }
 
     /**
      * @param OptionsResolver $resolver
@@ -22,7 +33,8 @@ class MatchEntityType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Devlabs\SportifyBundle\Entity\Match',
-            'button_action' => null
+            'button_action' => null,
+            'other_data' => null
         ));
     }
 
@@ -32,7 +44,7 @@ class MatchEntityType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $this->data = $options['data'];
+        $this->otherData = $options['other_data'];
         $this->buttonAction = $options['button_action'];
 
         $builder
@@ -43,22 +55,28 @@ class MatchEntityType extends AbstractType
                 'label' => false,
                 'error_bubbling' => true
             ))
-            ->add('$datetime', DateTimeType::class, array(
+            ->add('datetime', DateTimeType::class, array(
                 'widget' => 'single_text',
                 'error_bubbling' => true
             ))
             ->add('homeTeamId', TeamChoiceType::class, array(
-                'choices' => $this->data['team']['choices'],
-                'data' => $this->data['team']['data']
+                'choices' => $this->otherData['team']['choices'],
+                'data' => $this->otherData['team']['data']
             ))
             ->add('awayTeamId', TeamChoiceType::class, array(
-                'choices' => $this->data['team']['choices'],
-                'data' => $this->data['team']['data']
+                'choices' => $this->otherData['team']['choices'],
+                'data' => $this->otherData['team']['data']
             ))
             ->add('homeGoals', TextType::class, array(
+                'required' => false,
                 'error_bubbling' => true
             ))
             ->add('awayGoals', TextType::class, array(
+                'required' => false,
+                'error_bubbling' => true
+            ))
+            ->add('notificationSent', CheckboxType::class, array(
+                'required' => false,
                 'error_bubbling' => true
             ))
             ->add('action', HiddenType::class, array(
@@ -76,5 +94,34 @@ class MatchEntityType extends AbstractType
                     'label' => 'DELETE'
                 ));
         }
+
+        // data transformations - string <-> object for the 'tournamentId' field
+        $builder->get('tournamentId')
+            ->addModelTransformer(new TournamentToIdTransformer($this->manager))
+        ;
+
+        // data transformations - string <-> object for the 'homeTeamId' field
+        $builder->get('homeTeamId')
+            ->addModelTransformer(new TeamToIdTransformer($this->manager))
+        ;
+
+        // data transformations - string <-> object for the 'awayTeamId' field
+        $builder->get('awayTeamId')
+            ->addModelTransformer(new TeamToIdTransformer($this->manager))
+        ;
+
+        // data transformations - string <-> boolean for the 'homeGoals' field
+        $builder->get('notificationSent')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($boolean) {
+                    // transform the boolean to a string
+                    return (string) $boolean;
+                },
+                function ($text) {
+                    // transform the string back to boolean
+                    return (boolean) $text;
+                }
+            ))
+        ;
     }
 }

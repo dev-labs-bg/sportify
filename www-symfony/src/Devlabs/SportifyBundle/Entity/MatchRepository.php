@@ -172,6 +172,7 @@ class MatchRepository extends \Doctrine\ORM\EntityRepository
         return $this->getEntityManager()->createQueryBuilder()
             ->select('DISTINCT m')
             ->from('DevlabsSportifyBundle:Match', 'm')
+            ->join('m.homeTeamId', 'tm')
             ->where('m.tournamentId = :tournament_id')
             ->setParameter('tournament_id', $tournament->getId())
             ->orderBy('m.datetime')

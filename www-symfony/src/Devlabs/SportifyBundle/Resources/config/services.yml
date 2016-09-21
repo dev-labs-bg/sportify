@@ -8,3 +8,9 @@ services:
         arguments: ["@doctrine.orm.entity_manager"]
         tags:
             - { name: form.type }
+
+    app.form.type.match_entity:
+        class: Devlabs\SportifyBundle\Form\MatchEntityType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }

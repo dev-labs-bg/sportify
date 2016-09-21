@@ -1,0 +1,64 @@
+<div class="row">
+    {{ form_start(form) }}
+        {{ form_errors(form) }}
+        {{ form_row(form.id) }}
+        {{ form_row(form.tournamentId) }}
+        {{ form_row(form.action) }}
+        <div class="col-lg-2 col-md-2 tournament-item">
+            <div class="row">
+                <div class="col-lg-12 mobile-heading">Date and time</div>
+                <div class="col-lg-12">{{ form_row(form.datetime, {'attr': {'class': 'form-control' } }) }}</div>
+            </div>
+        </div>
+        <div class="col-lg-1 col-md-1 tournament-item">
+            <div class="row">
+                <div class="col-lg-12 mobile-heading">Home team</div>
+                <div class="col-lg-12">{{ form_row(form.homeTeamId, {'attr': {'class': 'form-control' } }) }}</div>
+            </div>
+        </div>
+        <div class="col-lg-1 col-md-1 tournament-item">
+            <div class="row">
+                <div class="col-lg-12 mobile-heading">Away team</div>
+                <div class="col-lg-12">{{ form_row(form.awayTeamId, {'attr': {'class': 'form-control' } }) }}</div>
+            </div>
+        </div>
+        <div class="col-lg-1 col-md-1 tournament-item">
+            <div class="row">
+                <div class="col-lg-12 mobile-heading">Home goals</div>
+                <div class="col-lg-12">{{ form_row(form.homeGoals, {'attr': {'class': 'form-control' } }) }}</div>
+            </div>
+        </div>
+        <div class="col-lg-1 col-md-1 tournament-item">
+            <div class="row">
+                <div class="col-lg-12 mobile-heading">Away goals</div>
+                <div class="col-lg-12">{{ form_row(form.awayGoals, {'attr': {'class': 'form-control' } }) }}</div>
+            </div>
+        </div>
+        <div class="col-lg-1 col-md-1 tournament-item">
+            <div class="row">
+                <div class="col-lg-12 mobile-heading">Notification sent</div>
+                <div class="col-lg-12">{{ form_row(form.notificationSent, {'attr': {'class': 'form-control' } }) }}</div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 tournament-item">
+            <div class="row">
+                <div class="col-lg-12">
+                    {% if (form.action.vars.value == 'CREATE') %}
+                        {{ form_row(form.button1, {'attr': {'class': 'btn green-btn tournament-btn' } }) }}
+                    {% else %}
+                        {{ form_row(form.button1, {'attr': {'class': 'btn yellow-btn tournament-btn' } }) }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 tournament-item">
+            <div class="row">
+                <div class="col-lg-12">
+                    {% if (form.action.vars.value == 'EDIT') %}
+                        {{ form_row(form.button2, {'attr': {'class': 'btn yellow-btn tournament-btn' } }) }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {{ form_end(form) }}
+</div>
