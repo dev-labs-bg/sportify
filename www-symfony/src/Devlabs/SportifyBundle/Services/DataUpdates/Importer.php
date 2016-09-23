@@ -130,21 +130,34 @@ class Importer
                 // increment the number of added fixtures
                 $status['fixtures_added']++;
 
-            } else if (($fixtureData['home_team_goals'] !== null) && ($fixtureData['away_team_goals'] !== null)) {
+            } else {
                 // get match from db
                 $match = $this->em->getRepository('DevlabsSportifyBundle:Match')
                     ->findOneById($matchApiMapping->getEntityId());
 
-                // skip updating Match's home and away goals if they are already set
-                if (($match->getHomeGoals() !== null) && ($match->getAwayGoals() !== null)) continue;
+                $matchUpdated = false;
 
-                // update result (home and away goals)
-                $match->setHomeGoals($fixtureData['home_team_goals']);
-                $match->setAwayGoals($fixtureData['away_team_goals']);
+                $datetime = \DateTime::createFromFormat('Y-m-d H:i:s', $fixtureData['match_local_time']);
+                if ($match->getDatetime() !== $datetime) {
+                    $match->setDatetime($datetime);
+//                    $matchUpdated = true;
+                }
+
+                // updating Match's home and away goals if they are not already set
+                if (($fixtureData['home_team_goals'] !== null) && ($fixtureData['away_team_goals'] !== null) &&
+                    ($match->getHomeGoals() === null) && ($match->getAwayGoals() === null)) {
+                    $match->setHomeGoals($fixtureData['home_team_goals']);
+                    $match->setAwayGoals($fixtureData['away_team_goals']);
+                    $matchUpdated = true;
+                }
+
+                if ($matchUpdated === true) {
+                    // increment the number of added fixtures
+                    $status['fixtures_updated']++;
+                }
+
+                // prepare db queries
                 $this->em->persist($match);
-
-                // increment the numeber of added fixtures
-                $status['fixtures_updated']++;
             }
 
             // execute queries
