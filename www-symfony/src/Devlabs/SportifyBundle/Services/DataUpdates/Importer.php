@@ -152,7 +152,7 @@ class Importer
                 }
 
                 if ($matchUpdated === true) {
-                    // increment the number of added fixtures
+                    // increment the number of updated fixtures
                     $status['fixtures_updated']++;
                 }
 

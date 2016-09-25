@@ -353,19 +353,36 @@ class AdminHelper
      * @param Tournament $tournament
      * @return array
      */
-    public function getMatchFormInputData(Tournament $tournament)
+    public function getMatchFormInputData(Match $match)
     {
+        $tournament = $match->getTournamentId();
         $formInputData = array();
 
-        // get a default selected team
-        $teamSelected = $this->em->getRepository('DevlabsSportifyBundle:Team')
-            ->getFirstByTournament($tournament);
+        if ($match->getId()) {
+            $homeTeam = $match->getHomeTeamId();
+            $awayTeam = $match->getAwayTeamId();
+        } else {
+            // get first team in list
+            $homeTeam = $this->em->getRepository('DevlabsSportifyBundle:Team')
+                ->getFirstByTournament($tournament);
+            $awayTeam = $this->em->getRepository('DevlabsSportifyBundle:Team')
+                ->getFirstByTournament($tournament);
+
+//            $homeTeam = clone $defaultTeam;
+//            $awayTeam = clone $defaultTeam;
+//
+//            // link/merge Team objects with EntityManager (set entity as managed by EM)
+//            $homeTeam = $this->em->merge($homeTeam);
+//            $awayTeam = $this->em->merge($awayTeam);
+        }
+        
         // get a list of teams for the selected tournament
         $teamChoices = $this->em->getRepository('DevlabsSportifyBundle:Team')
             ->getAllByTournament($tournament);
 
         // set the input form-data for the match form
-        $formInputData['team']['data'] = $teamSelected;
+        $formInputData['team']['home'] = $homeTeam;
+        $formInputData['team']['away'] = $awayTeam;
         $formInputData['team']['choices'] = $teamChoices;
 
         return $formInputData;
@@ -397,14 +414,13 @@ class AdminHelper
      */
     public function createMatchForms(array $urlParams, Tournament $tournament, array $matches)
     {
-        $formInputData = $this->getMatchFormInputData($tournament);
-
         $forms = array();
 
         // creating a form for each team
         foreach ($matches as $match) {
             // get buttonAction
             $buttonAction = $this->getButtonAction($match);
+            $formInputData = $this->getMatchFormInputData($match);
 
             // create form
             $form = $this->createMatchForm($urlParams, $match, $buttonAction, $formInputData);

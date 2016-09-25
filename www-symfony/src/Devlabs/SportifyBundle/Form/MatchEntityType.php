@@ -57,15 +57,16 @@ class MatchEntityType extends AbstractType
             ))
             ->add('datetime', DateTimeType::class, array(
                 'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd HH:mm',
                 'error_bubbling' => true
             ))
             ->add('homeTeamId', TeamChoiceType::class, array(
                 'choices' => $this->otherData['team']['choices'],
-                'data' => $this->otherData['team']['data']
+                'data' => $this->otherData['team']['home']
             ))
             ->add('awayTeamId', TeamChoiceType::class, array(
                 'choices' => $this->otherData['team']['choices'],
-                'data' => $this->otherData['team']['data']
+                'data' => $this->otherData['team']['away']
             ))
             ->add('homeGoals', TextType::class, array(
                 'required' => false,
@@ -101,27 +102,27 @@ class MatchEntityType extends AbstractType
         ;
 
         // data transformations - string <-> object for the 'homeTeamId' field
-        $builder->get('homeTeamId')
-            ->addModelTransformer(new TeamToIdTransformer($this->manager))
-        ;
+//        $builder->get('homeTeamId')
+//            ->addModelTransformer(new TeamToIdTransformer($this->manager))
+//        ;
 
         // data transformations - string <-> object for the 'awayTeamId' field
-        $builder->get('awayTeamId')
-            ->addModelTransformer(new TeamToIdTransformer($this->manager))
-        ;
+//        $builder->get('awayTeamId')
+//            ->addModelTransformer(new TeamToIdTransformer($this->manager))
+//        ;
 
         // data transformations - string <-> boolean for the 'homeGoals' field
-        $builder->get('notificationSent')
-            ->addModelTransformer(new CallbackTransformer(
-                function ($boolean) {
-                    // transform the boolean to a string
-                    return (string) $boolean;
-                },
-                function ($text) {
-                    // transform the string back to boolean
-                    return (boolean) $text;
-                }
-            ))
-        ;
+//        $builder->get('notificationSent')
+//            ->addModelTransformer(new CallbackTransformer(
+//                function ($boolean) {
+//                    // transform the boolean to a string
+//                    return (string) $boolean;
+//                },
+//                function ($text) {
+//                    // transform the string back to boolean
+//                    return (boolean) $text;
+//                }
+//            ))
+//        ;
     }
 }

@@ -332,6 +332,6 @@ class Match
      */
     public function getNotificationSent()
     {
-        return $this->notificationSent;
+        return (boolean) $this->notificationSent;
     }
 }

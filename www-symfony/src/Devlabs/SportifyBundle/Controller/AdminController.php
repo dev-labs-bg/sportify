@@ -471,6 +471,7 @@ class AdminController extends Controller
 
         // add an 'empty' placeholder for a new match to be created
         $matches['new'] = new Match();
+        $matches['new']->setTournamentId($formSourceData['tournament_selected']);
 
         // create Match forms
         $forms = $adminHelper->createMatchForms($urlParams, $formSourceData['tournament_selected'], $matches);
