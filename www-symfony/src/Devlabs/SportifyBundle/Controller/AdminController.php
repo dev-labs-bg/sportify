@@ -525,18 +525,20 @@ class AdminController extends Controller
             $match->setTournamentId($tournament);
         }
 
-        // TODO !!!!!!!!!!!!!!!!!!!!!!
-//        $homeTeam = $this->em->getRepository('DevlabsSportifyBundle:Team')
-//            ->findOneById($request->request->get('match_entity')['homeTeamId']);
-//        $awayTeam = $this->em->getRepository('DevlabsSportifyBundle:Team')
-//            ->findOneById($request->request->get('match_entity')['awayTeamId']);
-//
-//        $datetime = \DateTime::createFromFormat('Y-m-d H:i:s', $fixtureData['match_local_time']);
-        $match->setDatetime($request->request->get('match_entity')['datetime']);
+        // prep data for use in Match object setter methods
+        $homeTeam = $em->getRepository('DevlabsSportifyBundle:Team')
+            ->findOneById($request->request->get('match_entity')['homeTeamId']['id']);
+        $awayTeam = $em->getRepository('DevlabsSportifyBundle:Team')
+            ->findOneById($request->request->get('match_entity')['awayTeamId']['id']);
+        $datetime = \DateTime::createFromFormat('Y-m-d H:i', $request->request->get('match_entity')['datetime']);
+        $notificationSent = (array_key_exists('notificationSent', $request->request->get('match_entity')))
+            ? $request->request->get('match_entity')['notificationSent']
+            : 0;
 
-        $match->setHomeTeamId($request->request->get('match_entity')['homeTeamId']);
-        $match->setAwayTeamId($request->request->get('match_entity')['awayTeamId']);
-        $match->setNotificationSent($request->request->get('match_entity')['notificationSent']);
+        $match->setDatetime($datetime);
+        $match->setHomeTeamId($homeTeam);
+        $match->setAwayTeamId($awayTeam);
+        $match->setNotificationSent($notificationSent);
 
         if (($request->request->get('match_entity')['homeGoals'] !== null) &&
             ($request->request->get('match_entity')['awayGoals'] !== null)) {
@@ -545,7 +547,7 @@ class AdminController extends Controller
         }
 
         $buttonAction = $request->request->get('match_entity')['action'];
-        $formInputData = $adminHelper->getMatchFormInputData($tournament);
+        $formInputData = $adminHelper->getMatchFormInputData($match);
 
         $form = $adminHelper->createMatchForm($urlParams, $match, $buttonAction, $formInputData);
         $form->handleRequest($request);
@@ -555,6 +557,6 @@ class AdminController extends Controller
         }
 
         // clear the submitted POST data and reload the page
-        return $this->redirectToRoute('admin_teams');
+        return $this->redirectToRoute('admin_matches');
     }
 }

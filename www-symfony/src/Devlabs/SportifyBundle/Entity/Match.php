@@ -86,6 +86,20 @@ class Match
     }
 
     /**
+     * Set id
+     *
+     * @param string $id
+     *
+     * @return Match
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
      * Set datetime
      *
      * @param \DateTime $datetime
