@@ -358,24 +358,13 @@ class AdminHelper
         $tournament = $match->getTournamentId();
         $formInputData = array();
 
-        if ($match->getId()) {
-            $homeTeam = $match->getHomeTeamId();
-            $awayTeam = $match->getAwayTeamId();
-        } else {
-            // get first team in list
-            $homeTeam = $this->em->getRepository('DevlabsSportifyBundle:Team')
-                ->getFirstByTournament($tournament);
-            $awayTeam = $this->em->getRepository('DevlabsSportifyBundle:Team')
-                ->getFirstByTournament($tournament);
+        $homeTeam = ($match->getHomeTeamId())
+            ? $match->getHomeTeamId()
+            : $this->em->getRepository('DevlabsSportifyBundle:Team')->getFirstByTournament($tournament);
+        $awayTeam = ($match->getAwayTeamId())
+            ? $match->getAwayTeamId()
+            : $this->em->getRepository('DevlabsSportifyBundle:Team')->getFirstByTournament($tournament);
 
-//            $homeTeam = clone $defaultTeam;
-//            $awayTeam = clone $defaultTeam;
-//
-//            // link/merge Team objects with EntityManager (set entity as managed by EM)
-//            $homeTeam = $this->em->merge($homeTeam);
-//            $awayTeam = $this->em->merge($awayTeam);
-        }
-        
         // get a list of teams for the selected tournament
         $teamChoices = $this->em->getRepository('DevlabsSportifyBundle:Team')
             ->getAllByTournament($tournament);
@@ -412,7 +401,7 @@ class AdminHelper
      * @param array $matches
      * @return array
      */
-    public function createMatchForms(array $urlParams, Tournament $tournament, array $matches)
+    public function createMatchForms(array $urlParams, array $matches)
     {
         $forms = array();
 

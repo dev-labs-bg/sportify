@@ -426,6 +426,7 @@ class AdminController extends Controller
                     ->findOneById($request->cookies->get('tournament'))
                 : $em->getRepository('DevlabsSportifyBundle:Tournament')
                     ->getFirst();
+            $urlParams['tournament_id'] = $formSourceData['tournament_selected']->getId();
         } else {
             $formSourceData['tournament_selected'] = $em->getRepository('DevlabsSportifyBundle:Tournament')
                 ->findOneById($tournament_id);
@@ -474,7 +475,7 @@ class AdminController extends Controller
         $matches['new']->setTournamentId($formSourceData['tournament_selected']);
 
         // create Match forms
-        $forms = $adminHelper->createMatchForms($urlParams, $formSourceData['tournament_selected'], $matches);
+        $forms = $adminHelper->createMatchForms($urlParams, $matches);
 
         // get user standings and set them as global Twig var
         $this->get('app.twig.helper')->setUserScores($user);
