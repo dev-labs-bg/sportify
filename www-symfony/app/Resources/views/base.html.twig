@@ -181,13 +181,19 @@
                         </div><!-- /.container-fluid -->
                     </nav>
 
-                {% for label, flashes in app.session.flashbag.all %}
-                    {% for flash in flashes %}
-                        <div class="alert alert-{{ label }}">
-                            {{ flash }}
+                {% block flash_messages %}
+                    {% for label, flashes in app.session.flashbag.all %}
+                        {% for flash in flashes %}
+                        <div class="container-fluid content">
+                            <div class="row text-center">
+                            {#<div class="alert alert-{{ label }}">#}
+                                {{ flash }}
+                            {#</div>#}
+                            </div>
                         </div>
+                        {% endfor %}
                     {% endfor %}
-                {% endfor %}
+                {% endblock %}
 
                 {% block body %}{% endblock %}
 
