@@ -73,6 +73,7 @@ class AdminHelper
 
         $dataUpdatesManager = $this->container->get('app.data_updates.manager');
         $slackNotify = false;
+        $slackText = '';
 
         if ($data['update_type'] === 'matches-fixtures') {
             // set dateFrom and dateTo to respectively today and 'number of days' on
@@ -83,7 +84,7 @@ class AdminHelper
             if ($status['total_added'] > 0) {
                 $slackNotify = true;
                 $slackText = 'Match fixtures added for next '.$data['days'].' days. '
-                    .$status['total_added'].' fixtures added.';
+                    .$status['total_added'].' fixture(s) added.';
             }
         } else if ($data['update_type'] === 'matches-results') {
             // set dateFrom and dateTo to respectively 'number of days' before and today
@@ -116,6 +117,10 @@ class AdminHelper
             // Get instance of the Slack service and send notification
             $this->container->get('app.slack')->setText($slackText)->post();
         }
+
+        if ($slackText === '') $slackText = 'No fixtures/results added or updated.';
+
+        $this->container->get('session')->getFlashBag()->add('message', $slackText);
     }
 
     /**

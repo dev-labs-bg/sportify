@@ -44,3 +44,10 @@ The application is fetching real-world football fixtures and scores via a free f
     + map tournament to API (ADMIN PANEL -> API MAPPINGS)
 * API fetch - update teams (ADMIN PANEL -> DATA UPDATES -> UPDATE TEAMS)
 * API fetch - update fixtures (ADMIN PANEL -> DATA UPDATES -> UPDATE MATCH FIXTURES)
+* Manual fixture/result add or change (ADMIN PANEL -> MATCHES)
+
+//TODO
+# Contribution
+* fork
+* do some changes
+* pull request (with description of changes)
