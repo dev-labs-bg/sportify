@@ -109,6 +109,9 @@ $(function(){
     $('#champion_select_team_id').chosen({
         no_results_text: 'No such team!'
     });
+    $('.team-select-chosen select').chosen({
+        no_results_text: 'No such team!'
+    });
 });
 
 $(function(){

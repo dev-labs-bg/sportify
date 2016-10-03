@@ -1422,7 +1422,6 @@ a:focus {
 }
 
 a:focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -1631,7 +1630,7 @@ p {
   line-height: 1.4;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 820px) {
   .lead {
     font-size: 21px;
   }
@@ -1843,7 +1842,7 @@ dd {
   clear: both;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 820px) {
   .dl-horizontal dt {
     float: left;
     width: 160px;
@@ -2006,7 +2005,7 @@ pre code {
   clear: both;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 820px) {
   .container {
     width: 750px;
   }
@@ -2329,7 +2328,7 @@ pre code {
   margin-left: 100%;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 820px) {
   .col-sm-1,
   .col-sm-2,
   .col-sm-3,
@@ -3215,7 +3214,7 @@ table th[class*="col-"] {
   min-height: 0.01%;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 819px) {
   .table-responsive {
     width: 100%;
     margin-bottom: 15px;
@@ -3321,7 +3320,6 @@ select[size] {
 input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -3821,7 +3819,7 @@ select[multiple].input-lg,
   color: #737373;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 820px) {
   .form-inline .form-group {
     display: inline-block;
     margin-bottom: 0;
@@ -3911,7 +3909,7 @@ select[multiple].input-lg,
   clear: both;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 820px) {
   .form-horizontal .control-label {
     text-align: right;
     margin-bottom: 0;
@@ -3923,14 +3921,14 @@ select[multiple].input-lg,
   right: 15px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 820px) {
   .form-horizontal .form-group-lg .control-label {
     padding-top: 11px;
     font-size: 18px;
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 820px) {
   .form-horizontal .form-group-sm .control-label {
     padding-top: 6px;
     font-size: 12px;
@@ -3965,7 +3963,6 @@ select[multiple].input-lg,
 .btn:active.focus,
 .btn.active:focus,
 .btn.active.focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -4646,7 +4643,7 @@ tbody.collapse.in {
   margin-bottom: 2px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 820px) {
   .navbar-right .dropdown-menu {
     right: 0;
     left: auto;
@@ -4937,7 +4934,7 @@ tbody.collapse.in {
   left: auto;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 820px) {
   .nav-justified > li,
   .nav-tabs.nav-justified > li {
     display: table-cell;
@@ -4970,7 +4967,7 @@ tbody.collapse.in {
   border: 1px solid #ddd;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 820px) {
   .nav-tabs-justified > li > a,
   .nav-tabs.nav-justified > li > a {
     border-bottom: 1px solid #ddd;
@@ -5018,7 +5015,7 @@ tbody.collapse.in {
   clear: both;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 820px) {
   .navbar {
     border-radius: 4px;
   }
@@ -5034,7 +5031,7 @@ tbody.collapse.in {
   clear: both;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 820px) {
   .navbar-header {
     float: left;
   }
@@ -5063,7 +5060,7 @@ tbody.collapse.in {
   overflow-y: auto;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 820px) {
   .navbar-collapse {
     width: auto;
     border-top: 0;
@@ -5109,7 +5106,7 @@ tbody.collapse.in {
   margin-left: -15px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 820px) {
   .container > .navbar-header,
   .container > .navbar-collapse,
   .container-fluid > .navbar-header,
@@ -5124,7 +5121,7 @@ tbody.collapse.in {
   border-width: 0 0 1px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 820px) {
   .navbar-static-top {
     border-radius: 0;
   }
@@ -5138,7 +5135,7 @@ tbody.collapse.in {
   z-index: 1030;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 820px) {
   .navbar-fixed-top,
   .navbar-fixed-bottom {
     border-radius: 0;
@@ -5173,7 +5170,7 @@ tbody.collapse.in {
   display: block;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 820px) {
   .navbar > .container .navbar-brand,
   .navbar > .container-fluid .navbar-brand {
     margin-left: -15px;
@@ -5208,7 +5205,7 @@ tbody.collapse.in {
   margin-top: 4px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 820px) {
   .navbar-toggle {
     display: none;
   }
@@ -5224,7 +5221,7 @@ tbody.collapse.in {
   line-height: 20px;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 819px) {
   .navbar-nav .open .dropdown-menu {
     position: static;
     float: none;
@@ -5250,7 +5247,7 @@ tbody.collapse.in {
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 820px) {
   .navbar-nav {
     float: left;
     margin: 0;
@@ -5277,7 +5274,7 @@ tbody.collapse.in {
   margin-bottom: 8px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 820px) {
   .navbar-form .form-group {
     display: inline-block;
     margin-bottom: 0;
@@ -5338,7 +5335,7 @@ tbody.collapse.in {
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 819px) {
   .navbar-form .form-group {
     margin-bottom: 5px;
   }
@@ -5348,7 +5345,7 @@ tbody.collapse.in {
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 820px) {
   .navbar-form {
     width: auto;
     border: 0;
@@ -5394,7 +5391,7 @@ tbody.collapse.in {
   margin-bottom: 15px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 820px) {
   .navbar-text {
     float: left;
     margin-left: 15px;
@@ -5402,7 +5399,7 @@ tbody.collapse.in {
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 820px) {
   .navbar-left {
     float: left !important;
   }
@@ -5485,7 +5482,7 @@ tbody.collapse.in {
   color: #555;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 819px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
     color: #777;
   }
@@ -5603,7 +5600,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   color: #fff;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 819px) {
   .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
     border-color: #090909;
   }
@@ -6203,7 +6200,7 @@ button.close {
   display: none !important;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 819px) {
   .visible-xs {
     display: block !important;
   }
@@ -6222,25 +6219,25 @@ button.close {
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 819px) {
   .visible-xs-block {
     display: block !important;
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 819px) {
   .visible-xs-inline {
     display: inline !important;
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 819px) {
   .visible-xs-inline-block {
     display: inline-block !important;
   }
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
+@media (min-width: 820px) and (max-width: 991px) {
   .visible-sm {
     display: block !important;
   }
@@ -6259,19 +6256,19 @@ button.close {
   }
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
+@media (min-width: 820px) and (max-width: 991px) {
   .visible-sm-block {
     display: block !important;
   }
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
+@media (min-width: 820px) and (max-width: 991px) {
   .visible-sm-inline {
     display: inline !important;
   }
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
+@media (min-width: 820px) and (max-width: 991px) {
   .visible-sm-inline-block {
     display: inline-block !important;
   }
@@ -6351,13 +6348,13 @@ button.close {
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 819px) {
   .hidden-xs {
     display: none !important;
   }
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
+@media (min-width: 820px) and (max-width: 991px) {
   .hidden-sm {
     display: none !important;
   }
@@ -6434,7 +6431,7 @@ button.close {
   }
 }
 /**
- * Owl Carousel v2.1.4
+ * Owl Carousel v2.1.6
  * Copyright 2013-2016 David Deutsch
  * Licensed under MIT (https://github.com/OwlCarousel2/OwlCarousel2/blob/master/LICENSE)
  */
@@ -6628,7 +6625,7 @@ button.close {
   width: 100%;
 }
 /*!
- * Datepicker for Bootstrap v1.6.1 (https://github.com/eternicode/bootstrap-datepicker)
+ * Datepicker for Bootstrap v1.6.4 (https://github.com/eternicode/bootstrap-datepicker)
  *
  * Copyright 2012 Stefan Petre
  * Improvements by Andrew Rowls
@@ -6713,10 +6710,6 @@ button.close {
   bottom: -6px;
   border-bottom: 0;
   border-top: 6px solid #fff;
-}
-
-.datepicker > div {
-  display: none;
 }
 
 .datepicker table {
@@ -6934,7 +6927,7 @@ button.close {
   background-color: #006dcc;
   background-image: linear-gradient(to bottom, #08c, #04c);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0088cc', endColorstr='#0044cc', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#08c', endColorstr='#0044cc', GradientType=0);
   border-color: #04c #04c #002a80;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
@@ -7006,7 +6999,7 @@ button.close {
   background-color: #006dcc;
   background-image: linear-gradient(to bottom, #08c, #04c);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0088cc', endColorstr='#0044cc', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#08c', endColorstr='#0044cc', GradientType=0);
   border-color: #04c #04c #002a80;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
@@ -7122,7 +7115,7 @@ button.close {
 Chosen, a Select Box Enhancer for jQuery and Prototype
 by Patrick Filler for Harvest, http://getharvest.com
 
-Version 1.5.0
+Version 1.6.2
 Full source at https://github.com/harvesthq/chosen
 Copyright (c) 2011-2016 Harvest http://getharvest.com
 
@@ -7364,8 +7357,7 @@ This file is generated by `grunt build`, do not edit it by hand.
   margin: 0;
   padding: 0 5px;
   width: 100%;
-  height: auto !important;
-  height: 1%;
+  height: auto;
   border: 1px solid #aaa;
   background-color: #fff;
   background-image: linear-gradient(#eeeeee 1%, #ffffff 15%);
@@ -9693,6 +9685,10 @@ html {
   font-size: 16px;
 }
 
+.center {
+  text-align: center;
+}
+
 ul,
 li {
   font-size: 16px;
@@ -9813,6 +9809,27 @@ li {
     max-height: 100%;
     max-width: 100%;
   }
+}
+
+.team-logo-holder {
+  padding: 0;
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+}
+
+.inline-block-form {
+  display: inline-block;
+  width: auto;
+  vertical-align: middle;
+}
+
+.admin-team-page {
+  text-align: center;
+}
+
+.admin-team-page .team-image {
+  position: static;
 }
 
 body .match-item-mobile {
@@ -10100,6 +10117,30 @@ body .match-item-mobile.right-sided {
   margin-top: -15px;
   padding-left: 60px;
   transition: .5s ease;
+}
+
+.admin-page .sidebar-nav {
+  position: static;
+  width: 100%;
+}
+
+.admin-page .green-btn {
+  margin: 25px 0;
+}
+
+.end-row-buttons-holder > div {
+  display: inline-block;
+  width: auto;
+  margin-right: 10px;
+}
+
+.end-row-buttons-holder > div:last-child {
+  margin-right: 0;
+}
+
+.end-row-buttons-holder > div .green-btn,
+.end-row-buttons-holder > div .yellow-btn {
+  margin: 25px 0;
 }
 
 .sportify-logo {
@@ -10465,11 +10506,21 @@ h2 {
   text-decoration: none;
 }
 
+.admin-team-results-holder {
+  padding-left: 40px;
+}
+
+@media screen and (max-width: 1000px) {
+  .admin-team-results-holder {
+    padding-left: 20px;
+  }
+}
+
 .green-btn,
 .yellow-btn {
   border: none;
   color: #fff;
-  padding: 8px 40px;
+  padding: 8px 30px;
   border-radius: 100px;
   font-size: 16px;
   font-weight: 600;
@@ -10526,6 +10577,16 @@ h2 {
 .tournament,
 .standing {
   border-bottom: 1px solid #979797;
+}
+
+.admin-mappings-page .tournament {
+  padding-left: 40px;
+}
+
+@media screen and (max-width: 1000px) {
+  .admin-mappings-page .tournament {
+    padding-left: 20px;
+  }
 }
 
 .tournaments-header,
@@ -10637,6 +10698,7 @@ h2 {
 .chosen-container {
   font-size: 15px;
   font-weight: 600;
+  max-width: 100%;
 }
 
 .chosen-container-single .chosen-single {

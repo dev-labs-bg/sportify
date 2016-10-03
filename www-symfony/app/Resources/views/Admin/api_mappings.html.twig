@@ -6,15 +6,15 @@
 
 {% block body %}
 
-    <div class="container-fluid content">
+    <div class="container-fluid content admin-mappings-page">
         <div class="row">
-            <div class="col-lg-12 col-lg-offset-1 col-md-12">
+            <div class="col-lg-12 col-md-12">
                 <h2 class="text-center">Create/Edit/Delete Tournament-to-API mapping</h2>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-lg-12 col-lg-offset-1 col-md-12">
+            <div class="col-lg-12 col-md-12">
                 {% for tournament in tournaments %}
                     {{ include('templates/forms/apimapping_create_edit.html.twig', {
                         'form': forms[tournament.id],

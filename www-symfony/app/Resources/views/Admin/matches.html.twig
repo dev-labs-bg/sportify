@@ -8,12 +8,12 @@
 
     <div class="container-fluid content">
         <div class="row">
-            <div class="col-lg-12 col-lg-offset-1 col-md-12">
+            <div class="col-lg-12 col-md-12">
                 <h2 class="text-center">Create/Edit/Delete match</h2>
             </div>
         </div>
         <div class=" row">
-            <div class="col-lg-10 col-lg-offset-1">
+            <div class="col-lg-12">
                 {{ include('templates/forms/filter.html.twig', {
                     'form': filter_form,
                     'tournament_class': 'col-sm-4 col-sm-offset-3',
@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12 col-lg-offset-1 col-md-12">
+            <div class="col-lg-12 col-md-12 admin-team-results-holder">
                 {% for form in forms %}
                     {{ include('templates/forms/match_create_edit.html.twig', {
                         'form': form

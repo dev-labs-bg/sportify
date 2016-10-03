@@ -13,6 +13,9 @@ body, html {
     height: 100%;
     font-size: 16px;
 }
+.center {
+    text-align: center;
+}
 ul, li {
     font-size: 16px;
 }
@@ -101,6 +104,24 @@ ul, li {
             max-height: 100%;
             max-width: 100%;
         }
+    }
+}
+.team-logo-holder {
+    padding: 0;
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+.inline-block-form {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+}
+.admin-team-page {
+    text-align: center;
+
+    .team-image {
+        position: static;
     }
 }
 body .match-item-mobile {
@@ -365,6 +386,32 @@ body .match-item-mobile {
         margin-top: -15px;
         padding-left: 60px;
         transition: .5s ease;
+    }
+}
+.admin-page {
+
+    .sidebar-nav {
+        position: static;
+        width: 100%;
+    }
+}
+.admin-page .green-btn {
+    margin: 25px 0;
+}
+.end-row-buttons-holder {
+
+    > div {
+        display: inline-block;
+        width: auto;
+        margin-right: 10px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        .green-btn, .yellow-btn {
+            margin: 25px 0;
+        }
     }
 }
 
@@ -674,10 +721,17 @@ h2 {
         }
     }
 }
+.admin-team-results-holder {
+    padding-left: 40px;
+
+    @media screen and (max-width: 1000px) {
+        padding-left: 20px;
+    }
+}
 .green-btn, .yellow-btn {
     border: none;
     color: #fff;
-    padding: 8px 40px;
+    padding: 8px 30px;
     border-radius: 100px;
     font-size: 16px;
     font-weight: 600;
@@ -720,6 +774,13 @@ h2 {
 .tournament,
 .standing {
     border-bottom: 1px solid #979797;
+}
+.admin-mappings-page .tournament {
+    padding-left: 40px;
+
+    @media screen and (max-width: 1000px) {
+        padding-left: 20px;
+    }
 }
 .tournaments-header, .mobile-heading {
     color: rgba(255,255,255,.3);
@@ -810,6 +871,7 @@ h2 {
 .chosen-container {
     font-size: 15px;
     font-weight: 600;
+    max-width: 100%;
 
     &-single {
         .chosen-single {
