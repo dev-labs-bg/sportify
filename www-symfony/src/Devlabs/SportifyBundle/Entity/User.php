@@ -48,6 +48,8 @@ class User extends BaseUser
         $this->scores = new \Doctrine\Common\Collections\ArrayCollection();
         $this->predictions = new \Doctrine\Common\Collections\ArrayCollection();
         $this->predictionsChampion = new \Doctrine\Common\Collections\ArrayCollection();
+
+        $this->slackUsername = "slack_username";
     }
 
     /**
