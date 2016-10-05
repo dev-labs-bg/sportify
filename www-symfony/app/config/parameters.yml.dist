@@ -13,15 +13,15 @@ parameters:
     mailer_port:       587
     mailer_user:       ~
     mailer_password:   ~
-    mailer_sender_address: ~
+    mailer_sender_address: change-me@example.com
 
     # secret used for generating security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     # football API token
     # get football-data.org API token by FREE registration here: http://www.football-data.org/register
-    football_api.token: ~
+    football_api.token: check_the_README_file
     # Slack webhook URL
-    slack.url: ~
+    slack.url: check_the_README_file
     # Slack channel to which notifications will be sent
-    slack.channel: ~
+    slack.channel: check_the_README_file
