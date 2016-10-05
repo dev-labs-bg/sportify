@@ -1,22 +1,21 @@
 # General info
-This is a football (soccer :) match prediction game with a simple concept - you and your buddies battle it out to see who's best at predicting match final scores. Each player gives score predictions to upcoming matches, and then points are awarded (check below). There is a Slack integration for standings, results and fixture updates. The application is fetching real-world football fixtures and scores via a free football API (http://api.football-data.org), but custom tournaments can be created from the administration (check below).  
+This is a football (soccer :) match prediction game with a simple concept - you and your buddies battle it out to see who's best at predicting match final scores. Each player gives score predictions to upcoming matches, and then points are awarded [check below](https://gitlab.com/dev-labs-bg/dev-sportify/tree/feature/readme-redo#what-points-are-awarded). There is a Slack integration for standings, results and fixture updates. The application is fetching real-world football fixtures and scores via a free football API (http://api.football-data.org), but custom tournaments can be created from the [administration](https://gitlab.com/dev-labs-bg/dev-sportify/tree/feature/readme-redo#what-points-are-awarded).  
 
 # Requirements to run the project
 * PHP, Apache, Mysql
 * Symfony [system requirements](http://symfony.com/doc/current/reference/requirements.html)
-* [composer](https://getcomposer.org/), 
+* [composer](https://getcomposer.org/)
 * [npm](https://docs.npmjs.com/getting-started/installing-node)
 * [bower](https://bower.io/) & [gulp](http://gulpjs.com/) installed globally 
 
 # Installation and Environment Setup
 The project can be ran without issues on both *unix and Windows (MacOS, Ubuntu and Windows with LAMP tested:). Step by step guide how prepare a 512MB DigitalOcean Ubuntu LAMP 16.04 server in order to set-up the project can be found here.
 
-The steps needed to set-up symfony and all the tools (for both development and production:
+The steps needed to set-up symfony and all the tools (for both development and production):
 
-`composer install` - for a basic install you just need username and password for mysql, all are written to _app/config/parameters.yml_ check here for those the advanced parameters.
-Run:  
-`npm install` (if running on a machine with 0.5/1GB RAM add swap)  
-`bower install`(you may need --allow-root as a parameter if running as sudo)  
+`composer install` - *for a basic install you just need username and password for mysql, all are written to _app/config/parameters.yml_ check here for those the advanced parameters.*  
+`npm install` *(if running on a machine with 0.5/1GB RAM add swap)*  
+`bower install` *(you may need --allow-root as a parameter if running as sudo)*  
 `gulp`
 
 **N.B.**
@@ -30,7 +29,7 @@ After doing any changes on **app/config/parameters.yml** run `php bin/console ca
 * Give yourself Admin access from the command line: 
     + `php bin/console fos:user:promote your-username ROLE_ADMIN`
 * You can now access the web interface :)
-* If the emails are not configure (smtp credentials not set) you can create additional users with `php bin/console fos:user:create`
+* If the emails are not configured (smtp credentials not set) you can create additional users with `php bin/console fos:user:create`
 
 ### Setting up a tournament - for admins
 You can either set-up a tournament and update the scores for each game manually, or if it is a tournament present in the football api (check [here](http://api.football-data.org/v1/competitions), get the data from there.
@@ -69,8 +68,9 @@ Best practice is to use a transactional mail service, like Mailgun, Amazon SES, 
 **N.B.**
 After doing any changes on **app/config/parameters.yml** run `php bin/console cache:clear --env=prod` for them to take effect.
 
-//TODO
+
 # Contribution
+//TODO
 * fork
 * do some changes
 * pull request (with description of changes)
@@ -165,6 +165,7 @@ gulp
 #### All files should be owned by the apache user 
 `chown -R www-data:www-data /var/www/html/`
 
-Continue with **Application parameters and initial setup** :)
+Continue with [Application parameters and initial setup](https://gitlab.com/dev-labs-bg/dev-sportify/tree/feature/readme-redo#application-parameters-and-initial-setup) :)
 
 
+// TO DO - fix links
