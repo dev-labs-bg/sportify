@@ -81,9 +81,6 @@ Create tournament by navigating to: **Admin Panel -> Tournaments**. Then you hav
     + Manual (Admin Panel -> Matches)
 * Standings/scores updates (Admin Panel -> Scores/Standings Update) - required only when manually updating match fixtres and results.
 
-//TO DO
-
-
 ### Scoring system - what points are awarded for what
 * **3 points** for exact match score prediction, examples:
     + You predicted 1-0, final score 1-0
@@ -97,10 +94,14 @@ Create tournament by navigating to: **Admin Panel -> Tournaments**. Then you hav
 * **5 points** for correct prediction of tournament champion/winner (so, assigned just once for each tournament)
 
 # Contribution
-//TODO
-* fork
-* do some changes
-* pull request (with description of changes)
+
+We accept all kind of contributions that you guys make and we'll love you for them! <3
+
+If you find any problems, have any suggestions or want to discuss something you can either open an issue here or make a pull request with code changes instead.
+
+If you want to contribute, but you're not sure where to start you can always take a look at the issues here we have open and pick up with some of them.
+
+Try to follow our conventions for naming issues, branches and existing [code structure and conventions](http://symfony.com/doc/current/contributing/code/standards.html).
 
 // TO DO  - move to wiki
 ### DigitalOcean manual
