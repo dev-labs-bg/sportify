@@ -102,6 +102,7 @@ If you find any problems, have any suggestions or want to discuss something you 
 If you want to contribute, but you're not sure where to start you can always take a look at the issues here we have open and pick up with some of them.
 
 Try to follow our conventions for naming issues, branches and existing [code structure and conventions](http://symfony.com/doc/current/contributing/code/standards.html).
+// TODO - create some issues in GitHub repo
 
 // TO DO  - move to wiki
 ### DigitalOcean manual
