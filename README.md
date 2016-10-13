@@ -50,13 +50,13 @@ You can either set-up a tournament and update the scores for each game manually,
 Create tournament by navigating to: **Admin Panel -> Tournaments**. Then you have to options:
 
 #### Automatic updating of teams, match fixtures/results data (via API)
-* Create tournament-to-API mapping (Admin Panel -> API Mappings) - this is a one-time step.
-* API fetch - update teams (Admin Panel -> Data Updates -> Update Teams)
-* API fetch - update fixtures (Admin Panel -> Data Updates -> Update Match Fixtures)
+* Create tournament-to-API mapping (**Admin Panel -> API Mappings**) - this is a one-time step.
+* API fetch - update teams (**Admin Panel -> Data Updates -> Update Teams**)
+* API fetch - update fixtures (**Admin Panel -> Data Updates -> Update Match Fixtures**)
 
 #### Manual updating of teams, match fixtures/results data
-* Manual teams add or change (Admin Panel -> Teams)
-* Manual fixture/result add or change (Admin Panel -> Matches)
+* Manual teams add or change (**Admin Panel -> Teams**)
+* Manual fixture/result add or change (**Admin Panel -> Matches**)
 
 # Game flow
 
@@ -79,7 +79,7 @@ Create tournament by navigating to: **Admin Panel -> Tournaments**. Then you hav
 * Update match results:
     + Automatic via API fetch (**Admin Panel -> Data Updates -> Update Match Results**)
     + Manual (**Admin Panel -> Matches**)
-* Standings/scores updates (**Admin Panel -> Scores/Standings Update**) - required only when manually updating match fixtres and results.
+* Standings/scores updates (**Admin Panel -> Scores/Standings Update**) - required only when manually updating match results.
 
 ### Scoring system - what points are awarded for what
 * **3 points** for exact match score prediction, examples:
