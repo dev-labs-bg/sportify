@@ -29,11 +29,11 @@ After doing any changes on **app/config/parameters.yml** run `php bin/console ca
 * Give yourself Admin access from the command line: 
     + `php bin/console fos:user:promote your-username ROLE_ADMIN`
 * You can now access the web interface :)
-* If the emails are not configured (SMTP credentials not set) you can create additional users with `php bin/console fos:user:create`
+* If the emails are not configured (SMTP credentials not set), users will not abe able to make a registration by themselves because sending confirmation emails will not be possible. In this case you can fallback to creating user accounts with `php bin/console fos:user:create`
 
 ### Changing advanced app settings:
  
-`mailer_host`, `mailer_port`, `mailer_user`, `mailer_password` - SMTP settings in order to have the user registrations enabled on the web front end.
+`mailer_host`, `mailer_port`, `mailer_user`, `mailer_password` - SMTP settings in order to have sending of registration confirmation and password reset emails enabled.
 
 Best practice is to use a transactional mail service, like Mailgun, Amazon SES, etc. We recommend Mailgun as registering an account takes a few minutes and the free tier should be enough. Another option is to use [Gmail SMTP settings](https://www.digitalocean.com/community/tutorials/how-to-use-google-s-smtp-server).  
 
@@ -44,30 +44,47 @@ Best practice is to use a transactional mail service, like Mailgun, Amazon SES, 
 **N.B.**
 After doing any changes on **app/config/parameters.yml** run `php bin/console cache:clear --env=prod` for them to take effect.
 
-### Setting up a tournament (admin user(s) only)
+# Setting up a tournament (admin only)
 You can either set-up a tournament and update the scores for each game manually, or if it is a tournament present in the football api (check [here](http://api.football-data.org/v1/competitions), get the data from there.
 
-// TO DO - check if division of info is correct
-#### Using the API
-* Initial tournament setup
-    + create tournament (Admin Panel -> Tournaments)
-    + map tournament to API (Admin Panel -> API Mappings)
+Create tournament by navigating to: **Admin Panel -> Tournaments**. Then you have to options:
+
+### Automatic updating of teams, match fixtures/results data (via API)
+* Create tournament-to-API mapping (Admin Panel -> API Mappings) - this is a one-time step.
 * API fetch - update teams (Admin Panel -> Data Updates -> Update Teams)
 * API fetch - update fixtures (Admin Panel -> Data Updates -> Update Match Fixtures)
 
-#### Not using the API
-* Create tournament (Admin Panel -> Tournaments)
+### Manual updating of teams, match fixtures/results data
+* Manual teams add or change (Admin Panel -> Teams)
 * Manual fixture/result add or change (Admin Panel -> Matches)
 
-### Taking part in a tournament - for users
+# Game flow
 
-// TO DO
-## Using the app in time?
+### Regular user
+* Join tournament (Tournaments)
+* Make predictions:
+    + tournament champion team (Predictions -> Champion) - this can be changed until a deadline (usually this is the tournament's start date).
+    + match results (Predictions -> Matches) - each match prediction form is locked when the match starts.
+* Check match results for finished and scored matches (History):
+    + you can see final results for finished matches and how many points you gained, according to your prediction(s).
+    + you can also choose to see other users' predictions for finished matches.
+* Check user standings for each tournament (Standings)
+
+### Admin user
+* Create/edit tournaments (Admin panel -> Tournaments)
+* Update teams data: names, logos (Admin panel -> Teams)
+* Update match fixtures:
+    + Automatic via API fetch (Admin Panel -> Data Updates -> Update Match Fixtures)
+    + Manual (Admin Panel -> Matches)
+* Update match results:
+    + Automatic via API fetch (Admin Panel -> Data Updates -> Update Match Results)
+    + Manual (Admin Panel -> Matches)
+* Standings/scores updates (Admin Panel -> Scores/Standings Update) - required only when manually updating match fixtres and results.
 
 //TO DO
 
 
-## Scoring system - what points are awarded for what
+### Scoring system - what points are awarded for what
 * **3 points** for exact match score prediction, examples:
     + You predicted 1-0, final score 1-0
     + You predicted 1-2, final score 1-2
