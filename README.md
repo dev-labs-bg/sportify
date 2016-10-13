@@ -44,42 +44,42 @@ Best practice is to use a transactional mail service, like Mailgun, Amazon SES, 
 **N.B.**
 After doing any changes on **app/config/parameters.yml** run `php bin/console cache:clear --env=prod` for them to take effect.
 
-# Setting up a tournament (admin only)
+### Setting up a tournament (admin only)
 You can either set-up a tournament and update the scores for each game manually, or if it is a tournament present in the football api (check [here](http://api.football-data.org/v1/competitions), get the data from there.
 
 Create tournament by navigating to: **Admin Panel -> Tournaments**. Then you have to options:
 
-### Automatic updating of teams, match fixtures/results data (via API)
+#### Automatic updating of teams, match fixtures/results data (via API)
 * Create tournament-to-API mapping (Admin Panel -> API Mappings) - this is a one-time step.
 * API fetch - update teams (Admin Panel -> Data Updates -> Update Teams)
 * API fetch - update fixtures (Admin Panel -> Data Updates -> Update Match Fixtures)
 
-### Manual updating of teams, match fixtures/results data
+#### Manual updating of teams, match fixtures/results data
 * Manual teams add or change (Admin Panel -> Teams)
 * Manual fixture/result add or change (Admin Panel -> Matches)
 
 # Game flow
 
 ### Regular user
-* Join tournament (Tournaments)
+* Join tournament (**Tournaments**)
 * Make predictions:
-    + tournament champion team (Predictions -> Champion) - this can be changed until a deadline (usually this is the tournament's start date).
-    + match results (Predictions -> Matches) - each match prediction form is locked when the match starts.
-* Check match results for finished and scored matches (History):
+    + tournament champion team (**Predictions -> Champion**) - this can be changed until a deadline (usually this is the tournament's start date).
+    + match results (**Predictions -> Matches**) - each match prediction form is locked when the match starts.
+* Check match results for finished and scored matches (**History**):
     + you can see final results for finished matches and how many points you gained, according to your prediction(s).
     + you can also choose to see other users' predictions for finished matches.
-* Check user standings for each tournament (Standings)
+* Check user standings for each tournament (**Standings**)
 
 ### Admin user
-* Create/edit tournaments (Admin panel -> Tournaments)
-* Update teams data: names, logos (Admin panel -> Teams)
+* Create/edit tournaments (**Admin panel -> Tournaments**)
+* Update teams data: names, logos (**Admin panel -> Teams**)
 * Update match fixtures:
-    + Automatic via API fetch (Admin Panel -> Data Updates -> Update Match Fixtures)
-    + Manual (Admin Panel -> Matches)
+    + Automatic via API fetch (**Admin Panel -> Data Updates -> Update Match Fixtures**)
+    + Manual (**Admin Panel -> Matches**)
 * Update match results:
-    + Automatic via API fetch (Admin Panel -> Data Updates -> Update Match Results)
-    + Manual (Admin Panel -> Matches)
-* Standings/scores updates (Admin Panel -> Scores/Standings Update) - required only when manually updating match fixtres and results.
+    + Automatic via API fetch (**Admin Panel -> Data Updates -> Update Match Results**)
+    + Manual (**Admin Panel -> Matches**)
+* Standings/scores updates (**Admin Panel -> Scores/Standings Update**) - required only when manually updating match fixtres and results.
 
 ### Scoring system - what points are awarded for what
 * **3 points** for exact match score prediction, examples:
