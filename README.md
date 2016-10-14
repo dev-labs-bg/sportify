@@ -56,17 +56,18 @@ After doing any changes on **app/config/parameters.yml** run `php bin/console ca
 
 ### Initial application data setup (admin only)
 
-Once the App is up-and-running you have to create at least one tournament, so that that when users register and login, are able to join it.
+Once the App is up-and-running you have to create at least one tournament, so that users are able to join it when they register and login.
+
 Create tournament by navigating to: **Admin Panel -> Tournaments**. After the tournament is created, you have to options:
 
-#### Automatic updating of teams, match fixtures/results data (via API)
-* Create tournament-to-API mapping (**Admin Panel -> API Mappings**) - when you acces this page you should see a list of tournaments and their IDs, dynamically fetched from the football API. You can also view the football API's tournament list from [here](http://api.football-data.org/v1/competitions)
-* API fetch - update teams (**Admin Panel -> Data Updates -> Update Teams**) - adds/updates teams for all tournaments with API mappings.
-* API fetch - update fixtures (**Admin Panel -> Data Updates -> Update Match Fixtures**) - adds/updates upcoming fixtures for specified period for all tournaments with API Mappings.
+* Automatic updating of teams, match fixtures/results data (via API)
+    + Create tournament-to-API mapping (**Admin Panel -> API Mappings**) - when you acces this page you should see a list of tournaments and their IDs, dynamically fetched from the football API. You can also view the football API's tournament list from [here](http://api.football-data.org/v1/competitions)
+    + API fetch - update teams (**Admin Panel -> Data Updates -> Update Teams**) - adds/updates teams for all tournaments with API mappings.
+    + API fetch - update fixtures (**Admin Panel -> Data Updates -> Update Match Fixtures**) - adds/updates upcoming fixtures for specified period for all tournaments with API Mappings.
 
-#### Manual updating of teams, match fixtures/results data
-* Manual teams add or change (**Admin Panel -> Teams**)
-* Manual fixture/result add or change (**Admin Panel -> Matches**)
+* Manual updating of teams, match fixtures/results data
+    + Manual teams add or change (**Admin Panel -> Teams**)
+    + Manual fixture/result add or change (**Admin Panel -> Matches**)
 
 # Game flow
 
