@@ -18,8 +18,15 @@ The major steps needed to set-up symfony and all the tools (for both development
 `bower install` *(you may need --allow-root as a parameter if running as sudo)*  
 `gulp`
 
-**N.B.**
-After doing any changes on **app/config/parameters.yml** run `php bin/console cache:clear --env=prod` for them to take effect.
+We suggest that you setup your web server to use `web/` as root directory.
+The app has two two main environments:
+* Development (**dev**):
+    + Acccessed by navigating to `app_dev.php` - can only be accessed locally (from 127.0.0.1, a.k.a. localhost)
+    + Debug Mode is enabled, so you have key development-friendly features like access to stack traces on error pages and auto/dynamic rebuilding of cache files on each request. The latter meaning that you don't have to clear the app's cache every time you change something.
+* Production (**prod**):
+    + Acccessed by navigating to `app.php`
+    + By default, when you access `/` you are redirected to `app.php` (configured in `.htaccess`).
+    + Debug Mode is disabled. The main thing is that every time a change is made to the app, the cache should be manually cleared by using this command: `php bin/console cache:clear --env=prod`
 
 # Application parameters and initial setup
 * Database schema update (migrations):
@@ -30,6 +37,9 @@ After doing any changes on **app/config/parameters.yml** run `php bin/console ca
     + `php bin/console fos:user:promote your-username ROLE_ADMIN`
 * You can now access the web interface :)
 * If the emails are not configured (SMTP credentials not set), users will not abe able to make a registration by themselves because sending confirmation emails will not be possible. In this case you can fallback to creating user accounts with `php bin/console fos:user:create`
+
+**N.B.**
+After doing any changes on **app/config/parameters.yml** run `php bin/console cache:clear --env=prod` for them to take effect.
 
 ### Changing advanced app settings:
  
@@ -102,7 +112,7 @@ If you find any problems, have any suggestions or want to discuss something you 
 
 If you want to contribute, but you're not sure where to start you can always take a look at the issues here we have open and pick up with some of them.
 
-Try to follow our conventions for naming issues, branches and existing [code structure and conventions](http://symfony.com/doc/current/contributing/code/standards.html).
+Try to follow our conventions for naming issues, branches and existing code structure and conventions.
 
 // TODO - create some issues in GitHub repo
 
