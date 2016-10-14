@@ -1,5 +1,5 @@
 # General info
-This is a football (soccer :) match prediction game with a simple concept - you and your buddies battle it out to see who's best at predicting match final scores. Each player gives score predictions to upcoming matches, and then points are awarded [check below](https://gitlab.com/dev-labs-bg/dev-sportify/tree/feature/readme-redo#what-points-are-awarded). There is a Slack integration for notifications on events like standings, results and fixture updates. The application is fetching real-world football fixtures and scores via a free football API (http://api.football-data.org), but custom tournaments can be created from the [administration](https://gitlab.com/dev-labs-bg/dev-sportify/tree/feature/readme-redo#what-points-are-awarded).  
+This is a football (soccer :) match prediction game with a simple concept - you and your buddies battle it out to see who's best at predicting match final scores. Each player gives score predictions to upcoming matches, and then points are awarded [check below](https://gitlab.com/dev-labs-bg/dev-sportify/tree/feature/readme-redo#scoring-system-what-points-are-awarded-for-what). There is a Slack integration for notifications on events like standings, results and fixture updates. The application is fetching real-world football fixtures and scores via a free football API (http://api.football-data.org), but custom tournaments can be created from the [administration](https://gitlab.com/dev-labs-bg/dev-sportify/tree/feature/readme-redo#admin-user).  
 
 # Requirements to run the project
 * PHP, Apache, Mysql
@@ -52,7 +52,7 @@ Create tournament by navigating to: **Admin Panel -> Tournaments**. Then you hav
 #### Automatic updating of teams, match fixtures/results data (via API)
 * Create tournament-to-API mapping (**Admin Panel -> API Mappings**).
 * API fetch - update teams (**Admin Panel -> Data Updates -> Update Teams**) - adds/updates teams for all tournaments with API mappings.
-* API fetch - update fixtures (**Admin Panel -> Data Updates -> Update Match Fixtures**) - adds/updates upcoming fixtures for specified period for all tournaments with API mappings.
+* API fetch - update fixtures (**Admin Panel -> Data Updates -> Update Match Fixtures**) - adds/updates upcoming fixtures for specified period for all tournaments with API Mappings.
 
 #### Manual updating of teams, match fixtures/results data
 * Manual teams add or change (**Admin Panel -> Teams**)
@@ -103,7 +103,9 @@ If you find any problems, have any suggestions or want to discuss something you 
 If you want to contribute, but you're not sure where to start you can always take a look at the issues here we have open and pick up with some of them.
 
 Try to follow our conventions for naming issues, branches and existing [code structure and conventions](http://symfony.com/doc/current/contributing/code/standards.html).
+
 // TODO - create some issues in GitHub repo
+
 
 // TO DO  - move to wiki
 ### DigitalOcean manual
