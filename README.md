@@ -26,7 +26,7 @@ The app has two two main environments:
 * Production (**prod**):
     + Acccessed by navigating to `app.php`
     + By default, when you access `/` you are redirected to `app.php` (configured in `.htaccess`).
-    + Debug Mode is disabled. The main thing is that every time a change is made to the app, the cache should be manually cleared by using this command: `php bin/console cache:clear --env=prod`
+    + Debug Mode is disabled. The main thing is that every time a change is made to the app (routing, templates, parameters, etc.), it will not take effect until the cache is manually cleared by using this command: `php bin/console cache:clear --env=prod` (have this in mind if creating a deployment script).
 
 # Application parameters and initial setup
 * Database schema update (migrations):
@@ -54,13 +54,13 @@ Best practice is to use a transactional mail service, like Mailgun, Amazon SES, 
 **N.B.**
 After doing any changes on **app/config/parameters.yml** run `php bin/console cache:clear --env=prod` for them to take effect.
 
-### Setting up a tournament (admin only)
-You can either set-up a tournament and update the scores for each game manually, or if it is a tournament present in the football api (check [here](http://api.football-data.org/v1/competitions), get the data from there.
+### Initial application data setup (admin only)
 
-Create tournament by navigating to: **Admin Panel -> Tournaments**. Then you have to options:
+Once the App is up-and-running you have to create at least one tournament, so that that when users register and login, are able to join it.
+Create tournament by navigating to: **Admin Panel -> Tournaments**. After the tournament is created, you have to options:
 
 #### Automatic updating of teams, match fixtures/results data (via API)
-* Create tournament-to-API mapping (**Admin Panel -> API Mappings**).
+* Create tournament-to-API mapping (**Admin Panel -> API Mappings**) - when you acces this page you should see a list of tournaments and their IDs, dynamically fetched from the football API. You can also view the football API's tournament list from [here](http://api.football-data.org/v1/competitions)
 * API fetch - update teams (**Admin Panel -> Data Updates -> Update Teams**) - adds/updates teams for all tournaments with API mappings.
 * API fetch - update fixtures (**Admin Panel -> Data Updates -> Update Match Fixtures**) - adds/updates upcoming fixtures for specified period for all tournaments with API Mappings.
 
@@ -82,8 +82,10 @@ Create tournament by navigating to: **Admin Panel -> Tournaments**. Then you hav
 
 ### Admin user
 * Create/edit tournaments (**Admin panel -> Tournaments**)
-* Create/edit tournament-to-API mappings (**Admin panel -> API Mappings**)
-* Update teams data: names, logos (**Admin panel -> Teams**)
+* Create/edit tournament-to-API mappings (**Admin panel -> API Mappings**) - this is required for any tournament for which you want to fetch teams, matches data via API.
+* Update teams data:
+    + Automatic via API fetch (**Admin Panel -> Data Updates -> Update Teams**)
+    + Manual (**Admin panel -> Teams**) - adding new teams or change/update names, logos.
 * Update match fixtures:
     + Automatic via API fetch (**Admin Panel -> Data Updates -> Update Match Fixtures**)
     + Manual (**Admin Panel -> Matches**)
