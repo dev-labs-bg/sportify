@@ -2,7 +2,11 @@
 
 namespace Devlabs\SportifyBundle\Services\DataUpdates\Fetchers;
 
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Exception\RequestException;
 
 /**
  * Class FootballDataOrg
@@ -10,12 +14,15 @@ use GuzzleHttp\Client;
  */
 class FootballDataOrg
 {
+    use ContainerAwareTrait;
+
     private $httpClient;
     private $options;
     private $baseUri;
 
-    public function __construct($baseUri, $apiToken)
+    public function __construct(ContainerInterface $container, $baseUri, $apiToken)
     {
+        $this->container = $container;
         $this->httpClient = new Client();
         $this->options = array();
         $this->options['headers']['X-Auth-Token'] = $apiToken;
@@ -30,9 +37,35 @@ class FootballDataOrg
      */
     public function getResponse($uri)
     {
-        $response = $this->httpClient->get($uri, $this->options);
+        try {
+            $response = $this->httpClient->get($uri, $this->options);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+        }
 
-        return json_decode($response->getBody());
+        return $response;
+    }
+
+    /**
+     * Process fetched response depending on status code
+     *
+     * @param Response $response
+     * @param null $bodyProperty
+     * @return array|mixed
+     */
+    public function processResponse(Response $response, $bodyProperty = null)
+    {
+        if ($response->getStatusCode() !== 200) {
+            $this->container->get('session')
+                ->getFlashBag()
+                ->add('message', $response->getReasonPhrase());
+
+            return array();
+        }
+
+        return ($bodyProperty)
+            ? json_decode($response->getBody())->$bodyProperty
+            : json_decode($response->getBody());
     }
 
     /**
@@ -46,7 +79,7 @@ class FootballDataOrg
     {
         $uri = $this->baseUri.'/competitions/'.$apiTournamentId.'/fixtures/?matchday='.$matchDay;
 
-        return $this->getResponse($uri)->fixtures;
+        return $this->processResponse($this->getResponse($uri), 'fixtures');
     }
 
     /**
@@ -61,7 +94,7 @@ class FootballDataOrg
     {
         $uri = $this->baseUri.'/competitions/'.$apiTournamentId.'/fixtures/?timeFrameStart='.$dateFrom.'&timeFrameEnd='.$dateTo;
 
-        return $this->getResponse($uri)->fixtures;
+        return $this->processResponse($this->getResponse($uri), 'fixtures');
     }
 
     /**
@@ -74,7 +107,7 @@ class FootballDataOrg
     {
         $uri = $this->baseUri.'/competitions/'.$apiTournamentId.'/teams';
 
-        return $this->getResponse($uri)->teams;
+        return $this->processResponse($this->getResponse($uri), 'teams');
     }
 
     /**
@@ -86,6 +119,6 @@ class FootballDataOrg
     {
         $uri = $this->baseUri.'/competitions';
 
-        return $this->getResponse($uri);
+        return $this->processResponse($this->getResponse($uri));
     }
 }
