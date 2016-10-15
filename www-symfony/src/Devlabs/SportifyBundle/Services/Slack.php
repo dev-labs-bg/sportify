@@ -91,7 +91,7 @@ class Slack
     {
         $env = $this->container->get('kernel')->getEnvironment();
 
-        if ($env == 'prod')
+        if ($env === 'prod' && filter_var($this->url, FILTER_VALIDATE_URL))
         {
             $this->httpClient->post(
                 $this->url,

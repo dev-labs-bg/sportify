@@ -35,10 +35,14 @@ class FootballDataOrg
      * @param $uri
      * @return mixed
      */
-    public function getResponse($uri)
+    public function getResponse($url)
     {
+        if (filter_var($url, FILTER_VALIDATE_URL) === false) {
+            return new Response(400);
+        }
+
         try {
-            $response = $this->httpClient->get($uri, $this->options);
+            $response = $this->httpClient->get($url, $this->options);
         } catch (RequestException $e) {
             $response = $e->getResponse();
         }
