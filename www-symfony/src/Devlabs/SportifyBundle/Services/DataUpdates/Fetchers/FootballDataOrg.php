@@ -2,7 +2,11 @@
 
 namespace Devlabs\SportifyBundle\Services\DataUpdates\Fetchers;
 
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Exception\RequestException;
 
 /**
  * Class FootballDataOrg
@@ -10,12 +14,15 @@ use GuzzleHttp\Client;
  */
 class FootballDataOrg
 {
+    use ContainerAwareTrait;
+
     private $httpClient;
     private $options;
     private $baseUri;
 
-    public function __construct($baseUri, $apiToken)
+    public function __construct(ContainerInterface $container, $baseUri, $apiToken)
     {
+        $this->container = $container;
         $this->httpClient = new Client();
         $this->options = array();
         $this->options['headers']['X-Auth-Token'] = $apiToken;
@@ -23,20 +30,50 @@ class FootballDataOrg
     }
 
     /**
-     * Get response for GET request to given URI and JSON-decode it
+     * Get response for GET request to given URL
      *
      * @param $uri
      * @return mixed
      */
-    public function getResponse($uri)
+    public function getResponse($url)
     {
-        $response = $this->httpClient->get($uri, $this->options);
+        if (filter_var($url, FILTER_VALIDATE_URL) === false) {
+            return new Response(400);
+        }
 
-        return json_decode($response->getBody());
+        try {
+            $response = $this->httpClient->get($url, $this->options);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+        }
+
+        return $response;
     }
 
     /**
-     * Method for fetching fixtures by API tournament ID and MatchDay
+     * Process fetched response depending on status code
+     *
+     * @param Response $response
+     * @param null $bodyProperty
+     * @return array|mixed
+     */
+    public function processResponse(Response $response, $bodyProperty = null)
+    {
+        if ($response->getStatusCode() !== 200) {
+            $this->container->get('session')
+                ->getFlashBag()
+                ->add('message', $response->getReasonPhrase());
+
+            return array();
+        }
+
+        return ($bodyProperty)
+            ? json_decode($response->getBody())->$bodyProperty
+            : json_decode($response->getBody());
+    }
+
+    /**
+     * Fetch fixtures by API tournament ID and MatchDay
      *
      * @param $apiTournamentId
      * @param $matchDay
@@ -46,11 +83,11 @@ class FootballDataOrg
     {
         $uri = $this->baseUri.'/competitions/'.$apiTournamentId.'/fixtures/?matchday='.$matchDay;
 
-        return $this->getResponse($uri)->fixtures;
+        return $this->processResponse($this->getResponse($uri), 'fixtures');
     }
 
     /**
-     * Method for fetching fixtures by API tournament ID and date/time range
+     * Fetch fixtures by API tournament ID and date/time range
      *
      * @param $apiTournamentId
      * @param $dateFrom
@@ -61,11 +98,11 @@ class FootballDataOrg
     {
         $uri = $this->baseUri.'/competitions/'.$apiTournamentId.'/fixtures/?timeFrameStart='.$dateFrom.'&timeFrameEnd='.$dateTo;
 
-        return $this->getResponse($uri)->fixtures;
+        return $this->processResponse($this->getResponse($uri), 'fixtures');
     }
 
     /**
-     * Method for fetching teams by API tournament ID
+     * Fetch teams by API tournament ID
      *
      * @param $apiTournamentId
      * @return mixed
@@ -74,11 +111,11 @@ class FootballDataOrg
     {
         $uri = $this->baseUri.'/competitions/'.$apiTournamentId.'/teams';
 
-        return $this->getResponse($uri)->teams;
+        return $this->processResponse($this->getResponse($uri), 'teams');
     }
 
     /**
-     * Method for fetching all tournaments/competitions from the API
+     * Fetch all tournaments/competitions from the API
      *
      * @return mixed
      */
@@ -86,6 +123,6 @@ class FootballDataOrg
     {
         $uri = $this->baseUri.'/competitions';
 
-        return $this->getResponse($uri);
+        return $this->processResponse($this->getResponse($uri));
     }
 }

@@ -72,7 +72,7 @@ services:
 
     app.data_updates.fetchers.football_data_org:
         class: Devlabs\SportifyBundle\Services\DataUpdates\Fetchers\FootballDataOrg
-        arguments: ['%football_api.base_uri%', '%football_api.token%']
+        arguments: ['@service_container', '%football_api.base_uri%', '%football_api.token%']
 
     app.data_updates.parsers.football_data_org:
         class: Devlabs\SportifyBundle\Services\DataUpdates\Parsers\FootballDataOrg
