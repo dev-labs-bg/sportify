@@ -30,7 +30,7 @@ class FootballDataOrg
     }
 
     /**
-     * Get response for GET request to given URI and JSON-decode it
+     * Get response for GET request to given URL
      *
      * @param $uri
      * @return mixed
@@ -73,7 +73,7 @@ class FootballDataOrg
     }
 
     /**
-     * Method for fetching fixtures by API tournament ID and MatchDay
+     * Fetch fixtures by API tournament ID and MatchDay
      *
      * @param $apiTournamentId
      * @param $matchDay
@@ -87,7 +87,7 @@ class FootballDataOrg
     }
 
     /**
-     * Method for fetching fixtures by API tournament ID and date/time range
+     * Fetch fixtures by API tournament ID and date/time range
      *
      * @param $apiTournamentId
      * @param $dateFrom
@@ -102,7 +102,7 @@ class FootballDataOrg
     }
 
     /**
-     * Method for fetching teams by API tournament ID
+     * Fetch teams by API tournament ID
      *
      * @param $apiTournamentId
      * @return mixed
@@ -115,7 +115,7 @@ class FootballDataOrg
     }
 
     /**
-     * Method for fetching all tournaments/competitions from the API
+     * Fetch all tournaments/competitions from the API
      *
      * @return mixed
      */
