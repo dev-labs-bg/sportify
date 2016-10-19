@@ -9,7 +9,7 @@ namespace Devlabs\SportifyBundle\Entity;
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
     /**
-     * Method for getting a list of all enabled users
+     * Get a list of all enabled users
      *
      * @return array
      */
@@ -25,7 +25,7 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
-     * Method for getting a list of users which don't have a prediction for a given match
+     * Get a list of users which don't have a prediction for a given match
      *
      * @param Match $match
      * @return array

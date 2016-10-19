@@ -9,7 +9,7 @@ namespace Devlabs\SportifyBundle\Entity;
 class ScoreRepository extends \Doctrine\ORM\EntityRepository
 {
     /**
-     * Method for getting a single score row by user and tournament id
+     * Get a single score row by user and tournament id
      *
      * @param User $user
      * @param Tournament $tournament
@@ -30,7 +30,7 @@ class ScoreRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
-     * Method for getting the standings table (scores) for a given tournament
+     * Get standings table (scores) for a given tournament
      * ordered by points, exactPredictionPercentage, username properties
      *
      * @param Tournament $tournament
@@ -52,7 +52,7 @@ class ScoreRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
-     * Method for getting the standings table (scores) for a given tournament
+     * Get standings table (scores) for a given tournament
      * ordered by the posNew (pos_new) property
      *
      * @param Tournament $tournament
@@ -71,7 +71,7 @@ class ScoreRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
-     * Method for getting a given user's scores for all the tournaments he's joined
+     * Get a given user's scores for all the tournaments he's joined
      *
      * @param User $user
      * @return array

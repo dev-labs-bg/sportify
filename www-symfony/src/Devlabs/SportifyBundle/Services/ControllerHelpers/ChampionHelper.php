@@ -28,7 +28,7 @@ class ChampionHelper
     }
 
     /**
-     * Method for returning a PredictionChampion object
+     * Return a PredictionChampion object
      *
      * @param User $user
      * @param Tournament $tournament
@@ -49,7 +49,7 @@ class ChampionHelper
     }
 
     /**
-     * Method for getting the input data for the Champion team select form
+     * Get input data for the Champion team select form
      *
      * @param PredictionChampion $predictionChampion
      * @param Tournament $tournament
@@ -82,7 +82,7 @@ class ChampionHelper
     }
 
     /**
-     * Method for creating a Champion team select form
+     * Create a Champion team select form
      *
      * @param array $formInputData
      * @return mixed
@@ -100,7 +100,7 @@ class ChampionHelper
     }
 
     /**
-     * Method for executing actions after a form is submitted
+     * Execute actions after a form is submitted
      *
      * @param Form $form
      * @param User $user

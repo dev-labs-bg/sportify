@@ -28,7 +28,7 @@ class TournamentsHelper
     }
 
     /**
-     * Method for getting the value (JOIN/LEAVE) for the tournament form's button
+     * Get the value (JOIN/LEAVE) for the tournament form's button
      *
      * @param $prediction
      * @return string
@@ -41,7 +41,7 @@ class TournamentsHelper
     }
 
     /**
-     * Method for getting the input data for the tournament form
+     * Get the input data for the tournament form
      *
      * @param Tournament $tournament
      * @param array $tournamentsJoined
@@ -58,7 +58,7 @@ class TournamentsHelper
     }
 
     /**
-     * Method for creating a Tournament form
+     * Create a Tournament form
      *
      * @param $formInputData
      * @return mixed
@@ -75,7 +75,7 @@ class TournamentsHelper
     }
 
     /**
-     * Method for executing actions after form is submitted
+     * Execute actions after form is submitted
      *
      * @param Form $form
      * @param User $user

@@ -27,8 +27,7 @@ class Importer
     }
 
     /**
-     * Method for importing teams for a tournament
-     * by using parsed data
+     * Import teams for a tournament by using parsed data
      *
      * @param array $teams
      * @param Tournament $tournament
@@ -80,6 +79,14 @@ class Importer
         }
     }
 
+    /**
+     * Import fixtures for a tournament by using parsed data
+     *
+     * @param array $fixtures
+     * @param Tournament $tournament
+     * @param $footballApi
+     * @return array
+     */
     public function importFixtures(array $fixtures, Tournament $tournament, $footballApi)
     {
         $status = array();
@@ -167,7 +174,15 @@ class Importer
         return $status;
     }
 
-    // create API mapping for this Team object
+    /**
+     * Create API mapping for an entity object
+     *
+     * @param $entityObject
+     * @param $entityType
+     * @param $apiName
+     * @param $apiObjectId
+     * @return ApiMapping
+     */
     private function createApiMapping($entityObject, $entityType, $apiName, $apiObjectId)
     {
         $apiMapping = new ApiMapping();

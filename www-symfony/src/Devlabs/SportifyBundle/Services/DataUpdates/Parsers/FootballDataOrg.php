@@ -9,7 +9,7 @@ namespace Devlabs\SportifyBundle\Services\DataUpdates\Parsers;
 class FootballDataOrg
 {
     /**
-     * Method for parsing fetched Teams data
+     * Parse fetched Teams data
      *
      * @param array $teams
      * @return array
@@ -30,7 +30,7 @@ class FootballDataOrg
     }
 
     /**
-     * Method for parsing fetched Fixtures data
+     * Parse fetched Fixtures data
      *
      * @param array $fixtures
      * @return array
@@ -72,7 +72,7 @@ class FootballDataOrg
     }
 
     /**
-     * Method for parsing fetched tournaments data
+     * Parse fetched tournaments data
      *
      * @param array $tournaments
      * @return array
@@ -92,7 +92,7 @@ class FootballDataOrg
     }
 
     /**
-     * Method for extracting a number at end of a string
+     * Extract a number located at the end of a string
      *
      * @param $subject
      * @return mixed

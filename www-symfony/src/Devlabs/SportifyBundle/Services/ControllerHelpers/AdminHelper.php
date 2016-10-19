@@ -36,7 +36,7 @@ class AdminHelper
     }
 
     /**
-     * Method for creating Data Updates select form
+     * Create Data Updates select form
      *
      * @param array $formData
      * @param array $options
@@ -63,7 +63,7 @@ class AdminHelper
     }
 
     /**
-     * Method for executing actions after the Data Updates select form is submitted
+     * Execute actions after the Data Updates select form is submitted
      *
      * @param Form $form
      */
@@ -124,7 +124,7 @@ class AdminHelper
     }
 
     /**
-     * Method for getting existin ApiMapping object from DB by Tournament and Football API name,
+     * Get existing ApiMapping object from DB by Tournament and Football API name,
      * or returning a new ApiMapping object if none exists
      *
      * @param Tournament $tournament
@@ -149,7 +149,7 @@ class AdminHelper
     }
 
     /**
-     * Method for getting the value for the entity form's button action
+     * Get the value for the entity form's button action
      * 'CREATE' or 'EDIT', depending on if object exists or is new
      *
      * @param $object
@@ -163,7 +163,7 @@ class AdminHelper
     }
 
     /**
-     * Method for creating ApiMapping form
+     * Create ApiMapping form
      *
      * @param ApiMapping $apiMapping
      * @param $buttonAction
@@ -180,7 +180,7 @@ class AdminHelper
     }
 
     /**
-     * Method for creating array of ApiMapping forms
+     * Create array of ApiMapping forms
      *
      * @param array $tournaments
      * @return array
@@ -210,7 +210,7 @@ class AdminHelper
     }
 
     /**
-     * Method for making a decision what action to execute after Entity form is submitted,
+     * Make a decision what action to execute after Entity form is submitted,
      * based on which button is clicked
      *
      * @param Form $form
@@ -225,7 +225,7 @@ class AdminHelper
     }
 
     /**
-     * Method for executing actions after Entity form is submitted via Button1 (CREATE or EDIT)
+     * Execute actions after Entity form is submitted via Button1 (CREATE or EDIT)
      *
      * @param Form $form
      */
@@ -265,7 +265,7 @@ class AdminHelper
     }
 
     /**
-     * Method for executing actions after Entity form is submitted via Button2 (DELETE)
+     * Execute actions after Entity form is submitted via Button2 (DELETE)
      *
      * @param Form $form
      */
@@ -313,7 +313,7 @@ class AdminHelper
     }
 
     /**
-     * Method for creating Tournament Entity form
+     * Create Tournament Entity form
      *
      * @param Tournament $tournament
      * @param $buttonAction
@@ -331,7 +331,7 @@ class AdminHelper
     }
 
     /**
-     * Method for creating array of Tournament forms
+     * Create array of Tournament forms
      *
      * @param array $tournaments
      * @return array
@@ -357,7 +357,7 @@ class AdminHelper
     }
 
     /**
-     * Method for creating Team Entity form
+     * Create Team Entity form
      *
      * @param Team $team
      * @param $buttonAction
@@ -374,7 +374,7 @@ class AdminHelper
     }
 
     /**
-     * Method for creating array of Team forms
+     * Create array of Team forms
      *
      * @param array $teams
      * @return array
@@ -450,7 +450,7 @@ class AdminHelper
     }
 
     /**
-     * Method for creating Match Entity form
+     * Create Match Entity form
      *
      * @param Match $match
      * @param $buttonAction
@@ -468,7 +468,7 @@ class AdminHelper
     }
 
     /**
-     * Method for creating array of Match forms
+     * Create array of Match forms
      *
      * @param array $matches
      * @return array

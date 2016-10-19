@@ -24,7 +24,7 @@ class TwigHelper
     }
 
     /**
-     * Method for setting a User's scores as global Twig var
+     * Set a user's scores as global Twig variable
      *
      * @param User $user
      */

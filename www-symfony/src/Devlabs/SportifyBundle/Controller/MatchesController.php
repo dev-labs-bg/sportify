@@ -217,7 +217,7 @@ class MatchesController extends Controller
     }
 
     /**
-     * Method for creating prediction forms for a given set matches
+     * Create prediction forms for a given set matches
      *
      * @param $request
      * @param $urlParams

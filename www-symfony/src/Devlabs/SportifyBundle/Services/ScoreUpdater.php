@@ -24,11 +24,13 @@ class ScoreUpdater
 
 
     /**
-     * Method for updating:
+     * Sequentially do these calculations:
      *  - match prediction points
      *  - user exact prediction percentage
      *  - champion prediction points
      *  - user positions
+     *
+     * @return array
      */
     public function updateAll()
     {
@@ -50,7 +52,7 @@ class ScoreUpdater
     }
 
     /**
-     * Method for updating the user positions in a tournament, when a user joins or leaves
+     * Update user positions in a tournament, when a user joins or leaves
      *
      * @param $tournament_id
      */
@@ -68,8 +70,7 @@ class ScoreUpdater
     }
 
     /**
-     * Method for scoring the users' Champion predictions
-     * where Champion team has been set
+     * Score users' Champion predictions where Champion team has been set
      *
      * @param $tournamentsModified
      */

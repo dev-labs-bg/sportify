@@ -24,7 +24,7 @@ class FilterHelper
     }
 
     /**
-     * Method for getting the source data used for the input fields of the filter form
+     * Get the source data used for the input fields of the filter form
      *
      * @param $request
      * @param $user
@@ -61,7 +61,7 @@ class FilterHelper
     }
 
     /**
-     * Method for getting the input data for the filter form
+     * Get the input data for the filter form
      *
      * @param $request
      * @param $user
@@ -96,7 +96,7 @@ class FilterHelper
 
 
     /**
-     * Method for creating a Filter form
+     * Create a Filter form
      *
      * @param $request
      * @param $urlParams
@@ -118,7 +118,7 @@ class FilterHelper
     }
 
     /**
-     * Method for executing actions after the filter form is submitted
+     * Execute actions after the filter form is submitted
      *
      * @param $form
      */

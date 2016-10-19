@@ -9,7 +9,7 @@ namespace Devlabs\SportifyBundle\Entity;
 class MatchRepository extends \Doctrine\ORM\EntityRepository
 {
     /**
-     * Method for getting a list of the matches which have not been scored/finished yet
+     * Get a list of matches which have not been scored/finished yet
      *
      * @param User $user
      * @param $tournament_id
@@ -48,7 +48,7 @@ class MatchRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
-     * Method for getting a list of the matches which have already been scored/finished
+     * Get a list of matches which have already been scored/finished
      *
      * @param User $user
      * @param $tournamentId
@@ -87,7 +87,7 @@ class MatchRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
-     * Method for getting a list of the matches which have final score
+     * Get a list of matches which have final score
      * but there are NOT SCORED predictions for these matches
      *
      * @return array
@@ -118,7 +118,7 @@ class MatchRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
-     * Method for getting a list of the matches which have final score
+     * Get a list of matches which have final score
      *
      * @param Tournament $tournament
      * @return array
@@ -162,7 +162,7 @@ class MatchRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
-     * Method for getting a list all matches for a tournament
+     * Get a list all matches for a tournament
      *
      * @param Tournament $tournament
      * @return array

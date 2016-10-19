@@ -22,7 +22,7 @@ class HistoryHelper
     }
 
     /**
-     * Method for setting the current user
+     * Set the current user
      *
      * @param User $user
      * @return $this
@@ -35,7 +35,7 @@ class HistoryHelper
     }
 
     /**
-     * Method for initializing URL parameters,
+     * Initialize URL parameters,
      * based on pre-defined rules for default values, etc.
      *
      * @param $tournament_id

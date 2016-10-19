@@ -34,7 +34,7 @@ class Manager
     }
 
     /**
-     * Method for updating teams via API Fetch, Parse and Import services
+     * Update teams via API Fetch, Parse and Import services
      *
      * @param Tournament $tournament
      */
@@ -60,7 +60,7 @@ class Manager
     }
 
     /**
-     * Method for updating fixtures data via API Fetch, Parse and Import services
+     * Update fixtures data via API Fetch, Parse and Import services
      * for a given time range (start date and end date)
      */
     public function updateFixtures($dateFrom, $dateTo)
@@ -109,7 +109,7 @@ class Manager
     }
 
     /**
-     * Method for getting a list of all tournaments from API
+     * Get a list of all tournaments from API
      *
      * @return mixed
      */

@@ -9,7 +9,7 @@ namespace Devlabs\SportifyBundle\Entity;
 class PredictionRepository extends \Doctrine\ORM\EntityRepository
 {
     /**
-     * Method for getting a list of the predictions for matches which have not been scored/finished yet
+     * Get a list of the predictions for matches which have not been scored/finished yet
      *
      * @param User $user
      * @return array
@@ -110,7 +110,7 @@ class PredictionRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
-     * Method for getting a list of the NOT SCORED predictions for matches
+     * Get a list of the NOT SCORED predictions for matches
      * which have final score
      *
      * @return array
@@ -143,7 +143,7 @@ class PredictionRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
-     * Method for getting a single prediction by user and match id
+     * Get a single prediction by user and match id
      *
      * @param User $user
      * @param Match $match
@@ -164,7 +164,7 @@ class PredictionRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
-     * Method for getting a list exact score predictions for a user's tournament
+     * Get a list of user's exact score predictions for a tournament
      *
      * @param User $user
      * @param Tournament $tournament

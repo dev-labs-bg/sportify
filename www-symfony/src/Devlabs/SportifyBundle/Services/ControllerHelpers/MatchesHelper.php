@@ -29,7 +29,7 @@ class MatchesHelper
     }
 
     /**
-     * Method for initializing URL parameters,
+     * Initialize URL parameters,
      * based on pre-defined rules for default values, etc.
      *
      * @param $tournament_id
@@ -51,7 +51,7 @@ class MatchesHelper
     }
 
     /**
-     * Method for returning a Prediction object, which will be passed in to a prediction form
+     * Get a Prediction object, which will be used in a prediction form
      *
      * @param $user
      * @param $match
@@ -73,7 +73,7 @@ class MatchesHelper
     }
 
     /**
-     * Method for getting the value for the prediction form's button
+     * Get the value for the prediction form's button
      *
      * @param $prediction
      * @return string
@@ -86,7 +86,7 @@ class MatchesHelper
     }
 
     /**
-     * Method for creating a Prediction form
+     * Create a Prediction form
      *
      * @param $request
      * @param $urlParams
@@ -108,7 +108,7 @@ class MatchesHelper
     }
 
     /**
-     * Method for handling a form if the POST request matches the match ID
+     * Handle a form if the POST request matches the match ID
      *
      * @param $request
      * @param $form
@@ -122,7 +122,7 @@ class MatchesHelper
     }
 
     /**
-     * Method for executing actions after a form is submitted
+     * Execute actions after a form is submitted
      *
      * @param $form
      */

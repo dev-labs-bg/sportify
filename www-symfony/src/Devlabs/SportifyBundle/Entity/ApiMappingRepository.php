@@ -9,7 +9,7 @@ namespace Devlabs\SportifyBundle\Entity;
 class ApiMappingRepository extends \Doctrine\ORM\EntityRepository
 {
     /**
-     * MethodMethod for getting a single ApiMapping object
+     * Get a single ApiMapping object
      * by passing Entity type, API name and API Object ID
      *
      * @param $entityType
@@ -41,7 +41,7 @@ class ApiMappingRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
-     * MethodMethod for getting a single ApiMapping object
+     * Get a single ApiMapping object
      * by passing Entity Object, Entity type and API name
      *
      * @param $entityObject

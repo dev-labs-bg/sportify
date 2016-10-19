@@ -11,7 +11,7 @@ namespace Devlabs\SportifyBundle\Entity;
 class PredictionChampionRepository extends \Doctrine\ORM\EntityRepository
 {
     /**
-     * Method for getting a user's champion prediction for a tournament
+     * Get a user's champion prediction for a tournament
      *
      * @param User $user
      * @param Tournament $tournament
@@ -39,7 +39,7 @@ class PredictionChampionRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
-     * Method for getting list of NOT SCORED champion predictions for tournament
+     * Get list of NOT SCORED champion predictions for tournament
      *
      * @param Tournament $tournament
      * @return array

@@ -28,6 +28,8 @@ class Slack
     }
 
     /**
+     * Set web-hook URL
+     *
      * @param $url
      * @return $this
      */
@@ -39,6 +41,8 @@ class Slack
     }
 
     /**
+     * Get web-hook URL
+     *
      * @return mixed
      */
     public function getUrl()
@@ -47,6 +51,8 @@ class Slack
     }
 
     /**
+     * Set Slack channel
+     *
      * @param $channel
      * @return $this
      */
@@ -58,6 +64,8 @@ class Slack
     }
 
     /**
+     * Get Slack channel
+     *
      * @return mixed
      */
     public function getChannel()
@@ -66,6 +74,8 @@ class Slack
     }
 
     /**
+     * Set message text
+     *
      * @param $text
      * @return $this
      */
@@ -77,6 +87,8 @@ class Slack
     }
 
     /**
+     * Get message text
+     *
      * @return mixed
      */
     public function getText()
@@ -85,7 +97,7 @@ class Slack
     }
 
     /**
-     * Method for submitting a POST request
+     * Submit a POST request
      */
     public function post()
     {
