@@ -399,6 +399,27 @@ class AdminHelper
     }
 
     /**
+     * Initialize URL parameters for Admin/Matches page
+     *
+     * @param $tournament_id
+     * @param $date_from
+     * @param $date_to
+     * @return array
+     */
+    public function MatchesInitUrlParams($tournament_id, $date_from, $date_to)
+    {
+        if ($tournament_id === 'empty') $tournament_id = 'all';
+        if ($date_from === 'empty') $date_from = date("Y-m-d", time() - 604800);
+        if ($date_to === 'empty') $date_to = date("Y-m-d", time() + 604800);
+
+        return array(
+            'tournament_id' => $tournament_id,
+            'date_from' => $date_from,
+            'date_to' => $date_to
+        );
+    }
+
+    /**
      * Get the input data for the Match form
      *
      * @param Tournament $tournament

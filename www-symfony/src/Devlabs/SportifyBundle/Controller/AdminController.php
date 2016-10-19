@@ -396,14 +396,16 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/matches/{tournament_id}",
+     * @Route("/admin/matches/{tournament_id}/{date_from}/{date_to}",
      *     name="admin_matches",
      *     defaults={
-     *      "tournament_id" = "empty"
+     *      "tournament_id" = "empty",
+     *      "date_from" = "empty",
+     *      "date_to" = "empty"
      *     }
      * )
      */
-    public function matchesAction(Request $request, $tournament_id)
+    public function matchesAction(Request $request, $tournament_id, $date_from, $date_to)
     {
         // if user is not logged in, redirect to login page
         if (!is_object($user = $this->getUser())) {
@@ -413,7 +415,11 @@ class AdminController extends Controller
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
 
-        $urlParams['tournament_id'] = $tournament_id;
+        // get the filter helper service
+        $adminHelper = $this->container->get('app.admin.helper');
+
+        $urlParams = $adminHelper->MatchesInitUrlParams($tournament_id, $date_from, $date_to);
+        $modifiedDateTo = date("Y-m-d", strtotime($urlParams['date_to']) + 86500);
 
         /**
          * Get selected tournament by last selected (from Cookie) and URL param is 'empty',
@@ -449,7 +455,7 @@ class AdminController extends Controller
         $filterHelper = $this->container->get('app.filter.helper');
 
         // set the fields for the filter form
-        $fields = array('tournament');
+        $fields = array('tournament', 'date_from', 'date_to');
 
         // set the input data for the filter form and create it
         $formInputData = $filterHelper->getFormInputData($request, $urlParams, $fields, $formSourceData);
@@ -463,12 +469,9 @@ class AdminController extends Controller
             return $this->redirectToRoute('admin_matches', $submittedParams);
         }
 
-        // get the filter helper service
-        $adminHelper = $this->container->get('app.admin.helper');
-
         // get matches for selected tournament
         $matches = $em->getRepository('DevlabsSportifyBundle:Match')
-            ->getAllByTournament($formSourceData['tournament_selected']);
+            ->getAllByTournamentAndTimeRange($formSourceData['tournament_selected'], $urlParams['date_from'], $modifiedDateTo);
 
         // add an 'empty' placeholder for a new match to be created
         $matches['new'] = new Match();
@@ -492,9 +495,16 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/matches_modify/{tournament_id}", name="admin_matches_modify")
+     * @Route("/admin/matches_modify/{tournament_id}/{date_from}/{date_to}",
+     *     name="admin_matches_modify",
+     *     defaults={
+     *      "tournament_id" = "empty",
+     *      "date_from" = "empty",
+     *      "date_to" = "empty"
+     *     }
+     * )
      */
-    public function matchModifyAction(Request $request, $tournament_id)
+    public function matchModifyAction(Request $request, $tournament_id, $date_from, $date_to)
     {
         // if user is not logged in, redirect to login page
         if (!is_object($user = $this->getUser())) {
@@ -512,7 +522,7 @@ class AdminController extends Controller
         // Get an instance of the Entity Manager
         $em = $this->getDoctrine()->getManager();
 
-        $urlParams['tournament_id'] = $tournament_id;
+        $urlParams = $adminHelper->MatchesInitUrlParams($tournament_id, $date_from, $date_to);
 
         $tournament = $em->getRepository('DevlabsSportifyBundle:Tournament')
             ->findOneById($tournament_id);

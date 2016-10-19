@@ -180,4 +180,31 @@ class MatchRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * Get all matches for a given tournament and time range
+     *
+     * @param Tournament $tournament
+     * @param $dateFrom
+     * @param $dateTo
+     * @return array
+     */
+    public function getAllByTournamentAndTimeRange(Tournament $tournament, $dateFrom, $dateTo)
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('DISTINCT m')
+            ->from('DevlabsSportifyBundle:Match', 'm')
+            ->join('m.homeTeamId', 'tm')
+            ->where('m.tournamentId = :tournament_id')
+            ->andWhere('m.datetime >= :date_from AND m.datetime <= :date_to')
+            ->setParameters(array(
+                'tournament_id' => $tournament->getId(),
+                'date_from' => $dateFrom,
+                'date_to' => $dateTo
+            ))
+            ->orderBy('m.datetime')
+            ->addOrderBy('tm.name')
+            ->getQuery()
+            ->getResult();
+    }
 }

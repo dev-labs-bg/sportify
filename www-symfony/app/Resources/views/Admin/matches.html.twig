@@ -13,10 +13,12 @@
             </div>
         </div>
         <div class=" row">
-            <div class="col-lg-12">
+            <div class="col-lg-10 col-lg-offset-1">
                 {{ include('templates/forms/filter.html.twig', {
                     'form': filter_form,
-                    'tournament_class': 'col-sm-4 col-sm-offset-3',
+                    'tournament_class': 'col-sm-4',
+                    'date_from_class': 'col-sm-3',
+                    'date_to_class': 'col-sm-3',
                     'button_class': 'col-sm-2 text-center'
                 }) }}
             </div>
