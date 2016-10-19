@@ -250,6 +250,18 @@ class AdminHelper
             // write the file to disk as team logo
             $object->setTeamLogo($filePath, $fileExtension);
         }
+
+        /**
+         * If the object is Tournament and a file has been uploaded, set it as Logo
+         */
+        if (get_class($object) === 'Devlabs\SportifyBundle\Entity\Tournament' && $object->getUploadFile()) {
+            // get the uploaded file's path and extension (file type)
+            $filePath = $object->getUploadFile()->getPathName();
+            $fileExtension = $object->getUploadFile()->guessExtension();
+
+            // write the file to disk as tournament logo
+            $object->setLogo($filePath, $fileExtension);
+        }
     }
 
     /**
@@ -269,17 +281,50 @@ class AdminHelper
     }
 
     /**
+     * Get input data for Tournament form
+     *
+     * @param Tournament $tournament
+     * @return array
+     */
+    public function getTournamentFormInputData(Tournament $tournament = null)
+    {
+        $formInputData = array();
+
+        if (get_class($tournament) !== 'Devlabs\SportifyBundle\Entity\Tournament') {
+            $formInputData['team']['data'] = null;
+            $formInputData['team']['choices'] = array();
+
+            return $formInputData;
+        }
+
+        $championTeam = ($tournament->getChampionTeamId())
+            ? $tournament->getChampionTeamId()
+            : null;
+
+        // get a list of teams for the selected tournament
+        $teamChoices = $this->em->getRepository('DevlabsSportifyBundle:Team')
+            ->getAllByTournament($tournament);
+
+        // set the input form-data for the tournament form
+        $formInputData['team']['data'] = $championTeam;
+        $formInputData['team']['choices'] = $teamChoices;
+
+        return $formInputData;
+    }
+
+    /**
      * Method for creating Tournament Entity form
      *
      * @param Tournament $tournament
      * @param $buttonAction
      * @return mixed
      */
-    public function createTournamentForm(Tournament $tournament, $buttonAction)
+    public function createTournamentForm(Tournament $tournament, $buttonAction, $formInputData = array())
     {
         $form = $this->container->get('form.factory')->create(TournamentEntityType::class, $tournament, array(
             'action' => $this->container->get('router')->generate('admin_tournaments_modify'),
-            'button_action' => $buttonAction
+            'button_action' => $buttonAction,
+//            'other_data' => $formInputData
         ));
 
         return $form;
@@ -299,12 +344,13 @@ class AdminHelper
         foreach ($tournaments as $tournament) {
             // get buttonAction
             $buttonAction = $this->getButtonAction($tournament);
+//            $formInputData = $this->getTournamentFormInputData($tournament);
 
             // create form
             $form = $this->createTournamentForm($tournament, $buttonAction);
 
             // create view for each tournament's form
-            $forms[] = $form->createView();
+            $forms[$tournament->getId()] = $form->createView();
         }
 
         return $forms;

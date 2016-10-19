@@ -9,9 +9,11 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class TournamentEntityType extends AbstractType
 {
+//    protected $otherData;
     protected $buttonAction;
 
     /**
@@ -21,7 +23,8 @@ class TournamentEntityType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Devlabs\SportifyBundle\Entity\Tournament',
-            'button_action' => null
+            'button_action' => null,
+//            'other_data' => null
         ));
     }
 
@@ -31,6 +34,7 @@ class TournamentEntityType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+//        $this->otherData = $options['other_data'];
         $this->buttonAction = $options['button_action'];
 
         $builder
@@ -48,12 +52,16 @@ class TournamentEntityType extends AbstractType
                 'widget' => 'single_text',
                 'error_bubbling' => true
             ))
-            ->add('nameShort', TextType::class, array(
-                'error_bubbling' => true
+            ->add('uploadFile', FileType::class, array(
+                'label' => 'Upload logo',
+                'error_bubbling' => true,
+                'required' => false
             ))
-            ->add('championTeamId', HiddenType::class, array(
-                'error_bubbling' => true
-            ))
+//            ->add('championTeamId', TeamChoiceType::class, array(
+//                'choices' => $this->otherData['team']['choices'],
+//                'data' => $this->otherData['team']['data'],
+//                'required' => false
+//            ))
             ->add('action', HiddenType::class, array(
                 'data' => $this->buttonAction,
                 'mapped' => false

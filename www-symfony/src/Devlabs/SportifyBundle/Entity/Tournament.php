@@ -3,6 +3,7 @@
 namespace Devlabs\SportifyBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Intervention\Image\ImageManager;
 
 /**
  * @ORM\Entity(repositoryClass="Devlabs\SportifyBundle\Entity\TournamentRepository")
@@ -33,12 +34,7 @@ class Tournament
     private $endDate;
 
     /**
-     * @ORM\Column(type="string", length=10, name="name_short")
-     */
-    private $nameShort;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Team", inversedBy="tournamentsChampion")
+     * @ORM\ManyToOne(targetEntity="Team", inversedBy="tournamentsChampion", cascade={"persist"})
      * @ORM\JoinColumn(name="champion_team_id", referencedColumnName="id")
      */
     private $championTeamId;
@@ -62,6 +58,16 @@ class Tournament
      * @ORM\OneToMany(targetEntity="PredictionChampion" , mappedBy="tournamentId" , cascade={"all"})
      */
     private $predictionsChampion;
+
+    /**
+     * Logo
+     */
+    private $logo;
+
+    /**
+     * Temp placeholder for uploaded files
+     */
+    private $uploadFile;
 
     /**
      * Constructor
@@ -168,30 +174,6 @@ class Tournament
     public function getEndDate()
     {
         return $this->endDate;
-    }
-
-    /**
-     * Set nameShort
-     *
-     * @param string $nameShort
-     *
-     * @return Tournament
-     */
-    public function setNameShort($nameShort)
-    {
-        $this->nameShort = $nameShort;
-
-        return $this;
-    }
-
-    /**
-     * Get nameShort
-     *
-     * @return string
-     */
-    public function getNameShort()
-    {
-        return $this->nameShort;
     }
 
     /**
@@ -352,5 +334,108 @@ class Tournament
     public function getTeams()
     {
         return $this->teams;
+    }
+
+    /**
+     * Check if the tournament already has a logo
+     *
+     * @return bool $has_logo
+     */
+    public function hasLogo()
+    {
+        $jpgFile = WEB_DIRECTORY . '/img/tournament_logos/tournament_logo_'.$this->id.'.jpg';
+        $svgFile = WEB_DIRECTORY . '/img/tournament_logos/tournament_logo_'.$this->id.'.svg';
+
+        return ( (file_exists($jpgFile) && is_file($jpgFile)) ||
+            (file_exists($svgFile) && is_file($svgFile)) );
+    }
+
+    /**
+     * Get Tournament Logo
+     *
+     * @return string $path_to_logo
+     */
+    public function getLogo()
+    {
+        $file = WEB_DIRECTORY . '/img/tournament_logos/tournament_logo_'.$this->id.'.png';
+
+        // check if png file exists
+        if (file_exists($file) && is_file($file))
+            return 'img/tournament_logos/tournament_logo_'.$this->id.'.png';
+
+        // check if svg file exists
+        $file = WEB_DIRECTORY . '/img/tournament_logos/tournament_logo_'.$this->id.'.svg';
+
+        if (file_exists($file) && is_file($file))
+            return 'img/tournament_logos/tournament_logo_'.$this->id.'.svg';
+
+        return 'img/default_tournament_logo.png';
+    }
+
+    /**
+     * Set Tournament Logo
+     *
+     * @return string $path_to_logo
+     */
+    public function setLogo($filePath = null, $fileExtension = null)
+    {
+        if (!$filePath)
+            return $this;
+
+        /**
+         * Skip setting of logo if image/path is NOT valid,
+         * and PHP would throw an exception
+         */
+        try {
+            $file = file_get_contents($filePath);
+        }
+        catch(\Symfony\Component\Debug\Exception\ContextErrorException $e) {
+            return $this;
+        }
+
+        // delete previous logo file if NOT the default one
+        if ($this->getLogo() !== 'img/default_tournament_logo.png') {
+            unlink($this->getLogo());
+        }
+
+        if (strpos($file, 'svg') !== FALSE || in_array($fileExtension, ['svg', 'svg+xml'])) {
+            file_put_contents(WEB_DIRECTORY . '/img/tournament_logos/tournament_logo_' . $this->id . '.svg', $file);
+        } else {
+            // create an image manager instance with favored driver
+            $manager = new ImageManager();
+            $image = $manager->make($file);
+            $width = $image->width();
+            $height = $image->height();
+
+            if ($width >= $height) {
+                $image->resize(80, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+            } else {
+                $image->resize(null, 80, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+            }
+
+            $image->save(WEB_DIRECTORY . '/img/tournament_logos/tournament_logo_' . $this->id . '.png');
+        }
+
+        return $this;
+    }
+
+    public function getUploadFile()
+    {
+        return $this->uploadFile;
+    }
+
+    public function setUploadFile($file)
+    {
+        $this->uploadFile = $file;
+
+        return $this;
+    }
+
+    public function __toString() {
+        return "$this->id";
     }
 }

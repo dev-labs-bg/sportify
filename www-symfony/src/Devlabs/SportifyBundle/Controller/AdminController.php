@@ -297,9 +297,9 @@ class AdminController extends Controller
         $tournament->setName($request->request->get('tournament_entity')['name']);
         $tournament->setStartDate($startDate);
         $tournament->setEndDate($endDate);
-        $tournament->setNameShort($request->request->get('tournament_entity')['nameShort']);
 
         $buttonAction = $request->request->get('tournament_entity')['action'];
+//        $formInputData = $adminHelper->getTournamentFormInputData($tournament);
 
         $form = $adminHelper->createTournamentForm($tournament, $buttonAction);
         $form->handleRequest($request);

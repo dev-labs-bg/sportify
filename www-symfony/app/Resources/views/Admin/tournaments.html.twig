@@ -14,8 +14,11 @@
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12">
-            {% for form in forms %}
-                {{ include('templates/forms/tournament_create_edit.html.twig', {'form': form }) }}
+            {% for tournament in tournaments %}
+                {{ include('templates/forms/tournament_create_edit.html.twig', {
+                    'tournament': tournament,
+                    'form': forms[tournament.id]
+                }) }}
             {% endfor %}
             </div>
         </div>
