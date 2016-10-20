@@ -72,8 +72,8 @@ class AdminHelper
         $data = $form->getData();
 
         $dataUpdatesManager = $this->container->get('app.data_updates.manager');
-        $slackNotify = false;
-        $slackText = '';
+        $dataUpdated = false;
+        $msgText = '';
 
         if ($data['update_type'] === 'matches-fixtures') {
             // set dateFrom and dateTo to respectively today and 'number of days' on
@@ -82,8 +82,8 @@ class AdminHelper
             $status = $dataUpdatesManager->updateFixtures($dateFrom, $dateTo);
 
             if ($status['total_added'] > 0) {
-                $slackNotify = true;
-                $slackText = 'Match fixtures added for next '.$data['days'].' days. '
+                $dataUpdated = true;
+                $msgText = 'Match fixtures added for next '.$data['days'].' days. '
                     .$status['total_added'].' fixture(s) added.';
             }
         } else if ($data['update_type'] === 'matches-results') {
@@ -96,11 +96,11 @@ class AdminHelper
                 // Get the ScoreUpdater service and update all scores
                 $tournamentsModified = $this->container->get('app.score_updater')->updateAll();
 
-                $slackNotify = true;
-                $slackText = 'Match results and standings updated for tournament(s):';
+                $dataUpdated = true;
+                $msgText = 'Match results and standings updated for tournament(s):';
 
                 foreach ($tournamentsModified as $tournament) {
-                    $slackText = $slackText . "\n" . $tournament->getName();
+                    $msgText = $msgText . "\n" . $tournament->getName();
                 }
             }
         } else if ($data['update_type'] === 'teams-all-tournaments') {
@@ -113,14 +113,14 @@ class AdminHelper
         }
 
         // send Slack notification
-        if ($slackNotify) {
+        if ($dataUpdated) {
             // Get instance of the Slack service and send notification
-            $this->container->get('app.slack')->setText($slackText)->post();
+            $this->container->get('app.slack')->setText($msgText)->post();
         }
 
-        if ($slackText === '') $slackText = 'No fixtures/results added or updated.';
+        if ($msgText === '') $msgText = 'No fixtures/results added or updated.';
 
-        $this->container->get('session')->getFlashBag()->add('message', $slackText);
+        $this->container->get('session')->getFlashBag()->add('message', $msgText);
     }
 
     /**
