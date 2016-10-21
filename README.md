@@ -91,21 +91,27 @@ Create tournament by navigating to: **Admin Panel -> Tournaments**. After the to
     + Automatic via API fetch (**Admin Panel -> Data Updates -> Update Match Fixtures**)
     + Manual (**Admin Panel -> Matches**)
 * Update match results:
-    + Automatic via API fetch (**Admin Panel -> Data Updates -> Update Match Results**)
+    + Automatic via API fetch (**Admin Panel -> Data Updates -> Update Match Results**) - if new data is fetched, prediction points and standings are updated
     + Manual (**Admin Panel -> Matches**)
 * Standings/scores updates (**Admin Panel -> Scores/Standings Update**) - required only when manually updating match results.
 * Updating of match fixtures and results via API fetch can be scheduled by using Cron the following commands:
-    `php bin/console --env=prod sportify:data:update matches-fixtures <days>` - get match fixtures for the next number of <days>
-    `php bin/console --env=prod sportify:data:update matches-results <days>` - get match results for the previous number of <days>
+
+    `php bin/console --env=prod sportify:data:update matches-fixtures <days>` - get match fixtures for the next number of *days*
+    
+    `php bin/console --env=prod sportify:data:update matches-results <days>` - get match results for the previous number of *days*
 * Send notifications to users which have not made a prediction for upcoming matches (in the next 2 hours) in tournaments they have joined:
+    
     `php bin/console --env=prod sportify:notify users-not-predicted`
 
-* Example crontab entries:
+* Example crontab entries (assuming your project folder is: /var/www/sportify):
     + Every hour at 5 and 35 minutes of the clock, check for users which have not made their predictions for upcoming matches and notify them (and log this to log_notify.txt):
+    
     `5,35 * * * *    php /var/www/sportify/bin/console --env=prod sportify:notify users-not-predicted >> /var/www/sportify/var/log_notify.txt`
     + Every Monday at 8:00 AM, fetch matches fixtures for the next 14 days (and log this to log_data_updates.txt)
+    
     `0 8 * * 1       php /var/www/sportify/bin/console --env=prod sportify:data:update matches-fixtures 14 >> /var/www/sportify/var/log_data_updates.txt`
     + Every day at 1:00 AM, fetch matches results for the previous 1 day. If new data is fetched, calculate user prediction points and update tournaments' standings (and log this to log_data_updates.txt)
+    
     `0 1 * * *       php /var/www/sportify/bin/console --env=prod sportify:data:update matches-results 1 >> /var/www/sportify/var/log_data_updates.txt`
 
 ### Scoring system - what points are awarded for what
