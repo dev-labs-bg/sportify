@@ -1,8 +1,8 @@
-ж# General info
+# General info
 This is a football (soccer :) match prediction game with a simple concept - you and your buddies battle it out to see who's best at predicting match final scores. Each player gives score predictions to upcoming matches, and then points are awarded [check below](https://gitlab.com/dev-labs-bg/dev-sportify/tree/feature/readme-redo#scoring-system-what-points-are-awarded-for-what). There is a Slack integration for notifications on events like standings, results and fixture updates. The application is fetching real-world football fixtures and scores via a free football API (http://api.football-data.org), but custom tournaments can be created from the [administration](https://gitlab.com/dev-labs-bg/dev-sportify/tree/feature/readme-redo#admin-user).  
 
 # Requirements to run the project
-* PHP, Apache, Mysql
+* PHP, MySQL, Apache (or other web server ;)
 * Symfony [system requirements](http://symfony.com/doc/current/reference/requirements.html)
 * [composer](https://getcomposer.org/)
 * [npm](https://docs.npmjs.com/getting-started/installing-node)
@@ -19,12 +19,12 @@ The major steps needed to set-up Symfony and all the tools (for both development
 `gulp`
 
 We suggest that you setup your web server to use `web/` as root directory.
-The app has two two main environments:
+The app has two main environments:
 * Development (**dev**):
-    + Acccessed by navigating to `app_dev.php` - can only be accessed locally (from 127.0.0.1, a.k.a. localhost)
+    + Accessed by navigating to `app_dev.php` - can only be accessed locally (from 127.0.0.1, a.k.a. localhost)
     + Debug Mode is enabled, so you have key development-friendly features like access to stack traces on error pages and auto/dynamic rebuilding of cache files on each request. The latter meaning that you don't have to clear the app's cache every time you change something.
 * Production (**prod**):
-    + Acccessed by navigating to `app.php`
+    + Accessed by navigating to `app.php`
     + By default, when you access `/` you are redirected to `app.php` (configured in `.htaccess`).
     + Debug Mode is disabled. The main thing is that every time a change is made to the app (routing, templates, parameters, etc.), it will not take effect until the cache is manually cleared by using this command: `php bin/console cache:clear --env=prod` (have this in mind if creating a deployment script).
 
@@ -135,86 +135,3 @@ If you find any problems, have any suggestions or want to discuss something you 
 If you want to contribute, but you're not sure where to start you can always take a look at the open issues we have and pick any of them.
 
 Try to follow our conventions for naming issues, branches and existing code structure and conventions.
-
-
-// TODO  - move to wiki
-### DigitalOcean manual
-I assume you have created a fresh 16.04 Ubuntu LAMP droplet, and are running everything as the root user. This setup is **not suitable** for a longer production usage, nor we assume any responsibility if you break something :) If you are not sure what a step does - google it :)
-
-If working on a new droplet, you can copy/paste most of the commands below directly - if not, just use them as reference :)
-
-#### Getting the project files
-*...in the right place - that way we use the default virtualhost of Apache, so there is no need for a virtualhost to be onfigured.*
-```
-rm -rf /var/www/html
-git clone repo-url /var/www/html
-```
-#### Enable and install mod_rewrite 
-*Unzip is recommended for composer*
-```
-apt update
-apt upgrade
-apt install unzip php-xml -y
-a2enmod rewrite
-phpenmod xml
-service apache2 restart
-```
-#### Enabling swap
-*You need this on both 512MB or 1 GB droplets - if not present npm install hangs [source & explanations](https://www.digitalocean.com/community/tutorials/how-to-add-swap-space-on-ubuntu-16-04)*
-```
-fallocate -l 1G /swapfile
-mkswap /swapfile
-chmod 600 /swapfile
-swapon /swapfile
-sudo cp /etc/fstab /etc/fstab.bak
-echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
-sudo cp /etc/sysctl.conf /etc/sysctl.conf.bak
-echo 'vm.swappiness=10' | sudo tee -a /etc/sysctl.conf
-echo 'vm.vfs_cache_pressure=50' | sudo tee -a /etc/sysctl.conf
-```
-#### Get composer
-*You may also want to validate the install file - check Step 2 from [here](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-16-04)*
-```
-cd ~
-curl -sS https://getcomposer.org/installer -o composer-setup.php
-sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
-```
-
-#### Install node/npm
-*[DigitalOcean manual with more details ](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-16-04)*
-```
-cd ~
-curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh
-sudo bash nodesource_setup.sh
-sudo apt-get install nodejs -y
-```
-#### Install gulp and bower as global packages
-`npm install -g gulp bower`
-
-#### Set up mysql user/pass
-When prompted for those during `composer install` you can use user root and the mysql root pass generated by DigitalOcean (check it by running `cat /root/.digitalocean_password`)
-
-Still it is best to create database user and pass for each application you are using. In order to do it from the mysql cli run `mysql -uroot -p`, type the root password and run those. **`something-really-random` should be changed** - you can generate a value for it by running `openssl rand -hex 26` beforehand).
-```
-create database sportify;
-CREATE USER 'sportify_usr'@'%' IDENTIFIED BY 'something-really-random';
-GRANT ALL ON sportify.* TO 'sportify_usr'@'%';
-FLUSH PRIVILEGES;
-exit
-```
-### Run all the shiny tools installed
-You will be prompted for configuration data during composer install - chechk the README on what is what there
-```
-composer install
-npm install
-bower install --allow-root
-gulp
-```
-
-#### All files should be owned by the apache user 
-`chown -R www-data:www-data /var/www/html/`
-
-Continue with [Application parameters and initial setup](https://gitlab.com/dev-labs-bg/dev-sportify/tree/feature/readme-redo#application-parameters-and-initial-setup) :)
-
-
-// TO DO - fix links
