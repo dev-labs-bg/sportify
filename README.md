@@ -9,7 +9,7 @@ This is a football (soccer :) match prediction game with a simple concept - you 
 * [bower](https://bower.io/) & [gulp](http://gulpjs.com/) installed globally 
 
 # Installation and Environment Setup
-The project can be run without issues on both *nix and Windows (Mac OS X, Ubuntu and Windows with LAMP tested:). Step by step guide on how to prepare a 512MB DigitalOcean Ubuntu LAMP 16.04 server in order to set-up the project can be found here.
+The project can be run without issues on both *nix and Windows (Mac OS X, Ubuntu and Windows with LAMP tested :). Check [the A to Z wiki article](https://github.com/dev-labs-bg/sportify/wiki/Setting-up-the-project-on-DigitalOcean-droplet-from-A-to-Z) for a step by step guide on how to prepare a 5$ 512MB DigitalOcean Ubuntu LAMP 16.04 droplet for the task.
 
 The major steps needed to set-up Symfony and all the tools (for both development and production):
 
