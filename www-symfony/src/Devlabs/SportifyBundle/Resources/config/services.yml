@@ -1,8 +1,4 @@
 services:
-#    devlabs_sportify.example:
-#        class: Devlabs\SportifyBundle\Example
-#        arguments: ["@service_id", "plain_value", %parameter%]
-
     app.form.type.prediction:
         class: Devlabs\SportifyBundle\Form\PredictionType
         arguments: ["@doctrine.orm.entity_manager"]
@@ -14,3 +10,73 @@ services:
         arguments: ["@doctrine.orm.entity_manager"]
         tags:
             - { name: form.type }
+
+    app.form.registration:
+        class: Devlabs\SportifyBundle\Form\RegistrationFormType
+        tags:
+            - { name: form.type, alias: app_user_registration }
+    app.form.resetting:
+        class: Devlabs\SportifyBundle\Form\ResettingFormType
+        tags:
+            - { name: form.type, alias: app_user_resetting }
+    app.form.change_password:
+        class: Devlabs\SportifyBundle\Form\ChangePasswordFormType
+        tags:
+            - { name: form.type, alias: app_user_changepassword }
+
+    app.twig.helper:
+        class: Devlabs\SportifyBundle\Services\TwigHelper
+        arguments: ['@service_container', '@doctrine.orm.entity_manager']
+
+    app.slack:
+        class: Devlabs\SportifyBundle\Services\Slack
+        arguments: ['@service_container', '%slack.url%', '%slack.channel%']
+
+    app.score_updater:
+        class: Devlabs\SportifyBundle\Services\ScoreUpdater
+        arguments: ['@service_container', '@doctrine.orm.entity_manager']
+
+    app.filter.helper:
+        class: Devlabs\SportifyBundle\Services\FilterHelper
+        arguments: ['@service_container', '@doctrine.orm.entity_manager']
+
+    app.admin.helper:
+        class: Devlabs\SportifyBundle\Services\ControllerHelpers\AdminHelper
+        arguments: ['@service_container', '@doctrine.orm.entity_manager']
+
+    app.matches.helper:
+        class: Devlabs\SportifyBundle\Services\ControllerHelpers\MatchesHelper
+        arguments: ['@service_container', '@doctrine.orm.entity_manager']
+
+    app.history.helper:
+        class: Devlabs\SportifyBundle\Services\ControllerHelpers\HistoryHelper
+        arguments: ['@service_container']
+
+    app.champion.helper:
+        class: Devlabs\SportifyBundle\Services\ControllerHelpers\ChampionHelper
+        arguments: ['@service_container', '@doctrine.orm.entity_manager']
+
+    app.tournaments.helper:
+        class: Devlabs\SportifyBundle\Services\ControllerHelpers\TournamentsHelper
+        arguments: ['@service_container', '@doctrine.orm.entity_manager']
+
+    app.data_updates.manager:
+        class: Devlabs\SportifyBundle\Services\DataUpdates\Manager
+        arguments:
+          - '@service_container'
+          - '@doctrine.orm.entity_manager'
+          - '%football_api.name%'
+          - '@app.data_updates.fetchers.football_data_org'
+          - '@app.data_updates.parsers.football_data_org'
+          - '@app.data_updates.importer'
+
+    app.data_updates.importer:
+        class: Devlabs\SportifyBundle\Services\DataUpdates\Importer
+        arguments: ['@service_container', '@doctrine.orm.entity_manager']
+
+    app.data_updates.fetchers.football_data_org:
+        class: Devlabs\SportifyBundle\Services\DataUpdates\Fetchers\FootballDataOrg
+        arguments: ['@service_container', '%football_api.base_uri%', '%football_api.token%']
+
+    app.data_updates.parsers.football_data_org:
+        class: Devlabs\SportifyBundle\Services\DataUpdates\Parsers\FootballDataOrg
