@@ -14,9 +14,9 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
-deploy.php
 .idea/
 .DS_Store
 lib/
 node_modules/
 web/deploy.php
+/.idea/*
