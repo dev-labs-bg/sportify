@@ -11,7 +11,7 @@ This is a football (soccer :) match prediction game with a simple concept - you 
 # Installation and Environment Setup
 The project can be run without issues on both *nix and Windows (Mac OS X, Ubuntu and Windows with LAMP tested:). Step by step guide on how to prepare a 512MB DigitalOcean Ubuntu LAMP 16.04 server in order to set-up the project can be found here.
 
-The major steps needed to set-up symfony and all the tools (for both development and production):
+The major steps needed to set-up Symfony and all the tools (for both development and production):
 
 `composer install` - *for a basic install you just need username and password for mysql, all are written to _app/config/parameters.yml_ check here for those the advanced parameters.*  
 `npm install` *(if running on a machine with 0.5/1GB RAM add swap)*  
@@ -41,7 +41,7 @@ The app has two two main environments:
 **N.B.**
 After doing any changes on **app/config/parameters.yml** run `php bin/console cache:clear --env=prod` for them to take effect.
 
-### Changing advanced app settings:
+### Changing advanced app settings (app/config/parameters.yml):
  
 `mailer_host`, `mailer_port`, `mailer_user`, `mailer_password` - SMTP settings in order to have sending of registration confirmation and password reset emails enabled.
 
@@ -94,6 +94,19 @@ Create tournament by navigating to: **Admin Panel -> Tournaments**. After the to
     + Automatic via API fetch (**Admin Panel -> Data Updates -> Update Match Results**)
     + Manual (**Admin Panel -> Matches**)
 * Standings/scores updates (**Admin Panel -> Scores/Standings Update**) - required only when manually updating match results.
+* Updating of match fixtures and results via API fetch can be scheduled by using Cron the following commands:
+    `php bin/console --env=prod sportify:data:update matches-fixtures <days>` - get match fixtures for the next number of <days>
+    `php bin/console --env=prod sportify:data:update matches-results <days>` - get match results for the previous number of <days>
+* Send notifications to users which have not made a prediction for upcoming matches (in the next 2 hours) in tournaments they have joined:
+    `php bin/console --env=prod sportify:notify users-not-predicted`
+
+* Example crontab entries:
+    + Every hour at 5 and 35 minutes of the clock, check for users which have not made their predictions for upcoming matches and notify them (and log this to log_notify.txt):
+    `5,35 * * * *    php /var/www/sportify/bin/console --env=prod sportify:notify users-not-predicted >> /var/www/sportify/var/log_notify.txt`
+    + Every Monday at 8:00 AM, fetch matches fixtures for the next 14 days (and log this to log_data_updates.txt)
+    `0 8 * * 1       php /var/www/sportify/bin/console --env=prod sportify:data:update matches-fixtures 14 >> /var/www/sportify/var/log_data_updates.txt`
+    + Every day at 1:00 AM, fetch matches results for the previous 1 day. If new data is fetched, calculate user prediction points and update tournaments' standings (and log this to log_data_updates.txt)
+    `0 1 * * *       php /var/www/sportify/bin/console --env=prod sportify:data:update matches-results 1 >> /var/www/sportify/var/log_data_updates.txt`
 
 ### Scoring system - what points are awarded for what
 * **3 points** for exact match score prediction, examples:
@@ -113,7 +126,7 @@ We accept all kind of contributions that you guys make and we'll love you for th
 
 If you find any problems, have any suggestions or want to discuss something you can either open an issue here or make a pull request with code changes instead.
 
-If you want to contribute, but you're not sure where to start you can always take a look at the issues here we have open and pick up with some of them.
+If you want to contribute, but you're not sure where to start you can always take a look at the open issues we have and pick any of them.
 
 Try to follow our conventions for naming issues, branches and existing code structure and conventions.
 
