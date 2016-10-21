@@ -1,4 +1,4 @@
-# General info
+ж# General info
 This is a football (soccer :) match prediction game with a simple concept - you and your buddies battle it out to see who's best at predicting match final scores. Each player gives score predictions to upcoming matches, and then points are awarded [check below](https://gitlab.com/dev-labs-bg/dev-sportify/tree/feature/readme-redo#scoring-system-what-points-are-awarded-for-what). There is a Slack integration for notifications on events like standings, results and fixture updates. The application is fetching real-world football fixtures and scores via a free football API (http://api.football-data.org), but custom tournaments can be created from the [administration](https://gitlab.com/dev-labs-bg/dev-sportify/tree/feature/readme-redo#admin-user).  
 
 # Requirements to run the project
@@ -136,10 +136,8 @@ If you want to contribute, but you're not sure where to start you can always tak
 
 Try to follow our conventions for naming issues, branches and existing code structure and conventions.
 
-// TODO - create some issues in GitHub repo
 
-
-// TO DO  - move to wiki
+// TODO  - move to wiki
 ### DigitalOcean manual
 I assume you have created a fresh 16.04 Ubuntu LAMP droplet, and are running everything as the root user. This setup is **not suitable** for a longer production usage, nor we assume any responsibility if you break something :) If you are not sure what a step does - google it :)
 
