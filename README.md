@@ -1,5 +1,5 @@
 # General info
-This is a football (soccer :) match prediction game with a simple concept - you and your buddies battle it out to see who's best at predicting match final scores. Each player gives score predictions to upcoming matches, and then points are awarded [check below](https://gitlab.com/dev-labs-bg/dev-sportify/tree/feature/readme-redo#scoring-system-what-points-are-awarded-for-what). There is a Slack integration for notifications on events like standings, results and fixture updates. The application is fetching real-world football fixtures and scores via a free football API (http://api.football-data.org), but custom tournaments can be created from the [administration](https://gitlab.com/dev-labs-bg/dev-sportify/tree/feature/readme-redo#admin-user).  
+This is a football (soccer :) match prediction game with a simple concept - you and your buddies battle it out to see who's best at predicting match final scores. Each player gives score predictions to upcoming matches, and then points are awarded check the [Game Flow](https://github.com/dev-labs-bg/sportify#game-flow). There is a Slack integration for notifications on events like standings, results and fixture updates. The application is fetching real-world football fixtures and scores via a free football API (http://api.football-data.org), but custom tournaments can be created from the [administration](https://github.com/dev-labs-bg/sportify#admin-user).  
 
 # Requirements to run the project
 * PHP, MySQL, Apache (or other web server ;)
@@ -9,7 +9,7 @@ This is a football (soccer :) match prediction game with a simple concept - you 
 * [bower](https://bower.io/) & [gulp](http://gulpjs.com/) installed globally 
 
 # Installation and Environment Setup
-The project can be run without issues on both *nix and Windows (Mac OS X, Ubuntu and Windows with LAMP tested:). Step by step guide on how to prepare a 512MB DigitalOcean Ubuntu LAMP 16.04 server in order to set-up the project can be found here.
+The project can be run without issues on both *nix and Windows (Mac OS X, Ubuntu and Windows with LAMP tested :). Check [the A to Z wiki article](https://github.com/dev-labs-bg/sportify/wiki/Setting-up-the-project-on-DigitalOcean-droplet-from-A-to-Z) for a step by step guide on how to prepare a 5$ 512MB DigitalOcean Ubuntu LAMP 16.04 droplet for the task.
 
 The major steps needed to set-up Symfony and all the tools (for both development and production):
 
