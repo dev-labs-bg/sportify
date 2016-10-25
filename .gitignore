@@ -20,3 +20,6 @@ lib/
 node_modules/
 web/deploy.php
 /.idea/*
+web/css/style.css
+web/js/all-scripts.js
+web/js/all-scripts.js.map
