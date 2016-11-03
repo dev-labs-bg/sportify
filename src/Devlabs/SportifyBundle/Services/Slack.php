@@ -3,6 +3,8 @@
 namespace Devlabs\SportifyBundle\Services;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Psr7\Response;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -103,9 +105,19 @@ class Slack
     {
         $env = $this->container->get('kernel')->getEnvironment();
 
-        if ($env === 'prod' && filter_var($this->url, FILTER_VALIDATE_URL))
+        if ($env !== 'prod' || !filter_var($this->url, FILTER_VALIDATE_URL))
         {
-            $this->httpClient->post(
+            return new Response(
+                400,
+                array(),
+                null,
+                '1.1',
+                'Env is not PROD or URL is invalid'
+            );
+        }
+
+        try {
+            return $this->httpClient->post(
                 $this->url,
                 [
                     'body' => json_encode(
@@ -115,9 +127,11 @@ class Slack
                         ]
                     ),
                     'allow_redirects' => false,
-                    'timeout'         => 5
+                    'timeout' => 5
                 ]
             );
+        } catch (RequestException $e) {
+            return $e->getResponse();
         }
     }
 }
