@@ -42,14 +42,18 @@ class NotifyCommand extends ContainerAwareCommand
             $matches = $em->getRepository('DevlabsSportifyBundle:Match')
                 ->getUpcoming($dateFrom, $dateTo);
 
-            $logText = 'Command executed at: ' . date("Y-m-d H:i:s") . "\n";
+            // array for holding the users' messages
+            $messages = array();
+
+            // array for holding the users' messages status if failed to send
+            $failedMessages = array();
+
+            $logTimestamp = date("Y-m-d H:i:s");
+            $logText = '';
 
             if ($matches) {
                 // creating a Slack object for setting and sending messages
                 $slack = $this->getContainer()->get('app.slack');
-
-                // array for holding the user's messages
-                $messages = array();
 
                 // set a Heading for all user messages
                 $msgHeading = "Upcoming matches without prediction(s):";
@@ -95,16 +99,43 @@ class NotifyCommand extends ContainerAwareCommand
 
                     // send the notification
                     $slack->setChannel('@'.$user->getSlackUsername())
-                        ->setText($message)
-                        ->post();
-                }
+                        ->setText($message);
+                    $response = $slack->post();
 
-                // execute queries
+                    if ($response->getStatusCode() !== 200) {
+                        $failedMessages[$user->getId()] = array(
+                            'username' => $user->getUsername(),
+                            'response_code' => $response->getStatusCode(),
+                            'response_reason' => $response->getReasonPhrase()
+                        );
+                    }
+                }
+            }
+
+            /**
+             * Execute queries for setting the notifications sent flag
+             * only if there is at least one successfully sent message.
+             */
+            if ($matches && $messages
+                && count($messages) > count($failedMessages)) {
                 $em->flush();
             }
 
             $logText = ($logText === '') ? 'none' : $logText;
-            $output->writeln("Notification(s) sent: \n".$logText);
+            $outputText = $logTimestamp." --- Notification(s): ".$logText;
+
+            if ($failedMessages) {
+                $outputText = $outputText . "\nFailed notification(s):\n";
+
+                foreach ($failedMessages as $failedMessage) {
+                    $outputText = $outputText
+                        ."username: ".$failedMessage['username']." | "
+                        ."code: ".$failedMessage['response_code']." | "
+                        ."reason: ".$failedMessage['response_reason']."\n";
+                }
+            }
+
+            $output->writeln($outputText);
         }
     }
 }
