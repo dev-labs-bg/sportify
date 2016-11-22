@@ -32,7 +32,7 @@ class FootballDataOrg
     /**
      * Get response for GET request to given URL
      *
-     * @param $uri
+     * @param $url
      * @return mixed
      */
     public function getResponse($url)

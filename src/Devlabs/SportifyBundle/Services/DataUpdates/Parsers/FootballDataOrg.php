@@ -94,7 +94,7 @@ class FootballDataOrg
     /**
      * Extract a number located at the end of a string
      *
-     * @param $subject
+     * @param $string
      * @return mixed
      */
     private function getNumberAtEndOfString($string)
