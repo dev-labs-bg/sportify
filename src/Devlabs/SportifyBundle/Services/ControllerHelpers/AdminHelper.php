@@ -38,7 +38,8 @@ class AdminHelper
     /**
      * Create Data Updates select form
      *
-     * @param array $formData
+     * @param $updateType
+     * @param array $choices
      * @param array $options
      * @return mixed
      */
@@ -422,7 +423,7 @@ class AdminHelper
     /**
      * Get the input data for the Match form
      *
-     * @param Tournament $tournament
+     * @param Match $match
      * @return array
      */
     public function getMatchFormInputData(Match $match)

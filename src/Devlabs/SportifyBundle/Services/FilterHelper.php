@@ -26,7 +26,6 @@ class FilterHelper
     /**
      * Get the source data used for the input fields of the filter form
      *
-     * @param $request
      * @param $user
      * @param $urlParams
      * @param $fields
@@ -64,9 +63,9 @@ class FilterHelper
      * Get the input data for the filter form
      *
      * @param $request
-     * @param $user
      * @param $urlParams
      * @param $fields
+     * @param $formSourceData
      * @return array
      */
     public function getFormInputData($request, $urlParams, $fields, $formSourceData)
@@ -98,11 +97,8 @@ class FilterHelper
     /**
      * Create a Filter form
      *
-     * @param $request
-     * @param $urlParams
-     * @param $match
-     * @param $prediction
-     * @param $buttonAction
+     * @param $fields
+     * @param $formInputData
      * @return mixed
      */
     public function createForm($fields, $formInputData)
@@ -121,6 +117,8 @@ class FilterHelper
      * Execute actions after the filter form is submitted
      *
      * @param $form
+     * @param $fields
+     * @return array
      */
     public function actionOnFormSubmit($form, $fields)
     {
