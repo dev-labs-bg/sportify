@@ -181,17 +181,22 @@ class ScoreUpdater
                 // prepare the queries
                 $this->em->persist($prediction);
 
+                $tournament = $match->getTournamentId();
+
+                /**
+                 * Add tournament to list of modified ones,
+                 * if not already there
+                 */
+                if (!in_array($tournament, $tournamentsModified)) {
+                    $tournamentsModified[] = $tournament;
+                }
+
                 /**
                  * If the predictions's gained points are more than 0 (zero)
                  * then update the user score for the prediction's tournament
                  */
                 if ($predictionPoints > 0) {
-                    $tournament = $match->getTournamentId();
                     $scores[$tournament->getId()]->updatePoints($predictionPoints);
-
-                    if (!in_array($tournament, $tournamentsModified)) {
-                        $tournamentsModified[] = $tournament;
-                    }
 
                     // prepare the queries
                     $this->em->persist($scores[$tournament->getId()]);
