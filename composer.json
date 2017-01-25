@@ -30,7 +30,9 @@
         "incenteev/composer-parameter-handler": "^2.0",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "guzzlehttp/guzzle": "~6.0",
-        "intervention/image": "^2.3"
+        "intervention/image": "^2.3",
+        "friendsofsymfony/rest-bundle": "^2.1",
+        "jms/serializer-bundle": "^1.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
