@@ -1,0 +1,11 @@
+Devlabs\SportifyBundle\Entity\Tournament:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+        name:
+            expose: true
+        startDate:
+            expose: true
+        endDate:
+            expose: true

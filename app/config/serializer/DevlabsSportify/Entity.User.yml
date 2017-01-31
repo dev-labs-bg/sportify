@@ -1,0 +1,8 @@
+Devlabs\SportifyBundle\Entity\User:
+    exclusion_policy: ALL
+    properties:
+        slackUsername:
+            expose: true
+#        scores:
+#            expose: true
+#            max_depth: 1

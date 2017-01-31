@@ -1,0 +1,19 @@
+Devlabs\SportifyBundle\Entity\Match:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+        tournamentId:
+            expose: true
+        datetime:
+            expose: true
+        homeTeamId:
+            expose: true
+        awayTeamId:
+            expose: true
+        homeGoals:
+            expose: true
+        awayGoals:
+            expose: true
+        notificationSent:
+            expose: true
