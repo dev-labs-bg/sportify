@@ -1,0 +1,17 @@
+Devlabs\SportifyBundle\Entity\Prediction:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+        matchId:
+            expose: true
+        userId:
+            expose: true
+        homeGoals:
+            expose: true
+        awayGoals:
+            expose: true
+        points:
+            expose: true
+        scoreAdded:
+            expose: true
