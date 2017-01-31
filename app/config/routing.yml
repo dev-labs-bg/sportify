@@ -1,7 +1,13 @@
 devlabs_sportify:
-    resource: "@DevlabsSportifyBundle/Controller/"
+    resource: "@DevlabsSportifyBundle/Controller"
     type:     annotation
     prefix:   /
+
+devlabs_sportify_api:
+    type:     rest
+    resource: "@DevlabsSportifyBundle/Controller/Api"
+    defaults: {_format: json}
+    prefix:   /api/
 
 fos_user:
 #    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

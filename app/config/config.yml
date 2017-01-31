@@ -23,7 +23,9 @@ framework:
     form:            ~
     csrf_protection: ~
     validation:      { enable_annotations: true }
-    #serializer:      { enable_annotations: true }
+#    serializer:
+#        enabled: true
+#        enable_annotations: true
     templating:
         engines: ['twig']
     default_locale:  "%locale%"
@@ -96,3 +98,36 @@ fos_user:
     change_password:
         form:
             type: Devlabs\SportifyBundle\Form\ChangePasswordFormType
+
+fos_rest:
+    zone:
+        - { path: ^/api/* }
+    routing_loader:
+        default_format: json
+        include_format: false
+    format_listener:
+        enabled: true
+        rules:
+            - { path: '^/api', priorities: ['json'], fallback_format: json, prefer_extension: false }
+    view:
+        view_response_listener: force
+        formats:
+            json: true
+            rss: false
+            xml: false
+        templating_formats:
+            html: true
+        force_redirects:
+            html: false
+        failed_validation: HTTP_BAD_REQUEST
+        default_engine: twig
+        mime_types:
+            json: ['application/json', 'application/x-json', 'application/vnd.example-com.foo+json']
+    serializer:
+        version: null
+        groups: []
+        serialize_null: true
+    disable_csrf_role: ROLE_API
+#    exception:
+#        enabled: true
+#        exception_controller: 'Devlabs\SportifyBundle\Controller\Api\ExceptionController::showAction'
