@@ -131,3 +131,13 @@ fos_rest:
 #    exception:
 #        enabled: true
 #        exception_controller: 'Devlabs\SportifyBundle\Controller\Api\ExceptionController::showAction'
+
+jms_serializer:
+    metadata:
+        directories:
+            FOSUserBundle:
+                path: "%kernel.root_dir%/config/serializer/FOSUB"
+                namespace_prefix: "FOS\\UserBundle"
+            DevlabsSportifyBundle:
+                path: "%kernel.root_dir%/config/serializer/DevlabsSportify"
+                namespace_prefix: "Devlabs\\SportifyBundle"
