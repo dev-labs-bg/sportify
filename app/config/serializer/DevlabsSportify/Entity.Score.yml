@@ -1,0 +1,15 @@
+Devlabs\SportifyBundle\Entity\Score:
+    exclusion_policy: ALL
+    properties:
+        userId:
+            expose: true
+        tournamentId:
+            expose: true
+        points:
+            expose: true
+        posOld:
+            expose: true
+        posOld:
+            expose: true
+        exactPredictionPercentage:
+            expose: true
