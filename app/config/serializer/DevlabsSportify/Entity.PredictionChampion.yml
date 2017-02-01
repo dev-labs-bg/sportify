@@ -1,0 +1,15 @@
+Devlabs\SportifyBundle\Entity\PredictionChampion:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+        userId:
+            expose: true
+        tournamentId:
+            expose: true
+        teamId:
+            expose: true
+        points:
+            expose: true
+        scoreAdded:
+            expose: true
