@@ -3,14 +3,13 @@
 namespace Devlabs\SportifyBundle\Controller\Api;
 
 use Devlabs\SportifyBundle\Controller\Base\BaseApiController;
-use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\View as ViewAnnotation;
 
 /**
- * Class PredictionController
+ * Class TournamentController
  * @package Devlabs\SportifyBundle\Controller\Api
  */
-class PredictionController extends BaseApiController
+class TournamentController extends BaseApiController
 {
-    protected $repositoryName = 'DevlabsSportifyBundle:Prediction';
+    protected $repositoryName = 'DevlabsSportifyBundle:Tournament';
 }
