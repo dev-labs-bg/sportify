@@ -9,5 +9,34 @@ Devlabs\SportifyBundle\Entity\Tournament:
             expose: true
         endDate:
             expose: true
-        scores:
-            expose: true
+    relations:
+        -
+            rel: self
+            href:
+                route: get_tournament
+                parameters:
+                    id: expr(object.getId())
+        -
+            rel: scores
+            href:
+                route: get_tournament_scores
+                parameters:
+                    id: expr(object.getId())
+        -
+            rel: matches
+            href:
+                route: get_tournament_matches
+                parameters:
+                    id: expr(object.getId())
+        -
+            rel: teams
+            href:
+                route: get_tournament_teams
+                parameters:
+                    id: expr(object.getId())
+        -
+            rel: champ_predictions
+            href:
+                route: get_tournament_champ_predictions
+                parameters:
+                    id: expr(object.getId())
