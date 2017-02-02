@@ -5,10 +5,10 @@ Devlabs\SportifyBundle\Entity\Match:
             expose: true
         datetime:
             expose: true
-        homeTeamId:
-            expose: true
-        awayTeamId:
-            expose: true
+#        homeTeamId:
+#            expose: true
+#        awayTeamId:
+#            expose: true
         homeGoals:
             expose: true
         awayGoals:
@@ -22,6 +22,18 @@ Devlabs\SportifyBundle\Entity\Match:
                 route: get_match
                 parameters:
                     id: expr(object.getId())
+        -
+            rel: home_team
+            href:
+                route: get_team
+                parameters:
+                    id: expr(object.getHomeTeamId())
+        -
+            rel: away_team
+            href:
+                route: get_team
+                parameters:
+                    id: expr(object.getAwayTeamId())
         -
             rel: tournament
             href:
