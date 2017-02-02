@@ -39,4 +39,17 @@ class MatchController extends BaseApiController
 //
 //        return $match;
 //    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getPredictionsAction($id)
+    {
+        $object = $this->getDoctrine()->getManager()
+            ->getRepository($this->repositoryName)
+            ->findOneById($id);
+
+        return $object->getPredictions();
+    }
 }
