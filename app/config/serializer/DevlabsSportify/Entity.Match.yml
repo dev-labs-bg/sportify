@@ -3,8 +3,6 @@ Devlabs\SportifyBundle\Entity\Match:
     properties:
         id:
             expose: true
-        tournamentId:
-            expose: true
         datetime:
             expose: true
         homeTeamId:
@@ -17,3 +15,24 @@ Devlabs\SportifyBundle\Entity\Match:
             expose: true
         notificationSent:
             expose: true
+    relations:
+        -
+            rel: self
+            href:
+                route: get_match
+                parameters:
+                    id: expr(object.getId())
+        -
+            rel: tournament
+            href:
+                route: get_tournament
+                parameters:
+                    id: expr(object.getTournamentId())
+            embedded:
+                content: expr(object.getTournamentId().getName())
+        -
+            rel: predictions
+            href:
+                route: get_match_predictions
+                parameters:
+                    id: expr(object.getId())
