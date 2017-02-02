@@ -29,4 +29,43 @@ class TournamentController extends BaseApiController
 
         return $scores;
     }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getMatchesAction($id)
+    {
+        $object = $this->getDoctrine()->getManager()
+            ->getRepository($this->repositoryName)
+            ->findOneById($id);
+
+        return $object->getMatches();
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getTeamsAction($id)
+    {
+        $object = $this->getDoctrine()->getManager()
+            ->getRepository($this->repositoryName)
+            ->findOneById($id);
+
+        return $object->getTeams();
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getChamp_predictionsAction($id)
+    {
+        $object = $this->getDoctrine()->getManager()
+            ->getRepository($this->repositoryName)
+            ->findOneById($id);
+
+        return $object->getPredictionsChampion();
+    }
 }
