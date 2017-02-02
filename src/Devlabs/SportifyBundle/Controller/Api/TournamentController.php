@@ -12,4 +12,21 @@ use FOS\RestBundle\Controller\Annotations\View as ViewAnnotation;
 class TournamentController extends BaseApiController
 {
     protected $repositoryName = 'DevlabsSportifyBundle:Tournament';
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getScoresAction($id)
+    {
+        $tournament = $this->getDoctrine()->getManager()
+            ->getRepository($this->repositoryName)
+            ->findOneById($id);
+
+        $scores = $this->getDoctrine()->getManager()
+            ->getRepository('DevlabsSportifyBundle:Score')
+            ->getByTournamentOrderByPosNew($tournament);
+
+        return $scores;
+    }
 }

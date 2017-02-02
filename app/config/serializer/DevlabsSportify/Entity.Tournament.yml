@@ -9,3 +9,5 @@ Devlabs\SportifyBundle\Entity\Tournament:
             expose: true
         endDate:
             expose: true
+        scores:
+            expose: true
