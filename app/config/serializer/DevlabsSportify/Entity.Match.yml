@@ -5,14 +5,31 @@ Devlabs\SportifyBundle\Entity\Match:
             expose: true
         datetime:
             expose: true
-#        homeTeamId:
-#            expose: true
-#        awayTeamId:
-#            expose: true
+        homeTeamId:
+            expose: true
+            access_type: public_method
+            accessor:
+                getter: getHomeTeamName
+            type: string
+            serialized_name: home_team
+        awayTeamId:
+            expose: true
+            access_type: public_method
+            accessor:
+                getter: getAwayTeamName
+            type: string
+            serialized_name: away_team
         homeGoals:
             expose: true
         awayGoals:
             expose: true
+        tournamentId:
+            expose: true
+            access_type: public_method
+            accessor:
+                getter: getTournamentName
+            type: string
+            serialized_name: tournament
         notificationSent:
             expose: true
     relations:
@@ -27,21 +44,19 @@ Devlabs\SportifyBundle\Entity\Match:
             href:
                 route: get_team
                 parameters:
-                    id: expr(object.getHomeTeamId())
+                    id: expr(object.getHomeTeamId().getId())
         -
             rel: away_team
             href:
                 route: get_team
                 parameters:
-                    id: expr(object.getAwayTeamId())
+                    id: expr(object.getAwayTeamId().getId())
         -
             rel: tournament
             href:
                 route: get_tournament
                 parameters:
-                    id: expr(object.getTournamentId())
-            embedded:
-                content: expr(object.getTournamentId().getName())
+                    id: expr(object.getTournamentId().getId())
         -
             rel: predictions
             href:
