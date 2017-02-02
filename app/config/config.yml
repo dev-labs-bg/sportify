@@ -141,3 +141,9 @@ jms_serializer:
             DevlabsSportifyBundle:
                 path: "%kernel.root_dir%/config/serializer/DevlabsSportify"
                 namespace_prefix: "Devlabs\\SportifyBundle"
+
+bazinga_hateoas:
+    metadata:
+        cache: file
+        file_cache:
+            dir: %kernel.cache_dir%/hateoas
