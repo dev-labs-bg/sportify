@@ -32,7 +32,8 @@
         "guzzlehttp/guzzle": "~6.0",
         "intervention/image": "^2.3",
         "friendsofsymfony/rest-bundle": "^2.1",
-        "jms/serializer-bundle": "^1.1"
+        "jms/serializer-bundle": "^1.1",
+        "willdurand/hateoas-bundle": "^1.2"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
