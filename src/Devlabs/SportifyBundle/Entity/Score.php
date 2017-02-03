@@ -218,4 +218,28 @@ class Score
     {
         return $this->exactPredictionPercentage;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getUsername()
+    {
+        return $this->userId->getUsername();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserEmail()
+    {
+        return $this->userId->getEmail();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTournamentName()
+    {
+        return $this->tournamentId->getName();
+    }
 }
