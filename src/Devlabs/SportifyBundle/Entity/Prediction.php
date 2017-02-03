@@ -263,4 +263,36 @@ class Prediction
 
         return 0;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getHomeTeamName()
+    {
+        return $this->matchId->getHomeTeamId()->getName();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAwayTeamName()
+    {
+        return $this->matchId->getAwayTeamId()->getName();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResultHomeGoals()
+    {
+        return $this->matchId->getHomeGoals();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResultAwayGoals()
+    {
+        return $this->matchId->getAwayGoals();
+    }
 }
