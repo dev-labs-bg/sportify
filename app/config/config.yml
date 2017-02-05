@@ -128,9 +128,13 @@ fos_rest:
         groups: []
         serialize_null: true
     disable_csrf_role: ROLE_API
-#    exception:
-#        enabled: true
-#        exception_controller: 'Devlabs\SportifyBundle\Controller\Api\ExceptionController::showAction'
+    exception:
+#        codes:
+#            'Symfony\Component\Routing\Exception\ResourceNotFoundException': 404
+#        messages:
+#            'ddasd': true
+        enabled: true
+        exception_controller: 'Devlabs\SportifyBundle\Controller\Api\ExceptionController::showAction'
 
 jms_serializer:
     metadata:

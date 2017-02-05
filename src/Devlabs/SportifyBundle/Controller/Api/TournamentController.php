@@ -4,6 +4,9 @@ namespace Devlabs\SportifyBundle\Controller\Api;
 
 use Devlabs\SportifyBundle\Controller\Base\BaseApiController;
 use FOS\RestBundle\Controller\Annotations\View as ViewAnnotation;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 /**
  * Class TournamentController
@@ -22,6 +25,10 @@ class TournamentController extends BaseApiController
         $tournament = $this->getDoctrine()->getManager()
             ->getRepository($this->repositoryName)
             ->findOneById($id);
+
+//        if (!is_object($tournament)) {
+//            throw new HttpException(404, 'Resource not found.');
+//        }
 
         $scores = $this->getDoctrine()->getManager()
             ->getRepository('DevlabsSportifyBundle:Score')
