@@ -37,6 +37,11 @@ class Score
     private $points = 0;
 
     /**
+     * @ORM\Column(type="integer", name="points_old")
+     */
+    private $pointsOld = 0;
+
+    /**
      * @ORM\Column(type="integer", name="pos_old")
      */
     private $posOld = 0;
@@ -217,5 +222,29 @@ class Score
     public function getExactPredictionPercentage()
     {
         return $this->exactPredictionPercentage;
+    }
+
+    /**
+     * Set pointsOld
+     *
+     * @param integer $pointsOld
+     *
+     * @return Score
+     */
+    public function setPointsOld($pointsOld)
+    {
+        $this->pointsOld = $pointsOld;
+
+        return $this;
+    }
+
+    /**
+     * Get pointsOld
+     *
+     * @return integer
+     */
+    public function getPointsOld()
+    {
+        return $this->pointsOld;
     }
 }
