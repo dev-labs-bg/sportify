@@ -81,13 +81,16 @@ class DataUpdateCommand extends ContainerAwareCommand
                         }
 
                         $msgText = $msgText."\n\t"
-                            ."User: "
                             .$score->getUserId()->getUsername()
-                            .", Position (current/previous): "
-                            .$score->getPosNew()."/"
+                            .": Position: "
+                            .$score->getPosNew()
+                            ." (previous: "
                             .$score->getPosOld()
-                            .", Points gained: "
-                            .($score->getPoints() - $score->getPointsOld());
+                            ."), Points: "
+                            .$score->getPoints()
+                            ." (gained: "
+                            .($score->getPoints() - $score->getPointsOld())
+                            .")";
                     }
                 }
             }
