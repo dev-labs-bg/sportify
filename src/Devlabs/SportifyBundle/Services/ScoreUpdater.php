@@ -59,7 +59,8 @@ class ScoreUpdater
     public function updateUserPositionsForTournament($tournament_id)
     {
         // get tournament
-        $tournament = $this->em->getRepository('DevlabsSportifyBundle:Tournament')
+        $tournament = $this->em
+            ->getRepository('DevlabsSportifyBundle:Tournament')
             ->findOneById($tournament_id);
 
         $tournamentsModified = array();
@@ -77,14 +78,16 @@ class ScoreUpdater
     private function scoreChampionPredictions(&$tournamentsModified)
     {
         // get all tournaments
-        $tournamentsAll = $this->em->getRepository('DevlabsSportifyBundle:Tournament')
+        $tournamentsAll = $this->em
+            ->getRepository('DevlabsSportifyBundle:Tournament')
             ->findAll();
 
         foreach ($tournamentsAll as $tournament) {
             // skip tournaments with no champion team set
             if ($tournament->getChampionTeamId() == null) continue;
 
-            $championPredictions = $this->em->getRepository('DevlabsSportifyBundle:PredictionChampion')
+            $championPredictions = $this->em
+                ->getRepository('DevlabsSportifyBundle:PredictionChampion')
                 ->getNotScoredByTournament($tournament);
 
             foreach ($championPredictions as $champPrediction) {
@@ -106,7 +109,8 @@ class ScoreUpdater
                  * then update the user score for the prediction's tournament
                  */
                 if ($predictionPoints > 0) {
-                    $userScore = $this->em->getRepository('DevlabsSportifyBundle:Score')
+                    $userScore = $this->em
+                        ->getRepository('DevlabsSportifyBundle:Score')
                         ->findOneBy(array(
                             'userId' => $champPrediction->getUserId(),
                             'tournamentId' => $champPrediction->getTournamentId(),
@@ -157,7 +161,8 @@ class ScoreUpdater
              * Get a list of NOT SCORED predictions by the user
              * for matches with final score set
              */
-            $predictions = $this->em->getRepository('DevlabsSportifyBundle:Prediction')
+            $predictions = $this->em
+                ->getRepository('DevlabsSportifyBundle:Prediction')
                 ->getFinishedNotScored($user);
 
             // iterate on all of the user's predictions
@@ -189,6 +194,19 @@ class ScoreUpdater
                  */
                 if (!in_array($tournament, $tournamentsModified)) {
                     $tournamentsModified[] = $tournament;
+
+                    $tournamentScores = $this->em
+                        ->getRepository('DevlabsSportifyBundle:Score')
+                        ->getByTournamentOrderByPosNew($tournament);
+
+                    // keep all users' previous points
+                    foreach ($tournamentScores as $score) {
+                        $previousPoints = $score->getPoints();
+                        $score->setPointsOld($previousPoints);
+
+                        // prepare queries
+                        $this->em->persist($score);
+                    }
                 }
 
                 /**
@@ -219,14 +237,16 @@ class ScoreUpdater
             $scores = $this->em->getRepository('DevlabsSportifyBundle:Score')
                 ->getByTournamentOrderByPoints($tournament);
 
-            $matchesFinished = $this->em->getRepository('DevlabsSportifyBundle:Match')
+            $matchesFinished = $this->em
+                ->getRepository('DevlabsSportifyBundle:Match')
                 ->getFinishedByTournament($tournament);
 
             $matchCount = count($matchesFinished);
 
             foreach ($scores as &$score) {
                 $user = $score->getUserId();
-                $predictionsExact = $this->em->getRepository('DevlabsSportifyBundle:Prediction')
+                $predictionsExact = $this->em
+                    ->getRepository('DevlabsSportifyBundle:Prediction')
                     ->getExactPredictionsByUserAndTournament($user, $tournament);
 
                 $predictionCount = count($predictionsExact);
