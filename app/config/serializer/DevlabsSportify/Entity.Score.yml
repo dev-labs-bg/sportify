@@ -13,6 +13,8 @@ Devlabs\SportifyBundle\Entity\Score:
     properties:
         points:
             expose: true
+        pointsOld:
+            expose: true
         posNew:
             expose: true
         posOld:
