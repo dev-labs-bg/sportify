@@ -98,4 +98,33 @@ class ScoreRepository extends \Doctrine\ORM\EntityRepository
 
         return $result;
     }
+
+    /**
+     * Get all scores in 2d-array - tournament and user id as keys
+     *
+     * @return array
+     */
+    public function getAllHashed()
+    {
+        $queryResult = $this->getEntityManager()->createQueryBuilder()
+            ->select('s')
+            ->from('DevlabsSportifyBundle:Score', 's')
+            ->orderBy('s.posNew', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+        $result = array();
+
+        /**
+         * Iterate the query result array item keys tournament and user id
+         */
+        foreach ($queryResult as $score) {
+            $tId = $score->getTournamentId()->getId();
+            $uId = $score->getUserId()->getId();
+
+            $result[$tId][$uId] = $score;
+        }
+
+        return $result;
+    }
 }

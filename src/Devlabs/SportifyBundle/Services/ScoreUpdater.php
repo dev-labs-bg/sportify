@@ -194,6 +194,19 @@ class ScoreUpdater
                  */
                 if (!in_array($tournament, $tournamentsModified)) {
                     $tournamentsModified[] = $tournament;
+
+                    $tournamentScores = $this->em
+                        ->getRepository('DevlabsSportifyBundle:Score')
+                        ->getByTournamentOrderByPosNew($tournament);
+
+                    // keep all users' previous points
+                    foreach ($tournamentScores as $score) {
+                        $previousPoints = $score->getPoints();
+                        $score->setPointsOld($previousPoints);
+
+                        // prepare queries
+                        $this->em->persist($score);
+                    }
                 }
 
                 /**

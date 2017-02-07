@@ -60,14 +60,38 @@ class DataUpdateCommand extends ContainerAwareCommand
             $status = $dataUpdatesManager->updateFixtures($dateFrom, $dateTo);
 
             if ($status['total_updated'] > 0) {
+                $em = $this->getContainer()->get('doctrine.orm.entity_manager');
+
                 // Get the ScoreUpdater service and update all scores
-                $tournamentsModified = $this->getContainer()->get('app.score_updater')->updateAll();
+                $tournamentsModified = $this->getContainer()
+                    ->get('app.score_updater')->updateAll();
+
+                $scores = $em->getRepository('DevlabsSportifyBundle:Score')
+                    ->getAllHashed();
 
                 $dataUpdated = true;
                 $msgText = 'Match results and standings updated for tournament(s):';
 
                 foreach ($tournamentsModified as $tournament) {
                     $msgText = $msgText."\n".$tournament->getName();
+
+                    foreach ($scores[$tournament->getId()] as $score) {
+                        if ($score->getPoints() == $score->getPointsOld()) {
+                            continue;
+                        }
+
+                        $msgText = $msgText."\n\t"
+                            .$score->getUserId()->getUsername()
+                            .": Position: "
+                            .$score->getPosNew()
+                            ." (previous: "
+                            .$score->getPosOld()
+                            ."), Points: "
+                            .$score->getPoints()
+                            ." (gained: "
+                            .($score->getPoints() - $score->getPointsOld())
+                            .")";
+                    }
                 }
             }
         }
