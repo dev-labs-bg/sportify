@@ -174,6 +174,6 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
             return $this->view($object, $statusCode);
         }
 
-        return $this->view($form->getErrors(), 400);
+        return $this->view($form, 400);
     }
 }
