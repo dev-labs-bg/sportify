@@ -39,6 +39,9 @@ framework:
     http_method_override: true
     assets: ~
 
+#sensio_framework_extra:
+#    request: { converters: true }
+
 # Twig Configuration
 twig:
     debug:            "%kernel.debug%"
@@ -109,6 +112,15 @@ fos_rest:
         enabled: true
         rules:
             - { path: '^/api', priorities: ['json'], fallback_format: json, prefer_extension: false }
+    body_listener:
+        enabled:              true
+        array_normalizer: fos_rest.normalizer.camel_keys
+#        decoders:
+#            json: fos_rest.decoder.jsontoform
+#    body_converter:
+#        enabled:              true
+#        validate:             true
+#        validation_errors_argument:  validationErrors
     view:
         view_response_listener: force
         formats:
@@ -133,8 +145,8 @@ fos_rest:
 #            'Symfony\Component\Routing\Exception\ResourceNotFoundException': 404
 #        messages:
 #            'ddasd': true
-        enabled: true
-        exception_controller: 'Devlabs\SportifyBundle\Controller\Api\ExceptionController::showAction'
+#        enabled: true
+#        exception_controller: 'Devlabs\SportifyBundle\Controller\Api\ExceptionController::showAction'
 
 jms_serializer:
     metadata:
