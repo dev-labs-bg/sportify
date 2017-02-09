@@ -46,6 +46,85 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
     }
 
     /**
+     * @param Request $request
+     * @return \Symfony\Component\Form\FormErrorIterator
+     */
+    public function postAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $object = new $this->fqEntityClass();
+
+        return $this->processForm(
+            $request,
+            $em,
+            $object,
+            'POST'
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\Form\FormErrorIterator
+     */
+    public function putAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $object = $em->getRepository($this->repositoryName)
+            ->findOneById($id);
+
+        if (!is_object($object)) {
+            $object = new $this->fqEntityClass();
+        }
+
+        return $this->processForm(
+            $request,
+            $em,
+            $object,
+            'PUT'
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\Form\FormErrorIterator
+     */
+    public function patchAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $object = $em->getRepository($this->repositoryName)
+            ->findOneById($id);
+
+        return $this->processForm(
+            $request,
+            $em,
+            $object,
+            'PATCH'
+        );
+    }
+
+    /**
+     * @param $id
+     * @return array
+     */
+    public function deleteAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $object = $em->getRepository($this->repositoryName)
+            ->findOneById($id);
+
+        $em->remove($object);
+        $em->flush();
+
+        return array('status' => 'Deleted '.$this->entityName.' with id '.$id);
+    }
+
+    /**
      * Create and process Entity form used for POST, PUT, PATCH requests
      *
      * @param Request $request
