@@ -19,9 +19,6 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
     protected $repositoryName = 'DevlabsSportifyBundle:Model';
     protected $fqEntityFormClass = ModelType::class;
 
-    /**
-     * @ViewAnnotation(serializerEnableMaxDepthChecks=true)
-     */
     public function cgetAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -29,12 +26,9 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
         $objects = $em->getRepository($this->repositoryName)
             ->findAll();
 
-        return $objects;
+        return $this->view($objects, 200);
     }
 
-    /**
-     * @ViewAnnotation(serializerEnableMaxDepthChecks=true)
-     */
     public function getAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -42,7 +36,11 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
         $object = $em->getRepository($this->repositoryName)
             ->findOneById($id);
 
-        return $object;
+        if (!is_object($object)) {
+            return $this->view(null, 404);
+        }
+
+        return $this->view($object, 200);
     }
 
     /**
@@ -59,7 +57,8 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
             $request,
             $em,
             $object,
-            'POST'
+            'POST',
+            201
         );
     }
 
@@ -75,15 +74,19 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
         $object = $em->getRepository($this->repositoryName)
             ->findOneById($id);
 
+        $statusCode = 204;
+
         if (!is_object($object)) {
             $object = new $this->fqEntityClass();
+            $statusCode = 201;
         }
 
         return $this->processForm(
             $request,
             $em,
             $object,
-            'PUT'
+            'PUT',
+            $statusCode
         );
     }
 
@@ -99,11 +102,16 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
         $object = $em->getRepository($this->repositoryName)
             ->findOneById($id);
 
+        if (!is_object($object)) {
+            return $this->view(null, 404);
+        }
+
         return $this->processForm(
             $request,
             $em,
             $object,
-            'PATCH'
+            'PATCH',
+            204
         );
     }
 
@@ -118,10 +126,17 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
         $object = $em->getRepository($this->repositoryName)
             ->findOneById($id);
 
+        if (!is_object($object)) {
+            return $this->view(null, 404);
+        }
+
         $em->remove($object);
         $em->flush();
 
-        return array('status' => 'Deleted '.$this->entityName.' with id '.$id);
+        return $this->view(
+            null,
+            204
+        );
     }
 
     /**
@@ -131,10 +146,16 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
      * @param ObjectManager $em
      * @param $object
      * @param $method
-     * @return \Symfony\Component\Form\FormErrorIterator
+     * @param int $statusCode
+     * @return \FOS\RestBundle\View\View
      */
-    protected function processForm(Request $request, ObjectManager $em, $object, $method)
-    {
+    protected function processForm(
+        Request $request,
+        ObjectManager $em,
+        $object,
+        $method,
+        $statusCode = 200
+    ) {
         $form = $this->createForm(
             $this->fqEntityFormClass,
             $object,
@@ -150,9 +171,9 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
             $em->persist($object);
             $em->flush();
 
-            return $object;
+            return $this->view($object, $statusCode);
         }
 
-        return $form->getErrors();
+        return $this->view($form->getErrors(), 400);
     }
 }
