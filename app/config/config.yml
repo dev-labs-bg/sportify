@@ -163,3 +163,12 @@ bazinga_hateoas:
         cache: file
         file_cache:
             dir: %kernel.cache_dir%/hateoas
+
+fos_oauth_server:
+    db_driver: orm
+    client_class:        Devlabs\SportifyBundle\Entity\OAuthClient
+    access_token_class:  Devlabs\SportifyBundle\Entity\OAuthAccessToken
+    refresh_token_class: Devlabs\SportifyBundle\Entity\OAuthRefreshToken
+    auth_code_class:     Devlabs\SportifyBundle\Entity\OAuthAuthCode
+    service:
+        user_provider: fos_user.user_manager
