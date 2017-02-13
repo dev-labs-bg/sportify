@@ -7,7 +7,7 @@ use FOS\OAuthServerBundle\Entity\AccessToken as BaseAccessToken;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="oauth_access_token")
+ * @ORM\Table(name="oauth_access_tokens")
  */
 class OAuthAccessToken extends BaseAccessToken
 {

@@ -7,7 +7,7 @@ use FOS\OAuthServerBundle\Entity\RefreshToken as BaseRefreshToken;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="oauth_refresh_token")
+ * @ORM\Table(name="oauth_refresh_tokens")
  */
 class OAuthRefreshToken extends BaseRefreshToken
 {

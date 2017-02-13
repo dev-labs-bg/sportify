@@ -7,7 +7,7 @@ use FOS\OAuthServerBundle\Entity\AuthCode as BaseAuthCode;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="oauth_auth_code")
+ * @ORM\Table(name="oauth_auth_codes")
  */
 class OAuthAuthCode extends BaseAuthCode
 {
