@@ -76,7 +76,7 @@ class CreateOAuthClientCommand extends ContainerAwareCommand
 
             $output->writeln(
                 sprintf(
-                    "<info>Customer <comment>%s</comment> linked to client <comment>%s</comment></info>",
+                    "<info>User <comment>%s</comment> linked to client <comment>%s</comment></info>",
                     $user->getId(),
                     $client->getName()
                 )
