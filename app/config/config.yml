@@ -172,3 +172,5 @@ fos_oauth_server:
     auth_code_class:     Devlabs\SportifyBundle\Entity\OAuthAuthCode
     service:
         user_provider: fos_user.user_manager
+        options:
+            access_token_lifetime: 43200 # 12 hours in seconds
