@@ -3,8 +3,9 @@
 namespace Devlabs\SportifyBundle\Controller\Api;
 
 use Devlabs\SportifyBundle\Controller\Base\BaseApiController;
-use FOS\RestBundle\Controller\FOSRestController;
-use FOS\RestBundle\Controller\Annotations\View as ViewAnnotation;
+use Devlabs\SportifyBundle\Entity\Match;
+use Devlabs\SportifyBundle\Form\MatchEntityType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Class MatchController
@@ -12,33 +13,28 @@ use FOS\RestBundle\Controller\Annotations\View as ViewAnnotation;
  */
 class MatchController extends BaseApiController
 {
+    protected $entityName = 'Match';
+    protected $fqEntityClass = Match::class;
     protected $repositoryName = 'DevlabsSportifyBundle:Match';
+    protected $fqEntityFormClass = MatchEntityType::class;
 
-//    /**
-//     * @ViewAnnotation(serializerEnableMaxDepthChecks=true)
-//     */
-//    public function getMatchesAction()
-//    {
-//        $em = $this->getDoctrine()->getManager();
-//
-//        $matches = $em->getRepository('DevlabsSportifyBundle:Match')
-//            ->findAll();
-//
-//        return $matches;
-//    }
-//
-//    /**
-//     * @ViewAnnotation(serializerEnableMaxDepthChecks=true)
-//     */
-//    public function getMatchAction($id)
-//    {
-//        $em = $this->getDoctrine()->getManager();
-//
-//        $match = $em->getRepository('DevlabsSportifyBundle:Match')
-//            ->findOneById($id);
-//
-//        return $match;
-//    }
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     *
+     * @return \FOS\RestBundle\View\View
+     */
+    public function getPredictionsAllusersAction($id)
+    {
+        $match = $this->getDoctrine()->getManager()
+            ->getRepository($this->repositoryName)
+            ->findOneById($id);
+
+        if (!is_object($match)) {
+            return $this->view(null, 404);
+        }
+
+        return $this->view($match->getPredictions(), 200);
+    }
 
     /**
      * @param $id
@@ -46,10 +42,22 @@ class MatchController extends BaseApiController
      */
     public function getPredictionsAction($id)
     {
-        $object = $this->getDoctrine()->getManager()
-            ->getRepository($this->repositoryName)
-            ->findOneById($id);
+        // if user is not auth, return unauthorized
+        if (!is_object($user = $this->getUser())) {
+            return $this->view(null, 401);
+        }
 
-        return $object->getPredictions();
+        $prediction = $this->getDoctrine()->getManager()
+            ->getRepository('DevlabsSportifyBundle:Prediction')
+            ->findOneBy(array(
+                'matchId' => $id,
+                'userId' => $user->getId()
+            ));
+
+        if (!is_object($prediction)) {
+            return $this->view(null, 404);
+        }
+
+        return $this->view($prediction, 200);
     }
 }
