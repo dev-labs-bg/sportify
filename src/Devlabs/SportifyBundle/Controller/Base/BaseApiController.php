@@ -3,7 +3,6 @@
 namespace Devlabs\SportifyBundle\Controller\Base;
 
 use FOS\RestBundle\Controller\FOSRestController;
-use FOS\RestBundle\Controller\Annotations\View as ViewAnnotation;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -19,6 +18,9 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
     protected $repositoryName = 'DevlabsSportifyBundle:Model';
     protected $fqEntityFormClass = ModelType::class;
 
+    /**
+     * @return \FOS\RestBundle\View\View
+     */
     public function cgetAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -29,6 +31,10 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
         return $this->view($objects, 200);
     }
 
+    /**
+     * @param $id
+     * @return \FOS\RestBundle\View\View
+     */
     public function getAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -45,7 +51,7 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
 
     /**
      * @param Request $request
-     * @return \Symfony\Component\Form\FormErrorIterator
+     * @return \FOS\RestBundle\View\View
      */
     public function postAction(Request $request)
     {
@@ -65,7 +71,7 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
     /**
      * @param Request $request
      * @param $id
-     * @return \Symfony\Component\Form\FormErrorIterator
+     * @return \FOS\RestBundle\View\View
      */
     public function putAction(Request $request, $id)
     {
@@ -93,7 +99,7 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
     /**
      * @param Request $request
      * @param $id
-     * @return \Symfony\Component\Form\FormErrorIterator
+     * @return \FOS\RestBundle\View\View
      */
     public function patchAction(Request $request, $id)
     {
@@ -117,7 +123,7 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
 
     /**
      * @param $id
-     * @return array
+     * @return \FOS\RestBundle\View\View
      */
     public function deleteAction($id)
     {
