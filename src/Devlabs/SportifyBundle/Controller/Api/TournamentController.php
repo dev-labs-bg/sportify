@@ -3,10 +3,6 @@
 namespace Devlabs\SportifyBundle\Controller\Api;
 
 use Devlabs\SportifyBundle\Controller\Base\BaseApiController;
-use FOS\RestBundle\Controller\Annotations\View as ViewAnnotation;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 /**
  * Class TournamentController
@@ -34,7 +30,7 @@ class TournamentController extends BaseApiController
             ->getRepository('DevlabsSportifyBundle:Score')
             ->getByTournamentOrderByPosNew($tournament);
 
-        return $scores;
+        return $this->view($scores, 200);
     }
 
     /**
@@ -51,7 +47,7 @@ class TournamentController extends BaseApiController
             return $this->getNotFoundView();
         }
 
-        return $object->getMatches();
+        return $this->view($object->getMatches(), 200);
     }
 
     /**
@@ -68,7 +64,7 @@ class TournamentController extends BaseApiController
             return $this->getNotFoundView();
         }
 
-        return $object->getTeams();
+        return $this->view($object->getTeams(), 200);
     }
 
     /**
@@ -85,6 +81,6 @@ class TournamentController extends BaseApiController
             return $this->getNotFoundView();
         }
 
-        return $object->getPredictionsChampion();
+        return $this->view($object->getPredictionsChampion(), 200);
     }
 }
