@@ -6,6 +6,7 @@ use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Class BaseApiController
@@ -23,6 +24,11 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
      */
     public function cgetAction()
     {
+        // if user is not logged in, return unauthorized
+        if (!is_object($user = $this->getUser())) {
+            return $this->getUnauthorizedView();
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         $objects = $em->getRepository($this->repositoryName)
@@ -37,6 +43,11 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
      */
     public function getAction($id)
     {
+        // if user is not logged in, return unauthorized
+        if (!is_object($user = $this->getUser())) {
+            return $this->getUnauthorizedView();
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         $object = $em->getRepository($this->repositoryName)
@@ -55,6 +66,11 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
      */
     public function postAction(Request $request)
     {
+        // if user is not logged in, return unauthorized
+        if (!is_object($user = $this->getUser())) {
+            return $this->getUnauthorizedView();
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         $object = new $this->fqEntityClass();
@@ -75,6 +91,11 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
      */
     public function putAction(Request $request, $id)
     {
+        // if user is not logged in, return unauthorized
+        if (!is_object($user = $this->getUser())) {
+            return $this->getUnauthorizedView();
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         $object = $em->getRepository($this->repositoryName)
@@ -103,6 +124,11 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
      */
     public function patchAction(Request $request, $id)
     {
+        // if user is not logged in, return unauthorized
+        if (!is_object($user = $this->getUser())) {
+            return $this->getUnauthorizedView();
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         $object = $em->getRepository($this->repositoryName)
@@ -127,6 +153,11 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
      */
     public function deleteAction($id)
     {
+        // if user is not logged in, return unauthorized
+        if (!is_object($user = $this->getUser())) {
+            return $this->getUnauthorizedView();
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         $object = $em->getRepository($this->repositoryName)
