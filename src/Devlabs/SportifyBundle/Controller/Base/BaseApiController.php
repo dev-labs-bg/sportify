@@ -175,6 +175,14 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
             return $this->getNotFoundView();
         }
 
+        // restrict normal user to be able to edit only their data
+        if (method_exists($object, 'getUserId')
+            && $user != $object->getUserId()
+            && !$this->isGranted('ROLE_ADMIN'))
+        {
+            return $this->view(null, 403);
+        }
+
         $em->remove($object);
         $em->flush();
 
@@ -201,6 +209,11 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
         $method,
         $statusCode = 200
     ) {
+        // if user is not logged in, return unauthorized
+        if (!is_object($user = $this->getUser())) {
+            return $this->getUnauthorizedView();
+        }
+
         $form = $this->createForm(
             $this->fqEntityFormClass,
             $object,
@@ -213,6 +226,14 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            // restrict normal user to be able to edit only their data
+            if (method_exists($object, 'getUserId')
+                && $user != $object->getUserId()
+                && !$this->isGranted('ROLE_ADMIN'))
+            {
+                return $this->view(null, 403);
+            }
+
             $em->persist($object);
             $em->flush();
 
