@@ -61,6 +61,8 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
     }
 
     /**
+     * @Security("has_role('ROLE_ADMIN')")
+     *
      * @param Request $request
      * @return \FOS\RestBundle\View\View
      */
@@ -85,6 +87,8 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
     }
 
     /**
+     * @Security("has_role('ROLE_ADMIN')")
+     *
      * @param Request $request
      * @param $id
      * @return \FOS\RestBundle\View\View
@@ -118,6 +122,8 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
     }
 
     /**
+     * @Security("has_role('ROLE_ADMIN')")
+     *
      * @param Request $request
      * @param $id
      * @return \FOS\RestBundle\View\View
@@ -148,6 +154,8 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
     }
 
     /**
+     * @Security("has_role('ROLE_ADMIN')")
+     *
      * @param $id
      * @return \FOS\RestBundle\View\View
      */
