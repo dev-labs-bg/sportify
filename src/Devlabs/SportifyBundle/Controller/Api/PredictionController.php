@@ -3,7 +3,7 @@
 namespace Devlabs\SportifyBundle\Controller\Api;
 
 use Devlabs\SportifyBundle\Controller\Base\BaseApiController;
-use FOS\RestBundle\Controller\Annotations\View as ViewAnnotation;
+use Symfony\Component\HttpFoundation\Request;
 use Devlabs\SportifyBundle\Entity\Prediction;
 use Devlabs\SportifyBundle\Form\PredictionType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -28,7 +28,7 @@ class PredictionController extends BaseApiController
     {
 //        // allow access to ADMIN users only
 //        if (!$this->isGranted('ROLE_ADMIN')) {
-//            return $this->view(null, 401);
+//            return $this->view(null, 403);
 //        }
 
         $objects = $this->getDoctrine()->getManager()
@@ -83,5 +83,43 @@ class PredictionController extends BaseApiController
         }
 
         return $this->view($object, 200);
+    }
+
+    /**
+     * @param Request $request
+     * @return \FOS\RestBundle\View\View
+     */
+    public function postAction(Request $request)
+    {
+        return parent::postAction($request);
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \FOS\RestBundle\View\View
+     */
+    public function putAction(Request $request, $id)
+    {
+        return parent::putAction($request, $id);
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \FOS\RestBundle\View\View
+     */
+    public function patchAction(Request $request, $id)
+    {
+        return parent::patchAction($request, $id);
+    }
+
+    /**
+     * @param $id
+     * @return \FOS\RestBundle\View\View
+     */
+    public function deleteAction($id)
+    {
+        return parent::deleteAction($id);
     }
 }
