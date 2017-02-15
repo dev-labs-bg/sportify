@@ -23,6 +23,10 @@ class TeamController extends BaseApiController
             ->getRepository($this->repositoryName)
             ->findOneById($id);
 
+        if (!is_object($object)) {
+            return $this->getNotFoundView();
+        }
+
         return $object->getTournaments();
     }
 }

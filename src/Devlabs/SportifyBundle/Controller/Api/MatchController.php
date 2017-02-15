@@ -30,7 +30,7 @@ class MatchController extends BaseApiController
             ->findOneById($id);
 
         if (!is_object($match)) {
-            return $this->view(null, 404);
+            return $this->getNotFoundView();
         }
 
         return $this->view($match->getPredictions(), 200);
@@ -44,7 +44,7 @@ class MatchController extends BaseApiController
     {
         // if user is not auth, return unauthorized
         if (!is_object($user = $this->getUser())) {
-            return $this->view(null, 401);
+            return $this->getUnauthorizedView();
         }
 
         $prediction = $this->getDoctrine()->getManager()
@@ -55,7 +55,7 @@ class MatchController extends BaseApiController
             ));
 
         if (!is_object($prediction)) {
-            return $this->view(null, 404);
+            return $this->getNotFoundView();
         }
 
         return $this->view($prediction, 200);

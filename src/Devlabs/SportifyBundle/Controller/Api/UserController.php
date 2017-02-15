@@ -24,7 +24,7 @@ class UserController extends BaseApiController
     {
         // if user is not logged in, return unauthorized
         if (!is_object($user = $this->getUser())) {
-            return $this->view(null, 401);
+            return $this->getUnauthorizedView();
         }
 
         // if user is not admin show only their data
@@ -47,12 +47,12 @@ class UserController extends BaseApiController
     {
         // if user is not logged in, return unauthorized
         if (!is_object($user = $this->getUser())) {
-            return $this->view(null, 401);
+            return $this->getUnauthorizedView();
         }
 
         // restrict normal user to be able to see only their data
         if (!$this->isGranted('ROLE_ADMIN') && $user->getId() != $id) {
-            return $this->view(null, 401);
+            return $this->view(null, 403);
         }
 
         // skip repository lookup if user id is same as requested
@@ -65,7 +65,7 @@ class UserController extends BaseApiController
             ->findOneById($id);
 
         if (!is_object($object)) {
-            return $this->view(null, 404);
+            return $this->getNotFoundView();
         }
 
         return $this->view($object, 200);
@@ -92,12 +92,12 @@ class UserController extends BaseApiController
     {
         // if user is not logged in, return unauthorized
         if (!is_object($user = $this->getUser())) {
-            return $this->view(null, 401);
+            return $this->getUnauthorizedView();
         }
 
         // restrict normal user to be able to see only their data
         if (!$this->isGranted('ROLE_ADMIN') && $user->getId() != $id) {
-            return $this->view(null, 401);
+            return $this->view(null, 403);
         }
 
         // skip repository lookup if user id is same as requested
@@ -110,7 +110,7 @@ class UserController extends BaseApiController
             ->findOneById($id);
 
         if (!is_object($object)) {
-            return $this->view(null, 404);
+            return $this->getNotFoundView();
         }
 
         return $this->view($object->getPredictions(), 200);
@@ -125,6 +125,10 @@ class UserController extends BaseApiController
         $object = $this->getDoctrine()->getManager()
             ->getRepository($this->repositoryName)
             ->findOneById($id);
+
+        if (!is_object($object)) {
+            return $this->getNotFoundView();
+        }
 
         return $this->view($object->getPredictionsChampion(), 200);
     }

@@ -45,7 +45,7 @@ class PredictionController extends BaseApiController
     {
         // if user is not auth, return unauthorized
         if (!is_object($user = $this->getUser())) {
-            return $this->view(null, 401);
+            return $this->getUnauthorizedView();
         }
 
         // get user's predictions
@@ -66,7 +66,7 @@ class PredictionController extends BaseApiController
     {
         // if user is not logged in, return unauthorized
         if (!is_object($user = $this->getUser())) {
-            return $this->view(null, 401);
+            return $this->getUnauthorizedView();
         }
 
         $object = $this->getDoctrine()->getManager()
@@ -74,7 +74,7 @@ class PredictionController extends BaseApiController
             ->findOneById($id);
 
         if (!is_object($object)) {
-            return $this->view(null, 404);
+            return $this->getNotFoundView();
         }
 
         // restrict normal user to be able to see only their data

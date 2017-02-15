@@ -26,9 +26,9 @@ class TournamentController extends BaseApiController
             ->getRepository($this->repositoryName)
             ->findOneById($id);
 
-//        if (!is_object($tournament)) {
-//            throw new HttpException(404, 'Resource not found.');
-//        }
+        if (!is_object($tournament)) {
+            return $this->getNotFoundView();
+        }
 
         $scores = $this->getDoctrine()->getManager()
             ->getRepository('DevlabsSportifyBundle:Score')
@@ -47,6 +47,10 @@ class TournamentController extends BaseApiController
             ->getRepository($this->repositoryName)
             ->findOneById($id);
 
+        if (!is_object($object)) {
+            return $this->getNotFoundView();
+        }
+
         return $object->getMatches();
     }
 
@@ -60,6 +64,10 @@ class TournamentController extends BaseApiController
             ->getRepository($this->repositoryName)
             ->findOneById($id);
 
+        if (!is_object($object)) {
+            return $this->getNotFoundView();
+        }
+
         return $object->getTeams();
     }
 
@@ -72,6 +80,10 @@ class TournamentController extends BaseApiController
         $object = $this->getDoctrine()->getManager()
             ->getRepository($this->repositoryName)
             ->findOneById($id);
+
+        if (!is_object($object)) {
+            return $this->getNotFoundView();
+        }
 
         return $object->getPredictionsChampion();
     }

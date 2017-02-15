@@ -43,7 +43,7 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
             ->findOneById($id);
 
         if (!is_object($object)) {
-            return $this->view(null, 404);
+            return $this->getNotFoundView();
         }
 
         return $this->view($object, 200);
@@ -109,7 +109,7 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
             ->findOneById($id);
 
         if (!is_object($object)) {
-            return $this->view(null, 404);
+            return $this->getNotFoundView();
         }
 
         return $this->processForm(
@@ -133,7 +133,7 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
             ->findOneById($id);
 
         if (!is_object($object)) {
-            return $this->view(null, 404);
+            return $this->getNotFoundView();
         }
 
         $em->remove($object);
@@ -181,5 +181,21 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
         }
 
         return $this->view($form, 400);
+    }
+
+    /**
+     * @return \FOS\RestBundle\View\View
+     */
+    protected function getUnauthorizedView()
+    {
+        return $this->view(null, 401);
+    }
+
+    /**
+     * @return \FOS\RestBundle\View\View
+     */
+    protected function getNotFoundView()
+    {
+        return $this->view(null, 404);
     }
 }
