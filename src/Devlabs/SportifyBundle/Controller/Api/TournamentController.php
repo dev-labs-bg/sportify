@@ -3,6 +3,8 @@
 namespace Devlabs\SportifyBundle\Controller\Api;
 
 use Devlabs\SportifyBundle\Controller\Base\BaseApiController;
+use Devlabs\SportifyBundle\Entity\Tournament;
+use Devlabs\SportifyBundle\Form\TournamentEntityType;
 
 /**
  * Class TournamentController
@@ -10,7 +12,10 @@ use Devlabs\SportifyBundle\Controller\Base\BaseApiController;
  */
 class TournamentController extends BaseApiController
 {
+    protected $entityName = 'Tournament';
+    protected $fqEntityClass = Tournament::class;
     protected $repositoryName = 'DevlabsSportifyBundle:Tournament';
+    protected $fqEntityFormClass = TournamentEntityType::class;
 
     /**
      * @param $id

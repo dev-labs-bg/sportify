@@ -3,6 +3,7 @@
 namespace Devlabs\SportifyBundle\Controller\Api;
 
 use Devlabs\SportifyBundle\Controller\Base\BaseApiController;
+use Devlabs\SportifyBundle\Entity\Score;
 
 /**
  * Class ScoreController
@@ -10,5 +11,8 @@ use Devlabs\SportifyBundle\Controller\Base\BaseApiController;
  */
 class ScoreController extends BaseApiController
 {
+    protected $entityName = 'Score';
+    protected $fqEntityClass = Score::class;
     protected $repositoryName = 'DevlabsSportifyBundle:Score';
+    protected $fqEntityFormClass = ScoreEntityType::class;
 }
