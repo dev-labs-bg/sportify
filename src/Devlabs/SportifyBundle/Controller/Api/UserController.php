@@ -5,6 +5,7 @@ namespace Devlabs\SportifyBundle\Controller\Api;
 use Devlabs\SportifyBundle\Controller\Base\BaseApiController;
 use Devlabs\SportifyBundle\Entity\User;
 use Devlabs\SportifyBundle\Form\UserType;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 /**
  * Class UserController
@@ -18,6 +19,18 @@ class UserController extends BaseApiController
     protected $fqEntityFormClass = UserType::class;
 
     /**
+     * Get all resources of this type
+     *
+     * @ApiDoc(
+     *     resource=true,
+     *     statusCodes = {
+     *      200 = "Returned when successful",
+     *      401 = "Returned when request is not authenticated",
+     *      403 = "Returned when request is not allowed for provided token/user",
+     *      404 = "Returned when resource not found"
+     *     }
+     * )
+     *
      * @return \FOS\RestBundle\View\View
      */
     public function cgetAction()
@@ -40,6 +53,17 @@ class UserController extends BaseApiController
     }
 
     /**
+     * Get a resource by id
+     *
+     * @ApiDoc(
+     *     statusCodes = {
+     *      200 = "Returned when successful",
+     *      401 = "Returned when request is not authenticated",
+     *      403 = "Returned when request is not allowed for provided token/user",
+     *      404 = "Returned when resource not found"
+     *     }
+     * )
+     *
      * @param $id
      * @return \FOS\RestBundle\View\View
      */
@@ -72,19 +96,55 @@ class UserController extends BaseApiController
     }
 
     /**
+     * Get user's scores
+     *
+     * @ApiDoc(
+     *     statusCodes = {
+     *      200 = "Returned when successful",
+     *      401 = "Returned when request is not authenticated",
+     *      403 = "Returned when request is not allowed for provided token/user",
+     *      404 = "Returned when resource not found"
+     *     }
+     * )
+     *
      * @param $id
      * @return \FOS\RestBundle\View\View
      */
     public function getScoresAction($id)
     {
+        // if user is not logged in, return unauthorized
+        if (!is_object($user = $this->getUser())) {
+            return $this->getUnauthorizedView();
+        }
+
+        // restrict normal user to be able to see only their data
+        if (!$this->isGranted('ROLE_ADMIN') && $user->getId() != $id) {
+            return $this->view(null, 403);
+        }
+
         $object = $this->getDoctrine()->getManager()
             ->getRepository($this->repositoryName)
             ->findOneById($id);
+
+        if (!is_object($object)) {
+            return $this->getNotFoundView();
+        }
 
         return $this->view($object->getScores(), 200);
     }
 
     /**
+     * Get user's predictions
+     *
+     * @ApiDoc(
+     *     statusCodes = {
+     *      200 = "Returned when successful",
+     *      401 = "Returned when request is not authenticated",
+     *      403 = "Returned when request is not allowed for provided token/user",
+     *      404 = "Returned when resource not found"
+     *     }
+     * )
+     *
      * @param $id
      * @return \FOS\RestBundle\View\View
      */
@@ -117,11 +177,27 @@ class UserController extends BaseApiController
     }
 
     /**
+     * Get user's predictions for champion
+     *
+     * @ApiDoc(
+     *     statusCodes = {
+     *      200 = "Returned when successful",
+     *      401 = "Returned when request is not authenticated",
+     *      403 = "Returned when request is not allowed for provided token/user",
+     *      404 = "Returned when resource not found"
+     *     }
+     * )
+     *
      * @param $id
      * @return \FOS\RestBundle\View\View
      */
     public function getChamp_predictionsAction($id)
     {
+        // if user is not logged in, return unauthorized
+        if (!is_object($user = $this->getUser())) {
+            return $this->getUnauthorizedView();
+        }
+
         $object = $this->getDoctrine()->getManager()
             ->getRepository($this->repositoryName)
             ->findOneById($id);
