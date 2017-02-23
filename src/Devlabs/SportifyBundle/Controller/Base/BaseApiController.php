@@ -7,6 +7,7 @@ use FOS\RestBundle\Routing\ClassResourceInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 /**
  * Class BaseApiController
@@ -20,6 +21,18 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
     protected $fqEntityFormClass = ModelType::class;
 
     /**
+     * Get all resources of this type
+     *
+     * @ApiDoc(
+     *     resource=true,
+     *     statusCodes = {
+     *      200 = "Returned when successful",
+     *      401 = "Returned when request is not authenticated",
+     *      403 = "Returned when request is not allowed for provided token/user",
+     *      404 = "Returned when resource not found"
+     *     }
+     * )
+     *
      * @return \FOS\RestBundle\View\View
      */
     public function cgetAction()
@@ -38,6 +51,17 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
     }
 
     /**
+     * Get a resource by id
+     *
+     * @ApiDoc(
+     *     statusCodes = {
+     *      200 = "Returned when successful",
+     *      401 = "Returned when request is not authenticated",
+     *      403 = "Returned when request is not allowed for provided token/user",
+     *      404 = "Returned when resource not found"
+     *     }
+     * )
+     *
      * @param $id
      * @return \FOS\RestBundle\View\View
      */
@@ -61,6 +85,17 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
     }
 
     /**
+     * Create a new resource of this type
+     *
+     * @ApiDoc(
+     *     statusCodes = {
+     *      201 = "Returned when resource successfully created",
+     *      401 = "Returned when request is not authenticated",
+     *      403 = "Returned when request is not allowed for provided token/user",
+     *      404 = "Returned when resource not found"
+     *     }
+     * )
+     *
      * @Security("has_role('ROLE_ADMIN')")
      *
      * @param Request $request
@@ -87,6 +122,18 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
     }
 
     /**
+     * Modify or create a new resource of this type by given id
+     *
+     * @ApiDoc(
+     *     statusCodes = {
+     *      201 = "Returned when resource successfully created",
+     *      204 = "Returned when resource successfully modified",
+     *      401 = "Returned when request is not authenticated",
+     *      403 = "Returned when request is not allowed for provided token/user",
+     *      404 = "Returned when resource not found"
+     *     }
+     * )
+     *
      * @Security("has_role('ROLE_ADMIN')")
      *
      * @param Request $request
@@ -122,6 +169,17 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
     }
 
     /**
+     * Modify a resource of this type by id
+     *
+     * @ApiDoc(
+     *     statusCodes = {
+     *      204 = "Returned when resource successfully modified",
+     *      401 = "Returned when request is not authenticated",
+     *      403 = "Returned when request is not allowed for provided token/user",
+     *      404 = "Returned when resource not found"
+     *     }
+     * )
+     *
      * @Security("has_role('ROLE_ADMIN')")
      *
      * @param Request $request
@@ -154,6 +212,17 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
     }
 
     /**
+     * Delete a resource of this type by id
+     *
+     * @ApiDoc(
+     *     statusCodes = {
+     *      204 = "Returned when resource successfully deleted",
+     *      401 = "Returned when request is not authenticated",
+     *      403 = "Returned when request is not allowed for provided token/user",
+     *      404 = "Returned when resource not found"
+     *     }
+     * )
+     *
      * @Security("has_role('ROLE_ADMIN')")
      *
      * @param $id
