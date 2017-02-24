@@ -6,6 +6,7 @@ use Devlabs\SportifyBundle\Controller\Base\BaseApiController;
 use Devlabs\SportifyBundle\Entity\Match;
 use Devlabs\SportifyBundle\Form\MatchEntityType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 /**
  * Class MatchController
@@ -19,6 +20,17 @@ class MatchController extends BaseApiController
     protected $fqEntityFormClass = MatchEntityType::class;
 
     /**
+     * Get all users' predictions for a match (ADMIN only)
+     *
+     * @ApiDoc(
+     *     statusCodes = {
+     *      200 = "Returned when successful",
+     *      401 = "Returned when request is not authenticated",
+     *      403 = "Returned when request is not allowed for provided token/user",
+     *      404 = "Returned when resource not found"
+     *     }
+     * )
+     *
      * @Security("has_role('ROLE_ADMIN')")
      *
      * @return \FOS\RestBundle\View\View
@@ -37,10 +49,21 @@ class MatchController extends BaseApiController
     }
 
     /**
+     * Get the user's prediction for a match
+     *
+     * @ApiDoc(
+     *     statusCodes = {
+     *      200 = "Returned when successful",
+     *      401 = "Returned when request is not authenticated",
+     *      403 = "Returned when request is not allowed for provided token/user",
+     *      404 = "Returned when resource not found"
+     *     }
+     * )
+     *
      * @param $id
      * @return mixed
      */
-    public function getPredictionsAction($id)
+    public function getPredictionAction($id)
     {
         // if user is not auth, return unauthorized
         if (!is_object($user = $this->getUser())) {
