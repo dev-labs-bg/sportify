@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Devlabs\SportifyBundle\Entity\Prediction;
 use Devlabs\SportifyBundle\Form\PredictionType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 /**
  * Class PredictionController
@@ -20,6 +21,17 @@ class PredictionController extends BaseApiController
     protected $fqEntityFormClass = PredictionType::class;
 
     /**
+     * Get all predictions for all users (ADMIN only)
+     *
+     * @ApiDoc(
+     *     statusCodes = {
+     *      200 = "Returned when successful",
+     *      401 = "Returned when request is not authenticated",
+     *      403 = "Returned when request is not allowed for provided token/user",
+     *      404 = "Returned when resource not found"
+     *     }
+     * )
+     *
      * @Security("has_role('ROLE_ADMIN')")
      *
      * @return \FOS\RestBundle\View\View
@@ -39,6 +51,18 @@ class PredictionController extends BaseApiController
     }
 
     /**
+     * Get all predictions of requesting user
+     *
+     * @ApiDoc(
+     *     resource=true,
+     *     statusCodes = {
+     *      200 = "Returned when successful",
+     *      401 = "Returned when request is not authenticated",
+     *      403 = "Returned when request is not allowed for provided token/user",
+     *      404 = "Returned when resource not found"
+     *     }
+     * )
+     *
      * @return \FOS\RestBundle\View\View
      */
     public function cgetAction()
@@ -59,6 +83,17 @@ class PredictionController extends BaseApiController
     }
 
     /**
+     * Get a prediction by id
+     *
+     * @ApiDoc(
+     *     statusCodes = {
+     *      200 = "Returned when successful",
+     *      401 = "Returned when request is not authenticated",
+     *      403 = "Returned when request is not allowed for provided token/user",
+     *      404 = "Returned when resource not found"
+     *     }
+     * )
+     *
      * @param $id
      * @return \FOS\RestBundle\View\View
      */
@@ -86,6 +121,17 @@ class PredictionController extends BaseApiController
     }
 
     /**
+     * Create a new prediction
+     *
+     * @ApiDoc(
+     *     statusCodes = {
+     *      201 = "Returned when resource successfully created",
+     *      401 = "Returned when request is not authenticated",
+     *      403 = "Returned when request is not allowed for provided token/user",
+     *      404 = "Returned when resource not found"
+     *     }
+     * )
+     *
      * @param Request $request
      * @return \FOS\RestBundle\View\View
      */
@@ -95,6 +141,18 @@ class PredictionController extends BaseApiController
     }
 
     /**
+     * Modify or create a new prediction by given id
+     *
+     * @ApiDoc(
+     *     statusCodes = {
+     *      201 = "Returned when resource successfully created",
+     *      204 = "Returned when resource successfully modified",
+     *      401 = "Returned when request is not authenticated",
+     *      403 = "Returned when request is not allowed for provided token/user",
+     *      404 = "Returned when resource not found"
+     *     }
+     * )
+     *
      * @param Request $request
      * @param $id
      * @return \FOS\RestBundle\View\View
@@ -105,6 +163,17 @@ class PredictionController extends BaseApiController
     }
 
     /**
+     * Modify a prediction by id
+     *
+     * @ApiDoc(
+     *     statusCodes = {
+     *      204 = "Returned when resource successfully modified",
+     *      401 = "Returned when request is not authenticated",
+     *      403 = "Returned when request is not allowed for provided token/user",
+     *      404 = "Returned when resource not found"
+     *     }
+     * )
+     *
      * @param Request $request
      * @param $id
      * @return \FOS\RestBundle\View\View
@@ -115,6 +184,17 @@ class PredictionController extends BaseApiController
     }
 
     /**
+     * Delete a prediction by id
+     *
+     * @ApiDoc(
+     *     statusCodes = {
+     *      204 = "Returned when resource successfully deleted",
+     *      401 = "Returned when request is not authenticated",
+     *      403 = "Returned when request is not allowed for provided token/user",
+     *      404 = "Returned when resource not found"
+     *     }
+     * )
+     *
      * @param $id
      * @return \FOS\RestBundle\View\View
      */
