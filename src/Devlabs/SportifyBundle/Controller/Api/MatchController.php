@@ -63,7 +63,7 @@ class MatchController extends BaseApiController
      * @param $id
      * @return mixed
      */
-    public function getPredictionAction($id)
+    public function getPredictionsAction($id)
     {
         // if user is not auth, return unauthorized
         if (!is_object($user = $this->getUser())) {
