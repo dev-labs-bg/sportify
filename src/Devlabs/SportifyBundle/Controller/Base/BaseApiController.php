@@ -58,10 +58,15 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
             return $this->getUnauthorizedView();
         }
 
-        $em = $this->getDoctrine()->getManager();
+        // get an array of all the query string key-value pairs
+        $params = $request->query->all();
 
-        $objects = $em->getRepository($this->repositoryName)
-            ->findAll();
+        $repository = $this->getDoctrine()->getManager()
+            ->getRepository($this->repositoryName);
+
+        $objects = (method_exists($repository, 'findFiltered'))
+            ? $repository->findFiltered($params)
+            : $repository->findAll();
 
         return $this->view($objects, 200);
     }

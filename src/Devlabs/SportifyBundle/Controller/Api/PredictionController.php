@@ -4,6 +4,7 @@ namespace Devlabs\SportifyBundle\Controller\Api;
 
 use Devlabs\SportifyBundle\Controller\Base\BaseApiController;
 use Symfony\Component\HttpFoundation\Request;
+use Devlabs\SportifyBundle\Entity\User;
 use Devlabs\SportifyBundle\Entity\Prediction;
 use Devlabs\SportifyBundle\Form\PredictionType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -39,14 +40,13 @@ class PredictionController extends BaseApiController
      */
     public function cgetAllusersAction(Request $request)
     {
-//        // allow access to ADMIN users only
-//        if (!$this->isGranted('ROLE_ADMIN')) {
-//            return $this->view(null, 403);
-//        }
+        // get an array of all the query string key-value pairs
+        $params = $request->query->all();
 
+        // get all user predictions (by passing in an 'empty' user object)
         $objects = $this->getDoctrine()->getManager()
             ->getRepository($this->repositoryName)
-            ->findAll();
+            ->findFiltered(new User(), $params);
 
         return $this->view($objects, 200);
     }
@@ -74,12 +74,13 @@ class PredictionController extends BaseApiController
             return $this->getUnauthorizedView();
         }
 
+        // get an array of all the query string key-value pairs
+        $params = $request->query->all();
+
         // get user's predictions
         $objects = $this->getDoctrine()->getManager()
             ->getRepository($this->repositoryName)
-            ->findBy(array(
-                'userId' => $user->getId()
-            ));
+            ->findFiltered($user, $params);
 
         return $this->view($objects, 200);
     }
