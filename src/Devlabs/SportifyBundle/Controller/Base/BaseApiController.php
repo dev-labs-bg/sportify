@@ -15,10 +15,25 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
  */
 abstract class BaseApiController extends FOSRestController implements ClassResourceInterface
 {
-    protected $entityName = 'Model';
-    protected $fqEntityClass = Model::class;
-    protected $repositoryName = 'DevlabsSportifyBundle:Model';
-    protected $fqEntityFormClass = ModelType::class;
+    /**
+     * The name of the model, e.g. 'Model'
+     */
+    protected $entityName;
+
+    /**
+     * The class of the model, e.g. Model::class
+     */
+    protected $fqEntityClass;
+
+    /**
+     * The repository for the model, e.g. 'DevlabsSportifyBundle:Model'
+     */
+    protected $repositoryName;
+
+    /**
+     * The form class for the model, e.g. ModelType::class
+     */
+    protected $fqEntityFormClass;
 
     /**
      * Get all resources of this type
