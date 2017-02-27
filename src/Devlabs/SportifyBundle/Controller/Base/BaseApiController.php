@@ -33,9 +33,10 @@ abstract class BaseApiController extends FOSRestController implements ClassResou
      *     }
      * )
      *
+     * @param Request $request
      * @return \FOS\RestBundle\View\View
      */
-    public function cgetAction()
+    public function cgetAction(Request $request)
     {
         // if user is not logged in, return unauthorized
         if (!is_object($user = $this->getUser())) {

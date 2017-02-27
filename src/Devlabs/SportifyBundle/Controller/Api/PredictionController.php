@@ -34,9 +34,10 @@ class PredictionController extends BaseApiController
      *
      * @Security("has_role('ROLE_ADMIN')")
      *
+     * @param Request $request
      * @return \FOS\RestBundle\View\View
      */
-    public function cgetAllusersAction()
+    public function cgetAllusersAction(Request $request)
     {
 //        // allow access to ADMIN users only
 //        if (!$this->isGranted('ROLE_ADMIN')) {
@@ -63,9 +64,10 @@ class PredictionController extends BaseApiController
      *     }
      * )
      *
+     * @param Request $request
      * @return \FOS\RestBundle\View\View
      */
-    public function cgetAction()
+    public function cgetAction(Request $request)
     {
         // if user is not auth, return unauthorized
         if (!is_object($user = $this->getUser())) {

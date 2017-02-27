@@ -3,6 +3,7 @@
 namespace Devlabs\SportifyBundle\Controller\Api;
 
 use Devlabs\SportifyBundle\Controller\Base\BaseApiController;
+use Symfony\Component\HttpFoundation\Request;
 use Devlabs\SportifyBundle\Entity\User;
 use Devlabs\SportifyBundle\Form\UserType;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
@@ -31,9 +32,10 @@ class UserController extends BaseApiController
      *     }
      * )
      *
+     * @param Request $request
      * @return \FOS\RestBundle\View\View
      */
-    public function cgetAction()
+    public function cgetAction(Request $request)
     {
         // if user is not logged in, return unauthorized
         if (!is_object($user = $this->getUser())) {
