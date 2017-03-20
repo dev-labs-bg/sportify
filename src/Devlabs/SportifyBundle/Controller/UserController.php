@@ -6,6 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Devlabs\SportifyBundle\Form\UserType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class UserController extends Controller
 {
@@ -42,6 +45,43 @@ class UserController extends Controller
 
 		return $this->render(
 			'User/profile.html.twig',
+			array(
+				'form' => $form->createView()
+			)
+		);
+	}
+
+	/**
+	 * @Route("/user/tokens", name="user_tokens")
+	 */
+	public function tokensAction(Request $request)
+	{
+		// if user is not logged in, redirect to login page
+		if (!is_object($user = $this->getUser())) {
+			return $this->redirectToRoute('fos_user_security_login');
+		}
+
+		$formData = array();
+
+		$form = $this->createFormBuilder($formData)
+			->add('username', TextType::class)
+			->add('password', PasswordType::class)
+			->add('save', SubmitType::class, array(
+				'label' => 'Request new API access token'
+			))
+			->getForm();
+
+		$form->handleRequest($request);
+
+		if ($form->isSubmitted()) {
+
+		}
+
+		// get user standings and set them as global Twig var
+		$this->get('app.twig.helper')->setUserScores($user);
+
+		return $this->render(
+			'User/tokens.html.twig',
 			array(
 				'form' => $form->createView()
 			)
