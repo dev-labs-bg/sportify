@@ -173,6 +173,6 @@ fos_oauth_server:
     service:
         user_provider: fos_user.user_manager
         options:
-            access_token_lifetime: 43200 # 12 hours in seconds
+            access_token_lifetime: 7776000 # 90 days in seconds
 
 nelmio_api_doc: ~
