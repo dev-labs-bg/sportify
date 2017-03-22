@@ -82,8 +82,8 @@ class UserController extends Controller
             $formData = $form->getData();
 
             $postParams = array(
-                'client_id' => '3_md2liz7996owwc40o4w8ws8004gko4ssk8wo40koo8gosscc4',
-                'client_secret' => '1287utqgemo0wwg8gsg44csockcw0og0owkg8480sk8gw4w8ow',
+                'client_id' => $this->getParameter('sportify_api.client_id'),
+                'client_secret' => $this->getParameter('sportify_api.client_secret'),
                 'grant_type' => 'password',
                 'username' => $formData['username'],
                 'password' => $formData['password']
