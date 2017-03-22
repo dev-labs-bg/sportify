@@ -25,3 +25,7 @@ parameters:
     slack.url: check_the_README_file
     # Slack channel to which notifications will be sent
     slack.channel: check_the_README_file
+
+    # sportify API params used for generating tokens
+    sportify_api.client_id:     ~
+    sportify_api.client_secret: ~

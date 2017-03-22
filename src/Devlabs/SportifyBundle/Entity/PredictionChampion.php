@@ -183,7 +183,6 @@ class PredictionChampion
     /**
      * Calculate the points from the prediction
      *
-     * @param Match $match
      * @return int
      */
     public function calculatePoints()
@@ -193,5 +192,37 @@ class PredictionChampion
         }
 
         return 0;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUsername()
+    {
+        return $this->userId->getUsername();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserEmail()
+    {
+        return $this->userId->getEmail();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTournamentName()
+    {
+        return $this->tournamentId->getName();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTeamName()
+    {
+        return $this->teamId->getName();
     }
 }
