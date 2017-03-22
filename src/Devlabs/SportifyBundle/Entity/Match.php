@@ -348,4 +348,28 @@ class Match
     {
         return (boolean) $this->notificationSent;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getHomeTeamName()
+    {
+        return $this->homeTeamId->getName();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAwayTeamName()
+    {
+        return $this->awayTeamId->getName();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTournamentName()
+    {
+        return $this->tournamentId->getName();
+    }
 }

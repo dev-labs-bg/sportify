@@ -1,0 +1,25 @@
+Devlabs\SportifyBundle\Entity\Team:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+        name:
+            expose: true
+        teamLogo:
+            expose: true
+            access_type: public_method
+            accessor:
+                getter: getTeamLogo
+    relations:
+        -
+            rel: self
+            href:
+                route: get_team
+                parameters:
+                    id: expr(object.getId())
+        -
+            rel: tournaments
+            href:
+                route: get_team_tournaments
+                parameters:
+                    id: expr(object.getId())

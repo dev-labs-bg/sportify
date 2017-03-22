@@ -225,6 +225,30 @@ class Score
     }
 
     /**
+     * @return mixed
+     */
+    public function getUsername()
+    {
+        return $this->userId->getUsername();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserEmail()
+    {
+        return $this->userId->getEmail();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTournamentName()
+    {
+        return $this->tournamentId->getName();
+    }
+
+    /**
      * Set pointsOld
      *
      * @param integer $pointsOld

@@ -187,4 +187,48 @@ class PredictionRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * Get predictions by complex filter criteria -
+     * a custom query based on various parameters passed
+     *
+     * @param User $user
+     * @param $params
+     * @return array
+     */
+    public function findFiltered(User $user, $params)
+    {
+        $query = $this->getEntityManager()->createQueryBuilder()
+            ->select('p')
+            ->from('DevlabsSportifyBundle:Prediction', 'p')
+            ->join('p.matchId', 'm')
+            ->join('m.homeTeamId', 'h_tm')
+            ->join('m.awayTeamId', 'a_tm')
+            ->join('m.tournamentId', 't')
+            ->orderBy('m.datetime')
+            ->addOrderBy('m.tournamentId')
+            ->addOrderBy('h_tm.name');
+
+        if ($user->getId()) {
+            $query->andWhere('p.userId = :user_id')
+                ->setParameter('user_id', $user->getId());
+        }
+
+        if (key_exists('date_from', $params)) {
+            $query->andWhere('m.datetime >= :date_from')
+                ->setParameter('date_from', $params['date_from']);
+        }
+
+        if (key_exists('date_to', $params)) {
+            $query->andWhere('m.datetime <= :date_to')
+                ->setParameter('date_to', $params['date_to']);
+        }
+
+        if (key_exists('tournament', $params)) {
+            $query->andWhere('m.tournamentId = :tournament_id')
+                ->setParameter('tournament_id', $params['tournament']);
+        }
+
+        return $query->getQuery()->getResult();
+    }
 }

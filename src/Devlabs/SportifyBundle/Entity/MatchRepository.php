@@ -12,7 +12,7 @@ class MatchRepository extends \Doctrine\ORM\EntityRepository
      * Get a list of matches which have not been scored/finished yet
      *
      * @param User $user
-     * @param $tournament_id
+     * @param $tournamentId
      * @param $dateFrom
      * @param $dateTo
      * @return array
@@ -206,5 +206,50 @@ class MatchRepository extends \Doctrine\ORM\EntityRepository
             ->addOrderBy('tm.name')
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * Get matches by complex filter criteria -
+     * a custom query based on various parameters passed
+     *
+     * @param $params
+     * @return array
+     */
+    public function findFiltered($params)
+    {
+        $query = $this->getEntityManager()->createQueryBuilder()
+            ->select('m')
+            ->from('DevlabsSportifyBundle:Match', 'm')
+            ->join('m.homeTeamId', 'h_tm')
+            ->join('m.awayTeamId', 'a_tm')
+            ->join('m.tournamentId', 't')
+            ->orderBy('m.datetime')
+            ->addOrderBy('m.tournamentId')
+            ->addOrderBy('h_tm.name');
+
+        if (key_exists('date_from', $params)) {
+            $query->andWhere('m.datetime >= :date_from')
+                ->setParameter('date_from', $params['date_from']);
+        }
+
+        if (key_exists('date_to', $params)) {
+            $query->andWhere('m.datetime <= :date_to')
+                ->setParameter('date_to', $params['date_to']);
+        }
+
+        if (key_exists('tournament', $params)) {
+            $query->andWhere('m.tournamentId = :tournament_id')
+                ->setParameter('tournament_id', $params['tournament']);
+        }
+
+        if (key_exists('team', $params)) {
+            $query->andWhere($query->expr()->orX(
+                $query->expr()->like('h_tm.name', ':team_string'),
+                $query->expr()->like('a_tm.name', ':team_string')
+            ))
+                ->setParameter('team_string', '%' . $params['team'] . '%');
+        }
+
+        return $query->getQuery()->getResult();
     }
 }

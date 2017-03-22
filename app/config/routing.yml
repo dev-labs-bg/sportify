@@ -1,8 +1,30 @@
 devlabs_sportify:
-    resource: "@DevlabsSportifyBundle/Controller/"
+    resource: "@DevlabsSportifyBundle/Controller"
     type:     annotation
     prefix:   /
+
+devlabs_sportify_api:
+    type:     rest
+    resource: "@DevlabsSportifyBundle/Controller/Api"
+    defaults: {_format: json}
+    prefix:   /api/
 
 fos_user:
 #    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
     resource: "@DevlabsSportifyBundle/Resources/config/routing/all.xml"
+
+fos_oauth_server_token:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
+fos_oauth_server_authorize:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/authorize.xml"
+
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api/doc
+
+devlabs_sportify_api_root:
+    path: /api
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: nelmio_api_doc_index
+        permanent: true

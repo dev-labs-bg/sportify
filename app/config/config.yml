@@ -23,7 +23,9 @@ framework:
     form:            ~
     csrf_protection: ~
     validation:      { enable_annotations: true }
-    #serializer:      { enable_annotations: true }
+#    serializer:
+#        enabled: true
+#        enable_annotations: true
     templating:
         engines: ['twig']
     default_locale:  "%locale%"
@@ -36,6 +38,9 @@ framework:
     fragments:       ~
     http_method_override: true
     assets: ~
+
+#sensio_framework_extra:
+#    request: { converters: true }
 
 # Twig Configuration
 twig:
@@ -96,3 +101,78 @@ fos_user:
     change_password:
         form:
             type: Devlabs\SportifyBundle\Form\ChangePasswordFormType
+
+fos_rest:
+    zone:
+        - { path: ^/api/* }
+    routing_loader:
+        default_format: json
+        include_format: false
+    format_listener:
+        enabled: true
+        rules:
+            - { path: '^/api', priorities: ['json'], fallback_format: json, prefer_extension: false }
+    body_listener:
+        enabled:              true
+        array_normalizer: fos_rest.normalizer.camel_keys
+#        decoders:
+#            json: fos_rest.decoder.jsontoform
+#    body_converter:
+#        enabled:              true
+#        validate:             true
+#        validation_errors_argument:  validationErrors
+    view:
+        view_response_listener: force
+        formats:
+            json: true
+            rss: false
+            xml: false
+        templating_formats:
+            html: true
+        force_redirects:
+            html: false
+        failed_validation: HTTP_BAD_REQUEST
+        default_engine: twig
+        mime_types:
+            json: ['application/json', 'application/x-json', 'application/vnd.example-com.foo+json']
+    serializer:
+        version: null
+        groups: []
+        serialize_null: true
+    disable_csrf_role: ROLE_API
+    exception:
+#        codes:
+#            'Symfony\Component\Routing\Exception\ResourceNotFoundException': 404
+#        messages:
+#            'ddasd': true
+#        enabled: true
+#        exception_controller: 'Devlabs\SportifyBundle\Controller\Base\ExceptionController::showAction'
+
+jms_serializer:
+    metadata:
+        directories:
+            FOSUserBundle:
+                path: "%kernel.root_dir%/config/serializer/FOSUB"
+                namespace_prefix: "FOS\\UserBundle"
+            DevlabsSportifyBundle:
+                path: "%kernel.root_dir%/config/serializer/DevlabsSportify"
+                namespace_prefix: "Devlabs\\SportifyBundle"
+
+bazinga_hateoas:
+    metadata:
+        cache: file
+        file_cache:
+            dir: %kernel.cache_dir%/hateoas
+
+fos_oauth_server:
+    db_driver: orm
+    client_class:        Devlabs\SportifyBundle\Entity\OAuthClient
+    access_token_class:  Devlabs\SportifyBundle\Entity\OAuthAccessToken
+    refresh_token_class: Devlabs\SportifyBundle\Entity\OAuthRefreshToken
+    auth_code_class:     Devlabs\SportifyBundle\Entity\OAuthAuthCode
+    service:
+        user_provider: fos_user.user_manager
+        options:
+            access_token_lifetime: 7776000 # 90 days in seconds
+
+nelmio_api_doc: ~

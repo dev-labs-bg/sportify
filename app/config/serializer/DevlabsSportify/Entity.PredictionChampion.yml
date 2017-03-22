@@ -1,0 +1,47 @@
+Devlabs\SportifyBundle\Entity\PredictionChampion:
+    exclusion_policy: ALL
+    virtual_properties:
+        getTournamentName:
+            serialized_name: tournament
+            type: string
+        getUsername:
+            serialized_name: username
+            type: string
+        getUserEmail:
+            serialized_name: email
+            type: string
+        getTeamName:
+            serialized_name: team
+            type: string
+    properties:
+#        id:
+#            expose: true
+        points:
+            expose: true
+        scoreAdded:
+            expose: true
+    relations:
+        -
+            rel: self
+            href:
+                route: get_champ_prediction
+                parameters:
+                    id: expr(object.getId())
+        -
+            rel: user
+            href:
+                route: get_user
+                parameters:
+                    id: expr(object.getUserId().getId())
+        -
+            rel: tournament
+            href:
+                route: get_tournament
+                parameters:
+                    id: expr(object.getTournamentId().getId())
+        -
+            rel: team
+            href:
+                route: get_team
+                parameters:
+                    id: expr(object.getTeamId().getId())

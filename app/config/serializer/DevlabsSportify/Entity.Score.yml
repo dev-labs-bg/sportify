@@ -1,0 +1,42 @@
+Devlabs\SportifyBundle\Entity\Score:
+    exclusion_policy: ALL
+    virtual_properties:
+        getTournamentName:
+            serialized_name: tournament
+            type: string
+        getUsername:
+            serialized_name: username
+            type: string
+        getUserEmail:
+            serialized_name: email
+            type: string
+    properties:
+        points:
+            expose: true
+        pointsOld:
+            expose: true
+        posNew:
+            expose: true
+        posOld:
+            expose: true
+        exactPredictionPercentage:
+            expose: true
+    relations:
+        -
+            rel: self
+            href:
+                route: get_score
+                parameters:
+                    id: expr(object.getId())
+        -
+            rel: user
+            href:
+                route: get_user
+                parameters:
+                    id: expr(object.getUserId().getId())
+        -
+            rel: tournament
+            href:
+                route: get_tournament
+                parameters:
+                    id: expr(object.getTournamentId().getId())

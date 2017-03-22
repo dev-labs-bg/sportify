@@ -1,0 +1,45 @@
+Devlabs\SportifyBundle\Entity\Prediction:
+    exclusion_policy: ALL
+    virtual_properties:
+        getHomeTeamName:
+            serialized_name: home_team
+            type: string
+        getAwayTeamName:
+            serialized_name: away_team
+            type: string
+        getResultHomeGoals:
+            serialized_name: result_home_goals
+        getResultAwayGoals:
+            serialized_name: result_away_goals
+    properties:
+#        id:
+#            expose: true
+        homeGoals:
+            expose: true
+            serialized_name: predicted_home_goals
+        awayGoals:
+            expose: true
+            serialized_name: predicted_away_goals
+        points:
+            expose: true
+        scoreAdded:
+            expose: true
+    relations:
+        -
+            rel: self
+            href:
+                route: get_prediction
+                parameters:
+                    id: expr(object.getId())
+        -
+            rel: match
+            href:
+                route: get_match
+                parameters:
+                    id: expr(object.getMatchId().getId())
+        -
+            rel: user
+            href:
+                route: get_user
+                parameters:
+                    id: expr(object.getUserId().getId())
