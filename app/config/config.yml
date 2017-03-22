@@ -146,7 +146,7 @@ fos_rest:
 #        messages:
 #            'ddasd': true
 #        enabled: true
-#        exception_controller: 'Devlabs\SportifyBundle\Controller\Api\ExceptionController::showAction'
+#        exception_controller: 'Devlabs\SportifyBundle\Controller\Base\ExceptionController::showAction'
 
 jms_serializer:
     metadata:

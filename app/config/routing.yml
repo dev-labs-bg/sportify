@@ -21,3 +21,10 @@ fos_oauth_server_authorize:
 NelmioApiDocBundle:
     resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
     prefix:   /api/doc
+
+devlabs_sportify_api_root:
+    path: /api
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: nelmio_api_doc_index
+        permanent: true

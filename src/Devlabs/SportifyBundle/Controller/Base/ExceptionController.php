@@ -1,10 +1,10 @@
 <?php
 
-namespace Devlabs\SportifyBundle\Controller\Api;
+namespace Devlabs\SportifyBundle\Controller\Base;
 
 /**
  * Class ExceptionController
- * @package Devlabs\SportifyBundle\Controller\Api
+ * @package Devlabs\SportifyBundle\Controller\Base
  */
 class ExceptionController
 {
