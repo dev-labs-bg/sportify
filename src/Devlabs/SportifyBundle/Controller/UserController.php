@@ -8,83 +8,126 @@ use Symfony\Component\HttpFoundation\Request;
 use Devlabs\SportifyBundle\Form\UserType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use GuzzleHttp\Client;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class UserController extends Controller
 {
-	/**
-	 * @Route("/user/profile", name="user_profile")
-	 */
-	public function profileAction(Request $request)
-	{
+    /**
+     * @Route("/user/profile", name="user_profile")
+     */
+    public function profileAction(Request $request)
+    {
         // if user is not logged in, redirect to login page
-		if (!is_object($user = $this->getUser())) {
-			return $this->redirectToRoute('fos_user_security_login');
-		}
+        if (!is_object($user = $this->getUser())) {
+            return $this->redirectToRoute('fos_user_security_login');
+        }
 
-		$form = $this->createForm(UserType::class, $user, array(
-			'action' => $this->generateUrl('user_profile'),
-			'method' => 'POST',
-		));
+        $form = $this->createForm(UserType::class, $user, array(
+            'action' => $this->generateUrl('user_profile'),
+            'method' => 'POST',
+        ));
 
-		$form->handleRequest($request);
+        $form->handleRequest($request);
 
-		if ($form->isValid()) {
-			$userManager = $this->container->get('fos_user.user_manager');
-			$user->setPlainPassword($form->get('password')->getData());
-			$userManager->updateUser($user, true);
+        if ($form->isValid()) {
+            $userManager = $this->container->get('fos_user.user_manager');
+            $user->setPlainPassword($form->get('password')->getData());
+            $userManager->updateUser($user, true);
 
-			$this->addFlash(
-				'notice',
-				'Your profile was updated successfully!'
-			);
-		}
+            $this->addFlash(
+                'notice',
+                'Your profile was updated successfully!'
+            );
+        }
 
-		// get user standings and set them as global Twig var
-		$this->get('app.twig.helper')->setUserScores($user);
+        // get user standings and set them as global Twig var
+        $this->get('app.twig.helper')->setUserScores($user);
 
-		return $this->render(
-			'User/profile.html.twig',
-			array(
-				'form' => $form->createView()
-			)
-		);
-	}
+        return $this->render(
+            'User/profile.html.twig',
+            array(
+                'form' => $form->createView()
+            )
+        );
+    }
 
-	/**
-	 * @Route("/user/tokens", name="user_tokens")
-	 */
-	public function tokensAction(Request $request)
-	{
-		// if user is not logged in, redirect to login page
-		if (!is_object($user = $this->getUser())) {
-			return $this->redirectToRoute('fos_user_security_login');
-		}
+    /**
+     * @Route("/user/tokens", name="user_tokens")
+     */
+    public function tokensAction(Request $request)
+    {
+        // if user is not logged in, redirect to login page
+        if (!is_object($user = $this->getUser())) {
+            return $this->redirectToRoute('fos_user_security_login');
+        }
 
-		$formData = array();
+        $accessToken = $this->get('fos_oauth_server.access_token_manager')
+            ->findTokenBy(array('user' => $user));
 
-		$form = $this->createFormBuilder($formData)
-			->add('username', TextType::class)
-			->add('password', PasswordType::class)
-			->add('save', SubmitType::class, array(
-				'label' => 'Request new API access token'
-			))
-			->getForm();
+        $formData = array();
+        $form = $this->createFormBuilder($formData)
+            ->add('username', TextType::class)
+            ->add('password', PasswordType::class)
+            ->add('button', SubmitType::class, array(
+                'label' => 'Submit'
+            ))
+            ->getForm();
 
-		$form->handleRequest($request);
+        $form->handleRequest($request);
 
-		if ($form->isSubmitted()) {
+        if ($form->isSubmitted()) {
+            $formData = $form->getData();
 
-		}
+            $postParams = array(
+                'client_id' => '3_md2liz7996owwc40o4w8ws8004gko4ssk8wo40koo8gosscc4',
+                'client_secret' => '1287utqgemo0wwg8gsg44csockcw0og0owkg8480sk8gw4w8ow',
+                'grant_type' => 'password',
+                'username' => $formData['username'],
+                'password' => $formData['password']
+            );
 
-		// get user standings and set them as global Twig var
-		$this->get('app.twig.helper')->setUserScores($user);
+            // modifying the request
+            // and initiating a request to the FOS OAuthServerBundle tokenController
+            // in order to generate the access and refresh tokens
+            // Sorry for this hackish code :( ... maybe some day I'll fix it
 
-		return $this->render(
-			'User/tokens.html.twig',
-			array(
-				'form' => $form->createView()
-			)
-		);
-	}
+            $request->attributes->replace(array(
+                '_controller' => 'FOS\OAuthServerBundle\Controller\TokenController::tokenAction',
+                '_route' => 'fos_oauth_server_token'
+            ));
+            $request->request->replace($postParams);
+
+            $ctrl = new \FOS\OAuthServerBundle\Controller\TokenController(
+                $this->get('fos_oauth_server.server')
+            );
+
+            $response = $ctrl->tokenAction($request);
+
+            // set a flash message to inform the user of the token request status
+            if ($response->getStatusCode() == 200) {
+                $flashMsg = 'Successfully generated token.';
+            } else {
+                $decodedContent = json_decode($response->getContent());
+                $flashMsg = $decodedContent->error_description;
+            }
+
+            $this->get('session')->getFlashBag()->add('message', $flashMsg);
+
+            return $this->redirectToRoute('user_tokens');
+        }
+
+        // get user standings and set them as global Twig var
+        $this->get('app.twig.helper')->setUserScores($user);
+
+        return $this->render(
+            'User/tokens.html.twig',
+            array(
+                'access_token' => $accessToken,
+                'form' => $form->createView()
+            )
+        );
+    }
 }
