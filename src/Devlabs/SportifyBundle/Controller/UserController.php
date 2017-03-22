@@ -64,8 +64,9 @@ class UserController extends Controller
             return $this->redirectToRoute('fos_user_security_login');
         }
 
-        $accessToken = $this->get('fos_oauth_server.access_token_manager')
-            ->findTokenBy(array('user' => $user));
+        $accessToken = $this->getDoctrine()->getManager()
+            ->getRepository('DevlabsSportifyBundle:OAuthAccessToken')
+            ->getLastNotExpired($user);
 
         $formData = array();
         $form = $this->createFormBuilder($formData)

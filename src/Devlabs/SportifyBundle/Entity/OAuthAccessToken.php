@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Entity\AccessToken as BaseAccessToken;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Devlabs\SportifyBundle\Entity\OAuthAccessTokenRepository")
  * @ORM\Table(name="oauth_access_tokens")
  */
 class OAuthAccessToken extends BaseAccessToken
