@@ -70,10 +70,9 @@ class UserController extends Controller
 
         $formData = array();
         $form = $this->createFormBuilder($formData)
-            ->add('username', TextType::class)
             ->add('password', PasswordType::class)
             ->add('button', SubmitType::class, array(
-                'label' => 'Submit'
+                'label' => 'Request token'
             ))
             ->getForm();
 
@@ -86,7 +85,7 @@ class UserController extends Controller
                 'client_id' => $this->getParameter('sportify_api.client_id'),
                 'client_secret' => $this->getParameter('sportify_api.client_secret'),
                 'grant_type' => 'password',
-                'username' => $formData['username'],
+                'username' => $user->getUsername(),
                 'password' => $formData['password']
             );
 
