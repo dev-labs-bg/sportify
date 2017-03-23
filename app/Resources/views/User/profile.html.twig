@@ -35,14 +35,15 @@
                 {{ form_end(form, {'attr': {'class': 'form-control'} }) }}
             </div>
         </div>
+
+        <div class="row center admin-page">
+            <ul class="nav sidebar-nav">
+                <li>
+                    <a href="{{ path('user_tokens') }}">Manage API tokens</a>
+                </li>
+            </ul>
+        </div>
     </div>
 
-    <div class="row center admin-page">
-        <ul class="nav sidebar-nav">
-            <li>
-                <a href="{{ path('user_tokens') }}">Manage API tokens</a>
-            </li>
-        </ul>
-    </div>
 
 {% endblock %}
