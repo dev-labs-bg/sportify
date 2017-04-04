@@ -12,6 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class PredictionType extends AbstractType
 {
@@ -56,11 +57,11 @@ class PredictionType extends AbstractType
                 'label' => false,
                 'error_bubbling' => true
             ))
-            ->add('homeGoals', TextType::class, array(
+            ->add('homeGoals', IntegerType::class, array(
                 'label' => false,
                 'error_bubbling' => true
             ))
-            ->add('awayGoals', TextType::class, array(
+            ->add('awayGoals', IntegerType::class, array(
                 'label' => false,
                 'error_bubbling' => true
             ))
@@ -84,31 +85,31 @@ class PredictionType extends AbstractType
         ;
 
         // data transformations - string <-> integer for the 'homeGoals' field
-        $builder->get('homeGoals')
-            ->addModelTransformer(new CallbackTransformer(
-                function ($number) {
-                    // transform the integer to a string
-                    return (string) $number;
-                },
-                function ($text) {
-                    // transform the string back to an integer
-                    return (int) $text;
-                }
-            ))
-        ;
+//        $builder->get('homeGoals')
+//            ->addModelTransformer(new CallbackTransformer(
+//                function ($number) {
+//                    // transform the integer to a string
+//                    return (string) $number;
+//                },
+//                function ($text) {
+//                    // transform the string back to an integer
+//                    return (int) $text;
+//                }
+//            ))
+//        ;
 
         // data transformations - string <-> integer for the 'awayGoals' field
-        $builder->get('awayGoals')
-            ->addModelTransformer(new CallbackTransformer(
-                function ($number) {
-                    // transform the integer to a string
-                    return (string) $number;
-                },
-                function ($text) {
-                    // transform the string back to an integer
-                    return (int) $text;
-                }
-            ))
-        ;
+//        $builder->get('awayGoals')
+//            ->addModelTransformer(new CallbackTransformer(
+//                function ($number) {
+//                    // transform the integer to a string
+//                    return (string) $number;
+//                },
+//                function ($text) {
+//                    // transform the string back to an integer
+//                    return (int) $text;
+//                }
+//            ))
+//        ;
     }
 }
