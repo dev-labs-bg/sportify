@@ -170,7 +170,7 @@ class MatchRepository extends \Doctrine\ORM\EntityRepository
     public function getAllByTournament(Tournament $tournament)
     {
         return $this->getEntityManager()->createQueryBuilder()
-            ->select('DISTINCT m')
+            ->select('m')
             ->from('DevlabsSportifyBundle:Match', 'm')
             ->join('m.homeTeamId', 'tm')
             ->where('m.tournamentId = :tournament_id')
@@ -192,7 +192,7 @@ class MatchRepository extends \Doctrine\ORM\EntityRepository
     public function getAllByTournamentAndTimeRange(Tournament $tournament, $dateFrom, $dateTo)
     {
         return $this->getEntityManager()->createQueryBuilder()
-            ->select('DISTINCT m')
+            ->select('m')
             ->from('DevlabsSportifyBundle:Match', 'm')
             ->join('m.homeTeamId', 'tm')
             ->where('m.tournamentId = :tournament_id')
