@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block nav_top %}
+    <h1 class="text-center">Admin panel</h1>
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid content">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <h2 class="text-center">Create/Edit/Delete tournament</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+            {% for tournament in tournaments %}
+                {{ include('templates/forms/tournament_create_edit.html.twig', {
+                    'tournament': tournament,
+                    'form': forms[tournament.id]
+                }) }}
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

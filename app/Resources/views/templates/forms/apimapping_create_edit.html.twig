@@ -1,0 +1,35 @@
+<div class="row tournament">
+    <div class="col-lg-2 col-md-2 tournament-item">
+        <div class="row">
+            <div class="col-lg-12 mobile-heading">Tournament</div>
+            <div class="col-lg-12">{{ tournament.name }}</div>
+        </div>
+    </div>
+    {{ form_start(form) }}
+        {{ form_errors(form) }}
+        {{ form_row(form.id) }}
+        {{ form_row(form.action) }}
+        {{ form_row(form.entityId) }}
+        {{ form_row(form.entityType) }}
+        <div class="col-lg-2 col-md-2 tournament-item">
+            <div class="row">
+                <div class="col-lg-12 mobile-heading">API Name</div>
+                <div class="col-lg-12">{{ form_row(form.apiName, {'attr': {'class': 'form-control', 'readonly': 'true'} }) }}</div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 tournament-item">
+            <div class="row">
+                <div class="col-lg-12 mobile-heading">API Object ID</div>
+                <div class="col-lg-12">{{ form_row(form.apiObjectId, {'attr': {'class': 'form-control' } }) }}</div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 tournament-item end-row-buttons-holder">
+            {% if (form.action.vars.value == 'CREATE') %}
+                {{ form_row(form.button1, {'attr': {'class': 'btn green-btn tournament-btn' } }) }}
+            {% else %}
+                {{ form_row(form.button1, {'attr': {'class': 'btn yellow-btn tournament-btn' } }) }}
+                {{ form_row(form.button2, {'attr': {'class': 'btn yellow-btn tournament-btn' } }) }}
+            {% endif %}
+        </div>
+    {{ form_end(form) }}
+</div>

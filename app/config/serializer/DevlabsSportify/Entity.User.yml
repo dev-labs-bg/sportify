@@ -1,0 +1,30 @@
+Devlabs\SportifyBundle\Entity\User:
+    exclusion_policy: ALL
+    properties:
+        slackUsername:
+            expose: true
+    relations:
+        -
+            rel: self
+            href:
+                route: get_user
+                parameters:
+                    id: expr(object.getId())
+        -
+            rel: predictions
+            href:
+                route: get_user_predictions
+                parameters:
+                    id: expr(object.getId())
+        -
+            rel: champ_predictions
+            href:
+                route: get_user_champ_predictions
+                parameters:
+                    id: expr(object.getId())
+        -
+            rel: scores
+            href:
+                route: get_user_scores
+                parameters:
+                    id: expr(object.getId())

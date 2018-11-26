@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block nav_top %}
+    <h1 class="text-center">Rules</h1>
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid content">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-12">
+                <h2>This game is about match score predictions.</h2>
+                <h3>You predict match scores, and gain points... or not :)</h3>
+
+                <h2>The game flow is the following:</h2>
+                <ol>
+                    <li>Join tournament(s) (<b>Tournaments</b> page)</li>
+                    <li>List available matches and place your predictions for the tournament(s) joined (<b>Matches</b> page)</li>
+                    <li>View history for finished matches - what you predicted, what was the final result, how many points you gained (<b>History</b> page)</li>
+                    <li>View standings (<b>Standings</b> page)</li>
+                </ol>
+
+                <h2>Scoring:</h2>
+                <ul>
+                    <li><b>Final champion predicted - 5 points</b></li>
+                    <li><b>Exact score predicted - 3 points</b></li>
+                    Examples:
+                        <p>You predicted 1-0, final score 1-0</p>
+                        <p>You predicted 1-2, final score 1-2</p>
+                        <p>You predicted 3-3, final score 3-3</p>
+                    <li><b>Match outcome predicted - 1 point</b></li>
+                    Examples:
+                        <p>You predicted 1-0, final score 3-1  (home team win)</p>
+                        <p>You predicted 1-2, final score 0-2  (away team win)</p>
+                        <p>You predicted 2-2, final score 1-1  (draw)</p>
+                </ul>
+
+                <h2>HAVE FUN !</h2>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

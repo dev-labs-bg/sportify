@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block nav_top %}
+    <h1 class="text-center">Tournaments</h1>
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid content">
+    <div class="row">
+    <div class="col-lg-10 col-lg-offset-1 col-md-12">
+    <h2 class="text-center">Choose Tournaments</h2>
+    <div class="tournaments-header">
+        <div class="row">
+            <div class="col-lg-5 col-md-5">Tournament</div>
+            <div class="col-lg-2 col-md-2">Starts</div>
+            <div class="col-lg-2 col-md-2">Ends</div>
+            <div class="col-lg-3 col-md-3">Options</div>
+        </div>
+    </div>
+    {% for tournament in tournaments %}
+        {{ include('templates/forms/tournament_join_leave.html.twig', {
+            'form': forms[tournament.id],
+            'tournament': tournament
+        }) }}
+    {% endfor %}
+
+{% endblock %}

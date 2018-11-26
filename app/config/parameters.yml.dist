@@ -1,0 +1,31 @@
+# This file is a "template" of what your parameters.yml file should look like
+parameters:
+    # db
+    database_host:     127.0.0.1
+    database_port:     ~
+    database_name:     symfony
+    database_user:     root
+    database_password: ~
+
+    # mail
+    mailer_transport:  smtp
+    mailer_host:       127.0.0.1
+    mailer_port:       587
+    mailer_user:       ~
+    mailer_password:   ~
+    mailer_sender_address: change-me@example.com
+
+    # secret used for generating security-related tokens
+    secret:            ThisTokenIsNotSoSecretChangeIt
+
+    # football API token
+    # get football-data.org API token by FREE registration here: http://www.football-data.org/register
+    football_api.token: check_the_README_file
+    # Slack webhook URL
+    slack.url: check_the_README_file
+    # Slack channel to which notifications will be sent
+    slack.channel: check_the_README_file
+
+    # sportify API params used for generating tokens
+    sportify_api.client_id:     ~
+    sportify_api.client_secret: ~

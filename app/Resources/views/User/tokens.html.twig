@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block nav_top %}
+    <h1 class="text-center">Manage Tokens</h1>
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid content">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3 text-center">
+                <h3>Current API access token:</h3>
+                {% if access_token %}
+                    {{ access_token.token }}
+                    <p>(Expires: {{ access_token.expiresAt|date('Y-m-d') }} )</p>
+                {% else %}
+                    N/A
+                {% endif %}
+            </div>
+        </div>
+
+        <br/>
+
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3 text-center">
+                <h3>Type in credentials to request new API access token:</h3>
+                {{ form_start(form, {'attr': {'class': 'myprofile-form'} }) }}
+                <div class="error-msg">
+                    {{ form_errors(form) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.password, {'attr': {'class': 'form-control', 'placeholder': 'Password'}, 'label': false}) }}
+                </div>
+                {{ form_row(form.button, {'attr': {'class': 'btn btn-default green-btn'}}) }}
+                {{ form_row(form._token) }}
+                {{ form_end(form, {'attr': {'class': 'form-control'} }) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

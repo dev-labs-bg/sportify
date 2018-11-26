@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block nav_top %}
+    <h1 class="text-center">History</h1>
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid content">
+        <div class="matches-filters row">
+            <div class="col-lg-10 col-lg-offset-1">
+                {{ include('templates/forms/filter.html.twig', {
+                    'form': filter_form,
+                    'tournament_class': 'col-sm-3',
+                    'username_class': 'col-sm-3',
+                    'date_from_class': 'col-sm-2',
+                    'date_to_class': 'col-sm-2',
+                    'button_class': 'col-sm-2 text-center'
+                }) }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
+                {% for match in matches %}
+                    {{ include('templates/match_history.html.twig', {
+                        'match': match,
+                        'predictions': predictions
+                    }) }}
+                {% endfor %}
+
+                {% if matches|length == 0 %}
+                    <div class="text-center">
+                        No matches to display.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+<svg width="158px" height="87px" viewBox="0 0 158 87" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 3.8.2 (29753) - http://www.bohemiancoding.com/sketch -->
+    <title>86329FDA-B98B-4EE2-AEE0-656EB147CD36</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="12.2147239" width="647" height="49.9693252" rx="9"></rect>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="1" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <path d="M239.236602,8.83391145 C238.270341,3.95507688 241.512644,-1.13686838e-13 246.489712,-1.13686838e-13 L377.546246,-1.13686838e-13 C382.51829,-1.13686838e-13 385.912139,3.97015042 385.123199,8.88889926 L376.130572,64.954659 C375.343164,69.8638625 370.678282,73.8435583 365.702718,73.8435583 L261.114004,73.8435583 C256.142268,73.8435583 251.330754,69.8995143 250.362307,65.0096468 L239.236602,8.83391145 Z" id="path-3"></path>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="1" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="sportify---matches" transform="translate(-763.000000, -803.000000)">
+            <g id="Group-7" transform="translate(523.000000, 235.000000)">
+                <g id="EDIT" transform="translate(6.000000, 510.000000)">
+                    <g id="Group-6" transform="translate(0.000000, 62.509202)">
+                        <g id="Rectangle-194">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                            <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-3"></use>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

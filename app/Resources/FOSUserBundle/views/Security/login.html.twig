@@ -1,0 +1,45 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+        <div class="error-msg">
+            {% if error %}
+                <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+            {% endif %}
+        </div>
+
+        <div class="container content login-screen">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 text-center">
+                    <h2>Log in to place your bets</h2>
+                    <div class="error-msg">
+                        {% if error %}
+                            <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+                        {% endif %}
+                    </div>
+                    <form class="login-form" action="{{ path("fos_user_security_check") }}" method="post">
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                        <div class="form-group">
+                            <input type="text" id="username" name="_username" class="form-control" placeholder="Email address">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" id="password" name="_password" class="form-control" placeholder="Password">
+                        </div>
+                        <div class="forgotten-password">
+                            <a href="{{ path('fos_user_resetting_request') }}">Forgotten password?</a>
+                        </div>
+                        <button type="submit" id="_submit" name="_submit" class="btn btn-default green-btn">Login</button>
+                        <div class="form-group">
+                            <input type="checkbox" id="remember_me" name="_remember_me" value="on" checked="checked"/>
+                            <label for="remember_me">Remember me</label>
+                        </div>
+                    </form>
+                    <h2>Don't have an account?<br/>
+                        <a href="{{ path('fos_user_registration_register') }}">Sign up here</a>
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

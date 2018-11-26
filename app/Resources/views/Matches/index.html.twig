@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block nav_top %}
+    <h1 class="text-center">Matches</h1>
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid content">
+        <div class="matches-filters row">
+            <div class="col-lg-10 col-lg-offset-1">
+                {{ include('templates/forms/filter.html.twig', {
+                    'form': filter_form,
+                    'tournament_class': 'col-sm-4',
+                    'date_from_class': 'col-sm-3',
+                    'date_to_class': 'col-sm-3',
+                    'button_class': 'col-sm-2 text-center'
+                }) }}
+            </div>
+        </div>
+
+        <div id="matches" class="row">
+            <div class="predictions">
+                <div class="text-center">
+                    <button type="submit" id="btn-bet-all" class="btn green-btn">BET / UPDATE ALL</button>
+                </div>
+                {% for match in matches %}
+                    {{ include('templates/forms/match_prediction.html.twig', {
+                        'form': match_forms[match.id],
+                        'match': match,
+                        'predictions': predictions
+                    }) }}
+                {% endfor %}
+
+                {% if matches|length == 0 %}
+                    <div class="text-center">
+                        No matches to display.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

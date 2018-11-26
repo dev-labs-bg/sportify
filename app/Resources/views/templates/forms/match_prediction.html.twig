@@ -1,0 +1,70 @@
+<div class="match">
+    <div class="single-match-form group">
+        {{ form_start(form) }}
+            {{ form_row(form.id) }}
+            {{ form_row(form.matchId) }}
+            {{ form_row(form.userId) }}
+            {{ form_row(form.action) }}
+            {{ form_errors(form) }}
+            <div class="match-date text-center">{{ match.datetime|date('Y-m-d H:i') }}</div>
+            <div class="match-title text-center">{{ match.tournamentId.name }}</div>
+            
+            <div class="col-lg-12 mobile-match-column">
+                <div class="match-item">
+                    <div class="single-match-record group">
+                        <div class="single-team-info">
+                            <div class="team-image left-sided">
+                                <img src="{{ asset(match.homeTeamId.teamLogo) }}" width="30" height="30" alt="{{ match.homeTeamId.name }}" />
+                            </div>
+                            <div class="match-item-mobile left-sided">
+                                {{ match.homeTeamId.name }}
+                            </div>
+                        </div>
+                        <div class="bettings">
+                            <div class="bet-rectangle">
+                                {% include 'img/result-rectangle.svg' %}
+                                    {% if predictions[match.id] is defined %}
+                                    <div class="bet-form">
+                                        {{ form_row(form.homeGoals, {'attr': {'class': 'bet-field' }, 'disabled': match.disabledAttribute }) }}
+                                        <span>:</span>
+                                        {{ form_row(form.awayGoals, {'attr': {'class': 'bet-field' }, 'disabled': match.disabledAttribute }) }}
+                                    </div>
+                                {% else %}
+                                    <div class="bet-form not-filled">
+                                        {{ form_row(form.homeGoals, {'attr': {'class': 'bet-field', 'placeholder': '?' }, 'disabled': match.disabledAttribute}) }}
+                                        <span>:</span>
+                                        {{ form_row(form.awayGoals, {'attr': {'class': 'bet-field', 'placeholder': '?' }, 'disabled': match.disabledAttribute }) }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="single-team-info">
+                            <div class="team-image right-sided">
+                                <img src="{{ asset(match.awayTeamId.teamLogo) }}" width="30" height="30" alt="{{ match.awayTeamId.name }}" />
+                            </div>
+                            <div class="match-item-mobile right-sided">
+                                {{ match.awayTeamId.name }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% if match.disabledAttribute == true %}
+                    <div class="row">
+                        <div class="match-date text-center">Match locked. Already started</div>
+                    </div>
+                {% endif %}
+
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        {% if predictions[match.id] is defined %}
+                            {{ form_row(form.button, {'attr': {'class': 'btn yellow-btn match-btn' }, 'disabled': match.disabledAttribute }) }}
+                        {% else %}
+                            {{ form_row(form.button, {'attr': {'class': 'btn green-btn match-btn' }, 'disabled': match.disabledAttribute }) }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {{ form_end(form) }}
+    </div>
+</div>

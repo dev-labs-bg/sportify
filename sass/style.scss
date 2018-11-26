@@ -1,0 +1,1592 @@
+body {
+    font-family: 'Exo 2';
+    color: #fff;
+    position: relative;
+    overflow-x: hidden;
+    height: 100%;
+    min-height: 100vh;
+    background: #000 url(../img/sportify-bg.png);
+    background-size: cover;
+    background-attachment: fixed;
+}
+body, html {
+    height: 100%;
+    font-size: 16px;
+}
+.center {
+    text-align: center;
+}
+ul, li {
+    font-size: 16px;
+}
+.group {
+    display: block;
+    clear: both;
+}
+.group:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both; 
+    height: 0;
+}
+.nav .open {
+
+    a, a:hover, a:focus {
+        background-color: transparent;
+    }
+}
+.single-match-record {
+    position: relative;
+
+    @media screen and (max-width: 820px) {
+        background: #fff;
+    }
+    @media screen and (max-width: 500px) {
+        padding: 20px 0;
+    }
+}
+.team-image {
+    position: absolute;
+    top: -30px;
+    background: #fff;
+    border-radius: 50px;
+    width: 100px;
+    height: 100px;
+    display: flex;
+
+    @media screen and (max-width: 1040px) {
+        width: 85px;
+        height: 85px;
+        top: -24px;
+    }
+    @media screen and (max-width: 820px) {
+        position: static;
+        margin: 0 auto;
+        width: 125px;
+        display: flex;
+        vertical-align: middle;
+        text-align: center;
+    }
+    @media screen and (max-width: 500px) {
+        width: 100%;
+    }
+
+    &.left-sided {
+        left: -70px;
+
+        @media screen and (max-width: 1040px) {
+            left: -30px;
+        }
+    }
+    &.right-sided {
+        right: -70px;
+
+        @media screen and (max-width: 1040px) {
+            right: -30px;
+        }
+    }
+
+    img {
+        max-width: 70px;
+        max-height: 70px;
+        width: auto;
+        height: auto;
+        margin: 0 auto;
+        align-self: center;
+
+        @media screen and (max-width: 1040px) {
+            max-width: 60px;
+            max-height: 60px;
+        }
+        @media screen and (max-width: 820px) {
+            max-height: 100%;
+            max-width: 100%;
+        }
+    }
+}
+.team-logo-holder {
+    padding: 0;
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+.inline-block-form {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+}
+.admin-team-page {
+    text-align: center;
+
+    .team-image {
+        position: static;
+    }
+}
+body .match-item-mobile {
+    padding: 0;
+    line-height: 40px;
+
+    @media screen and (max-width: 820px) {
+        box-shadow: none;
+        line-height: 25px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    @media screen and (max-width: 400px) {
+        font-size: 10px;
+    }
+
+    &.left-sided {
+        float: left;
+        margin-left: 55px;
+
+        @media screen and (max-width: 820px) {
+            float: none;
+            margin-left: 0;
+        }
+    }
+    &.right-sided {
+        float: right;
+        margin-right: 55px;
+
+        @media screen and (max-width: 820px) {
+            float: none;
+            margin-right: 0;
+        }
+    }
+}
+.page-content-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    padding-left: 55px;
+    // margin-bottom: 150px;
+    .navbar-nav {
+        display: none;
+    }
+    .navbar-default {
+        padding-left: 55px;
+
+        &.scrolled {
+            border-bottom: 1px solid #fff;
+        }
+    }
+}
+
+.results-slider {
+    z-index: 9;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+    background-color: #1d2936;
+    color: #fff;
+    padding-left: 55px;
+    margin-right: -255px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    transition: .6s ease;
+}
+.current-results-slider {
+    .owl-stage-outer {
+        text-align: center;
+        .owl-stage {
+            display: inline-block;
+        }
+    }
+    .slider-item {
+        display: inline-block;
+        .logo {
+            width: 55px;
+            height: 55px;
+            background: #fff;
+            border-radius: 100%;
+            text-align: center;
+            line-height: 55px;
+            float: left;
+
+            img {
+                display: inline-block;
+                max-width: 40px;
+                width: auto;
+                max-height: 40px;
+                height: auto;
+            }
+        }
+        &-holder {
+            text-align: center;
+        }
+        .result-info {
+            float: left;
+            text-align: center;
+            .title, .points {
+                display: block;
+                font-size: 14px;
+                font-weight: 600;
+            }
+            .title {
+                padding: 5px 20px;
+            }
+        }
+    }
+}
+.position-up,
+.position-down,
+.position-same {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin: 0 5px;
+}
+.position-up {
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 13px solid #7ed321;
+}
+.position-down {
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 13px solid #d33122;
+}
+.position-same {
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 13px solid #959693;
+}
+.wrapper {
+    padding-left: 0;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+
+    &.toggled {
+        padding-left: 255px;
+
+        .sidebar-wrapper {
+            width: 255px;
+            .sidebar-nav {
+                .user-name {
+                    padding-left: 0;
+                    margin-left: 0;
+                    text-align: center;
+                }
+            }
+        }
+
+        .page-content-wrapper {
+            position: absolute;
+            margin-right: -255px;
+            padding-left: 255px;
+            margin-left: -255px;
+            transition: .5s ease;
+
+            .navbar-default {
+                padding-left: 255px;
+            }
+        }
+        .results-slider {
+            padding-left: 0;
+            margin-right: -255px;
+            padding-right: 255px;
+        }
+    }
+}
+
+.sidebar-wrapper {
+    z-index: 99999;
+    left: 255px;
+    width: 55px;
+    height: 100%;
+    margin-left: -255px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #4caf50 url(../img/grass-pattern.png);
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 255px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+        position: relative;
+        line-height: 20px;
+        display: inline-block;
+        width: 100%;
+
+        &.active, &.open {
+
+            > a {
+                color: #fff;
+                text-decoration: none;
+                background-color: rgba(0,0,0,.12);
+            }
+        }
+
+        a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            padding: 25px 15px 25px 60px;
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+
+            &:hover, &:active, &:focus {
+                color: #fff;
+                text-decoration: none;
+                background-color: rgba(0,0,0,.12);
+            }
+            &.sportify-logo {
+                cursor: pointer;
+
+                &:hover {
+                    background: rgba(0,0,0,0);
+                }
+            }
+        }
+    }
+    .sidebar-brand {
+        height: 76px;
+        line-height: 70px;
+        background: rgba(0,0,0,.25);
+    }
+    .my-profile {
+        z-index: 1;
+        background: none;
+    }
+    .user-name {
+        position: absolute;
+        width: 255px;
+        bottom: 50px;
+        left: 0;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: .9;
+        letter-spacing: .9px;
+        color: #ffffff;
+        text-transform: none;
+        text-align: center;
+        margin-top: -15px;
+        padding-left: 60px;
+        transition: .5s ease;
+    }
+}
+.admin-page {
+
+    .sidebar-nav {
+        position: static;
+        width: 100%;
+    }
+}
+.admin-page .green-btn {
+    margin: 25px 0;
+}
+.end-row-buttons-holder {
+
+    > div {
+        display: inline-block;
+        width: auto;
+        margin-right: 10px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        .green-btn, .yellow-btn {
+            margin: 25px 0;
+        }
+    }
+}
+
+.sportify-logo {
+    float: left;
+    padding: 0px !important;
+}
+
+.sportify-logo-mobile {
+    display: none;
+}
+
+.sidebar-nav, .myprofile-form {
+    .profile-picture {
+        padding: 25px 15px 100px;
+        text-align: center;
+        img{
+            background: #ffc107;
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 100%;
+            border: 5px solid #fff;
+            margin-top: 40px;
+        }
+    }
+}
+.myprofile-form {
+    .profile-picture {
+        cursor: pointer;
+        padding: 10px 0 0;
+        img {
+            margin-top: 25px;
+        }
+        span {
+            display: block;
+            padding: 10px 0 0;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+    }
+}
+.my-profile {
+    background: url(../img/settings.svg) no-repeat 15px center;
+}
+.tournaments {
+    background: url(../img/soccer-dates.svg) no-repeat 15px center;
+}
+.champion {
+    background: url(../img/trophy.svg) no-repeat 15px center;
+}
+.matches {
+    background: url(../img/football.svg) no-repeat 15px center;
+}
+.standings {
+    background: url(../img/standings.svg) no-repeat 15px center;
+}
+.history {
+    background: url(../img/history.svg) no-repeat 15px center;
+}
+.rules {
+    background: url(../img/rules.svg) no-repeat 15px center;
+}
+.login {
+    background: url(../img/login.svg) no-repeat 15px center;
+}
+.logout {
+    background: url(../img/logout.svg) no-repeat 15px center;
+}
+.signup {
+    background: url(../img/signup.svg) no-repeat 15px center;
+}
+body ul li.has-submenu {
+
+    > a {
+        background: none;
+
+        &:after {
+            background: url(../img/arrow.svg) no-repeat 0 0;
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 13px;
+            width: 30px;
+            height: 30px;
+            -webkit-transform: rotate(90deg);
+            -moz-transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+            -o-transform: rotate(90deg);
+            transform: rotate(90deg);
+        }
+    }
+
+    @media screen and (max-width: 820px) {
+
+        > a {
+            display: none;
+        }
+    }
+
+    &:hover {
+
+        .sub-menu {
+            max-height: 300px;
+        }
+    }
+}
+.sub-menu {
+    transition: all 0.4s linear;
+    max-height: 0;
+    overflow: hidden;
+
+    @media screen and (max-width: 820px) {
+        max-height: 300px;
+    }
+
+    ul {
+        padding-left: 15px;
+
+        @media screen and (max-width: 820px) {
+            padding: 0;
+        }
+    }
+}
+.hamburger {
+    margin: 1px 9px;
+    background: none;
+    border: none;
+    outline: none;
+    padding: 0 6px;
+}
+.content {
+    padding-top: 76px;
+}
+.page-content-wrapper .content {
+    padding-top: 76px;
+    padding-bottom: 100px;
+}
+
+.page-content-wrapper .navbar-default, header .navbar-default {
+    width: 100%;
+    height: 76px;
+    background: #1d2936;
+    border: none;
+    border-bottom: 1px solid #1d2936;
+    border-radius: 0;
+    z-index: 9999;
+    transition: .5s ease-out;
+}
+header .navbar-default {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.navbar-default .navbar-toggle {
+    border: none;
+    padding: 17px 10px;
+
+    &:focus, &:hover {
+        background: inherit;
+    }
+}
+.navbar-default .navbar-nav {
+
+    li {
+        a {
+            color: #fff;
+        }
+        a:focus, a:hover {
+            color: #fff;
+            background-color: rgba(0,0,0,.2);
+            text-decoration: none;
+        }
+        &.active {
+
+            > a, a:focus, a:hover {
+                color: #fff;
+                background-color: rgba(0,0,0,.2);
+            }
+        }
+    }
+}
+
+.mobile-menu {
+    background: #4caf50;
+    color: #fff;
+
+    li a {
+        font-size: 15px;
+        padding-left: 60px;
+        text-transform: uppercase;
+        display: block;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+}
+.navbar h1, h1 {
+    margin: 0;
+    color: #fff;
+    font-size: 30px;
+    line-height: 1.2;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.navbar h1 {
+    line-height: 70px;
+}
+h2 {
+    font-size: 22px;
+    line-height: 1.2;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.login-screen h2, .signup-screen h2 {
+    margin: 120px 0 50px;
+    line-height: 1.6;
+}
+.page-content-wrapper h2 {
+    margin: 50px 0 ;
+}
+.signup-screen {
+    &.content{
+        padding-bottom: 10px;
+    }
+    h2 {
+        margin: 80px 0 10px;
+    }
+}
+.login-screen {
+    &.content {
+        padding-bottom: 10px;
+    }
+    h2 a {
+        color: inherit;
+        text-decoration: underline;
+    }
+}
+.error-msg {
+    > ul > li, p  {
+        list-style: none;
+        color: #FF1F5A;
+        font-size: 16px;
+    }
+}
+.login-form, .signup-form, .myprofile-form {
+    display: inline-block;
+    width: 100%;
+    max-width: 440px;
+
+    input {
+        display: inline-block;
+        border: 1px solid #fff;
+        background-color: rgba(255,255,255,.2);
+        padding: 15px 35px;
+        color: #fff;
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 16px;
+        border-radius: 100px;
+        margin: 50px 0 10px;
+    }
+    input[type="email"], input[type="password"], input[type="text"] 
+    {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        height: 48px;
+        margin: 30px 0 10px;
+        padding: 8px 30px;
+    }
+    ::-webkit-input-placeholder { /* WebKit browsers */
+        text-transform: uppercase;
+    }
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        text-transform: uppercase;
+    }
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+        text-transform: uppercase;
+    }
+    :-ms-input-placeholder { /* Internet Explorer 10+ */
+        text-transform: uppercase;
+    }
+    input[type="password"] {
+        text-transform: none;
+    }
+}
+.login-form input{
+    padding: 0 75px 0 35px;
+
+    &[name=_username] {
+        background: rgba(255,255,255,.2) url(../img/ghost.svg) no-repeat 90% center;
+    }
+    &[name=_password] {
+        background: rgba(255,255,255,.2) url(../img/controller.svg) no-repeat 90% center;
+    }
+}
+.form-group {
+    margin-bottom: 0;
+}
+.login-screen .forgotten-password {
+    margin: 10px 0 40px;
+    a {
+        color: inherit;
+        font-size: 16px;
+        &:hover, &:focus {
+            text-decoration: none;
+        }
+    }
+}
+.admin-team-results-holder {
+    padding-left: 40px;
+
+    @media screen and (max-width: 1000px) {
+        padding-left: 20px;
+    }
+}
+.green-btn, .yellow-btn {
+    border: none;
+    color: #fff;
+    padding: 8px 30px;
+    border-radius: 100px;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: .3s ease-in-out;
+    margin: 30px 0;
+}
+.green-btn {
+    background: #4caf50;
+    &:hover, &:active, &:focus, &:active:hover {
+        color: inherit;
+        background: #418e44;
+    }
+}
+.yellow-btn {
+    background: #ffc107;
+    &:hover, &:active, &:focus, &:active:hover {
+        color: inherit;
+        background: #ca9803;
+    }
+}
+.signup-screen .green-btn {
+    margin: 50px 0 30px;
+}
+.history-btn {
+    border: 3px solid #fff;
+    color: #fff;
+    padding: 10px 25px;
+    border-radius: 65px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: .3s ease-in-out;
+    background: rgba(255,255,255,0);
+    &:hover {
+        color: inherit;
+        background: rgba(255,255,255,.2);
+    }
+}
+.tournaments-header,
+.tournament,
+.standing {
+    border-bottom: 1px solid #979797;
+}
+.admin-mappings-page .tournament {
+    padding-left: 40px;
+
+    @media screen and (max-width: 1000px) {
+        padding-left: 20px;
+    }
+}
+.tournaments-header, .mobile-heading {
+    color: rgba(255,255,255,.3);
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 5px 10px;
+}
+.mobile-heading {
+    display: none;
+}
+.tournament {
+    &-item {
+        font-size: 16px;
+        font-weight: 600;
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+    &-btn {
+        min-width: 126px;
+        // padding: 13px 40px;
+    }
+}
+.matches-filters, .champion-page {
+
+    .form-control, input[type="date"].form-control {
+        appearance: none;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        line-height: 18px;
+        height: auto;
+        padding: 10px 25px;
+        border-radius: 100px;
+        background: #fff;
+
+        @media screen and (max-width: 820px) {
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+    label {
+        color: rgba(255, 255, 255, .3);
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: uppercase;
+        padding: 10px 5px 5px;
+    }
+    .green-btn, .yellow-btn {
+        padding: 6px 40px;
+        margin: 0;
+
+        &.history-filter {
+            min-width: 130px;
+            margin-top: 45px;
+        }
+    }
+}
+.filter-form-container {
+
+    @media screen and (max-width: 820px) {
+        text-align: center;
+    }
+}
+.matches-filters {
+    padding-top: 0;
+    padding-bottom: 20px;
+    background: rgba(29, 41, 54, .7);
+
+    .green-btn {
+        float: left;
+    }
+    .chosen-container {
+
+        @media screen and (max-width: 820px) {
+            max-width: 300px;
+        }
+        @media screen and (max-width: 340px) {
+            max-width: 100%;
+        }
+    }
+}
+.champion-page {
+    .col-sm-8 {
+        margin-bottom: 40px;
+    }
+}
+.chosen-container {
+    font-size: 15px;
+    font-weight: 600;
+    max-width: 100%;
+
+    &-single {
+        .chosen-single {
+            height: 40px;
+            line-height: 40px;
+            border-radius: 100px;
+            background: #fff url(../img/select-arrow.svg) no-repeat 90% center;
+            padding-left: 25px;
+            div b {
+                background: none;
+            }
+        }
+        .chosen-drop {
+            border-radius: 0 0 26px 26px;
+            padding-bottom: 26px;
+            .chosen-results li {
+                padding-left: 24px;
+            }
+        }
+        .chosen-search {
+            input[type="text"] {
+                color: #444;
+            }
+        }
+    }
+    &-active.chosen-with-drop .chosen-single {
+        border-radius: 26px 26px 0 0;
+        background: #fff url(../img/up-arrow.svg) no-repeat 90% center;
+    }
+}
+.match {
+    padding: 40px 0;
+    border-bottom: 1px solid #979797;
+    &-date {
+        font-size: 16px;
+        font-weight: 600;
+    }
+    &-title{
+        font-size: 24px;
+        line-height: 30px;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+    &-item {
+        width: 100%;
+        max-width: 785px;
+        margin: 30px auto;
+        text-align: center;
+        padding: 2px 8px;
+        border-radius: 9px;
+        background-color: #fff;
+        box-shadow: 1px 2px 6px 0 rgba(0, 0, 0, .5);
+        color: #2c3e50;
+        font-weight: 900;
+        font-size: 14px;
+        text-transform: uppercase;
+
+        &-mobile {
+            padding: 6px 5px;
+        }
+
+        .bettings {
+            z-index: 1;
+            font-size: 16px;
+            position: absolute;
+            left: 50%;
+            width: 158px;
+            height: 87px;
+            margin-left: -79px;
+            top: -22px;
+
+            @media screen and (max-width: 820px) {
+                display: inline-block;
+                vertical-align: middle;
+                position: static;
+                width: auto;
+                height: auto;
+                margin: 25px 0;
+            }
+            @media screen and (max-width: 500px) {
+                width: 30%;
+            }
+
+            .bet-form {
+                position: absolute;
+                top: 23px;
+                left: 35px;
+
+                &.not-filled {
+
+                    .bet-field {
+                        background-color: #2c3e50;
+                        box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, .5);
+                        color: #fff;
+                    }
+                }
+                
+                div {
+                    display: inline-block;
+                }
+                .bet-field {
+                    width: 40px;
+                    height: 35px;
+                    border-radius: 5px;
+                    text-align: center;
+                    padding: 3px;
+                    box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, .5);
+                    color: #2c3e50;
+
+                    @media screen and (max-width: 340px) {
+                        width: 30px;
+                        height: 30px;
+                    }
+                }
+            }
+            .bet-results {
+                text-shadow: 0 1px 3px rgba(0, 0, 0, .2);
+                position: absolute;
+                top: 27px;
+                left: 43px;
+
+                @media screen and (max-width: 500px) {
+                    position: static;
+                    margin-top: -45px;
+                }
+
+                .bet-field {
+                    width: 30px;
+                    height: 30px;
+                    display: inline-block;
+                }
+            }
+        }
+    }
+    &-btn {
+        min-width: 120px;
+        // padding: 8px 40px;
+        margin: 5px 0;
+    }
+    .team-title, .prediction-title, .points-title {
+        color: rgba(255, 255, 255, .5);
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+    .predictions,.points-gained {
+        color: #fff;
+        letter-spacing: 5px;
+        font-size: 22px;
+    }
+    .points-gained {
+        text-transform: none;
+        letter-spacing: 2px;
+    }
+}
+.first-three-standings {
+    padding: 50px 0;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 100%;
+    }
+    .name {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 70px;
+    }
+    .first-place, .second-place, .third-place {
+        height: 200px;
+        min-width: 310px;
+        position: relative;
+    }
+    .points {
+        margin-left: 5px;
+        display: inline-block;
+        border-radius: 4px;
+        position: absolute;
+        text-align: center;
+    }
+    .points:after, .points:before {
+        right: 100%;
+        top: 50%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+
+    .points:after {
+        border-color: transparent;
+        border-right-color: #d46827;
+        border-width: 10px;
+        margin-top: -10px;
+    }
+    .points:before {
+        border-color: rgba(0, 0, 0, 0);
+        border-right-color: transparent;
+        border-width: 17px;
+        margin-top: -17px;
+    }
+    .first-place {
+        padding: 20px 10px 0;
+        .profile-img {
+            display: inline-block;
+            width: 165px;
+            height: 165px;
+
+            img {
+                border: 8px solid #fdca33;
+            }
+        }
+        .points {
+            width: 105px;
+            height: 70.8px;
+            background-color: #fdca33;
+            padding: 0 5px;
+            font-size: 22px;
+            &:after{
+                border-right-color: #fdca33;
+            }
+        }
+    }
+    .second-place {
+        padding: 50px 28px 0;
+        .profile-img {
+            display: inline-block;
+            width: 145px;
+            height: 145px;
+
+            img {
+                border: 8px solid #d46827;
+            }
+        }
+        .points {
+            width: 91.3px;
+            height: 60px;
+            background-color: #d46827;
+            padding: 0 5px;
+            font-size: 22px;
+            &:after{
+                border-right-color: #d46827;
+            }
+        }
+    }
+    .third-place {
+        padding: 70px 37px 0;
+        .profile-img {
+            display: inline-block;
+            width: 125px;
+            height: 125px;
+
+            img {
+                border: 8px solid #a7a7a7;
+            }
+        }
+        .points {
+            width: 86.3px;
+            height: 51.8px;
+            background-color: #a7a7a7;
+            padding: 0 5px;
+            font-size: 20px;
+            &:after{
+                border-right-color: #a7a7a7;
+            }
+        }
+    }
+    &.reverse-places {
+        .first-place {
+            .profile-img {
+                height: auto;
+                img {
+                    border: none;
+                }
+            }
+            .points {
+                background-color: #ead051;
+                &:after {
+                    border-right-color: #ead051;
+                }
+            }
+        }
+        .second-place {
+            .profile-img {
+                height: auto;
+                img {
+                    border: none;
+                }
+            }
+            .points {
+                background-color: #c3c3af;
+                &:after{
+                    border-right-color: #c3c3af;
+                }
+            }
+        }
+        .third-place {
+            .profile-img {
+                height: auto;
+                img {
+                    border: none;
+                }
+            }
+            .points {
+                background-color: #df8f3c;
+                &:after{
+                    border-right-color: #df8f3c;
+                }
+            }
+        }
+    }
+}
+.standing {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 70px;
+    padding: 10px 0;
+    .profile-img {
+        display: inline-block;
+        width: 70px;
+        height: 70px;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 100%;
+            border: 3px solid #fff;
+        }
+    }
+    .user-name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    &-title {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+}
+.text- {
+    &green {
+        color: #20e828 !important;
+    }
+    &yellow {
+        color: #ffc107 !important;
+    }
+    &red {
+        color: #fb1717 !important;
+    }
+}
+.mobile-match-column {
+
+    @media screen and (max-width: 820px) {
+        padding: 0;
+    }
+
+    .match-item {
+
+        @media screen and (max-width: 1150px) {
+            padding: 2px 20px;
+        }
+        @media screen and (max-width: 820px) {
+            padding: 0;
+            margin-left: 0;
+            margin-right: 0;
+            width: 100%;
+            max-width: 100%;
+        }
+    }
+}
+.predictions {
+
+    .bet-rectangle {
+
+        svg {
+
+            @media screen and (max-width: 500px) {
+                display: none;
+            }
+        }
+        .bet-form {
+
+            @media screen and (max-width: 500px) {
+                position: static;
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+    }
+}
+.bet-rectangle {
+    position: relative;
+
+    svg {
+
+        @media screen and (max-width: 820px) {
+            
+            use {
+                fill: #202c35;
+            }
+        }
+        @media screen and (max-width: 500px) {
+            width: 100%;
+            height: auto;
+            max-height: 55px;
+        }
+    }
+    .bet-field, span {
+
+        @media screen and (max-width: 820px) {
+            color: #cda404;
+        }
+    }
+}
+.single-team-info {
+    display: inline-block;
+    vertical-align: middle;
+
+    @media screen and (max-width: 820px) {
+        padding: 0 10px;
+        width: 150px;
+    }
+    @media screen and (max-width: 500px) {
+        max-width: 150px;
+        width: auto;
+    }
+    @media screen and (max-width: 500px) {
+        width: 32%;
+    }
+
+    &:first-child {
+        float: left;
+
+        @media screen and (max-width: 820px) {
+            float: none;
+        }
+    }
+    &:last-child {
+        float: right;
+
+        @media screen and (max-width: 820px) {
+            float: none;
+        }
+    }
+}
+.flag {
+    height: 21px;
+    width: 28px;
+    display: inline-block;
+
+    &-icon {
+        line-height: 1.4;
+    }
+    &.pull-left {
+        margin: 0;
+        margin-left: 10px;
+    }
+    &.pull-right {
+        margin: 0;
+        margin-right: 10px;
+    }
+}
+/**
+ * Additional flags missing from flag-icon css library
+ */
+.flag-icon-en {
+    background-image: url(../flags/4x3/en.svg);
+}
+.flag-icon-wa {
+    background-image: url(../flags/4x3/wa.svg);
+}
+.flag-icon-nn {
+    background-image: url(../flags/4x3/nn.svg);
+}
+.flag-icon-afc {
+    background-image: url(../img/flags/AFC.svg);
+}
+.flag-icon-afcb {
+    background-image: url(../img/flags/AFCB.svg);
+}
+.flag-icon-bfc {
+    background-image: url(../img/flags/BFC.png);
+}
+.flag-icon-cfc {
+    background-image: url(../img/flags/CFC.svg);
+}
+.flag-icon-efc {
+    background-image: url(../img/flags/EFC.svg);
+}
+.flag-icon-hul {
+    background-image: url(../img/flags/HUL.svg);
+}
+.flag-icon-lcfc {
+    background-image: url(../img/flags/LCFC.png);
+}
+.flag-icon-lfc {
+    background-image: url(../img/flags/LFC.png);
+}
+.flag-icon-mcfc {
+    background-image: url(../img/flags/MCFC.png);
+}
+.flag-icon-mfc {
+    background-image: url(../img/flags/MFC.png);
+}
+.flag-icon-mufc {
+    background-image: url(../img/flags/MUFC.png);
+}
+.flag-icon-scfc {
+    background-image: url(../img/flags/SCFC.svg);
+}
+.flag-icon-sfc {
+    background-image: url(../img/flags/SFC.svg);
+}
+.flag-icon-sun {
+    background-image: url(../img/flags/SUN.svg);
+}
+.flag-icon-swa {
+    background-image: url(../img/flags/SWA.png);
+}
+.flag-icon-thfc {
+    background-image: url(../img/flags/THFC.svg);
+}
+.flag-icon-wba {
+    background-image: url(../img/flags/WBA.svg);
+}
+.flag-icon-wfc {
+    background-image: url(../img/flags/WFC.svg);
+}
+.flag-icon-whu {
+    background-image: url(../img/flags/WHU.svg);
+}
+.flag-icon-cry {
+    background-image: url(../img/flags/CRY.png);
+}
+
+@media screen and (max-width: 1367px){
+
+    .match-item {
+        font-size: 13px;
+    }
+}
+@media screen and (max-width: 991px){
+    .page-content-wrapper h2 {
+        margin: 30px 0 25px;
+    }
+    .tournaments-header {
+        display: none;
+    }
+    .mobile-heading {
+        display: block
+    }
+    .tournament {
+        text-align: center;
+        &-item {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        &-btn {
+            margin: 10px 0;
+        }
+    }
+}
+@media screen and (max-width: 820px){
+
+    .sportify-logo-mobile {
+        display: block;
+        margin: 0 auto;
+        width: 90%;
+        text-align: center;
+        float: none;
+    }
+    .login-screen h2, .signup-screen h2 {
+        margin: 80px 0 50px;
+    }
+    .wrapper.toggled {
+        padding-left: 0;
+
+        .page-content-wrapper {
+            position: relative;
+            margin-right: 0;
+            padding-left: 0;
+            margin-left: 0;
+
+            .navbar-default {
+                padding-left: 0;
+            }
+        }
+        .results-slider {
+            padding-right: 0;
+        }
+    }
+    .sidebar-wrapper {
+        display: none;
+    }
+    .page-content-wrapper {
+        padding-left: 0;
+
+        .navbar-nav {
+            display: block;
+        }
+    }
+    .navbar h1 {
+        display: none;
+
+        &.sportify {
+            display: block;
+        }
+    }
+    .page-content-wrapper .navbar-default, header .navbar-default {
+        background: #388e3c;
+    }
+    .match {
+
+        &-item {
+            background: none;
+            box-shadow: none;
+
+            &-mobile {
+                text-align: center;
+                padding: 10px;
+                border-radius: 9px;
+                background-color: #fff;
+                box-shadow: 1px 2px 6px 0 rgba(0, 0, 0, .5);
+                color: #2c3e50;
+            }
+        }
+    }
+    .matches-filters {
+
+        .form-control {
+            margin: 10px auto;
+        }
+        .green-btn {
+            float: none;
+        }
+    }
+    .champion-page .col-sm-8 {
+        margin-bottom: 0;
+    }
+    .results-slider {
+        height: 60px;
+
+        .current-results-slider .slider-item {
+
+            .result-info .title {
+                padding: 0;
+            }
+            .logo {
+                width: 40px;
+                height: 40px;
+                line-height: 40px;
+                margin: 0 10px;
+
+                img {
+                    max-width: 30px;
+                    max-height: 30px;
+                }
+            }
+        }
+    }
+
+    .flag {
+        float: left !important;
+        margin-left: 0 !important;
+    }
+}
+/**
+ * Datepicker plugin styles
+ */
+ .table-condensed > thead > tr > th,
+ .table-condensed > thead > tr > td,
+ .table-condensed > tbody > tr > th,
+ .table-condensed > tbody > tr > td,
+ .table-condensed > tfoot > tr > th,
+ .table-condensed > tfoot > tr > td {
+    color: #000;
+ }
+ .datepicker table tr td.active,
+ .datepicker table tr td.active.disabled,
+ .datepicker table tr td.active.disabled:hover,
+ .datepicker table tr td.active:hover {
+    background: #ccc;
+    background-image: linear-gradient(to bottom, #4caf50, #418e44);
+ }
+@media screen and (max-width: 480px){
+    .login-screen h2, .signup-screen h2 {
+        margin: 55px 0 35px;
+    }
+    .login-form input, .signup-form input, .myprofile-form input {
+        margin: 35px 0 10px;
+    }
+    .login-screen .forgotten-password {
+        margin: 10px 0 25px;
+    }
+    .signup-screen .green-btn {
+        margin-top: 30px;
+    }
+}
+@media screen and (max-width: 420px){
+    .first-place, .second-place, .third-place {
+        text-align: left;
+    }
+}
+@media screen and (max-width: 400px){
+    .login-screen h2, .signup-screen h2 {
+        margin: 25px 0 15px;
+    }
+    .login-form input, .signup-form input, .myprofile-form input {
+        margin: 15px 0;
+    }
+    .signup-screen .green-btn {
+        margin-top: 15px;
+    }
+}
