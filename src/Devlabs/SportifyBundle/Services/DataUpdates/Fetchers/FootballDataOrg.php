@@ -81,33 +81,9 @@ class FootballDataOrg
      */
     public function fetchFixturesByTournamentAndMatchDay($apiTournamentId, $matchDay)
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         $uri = $this->baseUri.'/competitions/'.$apiTournamentId.'/matches/?matchday='.$matchDay;
 
         return $this->processResponse($this->getResponse($uri), 'matches');
-=======
-        $uri = $this->baseUri.'/competitions/'.$apiTournamentId.'/fixtures/?matchday='.$matchDay;
-
-        return $this->processResponse($this->getResponse($uri), 'fixtures');
->>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
-=======
-        $uri = $this->baseUri.'/competitions/'.$apiTournamentId.'/fixtures/?matchday='.$matchDay;
-
-        return $this->processResponse($this->getResponse($uri), 'fixtures');
->>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
-=======
-        $uri = $this->baseUri.'/competitions/'.$apiTournamentId.'/fixtures/?matchday='.$matchDay;
-
-        return $this->processResponse($this->getResponse($uri), 'fixtures');
->>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
-=======
-        $uri = $this->baseUri.'/competitions/'.$apiTournamentId.'/fixtures/?matchday='.$matchDay;
-
-        return $this->processResponse($this->getResponse($uri), 'fixtures');
->>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
     }
 
     /**
@@ -120,33 +96,9 @@ class FootballDataOrg
      */
     public function fetchFixturesByTournamentAndTimeRange($apiTournamentId, $dateFrom, $dateTo)
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         $uri = $this->baseUri.'/competitions/'.$apiTournamentId.'/matches/?timeFrameStart='.$dateFrom.'&timeFrameEnd='.$dateTo;
 
         return $this->processResponse($this->getResponse($uri), 'matches');
-=======
-        $uri = $this->baseUri.'/competitions/'.$apiTournamentId.'/fixtures/?timeFrameStart='.$dateFrom.'&timeFrameEnd='.$dateTo;
-
-        return $this->processResponse($this->getResponse($uri), 'fixtures');
->>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
-=======
-        $uri = $this->baseUri.'/competitions/'.$apiTournamentId.'/fixtures/?timeFrameStart='.$dateFrom.'&timeFrameEnd='.$dateTo;
-
-        return $this->processResponse($this->getResponse($uri), 'fixtures');
->>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
-=======
-        $uri = $this->baseUri.'/competitions/'.$apiTournamentId.'/fixtures/?timeFrameStart='.$dateFrom.'&timeFrameEnd='.$dateTo;
-
-        return $this->processResponse($this->getResponse($uri), 'fixtures');
->>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
-=======
-        $uri = $this->baseUri.'/competitions/'.$apiTournamentId.'/fixtures/?timeFrameStart='.$dateFrom.'&timeFrameEnd='.$dateTo;
-
-        return $this->processResponse($this->getResponse($uri), 'fixtures');
->>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
     }
 
     /**
@@ -170,26 +122,6 @@ class FootballDataOrg
     public function fetchAllTournaments()
     {
         $uri = $this->baseUri.'/competitions';
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         return $this->processResponse($this->getResponse($uri), 'competitions');
-=======
-
-        return $this->processResponse($this->getResponse($uri));
->>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
-=======
-
-        return $this->processResponse($this->getResponse($uri));
->>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
-=======
-
-        return $this->processResponse($this->getResponse($uri));
->>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
-=======
-
-        return $this->processResponse($this->getResponse($uri));
->>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
     }
 }
