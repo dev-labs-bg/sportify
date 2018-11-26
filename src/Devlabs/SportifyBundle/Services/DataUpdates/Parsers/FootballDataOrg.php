@@ -22,7 +22,11 @@ class FootballDataOrg
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             $parsedTeam['team_id'] = $team->id;
+=======
+            $parsedTeam['team_id'] = $this->getNumberAtEndOfString($team->_links->self->href);
+>>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
 =======
             $parsedTeam['team_id'] = $this->getNumberAtEndOfString($team->_links->self->href);
 >>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
@@ -55,6 +59,7 @@ class FootballDataOrg
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             $parsedFixture['match_id'] = $fixture->id;
             $parsedFixture['tournament_id'] = $fixture->season->id;
             $parsedFixture['home_team_id'] = $fixture->homeTeam->id;
@@ -66,6 +71,8 @@ class FootballDataOrg
                 $parsedFixture['home_team_goals'] = $fixture->score->fullTime->homeTeam;
                 $parsedFixture['away_team_goals'] = $fixture->score->fullTime->awayTeam;
 =======
+=======
+>>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
 =======
 >>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
 =======
@@ -82,6 +89,9 @@ class FootballDataOrg
                 $parsedFixture['away_team_goals'] = $fixture->result->goalsAwayTeam;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
+=======
 >>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
 =======
 >>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
@@ -95,7 +105,11 @@ class FootballDataOrg
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*            if ($fixture->odds && ($fixture->odds !== 'null')) {
+=======
+            if ($fixture->odds && ($fixture->odds !== 'null')) {
+>>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
 =======
             if ($fixture->odds && ($fixture->odds !== 'null')) {
 >>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
@@ -116,7 +130,11 @@ class FootballDataOrg
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 */
+=======
+
+>>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
 =======
 
 >>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
@@ -147,7 +165,11 @@ class FootballDataOrg
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             $parsedTournament['name'] = $tournament->name;
+=======
+            $parsedTournament['name'] = $tournament->caption;
+>>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
 =======
             $parsedTournament['name'] = $tournament->caption;
 >>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d

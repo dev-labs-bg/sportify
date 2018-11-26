@@ -13,7 +13,11 @@ parameters:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     football_api.base_uri: http://api.football-data.org/v2
+=======
+    football_api.base_uri: http://api.football-data.org/v1
+>>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
 =======
     football_api.base_uri: http://api.football-data.org/v1
 >>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
@@ -190,7 +194,11 @@ fos_oauth_server:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 nelmio_api_doc: ~
+=======
+nelmio_api_doc: ~
+>>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
 =======
 nelmio_api_doc: ~
 >>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
