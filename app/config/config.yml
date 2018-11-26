@@ -175,20 +175,4 @@ fos_oauth_server:
         options:
             access_token_lifetime: 7776000 # 90 days in seconds
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 nelmio_api_doc: ~
-=======
-nelmio_api_doc: ~
->>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
-=======
-nelmio_api_doc: ~
->>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
-=======
-nelmio_api_doc: ~
->>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
-=======
-nelmio_api_doc: ~
->>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
