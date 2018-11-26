@@ -10,23 +10,7 @@ parameters:
     locale: en
     # application parameters
     football_api.name: football_data_org
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     football_api.base_uri: http://api.football-data.org/v2
-=======
-    football_api.base_uri: http://api.football-data.org/v1
->>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
-=======
-    football_api.base_uri: http://api.football-data.org/v1
->>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
-=======
-    football_api.base_uri: http://api.football-data.org/v1
->>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
-=======
-    football_api.base_uri: http://api.football-data.org/v1
->>>>>>> 56e806fedfe76ebc3a26647529c533bc25d8dd4d
 
 framework:
     #esi:             ~
