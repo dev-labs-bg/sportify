@@ -19,7 +19,7 @@ class FootballDataOrg
         foreach ($teams as &$team) {
             $parsedTeam = array();
 
-            $parsedTeam['team_id'] = $this->getNumberAtEndOfString($team->_links->self->href);
+            $parsedTeam['team_id'] = $team->id;
             $parsedTeam['name'] = $team->name;
             $parsedTeam['team_logo'] = $team->crestUrl;
 
@@ -40,22 +40,30 @@ class FootballDataOrg
         foreach ($fixtures as &$fixture) {
             $parsedFixture = array();
 
-            $parsedFixture['match_id'] = $this->getNumberAtEndOfString($fixture->_links->self->href);
-            $parsedFixture['tournament_id'] = $this->getNumberAtEndOfString($fixture->_links->competition->href);
-            $parsedFixture['home_team_id'] = $this->getNumberAtEndOfString($fixture->_links->homeTeam->href);
-            $parsedFixture['away_team_id'] = $this->getNumberAtEndOfString($fixture->_links->awayTeam->href);
-            $parsedFixture['match_local_time'] = date('Y-m-d H:i:s', strtotime($fixture->date));
+            $parsedFixture['match_id'] = $fixture->id;
+            $parsedFixture['tournament_id'] = $fixture->season->id;
+            $parsedFixture['home_team_id'] = $fixture->homeTeam->id;
+            $parsedFixture['away_team_id'] = $fixture->awayTeam->id;
+
+            // NOTE: team id 757 is just a placeholder used in this API,
+            // when match is scheduled, but teams are still not clear.
+            // This occurs in scheduled knock-out round matches.
+            if ($parsedFixture['home_team_id'] == 757 || $parsedFixture['away_team_id'] == 757) {
+                continue;
+            }
+
+            $parsedFixture['match_local_time'] = date('Y-m-d H:i:s', strtotime($fixture->utcDate));
             $parsedFixture['status'] = $fixture->status;
 
             if ($fixture->status === 'FINISHED') {
-                $parsedFixture['home_team_goals'] = $fixture->result->goalsHomeTeam;
-                $parsedFixture['away_team_goals'] = $fixture->result->goalsAwayTeam;
+                $parsedFixture['home_team_goals'] = $fixture->score->fullTime->homeTeam;
+                $parsedFixture['away_team_goals'] = $fixture->score->fullTime->awayTeam;
             } else {
                 $parsedFixture['home_team_goals'] = null;
                 $parsedFixture['away_team_goals'] = null;
             }
 
-            if ($fixture->odds && ($fixture->odds !== 'null')) {
+/*            if ($fixture->odds && ($fixture->odds !== 'null')) {
                 $parsedFixture['odds_home_win'] = $fixture->odds->homeWin;
                 $parsedFixture['odds_draw'] = $fixture->odds->draw;
                 $parsedFixture['odds_away_win'] = $fixture->odds->awayWin;
@@ -64,7 +72,7 @@ class FootballDataOrg
                 $parsedFixture['odds_draw'] = null;
                 $parsedFixture['odds_away_win'] = null;
             }
-
+*/
             $fixture = $parsedFixture;
         }
 
@@ -83,8 +91,7 @@ class FootballDataOrg
             $parsedTournament = array();
 
             $parsedTournament['id'] = $tournament->id;
-            $parsedTournament['name'] = $tournament->caption;
-
+            $parsedTournament['name'] = $tournament->name;
             $tournament = $parsedTournament;
         }
 

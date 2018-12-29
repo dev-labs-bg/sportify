@@ -10,7 +10,7 @@ parameters:
     locale: en
     # application parameters
     football_api.name: football_data_org
-    football_api.base_uri: http://api.football-data.org/v1
+    football_api.base_uri: http://api.football-data.org/v2
 
 framework:
     #esi:             ~

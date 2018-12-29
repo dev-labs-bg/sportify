@@ -81,9 +81,9 @@ class FootballDataOrg
      */
     public function fetchFixturesByTournamentAndMatchDay($apiTournamentId, $matchDay)
     {
-        $uri = $this->baseUri.'/competitions/'.$apiTournamentId.'/fixtures/?matchday='.$matchDay;
+        $uri = $this->baseUri.'/competitions/'.$apiTournamentId.'/matches/?matchday='.$matchDay;
 
-        return $this->processResponse($this->getResponse($uri), 'fixtures');
+        return $this->processResponse($this->getResponse($uri), 'matches');
     }
 
     /**
@@ -96,9 +96,9 @@ class FootballDataOrg
      */
     public function fetchFixturesByTournamentAndTimeRange($apiTournamentId, $dateFrom, $dateTo)
     {
-        $uri = $this->baseUri.'/competitions/'.$apiTournamentId.'/fixtures/?timeFrameStart='.$dateFrom.'&timeFrameEnd='.$dateTo;
+        $uri = $this->baseUri.'/competitions/'.$apiTournamentId.'/matches/?dateFrom='.$dateFrom.'&dateTo='.$dateTo;
 
-        return $this->processResponse($this->getResponse($uri), 'fixtures');
+        return $this->processResponse($this->getResponse($uri), 'matches');
     }
 
     /**
@@ -122,7 +122,6 @@ class FootballDataOrg
     public function fetchAllTournaments()
     {
         $uri = $this->baseUri.'/competitions';
-
-        return $this->processResponse($this->getResponse($uri));
+        return $this->processResponse($this->getResponse($uri), 'competitions');
     }
 }
