@@ -96,7 +96,7 @@ class FootballDataOrg
      */
     public function fetchFixturesByTournamentAndTimeRange($apiTournamentId, $dateFrom, $dateTo)
     {
-        $uri = $this->baseUri.'/competitions/'.$apiTournamentId.'/matches/?timeFrameStart='.$dateFrom.'&timeFrameEnd='.$dateTo;
+        $uri = $this->baseUri.'/competitions/'.$apiTournamentId.'/matches/?dateFrom='.$dateFrom.'&dateTo='.$dateTo;
 
         return $this->processResponse($this->getResponse($uri), 'matches');
     }
