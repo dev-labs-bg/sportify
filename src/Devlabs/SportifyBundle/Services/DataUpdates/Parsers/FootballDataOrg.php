@@ -44,6 +44,14 @@ class FootballDataOrg
             $parsedFixture['tournament_id'] = $fixture->season->id;
             $parsedFixture['home_team_id'] = $fixture->homeTeam->id;
             $parsedFixture['away_team_id'] = $fixture->awayTeam->id;
+
+            // NOTE: team id 757 is just a placeholder used in this API,
+            // when match is scheduled, but teams are still not clear.
+            // This occurs in scheduled knock-out round matches.
+            if ($parsedFixture['home_team_id'] == 757 || $parsedFixture['away_team_id'] == 757) {
+                continue;
+            }
+
             $parsedFixture['match_local_time'] = date('Y-m-d H:i:s', strtotime($fixture->utcDate));
             $parsedFixture['status'] = $fixture->status;
 
