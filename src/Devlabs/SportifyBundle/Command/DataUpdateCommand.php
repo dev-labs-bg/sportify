@@ -101,6 +101,11 @@ class DataUpdateCommand extends ContainerAwareCommand
             $this->getContainer()->get('app.slack')->setText($msgText)->post();
 
             $logText = $logText . "\n" . $msgText . "\n";
+            $botToken = "your_bot_token";
+            $website = "https://api.telegram.org/bot" . $botToken;
+            $channelId = "@your_channel_id";
+            $url = $website."/sendmessage?chat_id=".$channelId."&text=".urlencode($logText);
+            file_get_contents($url);
         } else {
             $logText = $logText . "\n" . 'No fixtures/results added or updated.' . "\n";
         }
