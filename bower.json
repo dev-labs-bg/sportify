@@ -14,7 +14,7 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap-sass": "^3.3.6",
+    "bootstrap-sass": "3.4.1",
     "jquery": "#2.2.4",
     "owl.carousel": "^2.1.5",
     "chosen": "^1.5.1",
